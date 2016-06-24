@@ -114,6 +114,8 @@ $('#username-form').submit(function(e){
     Server emits to Client Socket Event Handlers
     ========================================================================== */
 
+// TODO Switch to using straight DOM/HTML or stay with jquery 
+
 // Server emits that user is logged in
 socket.on('From Server: Logged in', function(data){
   connected = true;
