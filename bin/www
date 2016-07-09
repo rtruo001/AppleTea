@@ -101,6 +101,13 @@ io.on('connection', function(socket) {
     mediaElapsedTime = time;
   });
 
+  // When the user selects a spot on the status play bar, sends all
+  // elapsed times for to that specific time.
+  socket.on("From Client: Prepares seek to", function(newTime) {
+    mediaElapsedTime = newTime;
+    io.emit("From Server: Seek to new time", mediaElapsedTime);
+  });
+
   // When the media is first played, sets this to true
   socket.on('From Client: Initialized media', function(data) {
     ifMediaIsInitialized = true;

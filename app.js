@@ -5,6 +5,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// USE THIS ERRORHANDLER
+var errorHandler = require('errorhandler');
+
+// To render via server
+// var browserify = require('browserify');
+// var literalify = require('literalify');
+// var React = require('react');
+// var ReactDOMServer = require('react-dom/server');
+
 var app = express();
 
 // View, React
@@ -21,7 +30,9 @@ app.use(cookieParser());
 
 // Public files including css and javascripts
 app.use('/css/stylesheets', express.static(__dirname + '/public/stylesheets'));
-app.use('/javascripts/', express.static(__dirname + '/public/javascripts'));
+app.use('/javascripts', express.static(__dirname + '/public/javascripts'));
+app.use('/components', express.static(__dirname + '/components'));
+app.use('/views', express.static(__dirname + '/views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
@@ -44,6 +55,8 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
+  app.use(errorHandler());
+
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {

@@ -18,7 +18,11 @@ const STATES = {
   PAUSED: 'PAUSED'
 };
 
+const VOLUME_MAX = 100;
+
 var currentTimeElapsed = 0;
+// The length in seconds
+var mediaDuration = 0;
 var mediaInitialized = false;
 var mediaCurrentState = STATES.PAUSED;
 
@@ -30,6 +34,11 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 // Youtube player
 var player;
+
+// TODO
+function reinitializeMedia() {
+
+}
 
 /*  =============================================================================
     Function onYouTubeIframeAPIReady
@@ -60,6 +69,7 @@ function onYouTubeIframeAPIReady() {
     returns information for the current client Youtube video to play at the elapsed time.
     ========================================================================== */
 function onPlayerReady(event) {
+  initializeStatusBar();
   initializeVideo(function() {
     socket.emit("From Client: Get media states", 1);  
   });
@@ -90,10 +100,10 @@ function onPlayerStateChange(event) {
   // When Youtube video is initialized from someone clicking play for the first time
   if(event.data == YT.PlayerState.BUFFERING && !mediaInitialized) {
     socket.emit('From Client: Initialized media', true);
-    socket.emit('From Client: Play media', currentTimeElapsed);
+    // socket.emit('From Client: Play media', currentTimeElapsed);
   }
 
-  // One of the Client's Youtube video started buffering, pausing everyones video
+  // One of the Client's Youtube video started buffering
   else if (event.data == YT.PlayerState.BUFFERING && mediaInitialized) {
     socket.emit('From Client: Get media states', currentTimeElapsed); 
   }
@@ -107,6 +117,11 @@ function onPlayerStateChange(event) {
   if(event.data == YT.PlayerState.PAUSED) {
     socket.emit('From Client: Pause media', 0);
   }
+}
+
+// TODO
+function currentMediaEnds() {
+  reInitializeMedia();
 }
 
 /*  =============================================================================
@@ -133,6 +148,7 @@ function playVideo() {
   if(player != null) {
     mediaCurrentState = STATES.PLAYING;
     player.playVideo();
+    console.log("Play");
   }
 }
 
@@ -146,13 +162,53 @@ function syncMedia(data) {
   mediaInitialized = data.initialized;
   currentTimeElapsed = data.elapsedTime;
   mediaCurrentState = data.state;
-  if (mediaInitialized && mediaCurrentState == STATES.PAUSED) {
-    pauseVideo();
-  }
-  if (mediaInitialized) {
-    player.seekTo(currentTimeElapsed, true);
-  }
+  syncTime();
 }
+
+/*  =============================================================================
+    Functions syncTime
+    
+    Syncs the current play time of the media through the client given the currentTimeElapsed
+    which was sent from the server.
+    ========================================================================== */
+function syncTime(callback) {
+  if (mediaCurrentState == STATES.PAUSED) {
+    player.pauseVideo();
+    pauseVideo();
+    console.log("PAUSED");
+  }
+  player.seekTo(currentTimeElapsed, true);
+}
+
+function mediaSeekTo() {
+  player.seekTo(currentTimeElapsed, true);
+}
+
+function initializeStatusBar() {
+  mediaDuration = player.getDuration();
+  document.getElementById("slider").min = "0";
+  document.getElementById("slider").max = mediaDuration;
+}
+
+function onStatusBarChange(newTime) {
+  console.log(newTime);
+  currentTimeElapsed = newTime;
+  socket.emit("From Client: Prepares seek to", newTime);
+}
+
+function onVolumeChange(newVolume) {
+  player.setVolume(newVolume);
+}
+
+// TODO: consider other options in detecting event handler
+$('#slider').on('input', function () {
+    onStatusBarChange(document.getElementById("slider").value);
+});
+
+$('#volume-slider').on('input', function () {
+    onVolumeChange(document.getElementById("volume-slider").value);
+});
+
 
 /*  =============================================================================
     Server emits to Client Socket Event Handlers
@@ -167,6 +223,11 @@ socket.on("From Server: Send media states", function(data) {
 socket.on("From Server: Get elapsed time", function(data) {
   currentTimeElapsed = player.getCurrentTime();
   socket.emit("From Client: Send elapsed time", currentTimeElapsed);
+});
+
+socket.on("From Server: Seek to new time", function(newTime) {
+  currentTimeElapsed = newTime;
+  syncTime();
 });
 
 // Plays the player
