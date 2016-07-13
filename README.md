@@ -650,7 +650,7 @@ Start here for Youtube API/Iframe
 ####Browserify####
 Browserify allows you to use require(‘fileName’) on the Client side. Making access to file paths much easier. Read the Views section on why Browserify is needed.
 
-Whenever an .JSX file is updated, call this command which would convert the .JSX files into bundle.js which can be used as a <script> on the bottom of your HTML. Currently used by calling the command:
+Whenever an .JSX file is updated, call this command which would convert the .JSX files into bundle.js which can be used as a \<script\> on the bottom of your HTML. Currently used by calling the command:
 
 `browserify ./public/main.js -o ./public/bundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx`
 
