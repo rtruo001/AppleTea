@@ -1,11 +1,11 @@
-Codename: AppleTea
+#Codename: AppleTea
 
-End Goal:
+**End Goal:**
 Build a web and mobile application similar to how TogetherTube runs. Our idea expands upon TogetherTube by letting users save playlists. Users can also play playlists made by other users through the Explore tab. 
 
 We were hoping in turning this application into a place where people can watch/listen to people’s playlists. A good analogy is a television, where each channel represents a playlist. Users can also generate their own channels by making private or public playlists. 
 
-Features
+**Features**
 Sync different medias at the same time
 Medias
 Youtube
@@ -16,7 +16,7 @@ Saving playlists
 Searching playlists
 Searching medias
 
-Current Roles:  
+**Current Roles:  **
 Randy - Backend/Frontend
 Gerard - Design
 Harrison - Backend/Frontend
@@ -32,43 +32,43 @@ Harrison - Backend/Frontend
 
 
 =========================================================================
-TODOs: (Ranked in Priority)
+##TODOs: (Ranked in Priority)
 
-NOT STARTED - Generate a Database of users
+**NOT STARTED -** Generate a Database of users
 
-NOT STARTED - Generate a Database for user’s playlists
+**NOT STARTED -** Generate a Database for user’s playlists
 
-IN PROGRESS - Build the Queue, currently need to update media whenever the media finishes playing, and updates the queue of medias.
+**IN PROGRESS -** Build the Queue, currently need to update media whenever the media finishes playing, and updates the queue of medias.
 
-IN PROGRESS - Refine the Search
+**IN PROGRESS -** Refine the Search
 
-NOT STARTED - Build the Explore Tab
+**NOT STARTED -** Build the Explore Tab
 
-NOT STARTED - Merge the UI with the Backend
+**NOT STARTED -** Merge the UI with the Backend
 
-IN PROGRESS - Rehaul Socket.io (Video Sync and Chat), potentially use other client to server side connections for quick media syncs as well as a scalable and responsive chat system
+**IN PROGRESS -** Rehaul Socket.io (Video Sync and Chat), potentially use other client to server side connections for quick media syncs as well as a scalable and responsive chat system
 
-NOT STARTED - Convert chat.js and media.js into their React counterparts (Maybe)
+**NOT STARTED -** Convert chat.js and media.js into their React counterparts (Maybe)
 
-NOT STARTED - Add functions for Soundcloud
+**NOT STARTED -** Add functions for Soundcloud
 
-NOT STARTED - Add functions for Vimeo
+**NOT STARTED -** Add functions for Vimeo
 
 
-Optional
+###Optional###
 
-NOT STARTED - Use Gulp for automating javascript/css into minify, and automate other things like testing too maybe. Also use Gulp for automating browserify whenever the file changes, makes things easier.
+**NOT STARTED -** Use Gulp for automating javascript/css into minify, and automate other things like testing too maybe. Also use Gulp for automating browserify whenever the file changes, makes things easier.
 
-NOT STARTED - Use Mocha/Chai or any unit testing
+**NOT STARTED -** Use Mocha/Chai or any unit testing
 
-NOT STARTED - Research Browserify to do it properly or efficiently. Either by having it called the code or having a different command through the terminal.
+**NOT STARTED -** Research Browserify to do it properly or efficiently. Either by having it called the code or having a different command through the terminal.
 
 *Also throughout the code, There are ( // TODO: ), those need to be worked on as well.
 
 
 
 =========================================================================
-Current Stack:
+##Current Stack:##
 
 Express
 React
@@ -110,53 +110,55 @@ Github
 
 
 =========================================================================
-How to Start Project:
+##How to Start Project:##
 
-Github: https://github.com/rtruo001/AppleTea
+**Github:** https://github.com/rtruo001/AppleTea
 
 Clone from Github:
 
-  git clone https://github.com/rtruo001/AppleTea.git
+  `git clone https://github.com/rtruo001/AppleTea.git`
 
 Cd into the directory. Now install the node modules: (This will go through your package.json, installing your dependencies you saved in them.)
 
-  npm install
+  `npm install`
 
 To install React. You can also add the --save to also make it a permanent dependency to the project into the package.json. However, there’s some people saying that this is a bad idea to do this for React due to React not updating their versions.
 
-npm install express-react-views react react-dom
+`npm install express-react-views react react-dom`
 
 *Note: For future projects, I might or might not include the React side as dependencies, we’ll see. But if they are not included in the package.json, call the command above.
 
 After that, run the application:
 
-  npm start 
+  `npm start`
 or
-  nodemon app
+  `nodemon app`
 
 Nodemon app will run the app without having the restart the server when something on the Client side is changed.
 
 If Nodemon is not installed
 
-  npm install nodemon 
+  `npm install nodemon`
+
 or 
-npm install nodemon -g (Global) 
+
+`npm install nodemon -g (Global)`
 
 Now go to the browser and put http://localhost:3000/ as the url
 
 
 
 =========================================================================
-File Paths
+##File Paths##
 bin
-www
+  www
 node_modules (A LOT of files)
 public
-Images
-Javascripts
-Stylesheets
-bundle.js
-main.js
+  Images
+  Javascripts
+  Stylesheets
+  bundle.js
+  main.js
 routes
 index.js
 views (All of the .jsx files)
@@ -164,25 +166,25 @@ app.js
 package.json
 
 
-Summary of Directories
+**Summary of Directories**
 
-Node_modules: Contains the downloaded dependencies that were installed through npm install. An analogy would be the Ruby Gems, or Java libraries.
+**Node_modules:** Contains the downloaded dependencies that were installed through npm install. An analogy would be the Ruby Gems, or Java libraries.
 
-Public: Contains any assets that will be available to the public-facing part of the application such as images, JavaScript files and style sheets.
+**Public:** Contains any assets that will be available to the public-facing part of the application such as images, JavaScript files and style sheets.
 
-Routes: The routes for the application. Handles what pages to use depending on the URL and which HTTP requests to use.
+**Routes:** The routes for the application. Handles what pages to use depending on the URL and which HTTP requests to use.
 
-Views: The view templates for the application. Currently use .jsx extensions for the views due to React. Other views we can use are HandleBars, Jade, or EJS. Views are pretty much the HTML of the code but with the .JSX syntax.
+**Views:** The view templates for the application. Currently use .jsx extensions for the views due to React. Other views we can use are HandleBars, Jade, or EJS. Views are pretty much the HTML of the code but with the .JSX syntax.
 
-app.js: Usually the entry point of your application, but due to the express skeleton generator, the entry point is www. Handles all of the initializing of the website including the server.
+**app.js:** Usually the entry point of your application, but due to the express skeleton generator, the entry point is www. Handles all of the initializing of the website including the server.
 
-package.json: The file which includes the dependency declarations for your application.
+**package.json:** The file which includes the dependency declarations for your application.
 
 
 *NOTE: The next couple sections will go through each directory and files. All of the files also have comments on them to try to help through the process.
 
 =========================================================================
-Bin
+##Bin##
   www- This is where the entire application starts. I accidentally used the Express skeleton generator (Which generates a new NodeJS application with files and folders already in place). For some reason, Express’s generator separated the server listener into www and the rest into app.js.
 
 App.js is usually the entry point. However www calls app.js in it’s file anyway. This is just added modularity for some reason that the express generator created. Usually everything can be done in just app.js. 
