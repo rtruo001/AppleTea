@@ -280,7 +280,7 @@ This command is to convert the .JSX files in main.js into JavaScript and bundles
 
 This command takes in main.js, converts the files into JavaScript, and outputs them into bundle.js.
 
-####main.js:####
+###main.js:###
 
 ```
 var SearchComponent = require('./../views/Search.jsx');
@@ -289,7 +289,7 @@ ReactDOM.render(<SearchComponent />, document.getElementById('search'));
 
 Browserify takes the code above, and converts it into the bundle.js which is in JavaScript for use in the Client side. The above code is in JSX syntax which renders the Search component.
 
-####Bundle.js####
+###Bundle.js###
 
 Bundle.js contains all of the JavaScript that was converted through using Browserify and Babelify. Put this at the top of your Scripts in your HTML:
 
@@ -297,7 +297,7 @@ Bundle.js contains all of the JavaScript that was converted through using Browse
 
 You have just done client-side rendering!
 
-####Static Files####
+###Static Files###
 For handling Static files:
 
 https://expressjs.com/en/starter/static-files.html 
@@ -407,7 +407,7 @@ module.exports = Component;
 ##Views - React framework ##
 React uses JSX as syntax for the views. In the end, the .jsx files are converted into Javascript which would render the HTML. There are two ways to render the Javascript, through either Server side rendering or Client Side rendering. Doing both makes an isomorphic application, which is code that can run on the server and client.
 
-####Server-Side Rendering####
+###Server-Side Rendering###
 
 First have the app.js contain this: 
 
@@ -421,13 +421,13 @@ This sets the view engine to be React. (Just like using EJS, Jade, or Handlebars
 
 Server side rendering (SSR) is rendering through the server. Do this by rendering through the Routes which goes through the views directory. The HTML is built from the JSX files which then is rendered to the screen. Doing this is great as everything is loaded onto the screen right when the website starts. The problem in doing this is that all of the event handlers will not trigger as no components are mounted. To fix this, we have to render through the client side as well.
 
-####Client-Side Rendering####
+###Client-Side Rendering###
 
 To render via the Client, React already has tutorials on doing this method. To do this, we would create a JavaScript file in public/javascript and add the \<script\> file to the HTML. We build the components and then use the ReactDom class to render it into our specified div. 
 
 Doing this method however will create two files that have the same exact code, one where it renders on the Server side using the Views, the other is in the Javascript which would render on the client side. This makes things more annoying to work as we have to edit both files for it to work the way we want it to.
 
-####Browserify####
+###Browserify###
 
 In order to make things easier for the user, we can do the server side rendering using the views method, and also add the conversion of the server side code onto the Client side by using Browserify. Browserify reads all of your .JSX files and converts them into JavaScript which is all bundled into bundle.js. We put this bundle as a script onto the HTML and that now renders all of the DOM on the Client side. There are several ways to do the Browserify method. The way it is currently done is through the terminal by calling the command: 
 
@@ -612,12 +612,12 @@ Very useful docs from these links
 ##Video Syncing - Socket.io##
 To reiterate on how to use Socket.io
 
-####Client:####
+###Client:###
 
 Send from client to server by using socket.emit("Whatever name is", data)
 Receive by using socket.on(“Whatever name is”, function(data))
 
-####Server:####
+###Server:###
 
 io.emit() sends from server to all clients, socket.broadcast.emit() sends to all clients as well
 
@@ -631,7 +631,7 @@ Include this in the bottom of the html
 
 `<script src="../socket.io/socket.io.js"></script>`
 
-####Video Syncing####
+###Video Syncing###
 
 For the video syncing, I used the same concept for the chat system. The code would be in ./bin/www for the server side and in media.js for the client side. When the user plays or pauses the video, an event will trigger on the client side, sending a message to the server that the video has either been played or paused. This will then send a message to all Clients signaling that the video has changed states. 
 
@@ -647,7 +647,7 @@ Start here for Youtube API/Iframe
 
 
 
-####Browserify####
+###Browserify###
 Browserify allows you to use require(‘fileName’) on the Client side. Making access to file paths much easier. Read the Views section on why Browserify is needed.
 
 Whenever an .JSX file is updated, call this command which would convert the .JSX files into bundle.js which can be used as a \<script\> on the bottom of your HTML. Currently used by calling the command:
