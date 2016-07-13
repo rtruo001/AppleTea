@@ -7,18 +7,27 @@ We were hoping in turning this application into a place where people can watch/l
 
 **Features**
 Sync different medias at the same time
+
 Medias
-Youtube
-Soundcloud
-Vimeo
+  Youtube
+  Soundcloud
+  Vimeo
+
 Chatroom
+
 Saving playlists
+
 Searching playlists
+
 Searching medias
 
 **Current Roles:  **
+
+
 Randy - Backend/Frontend
+
 Gerard - Design
+
 Harrison - Backend/Frontend
 
 
@@ -31,7 +40,7 @@ Harrison - Backend/Frontend
 
 
 
-=========================================================================
+
 ##TODOs: (Ranked in Priority)
 
 **NOT STARTED -** Generate a Database of users
@@ -67,13 +76,17 @@ Harrison - Backend/Frontend
 
 
 
-=========================================================================
+
 ##Current Stack:##
 
 Express
+
 React
+
 Bootstrap
+
 Jquery
+
 Github
 
 
@@ -109,7 +122,7 @@ Github
 
 
 
-=========================================================================
+
 ##How to Start Project:##
 
 **Github:** https://github.com/rtruo001/AppleTea
@@ -148,22 +161,22 @@ Now go to the browser and put http://localhost:3000/ as the url
 
 
 
-=========================================================================
+
 ##File Paths##
-bin
-  www
-node_modules (A LOT of files)
-public
-  Images
-  Javascripts
-  Stylesheets
-  bundle.js
-  main.js
-routes
-index.js
-views (All of the .jsx files)
-app.js
-package.json
+* bin
+  * www
+* node_modules (A LOT of files)
+* public
+  * Images
+  * Javascripts
+  * Stylesheets
+  * bundle.js
+  * main.js
+* routes
+* index.js
+* views (All of the .jsx files)
+* app.js
+* package.json
 
 
 **Summary of Directories**
@@ -183,9 +196,9 @@ package.json
 
 *NOTE: The next couple sections will go through each directory and files. All of the files also have comments on them to try to help through the process.
 
-=========================================================================
+
 ##Bin##
-  www- This is where the entire application starts. I accidentally used the Express skeleton generator (Which generates a new NodeJS application with files and folders already in place). For some reason, Express’s generator separated the server listener into www and the rest into app.js.
+www- This is where the entire application starts. I accidentally used the Express skeleton generator (Which generates a new NodeJS application with files and folders already in place). For some reason, Express’s generator separated the server listener into www and the rest into app.js.
 
 App.js is usually the entry point. However www calls app.js in it’s file anyway. This is just added modularity for some reason that the express generator created. Usually everything can be done in just app.js. 
 
@@ -218,30 +231,32 @@ Usually whenever www or app.js is updated, the server needs to be reopened.
 
 
 
-=========================================================================
-Node_modules
+
+##Node_modules##
 
 There are A LOT of modules. Node_modules is a directory that holds all of your dependencies. Think of a Java library/framework that you are importing, or a Ruby Gem. 
-
 Global modules allows npm to install the node right when the nodes are initialized. To install globally, you add -g. After installing globally, every node application will default have that node. For example, to install Nodemon globally for it to be used in every Node application, you do:
 
-npm install nodemon -g
+`npm install nodemon -g`
 
 But this won’t always work as globally installing things might require permissions. Since using the -g requires permission, I have to be root admin to do this so I use sudo.
 
-sudo npm install nodemon -g
+`sudo npm install nodemon -g`
 
 If you want things local only to that project, you have to npm init to initialize the node modules, then do
 
-npm install nodemon
+`npm install nodemon`
 
 *Note: You only use sudo when things are global or require permissions
 But here are some ones that I have globally.
 
-Express - Overall Node framework
-Gulp - Allows code to be automated (Like automating minify css/javascript files whenever it we update a change to the file.)
-Nodemon - Allows user to not continuously reopen the Server whenever something changes on the Client side.
-Browserify - Allows the Client side to use “require” in its code.
+**Express -** Overall Node framework
+
+**Gulp -** Allows code to be automated (Like automating minify css/javascript files whenever it we update a change to the file.)
+
+**Nodemon -** Allows user to not continuously reopen the Server whenever something changes on the Client side.
+
+**Browserify -** Allows the Client side to use “require” in its code.
 
 
 
@@ -252,8 +267,7 @@ Browserify - Allows the Client side to use “require” in its code.
 
 
 
-=========================================================================
-Public
+##Public##
 Every public file including the JavaScripts, images, and CSS of the files.
 
 The CSS needs to eventually be minified as well as the bundle.js.
@@ -262,45 +276,46 @@ So what is bundle and main? First look into the Views section on rendering via s
 
 This command is to convert the .JSX files in main.js into JavaScript and bundles all of the code into bundle.js which you can use as a script in your HTML.
   
-browserify ./public/main.js -o ./public/bundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx
+`browserify ./public/main.js -o ./public/bundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx`
 
 This command takes in main.js, converts the files into JavaScript, and outputs them into bundle.js.
 
-main.js
-  Browserify reads whatever is in main.js. For example:
-
-main.js:
+####main.js:####
+`
 var SearchComponent = require('./../views/Search.jsx');
 ReactDOM.render(<SearchComponent />, document.getElementById('search'));
+`
 
 Browserify takes the code above, and converts it into the bundle.js which is in JavaScript for use in the Client side. The above code is in JSX syntax which renders the Search component.
 
-Bundle.js
+####Bundle.js####
 Bundle.js contains all of the JavaScript that was converted through using Browserify and Babelify. Put this at the top of your Scripts in your HTML:
 
-<script src="/bundle.js"></script>
+`<script src="/bundle.js"></script>`
 
 You have just done client-side rendering!
 
-Static Files
+####Static Files####
 For handling Static files:
 https://expressjs.com/en/starter/static-files.html 
 Static files are used to handle any CSS or public JavaScripts. Can also handle a static HTML page as well. By doing this, we have an easier control of the paths of our directories. Currently in app.js:
 
+`
 // Public files including css and javascripts
 app.use('/css/stylesheets', express.static(__dirname + '/public/stylesheets'));
 app.use('/javascripts', express.static(__dirname + '/public/javascripts'));
 app.use(express.static(path.join(__dirname, 'public')));
+`
 
-Examples:
+**Examples:**
 Now we can do things like this in our HTML: 
-<link rel="stylesheet" href="/css/stylesheets/style.css"/>
+`<link rel="stylesheet" href="/css/stylesheets/style.css"/>`
 
 Or 
-<script src="/javascripts/media.js"></script>
+`<script src="/javascripts/media.js"></script>`
 
 And for the last line, public directory would be used when ‘/’ is called:
-<script src="/bundle.js"></script>
+`<script src="/bundle.js"></script>`
 
 
 
@@ -325,8 +340,7 @@ And for the last line, public directory would be used when ‘/’ is called:
 
 
 
-=========================================================================
-Routes
+##Routes##
 Routes are how Express handles routing to different URI’s through different HTTP requests. What’s great about the whole routing system is that we can send a response through the a HTTP request that may return or render a page by passing in data. This given data can be read from a database or caches right when the server starts. This data would be sent through a JSON object. React can get these objects by the typical {this.props.whateverNameIs}.
 
 The example below starts at app.js which calls the use function. Use is a way to handle middleware by connecting the URI path. In the below example, the 1st parameter is the given URI link, in this case it is the index ‘/’. The 2nd parameter would return the middleware used to handle ‘/’. In this case, it returns the route.js from the directory routes. 
@@ -335,11 +349,14 @@ Route.js renders a react component from the React.jsx file by also passing in th
 
 Finally in React.jsx, the component renders the data, then is returned to route.js.
 
-app.js 
+**app.js **
+`
 // Use the routers
 app.use('/', require('./routes/route);
+`
 
-route.js
+**route.js**
+`
 var express = require('express');
 var router = express.Router();
 
@@ -349,8 +366,10 @@ router.get('/', function(req, res, next) {
   });
 });
 module.exports = router;
+`
 
-React.jsx
+**React.jsx**
+`
 var Component = React.createClass({
   Render: function() {
     return (
@@ -359,9 +378,11 @@ var Component = React.createClass({
   } 
 });
 module.exports = Component;
-References:
-https://expressjs.com/en/starter/basic-routing.html
-https://expressjs.com/en/guide/routing.html
+`
+
+**References:**
+* https://expressjs.com/en/starter/basic-routing.html
+* https://expressjs.com/en/guide/routing.html
 
 
 
@@ -402,41 +423,41 @@ https://expressjs.com/en/guide/routing.html
 
 
 
-=========================================================================
-Views - React framework 
+##Views - React framework ##
 React uses JSX as syntax for the views. In the end, the .jsx files are converted into Javascript which would render the HTML. There are two ways to render the Javascript, through either Server side rendering or Client Side rendering. Doing both makes an isomorphic application, which is code that can run on the server and client.
 
-Server-Side Rendering
+####Server-Side Rendering####
 First have the app.js contain this: 
-
-  app.set('views', __dirname + '/views');
+`
+app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
+`
 
 This sets the view engine to be React. (Just like using EJS, Jade, or Handlebars)
 
 Server side rendering (SSR) is rendering through the server. Do this by rendering through the Routes which goes through the views directory. The HTML is built from the JSX files which then is rendered to the screen. Doing this is great as everything is loaded onto the screen right when the website starts. The problem in doing this is that all of the event handlers will not trigger as no components are mounted. To fix this, we have to render through the client side as well.
 
-Client-Side Rendering
+####Client-Side Rendering####
 To render via the Client, React already has tutorials on doing this method. To do this, we would create a JavaScript file in public/javascript and add the <script> file to the HTML. We build the components and then use the ReactDom class to render it into our specified div. 
 
 Doing this method however will create two files that have the same exact code, one where it renders on the Server side using the Views, the other is in the Javascript which would render on the client side. This makes things more annoying to work as we have to edit both files for it to work the way we want it to.
 
-Browserify
+####Browserify####
 In order to make things easier for the user, we can do the server side rendering using the views method, and also add the conversion of the server side code onto the Client side by using Browserify. Browserify reads all of your .JSX files and converts them into JavaScript which is all bundled into bundle.js. We put this bundle as a script onto the HTML and that now renders all of the DOM on the Client side. There are several ways to do the Browserify method. The way it is currently done is through the terminal by calling the command: 
 
 *IMPORTANT TO KNOW:
-browserify ./public/main.js -o ./public/bundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx
+`browserify ./public/main.js -o ./public/bundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx`
 
 Whenever a .JSX file is updated, call this command to convert the .JSX code into JavaScript through the bundle.js which is a <script> at the bottom of the HTML.
 
 Currently want to research different ways and the proper way to use Browserify. The babelify command used to be called Reactify, but what it does is it converts .jsx files into JavaScript (I think).
 
-References: 
+**References: **
 This is a GREAT blog on why/how we do server side rendering and client side rendering: http://www.crmarsh.com/react-ssr/ 
 What I used to start on making an isomorphic app, used the examples/dynamic to help clarify more things:
-https://github.com/reactjs/express-react-views 
-https://github.com/mhart/react-server-example 
+* https://github.com/reactjs/express-react-views 
+* https://github.com/mhart/react-server-example 
 
 
 
@@ -459,10 +480,9 @@ https://github.com/mhart/react-server-example
 
 
 
-=========================================================================
-App.js
+##App.js##
 The following code snippet is just some pseudo code of how app.js is formatted. You can just look at app.js to see where and how everything is placed. This code is returned to ./bin/www
-
+`
 // Variables
 var express = require('express');
 var path = require('path');
@@ -496,17 +516,17 @@ At the end, app.js usually handles errors with wrong URLs or other bugs.
 
 // The app is returned to www
 module.exports = app;
+`
 
 
 
 
-
-=========================================================================
-package.json
+##package.json##
 One thing to know about package.json is that under the “scripts” object, the command ‘node’ is called which starts the entire project. This script can be used to do other things as well to initialize things such as using browserify commands. This script is called when the ‘nodemon app’ or ‘npm start’ is called. 
 
 Below is an example package.json containing different dependencies and their versions. Whenever npm install is called, these dependencies are immediately installed as well.
 
+`
 {
   "name": "AppleTea",
   "version": "0.0.0",
@@ -530,6 +550,7 @@ Below is an example package.json containing different dependencies and their ver
     "babelify": "^7.3.0"
   }
 }
+`
 
 
 
@@ -538,14 +559,13 @@ Below is an example package.json containing different dependencies and their ver
 
 
 
-=========================================================================
-Chat System - Socket.io
+##Chat System - Socket.io##
 The chat system starts off with using Socket.io. I was trying to find a server side framework to do chatting easily and to try to scale it as good as I could. If there are better methods in doing this, please try it out! 
 
 First lets start off with Socket.io. The code below is how Socket.io should start. Server needs to listen after setting up Socket.io.
 
 This portion of the code is currently in ./bin/www
-
+`
 var port = 3000;
 
 // Does whatever is in app.js and returns the app as a module
@@ -560,6 +580,7 @@ io.on('connection', function(socket) {
   // Event handlers
 });
 server.listen(port);
+`
 
 In the event handlers for the above. The socket receive signals from the client side explaining what to do for the server. The Server then can either do something to update the server, or emit a message back to the client in order for the client to do something.
 
@@ -576,6 +597,7 @@ In the event handlers for the above. The socket receive signals from the client 
 
 For example in the Event handlers comment above, this code will take its place (PSEUDOCODE):
 
+`
 socket.on('From Client: Add user', function(user) {
     ++numUsersConnected;
 
@@ -594,6 +616,7 @@ And on the Client side in chat.js:
 socket.on("From Server: User joined", function(user) {
     allDifferentUsers.push(user);
 }
+`
 
 Whenever the Client side emits a ‘From Client: Add user’ message, the server receives it with the given data and does something with it. It can then send a message to the client for the client to do something. 
 
@@ -609,17 +632,18 @@ Things to consider: I am thinking of changing the entire chat system into React.
 
 
 *NOTE: Put this following line onto the top of your Client side code in order for the socket to work:
-var socket = io();
+`var socket = io();`
 
  Also add in the bottom of the html.
 
-<script src="../socket.io/socket.io.js"></script>
+`<script src="../socket.io/socket.io.js"></script>`
 
-Reference: 
+**Reference: **
 Very useful docs from these links
-http://socket.io/get-started/chat/ 
-http://socket.io/docs/ 
-https://github.com/socketio/socket.io/tree/master/examples/chat 
+
+* http://socket.io/get-started/chat/ 
+* http://socket.io/docs/ 
+* https://github.com/socketio/socket.io/tree/master/examples/chat 
 
 
 
@@ -650,64 +674,64 @@ https://github.com/socketio/socket.io/tree/master/examples/chat
 
 
 
-=========================================================================
-Video Syncing - Socket.io
+
+##Video Syncing - Socket.io##
 To reiterate on how to use Socket.io
 
-Client:
+####Client:####
 Send from client to server by using socket.emit("Whatever name is", data)
 Receive by using socket.on(“Whatever name is”, function(data))
-Server:
+
+####Server:####
 io.emit() sends from server to all clients, socket.broadcast.emit() sends to all clients as well
 
 On client side, have a global variable at the beginning.
 
-var socket = io();
+`var socket = io();`
 
 This socket variable would be used to handle the socket ons and emits.
 
 Include this in the bottom of the html
 
-<script src="../socket.io/socket.io.js"></script>
+`<script src="../socket.io/socket.io.js"></script>`
 
-Video Syncing
+####Video Syncing####
 For the video syncing, I used the same concept for the chat system. The code would be in ./bin/www for the server side and in media.js for the client side. When the user plays or pauses the video, an event will trigger on the client side, sending a message to the server that the video has either been played or paused. This will then send a message to all Clients signaling that the video has changed states. 
 
 This is also done the same with seekTo. When the Youtube video’s time is changed, the new time is sent to the server and then back to all the clients. The clients reads and all syncs up to the new time.
 
 This process needs to be REFINED with either another framework, or continuous changes to the system. Some things to note, the server’s elapsed time currently is set to client that emits the message last. Have to think of concurrency problems and overall video syncing system.
 
-Reference:
+**Reference:**
 Start here for Youtube API/Iframe
-https://developers.google.com/youtube/iframe_api_reference 
+* https://developers.google.com/youtube/iframe_api_reference 
 
 
 
 
-=========================================================================
-Browserify
+
+####Browserify####
 Browserify allows you to use require(‘fileName’) on the Client side. Making access to file paths much easier. Read the Views section on why Browserify is needed.
 
 Whenever an .JSX file is updated, call this command which would convert the .JSX files into bundle.js which can be used as a <script> on the bottom of your HTML. Currently used by calling the command:
 
-browserify ./public/main.js -o ./public/bundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx
+`browserify ./public/main.js -o ./public/bundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx`
 
 The babelify command used to be called Reactify, but was updated. Babelify converts .jsx files into JavaScript. 
 
 Currently want to research on perhaps better methods such as either continue doing it via terminal, finding better commands or arguments for the commands or doing through the code on the server by using require(‘browserify’).
 
-Reference:
-https://github.com/babel/babelify 
-http://browserify.org/ 
+**Reference:**
+* https://github.com/babel/babelify 
+* http://browserify.org/ 
 
-=========================================================================
-Gulp
+
+##Gulp##
 Want to use Gulp to automate things eventually so that whenever something is changed in our application, browserify and minifying our applications would automatically be handled. These things would make for faster and easier handling of our code.
 
 Currently not researched or used yet
 
-=========================================================================
-Testing
+##Testing##
 Currently have not implemented any unit testing. Currently want to look into Mocha/Chai for a testing framework for node.
 
 
