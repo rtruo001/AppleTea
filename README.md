@@ -438,7 +438,7 @@ In order to make things easier for the user, we can do the server side rendering
 
 `browserify ./public/main.js -o ./public/bundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx`
 
-Whenever a .JSX file is updated, call this command to convert the .JSX code into JavaScript through the bundle.js which is a <script> at the bottom of the HTML.
+Whenever a .JSX file is updated, call this command to convert the .JSX code into JavaScript through the bundle.js which is a \<script\> at the bottom of the HTML.
 
 Currently want to research different ways and the proper way to use Browserify. The babelify command used to be called Reactify, but what it does is it converts .jsx files into JavaScript (I think).
 
