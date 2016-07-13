@@ -407,35 +407,6 @@ module.exports = Component;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ##Views - React framework ##
 React uses JSX as syntax for the views. In the end, the .jsx files are converted into Javascript which would render the HTML. There are two ways to render the Javascript, through either Server side rendering or Client Side rendering. Doing both makes an isomorphic application, which is code that can run on the server and client.
 
@@ -455,7 +426,7 @@ Server side rendering (SSR) is rendering through the server. Do this by renderin
 
 ####Client-Side Rendering####
 
-To render via the Client, React already has tutorials on doing this method. To do this, we would create a JavaScript file in public/javascript and add the <script> file to the HTML. We build the components and then use the ReactDom class to render it into our specified div. 
+To render via the Client, React already has tutorials on doing this method. To do this, we would create a JavaScript file in public/javascript and add the \<script\> file to the HTML. We build the components and then use the ReactDom class to render it into our specified div. 
 
 Doing this method however will create two files that have the same exact code, one where it renders on the Server side using the Views, the other is in the Javascript which would render on the client side. This makes things more annoying to work as we have to edit both files for it to work the way we want it to.
 
@@ -476,22 +447,6 @@ This is a GREAT blog on why/how we do server side rendering and client side rend
 What I used to start on making an isomorphic app, used the examples/dynamic to help clarify more things:
 * https://github.com/reactjs/express-react-views 
 * https://github.com/mhart/react-server-example 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -571,12 +526,6 @@ Below is an example package.json containing different dependencies and their ver
 ```
 
 
-
-
-
-
-
-
 ##Chat System - Socket.io##
 The chat system starts off with using Socket.io. I was trying to find a server side framework to do chatting easily and to try to scale it as good as I could. If there are better methods in doing this, please try it out! 
 
@@ -601,14 +550,6 @@ server.listen(port);
 ```
 
 In the event handlers for the above. The socket receive signals from the client side explaining what to do for the server. The Server then can either do something to update the server, or emit a message back to the client in order for the client to do something.
-
-
-
-
-
-
-
-
 
 
 
@@ -664,33 +605,6 @@ Very useful docs from these links
 * http://socket.io/get-started/chat/ 
 * http://socket.io/docs/ 
 * https://github.com/socketio/socket.io/tree/master/examples/chat 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
