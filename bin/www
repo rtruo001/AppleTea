@@ -58,6 +58,7 @@ io.on('connection', function(socket) {
     console.log(user + " has connected");
     ++numUsersSignedInConnected;
 
+    // we store the username in the socket session for this client
     socket.username = user;
     io.emit("From Server: User joined", {
       username: user

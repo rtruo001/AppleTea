@@ -1,3 +1,4 @@
 /node_modules
+/public/bundle.js
 /public/favicon.ico
 /public/images

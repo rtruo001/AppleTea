@@ -11,8 +11,6 @@ var errorHandler = require('errorhandler');
 // To render via server
 // var browserify = require('browserify');
 // var literalify = require('literalify');
-// var React = require('react');
-// var ReactDOMServer = require('react-dom/server');
 
 var app = express();
 
@@ -31,15 +29,13 @@ app.use(cookieParser());
 // Public files including css and javascripts
 app.use('/css/stylesheets', express.static(__dirname + '/public/stylesheets'));
 app.use('/javascripts', express.static(__dirname + '/public/javascripts'));
-app.use('/components', express.static(__dirname + '/components'));
-app.use('/views', express.static(__dirname + '/views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-// Ues the routers
+// Use the routers
 app.use('/', routes);
 app.use('/users', users);
 
