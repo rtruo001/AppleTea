@@ -282,10 +282,10 @@ This command takes in main.js, converts the files into JavaScript, and outputs t
 
 ####main.js:####
 
-`
+```
 var SearchComponent = require('./../views/Search.jsx');
 ReactDOM.render(<SearchComponent />, document.getElementById('search'));
-`
+```
 
 Browserify takes the code above, and converts it into the bundle.js which is in JavaScript for use in the Client side. The above code is in JSX syntax which renders the Search component.
 
@@ -306,11 +306,8 @@ Static files are used to handle any CSS or public JavaScripts. Can also handle a
 
 ```
 // Public files including css and javascripts
-
 app.use('/css/stylesheets', express.static(__dirname + '/public/stylesheets'));
-
 app.use('/javascripts', express.static(__dirname + '/public/javascripts'));
-
 app.use(express.static(path.join(__dirname, 'public')));
 ```
 
@@ -442,8 +439,11 @@ Whenever a .JSX file is updated, call this command to convert the .JSX code into
 
 Currently want to research different ways and the proper way to use Browserify. The babelify command used to be called Reactify, but what it does is it converts .jsx files into JavaScript (I think).
 
-**References: **
-This is a GREAT blog on why/how we do server side rendering and client side rendering: http://www.crmarsh.com/react-ssr/ 
+**References:**
+
+This is a GREAT blog on why/how we do server side rendering and client side rendering: 
+* http://www.crmarsh.com/react-ssr/ 
+
 What I used to start on making an isomorphic app, used the examples/dynamic to help clarify more things:
 * https://github.com/reactjs/express-react-views 
 * https://github.com/mhart/react-server-example 
