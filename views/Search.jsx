@@ -5,86 +5,15 @@
     entire list of media entries. Each media entry contains the thumbnail,
     title, and duration components
 
-    @Components:  Thumbnail
-                  Title
-                  Duration
-                  MediaEntry
-                  Search
+    @Components:  Search
 
     @Exports:     Search
     ========================================================================== */
 var React = require('react');
+// Media Entry component
+var MediaEntry = require('./MediaEntry');
 
-// Thumbnail of the media
-var Thumbnail = React.createClass({
-  render: function() {
-    return (
-      <div clasName='media-thumbnail'>
-        <img src={this.props.thumbnail}/>
-      </div>
-    );
-  }
-});
-
-// Media's title component
-var Title = React.createClass({
-  render: function() {
-    return (
-      <div clasName='media-title'>
-        {this.props.title}
-      </div>
-    );
-  }
-});
-
-// Media's Duration component
-var Duration = React.createClass({
-  render: function() {
-    return (
-      <div clasName='media-duration'>
-        {this.props.duration}
-      </div>
-    );
-  }
-});
-
-// Each individual media entry in the list
-var MediaEntry = React.createClass({
-  handleClick: function() {
-    // TODO: Think of other ways to do this.
-
-    global.mediaClickedAddToQueue({
-      videoId: this.props.videoId,
-      thumbnail: this.props.thumbnail,
-      title: this.props.title
-    });
-  },
-
-  render: function() {
-    return (
-      <div id={'media-list-entry-' + this.props.pos} className='media-list-entry'>
-        <Thumbnail thumbnail={this.props.thumbnail} />
-        <Title title={this.props.title} />
-        <button id={'media-entry-button-' + this.props.pos} className='media-entry-button' onClick={this.handleClick}>Add To Queue</button>
-      </div>
-    );
-  }
-});
-
-/*  =============================================================================
-    Main-Component Search
-
-    The entire Search component. Contains an Input bar for Search, as well as the
-    entire list of media entries. Each media entry contains the thumbnail,
-    title, and duration components
-    
-    @States:      searchQuery
-                  jsonResponse
-
-    @Components:  Thumbnail
-                  Title
-                  Duration
-    ========================================================================== */
+// Search Component
 var Search = React.createClass({
   getInitialState: function() {
     return {
@@ -123,6 +52,8 @@ var Search = React.createClass({
   handleSubmit: function(e) {
     // Removes the form's default's property of url redirection
     e.preventDefault();
+    clearInterval(this.interval);
+    this.interval = setInterval(this.searchMedia, 0);
   },
 
   handleChange: function(e) {
@@ -136,17 +67,19 @@ var Search = React.createClass({
 
   render: function() {
     // Prepares each media entry. Whenever a State changes, populates the values in each Media Entry from the jsonResponse given from the YoutubeAPI
-    var mediaEntries = [];
+    var searchEntries = [];
     var json = this.state.jsonResponse;
     if (json !== "" && json !== undefined) {
       var jsonItem;
       for (var i = 0; i < json.items.length; ++i) {
         jsonItem = json.items[i];
-        mediaEntries.push(
+        searchEntries.push(
           <MediaEntry 
             key={jsonItem.id.videoId} 
             pos={i} 
             videoId={jsonItem.id.videoId} 
+            categoryType={'SEARCH'}
+            mediaType={'YOUTUBE'}
             thumbnail={jsonItem.snippet.thumbnails.default.url} 
             title={jsonItem.snippet.title} /> 
         );
@@ -161,7 +94,7 @@ var Search = React.createClass({
         </form>
         <div id='search-container'>
           {this.state.searchQuery}
-          {mediaEntries}
+          {searchEntries}
         </div>
       </div>
     );

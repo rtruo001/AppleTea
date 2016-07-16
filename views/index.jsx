@@ -58,8 +58,10 @@ var Index = React.createClass({
           </div>
 
           <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-          <script src="/bundle.js"></script>
           <script src="../socket.io/socket.io.js"></script>
+          <script src="/javascripts/socket.js"></script>
+          
+          <script src="/bundle.js"></script>
           <script src="/javascripts/chat.js"></script>
           <script src="/javascripts/media.js"></script>
           <script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>

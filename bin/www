@@ -34,14 +34,19 @@ const playerStates = {
   PAUSED: 'PAUSED'
 };
 
-//Variables for users
+// Users
 var numUsersConnected = 0;
 var numUsersSignedInConnected = 0
 
-//Variables for Media player
+// Media player
 var ifMediaIsInitialized = false;
 var mediaCurrentState = playerStates.PAUSED;
 var mediaElapsedTime = 0;
+
+// Queue
+var queueList = [];
+// Used to see if there are duplicates in the Queue or not
+var queueListHashSet = {};
 
 var io = require('socket.io')(server);
 
@@ -132,6 +137,24 @@ io.on('connection', function(socket) {
     mediaCurrentState = playerStates.PAUSED;
     mediaElapsedTime = 0;
   });
+
+  /*  =============================================================================
+      Queue
+      ========================================================================== */  
+  socket.emit('From Server: Initialize Queue', queueList);
+
+  socket.on('From Client: Push into queue', function(queueEntry) {
+    if (queueListHashSet[queueEntry.videoId]) {
+      return;
+    }
+    queueListHashSet[queueEntry.videoId] = true;
+    queueList = queueList.concat(queueEntry);
+    io.emit('From Server: Push into queue', queueEntry);
+  });
+
+  /*  =============================================================================
+      When user disconnects
+      ========================================================================== */
 
   // When a user exits chat room, send to client that user has left
   socket.on('disconnect', function() {
