@@ -1,7 +1,7 @@
 body{
 	margin:0;
 	padding:0;
-  background-color: #222;
+  background-color: #222 !important;
 }
 
 @font-face {
@@ -17,6 +17,14 @@ body{
 @font-face {
   font-family: Archer;
   src: url('../fonts/archer-light-pro.otf');
+}
+
+.fa-heart {
+  color: #d65555;
+}
+
+.shfl-btn .active {
+  color: #ddd;
 }
 
 .header {
@@ -37,30 +45,61 @@ body{
 .banner-container {
   background-color: #111;
   width: 100%;
-  height:473px;
+  height:506px;
   margin: auto;
 }
 
 .vid-chat-container {
-  max-width: 1200px;
+  width: 1200px;
   margin: auto;
   background-color: #000;
 }
 
 .video-container {
   width: 900px;
+  margin: 0px !important;
   background-color: #fff;
-  float:left;
+  float: left;
 }
 
 .video {
   width:100%;
 }
 
+.player-container {
+  width: 100%;
+  padding: 10px;
+}
+
+.btn-play {
+  float: left;
+  padding-left: 10px;
+  font-size: 16px;
+}
+
+.btn-next {
+  float: left;
+  padding-left: 10px;
+  font-size: 16px;
+}
+
+.btn-vol {
+  float: left;
+  padding-left: 10px;
+  font-size: 16px;
+}
+
+#vol-slider1 {
+  float: left;
+}
+
+.status-track {
+  float: left;
+}
+
 .chatbox-container {
   width: 300px;
   height: 100%;
-  /*background-color: #222;*/
   float: left;
 
 }
@@ -73,7 +112,6 @@ body{
   font-size: 16px;
   padding: 10px 10px 10px 20px;
   position: relative;
-  width: 285px;
   border-bottom-style: solid;
   border-bottom-color: #292929;
   border-bottom-width: 1px;
@@ -168,12 +206,12 @@ form {
 
 .main-container {
   background-color: #222;
-  min-height: 800px;
+  width: 1200px;
+  margin: 0 auto;
 }
 
 .col-container {
-  max-width: 1200px;
-  margin: auto;
+
 }
 
 .queue-container {
@@ -182,10 +220,6 @@ form {
 }
 
 .queue-header {
-  color: #ddd;
-  font-family: Avenir;
-  font-weight: 100;
-  font-size: 16px;
   padding-left: 16px;
   padding-bottom: 32px;
   margin-bottom: 8px;
@@ -196,30 +230,114 @@ form {
   /*padding: 10px 10px 10px 20px;*/
 }
 
-#shfl-icon {
-  text-align: right;
-  padding-right: 30px;
+.queue-title-container {
+  width: 68%;
+  float: left;
+}
+
+.queue-title {
+  color: #ddd;
+  font-family: Avenir;
+  font-weight: 100;
+  font-size: 16px;
+  float: left;
+}
+
+.pill {
+  background-color: #555;
+  border-radius: 10px;
+  padding: 3px 7px;
+  margin-left: 6px;
+  float: left;
+
+  color: #ddd;
+  font-family: Avenir;
+  font-weight: 100;
+  font-size: 10px;
+  float: left;
+}
+
+.pill-blue {
+  background-color: #eee;
+  color: #111;
+}
+
+.queue-icon-container {
+  width: 30%;
+  float: left;
+}
+
+.queue-icon {
+  float: right;
+  padding:4px 8px;
 }
 
 .queue-body {
   padding-top: 10px;
 }
 
+.media-card-added {
+  background-color: #eee !important;
+}
+
+.media-card-added .media-title {
+  color: #111 !important;
+}
+
 .media-card {
   background-color: #2c2c2c;
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   border-radius: 4px;
+  display: inline-block;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
 }
 
-.media-icon {
+/* Grab Cursor */
+.grabbable {
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+.grabbable:active { 
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+
+.media-img {
   width: 140px;
   padding: 6px;
-  display: inline-block;
+  float:left;
+  pointer-events: none
 }
 
-.media-text {
-  display: inline-block;
+.media-next {
+  font-family: Avenir;
+  font-size: 8px;
+  color: #fff;
+  letter-spacing: 2px;
+  background-color: rgba(75,185,195,1);
+  position: absolute;
+  padding: 6px;
+  margin: 6px;
+  width: 128px;
+  text-align: center;
+}
+
+.media-text {;
+  width: 165px;
+  float:left;
+  padding: 15px 5px 10px 5px;
 }
 
 .media-title {
@@ -232,6 +350,19 @@ form {
   color: #666;
   font-family: Avenir;
   font-size: 10px;
+}
+
+.media-icons {
+  float: right;
+  padding: 10px 4px 0px 4px;
+}
+
+.media-added-note {
+  position: absolute;
+  font-size: 11px;
+  padding-top: 9px;
+  color: #111;
+  font-weight: bold;
 }
 
 .tabbed-container {
@@ -302,34 +433,129 @@ form {
   width: 100%;
   border-radius: 4px;
   padding: 6px !important;
+  display: inline-block;
+  position: relative;
 }
 
-.playlist-icon {
+.user-playlist{
+  background-color: #fff !important;
+}
+
+.user-playlist .playlist-artist {
+  color: #333;
+}
+
+.playlist-img-container {
+  position: relative;
+  margin-bottom: 6px;
+}
+
+.playlist-play-icon{
+  font-size: 24px;
+  padding-bottom: 8px;
+
+}
+
+.playlist-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    margin-bottom: 6px;
+    display: none;
+
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.playlist-img {
   width: 100%;
-  padding-bottom: 6px;
-  display: inline-block;
 }
 
 .playlist-text {
-  
+  padding: 4px 0px 4px 8px;
+  text-align: center;
+  display: block;
+  margin: auto;
 }
 
 .playlist-title {
-  color: #ddd;
-  font-family: Avenir;
   text-align: center;
-  font-size: 12px;
+}
+
+.playlist-title-text {
+  color: #4bb9c3;
+  font-family: Avenir;
+  font-size: 13px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.playlist-pill {
+  /*background-color: #4bb9c3;*/
+  background-color: #555;
+  color: #ddd;
+  border-radius: 10px;
+  padding: 2px 6px;
+  display: inline-block;
+
+  font-family: Avenir;
+  font-weight: 100;
+  font-size: 9px;
+  /*color: #fff;*/
 }
 
 .playlist-artist {
   color: #666;
   font-family: Avenir;
   font-size: 10px;
-  text-align: center;
+  margin-top: 4px;
+}
+
+.playlist-user-icon {
+  display: inline-block;
+}
+
+.playlist-icons-container {
+  position: absolute;
+  bottom: 7px;
+  right: 6px;
+}
+
+.playlist-icons {
+  padding: 13px 4px 0px 4px;
+  display: inline-block;
 }
 
 
+.playlist-card:hover{
+  background-color: #333;
+}
+
+.playlist-img-container:hover .playlist-overlay{
+    display: block;
+    background: rgba(0, 0, 0, .3);
+}
+
+.playlist-card:hover .playlist-title-text{
+  font-size: 14px;
+  line-height: 11px;
+}
+
+.playlist-text:hover .playlist-title-text{
+  text-decoration: underline;
+}
+
 /*Search Media*/
+.search-card-padding {
+  padding: 6px 8px;
+}
+
 .search-media-card {
   background-color: #2c2c2c;
   width: 100%;
@@ -339,7 +565,6 @@ form {
 
 .search-media-icon {
   width: 130px;
-  padding-bottom: 6px;
   display: inline-block;
 }
 
@@ -361,12 +586,37 @@ form {
 }
 
 
-a.icon-btn:link {color:#ddd; text-decoration:none;}
-a.icon-btn:visited {color:#ddd; text-decoration:none;}
-a.icon-btn:hover {color:#555; text-decoration:none;}
-a.icon-btn:active {color:#555; text-decoration:none;}
+a.icon-btn:link {color:#777; text-decoration:none;}
+a.icon-btn:visited {color:#777; text-decoration:none;}
+a.icon-btn:hover {color:#bbb; text-decoration:none;}
+a.icon-btn:active {color:#bbb; text-decoration:none;}
+
+a.icon-btn-lite:link {color:#444; text-decoration:none;}
+a.icon-btn-lite:visited {color:#444; text-decoration:none;}
+a.icon-btn-lite:hover {color:#ddd; text-decoration:none;}
+a.icon-btn-lite:active {color:#ddd; text-decoration:none;}
+
+a.icon-btn-dark:link {color:#bbb; text-decoration:none;}
+a.icon-btn-dark:visited {color:#bbb; text-decoration:none;}
+a.icon-btn-dark:hover {color:#444; text-decoration:none;}
+a.icon-btn-dark:active {color:#444; text-decoration:none;}
+
+a.playlist-link:link {color:#bbb; text-decoration:none;}
+a.playlist-link:visited {color:#bbb; text-decoration:none;}
+a.playlist-link:hover {color:#444; text-decoration:none; background-color: #000 !important;}
+a.playlist-link:active {color:#444; text-decoration:none;}
+
+.playlist-link {
+  width: 100%;
+}
 
 ::-webkit-input-placeholder {opacity: .4;}
 :-moz-placeholder {opacity: .4;}/* Firefox 18- */
 ::-moz-placeholder {opacity: .4;}/* Firefox 19+ */
 :-ms-input-placeholder {opacity: .4;}
+
+
+
+
+@media only screen and (min-resolution: 117dpi) and (max-resolution: 119dpi), only screen and (min-resolution: 131dpi) and (max-resolution: 133dpi), only screen and (min-resolution: 145dpi) and (max-resolution: 154dpi), only screen and (min-resolution: 162dpi) and (max-resolution: 164dpi), only screen and (min-resolution: 169dpi) {
+}
