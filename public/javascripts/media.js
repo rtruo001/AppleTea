@@ -8,10 +8,6 @@
     Client side functions of the media system.
     ========================================================================== */
 
-/*  =============================================================================
-    Variables 
-    ========================================================================== */
-
 // Current Client states of the Youtube video
 const STATES = {
   PLAYING: 'PLAYING',
@@ -50,7 +46,7 @@ function onYouTubeIframeAPIReady() {
   player = new YT.Player('media-player', {
     height: '390',
     width: '640',
-    videoId: 'J9NQFACZYEU',
+    videoId: 'Mc83aholIJ0',
     events: {
       'onReady': onPlayerReady,
       'onStateChange': onPlayerStateChange

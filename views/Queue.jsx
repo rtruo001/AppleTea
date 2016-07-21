@@ -1,4 +1,8 @@
 /*  =============================================================================
+    Copyright © 
+    ========================================================================== */
+
+/*  =============================================================================
     Main-Component Queue
 
     The entire Queue component. Contains a list of media entries that are in the queue.
@@ -25,6 +29,26 @@ var TopOfQueueList = React.createClass({
   }
 });
 
+var ShuffleButton = React.createClass({
+  render: function() {
+    return (
+      <div id='shuffle-button'>
+
+      </div>
+    )
+  }
+});
+
+var LoopButton = React.createClass({
+  render: function() {
+    return (
+      <div id='loop-button'>
+
+      </div>
+    )
+  }
+});
+
 // Queue Component
 var Queue = React.createClass({
   getInitialState: function() {
@@ -37,6 +61,8 @@ var Queue = React.createClass({
     // Event handlers sent from server when medias are added to the queue
     socket.on('From Server: Initialize Queue', this.initializeQueue);
     socket.on('From Server: Push into queue', this.pushIntoQueue);
+
+    // If nothing is playing, play from queue
   },
 
   initializeQueue: function(mediaEntries) {
@@ -45,6 +71,9 @@ var Queue = React.createClass({
   },
 
   pushIntoQueue: function(mediaEntry) {
+    if (this.state.queueList.length <= 0) {
+      socket.emit('From Client: Initialize media player', mediaEntry);
+    }
     var queueListWithNewMediaEntry = this.state.queueList.concat(mediaEntry);
     this.setState({queueList: queueListWithNewMediaEntry});
   },

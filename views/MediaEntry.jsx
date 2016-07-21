@@ -1,4 +1,8 @@
 /*  =============================================================================
+    Copyright © 
+    ========================================================================== */
+
+/*  =============================================================================
     Main-Component MediaEntry
 
     A component for each individal media entry. Each medi aentry has a thumbnail and title.
@@ -13,6 +17,13 @@
     @Exports:     MediaEntry
     ========================================================================== */
 var React = require('react');
+
+const MEDIATYPES = {
+  NONE: 'NONE',
+  YOUTUBE: 'YOUTUBE',
+  SOUNDCLOUD: 'SOUNDCLOUD',
+  VIMEO: 'VIMEO'
+};
 
 const CATEGORYOFMEDIA = {
   QUEUE: 'QUEUE',
@@ -54,9 +65,10 @@ var Duration = React.createClass({
 
 // Each individual media entry in the list
 var MediaEntry = React.createClass({
-  handleClick: function() {
+  addToQueue: function() {
     var mediaEntry = {
       videoId: this.props.videoId,
+      mediaType: this.props.mediaType,
       thumbnail: this.props.thumbnail,
       title: this.props.title
     }
@@ -67,12 +79,21 @@ var MediaEntry = React.createClass({
     var categoryDivName;
     var categoryClassName;
 
-    // TODO: Determine which media type
+    // TODO: Determine which media types
     // switch(this.props.mediaType) {
+    //   case MEDIATYPES.YOUTUBE:
+    //     break;
+    //   case MEDIATYPES.SOUNDCLOUD:
+    //     break;
+    //   case MEDIATYPES.VIMEO:
+    //     break;
+    //   case default:
+    //     break;
+    // }
 
     // Renders the Media entry to the correct category.
     switch(this.props.categoryType) {
-      // Queue
+      // Media Entry that is in the Queue component
       case CATEGORYOFMEDIA.QUEUE:
         categoryDivName = 'queue-list-entry-';
         categoryClassName = 'queue-list-entry';
@@ -84,7 +105,7 @@ var MediaEntry = React.createClass({
         ); 
         break;
 
-      // Search has a button that adds the media into the queue
+      // Media Entry in the Search component, also has a button that adds the media entry into the queue
       case CATEGORYOFMEDIA.SEARCH:
         categoryDivName = 'search-list-entry-';
         categoryClassName = 'search-list-entry';
@@ -92,13 +113,13 @@ var MediaEntry = React.createClass({
           <div id={categoryDivName + this.props.pos} className={categoryClassName}>
             <Thumbnail thumbnail={this.props.thumbnail} />
             <Title title={this.props.title} />
-            <button id={'media-entry-button-' + this.props.pos} className='media-entry-button' onClick={this.handleClick}>Add To Queue</button>
+            <button id={'media-entry-button-' + this.props.pos} className='media-entry-button' onClick={this.addToQueue}>Add To Queue</button>
           </div>
         );
         break;
 
       default:
-        console.log('Media Category Error:: NO TYPE');
+        console.log('Media Category Error: NO TYPE');
         return;
         break;
     }

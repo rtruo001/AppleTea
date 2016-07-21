@@ -30,8 +30,16 @@ var server = http.createServer(app);
 
 //Constant media states
 const playerStates = {
+  NONE: 'NONE',
   PLAYING: 'PLAYING',
   PAUSED: 'PAUSED'
+};
+
+const MEDIAPLAYERTYPES = {
+  NONE: 'NONE',
+  YOUTUBE: 'YOUTUBE',
+  SOUNDCLOUD: 'SOUNDCLOUD',
+  VIMEO: 'VIMEO'
 };
 
 // Users
@@ -40,10 +48,14 @@ var numUsersSignedInConnected = 0
 
 // Media player
 var ifMediaIsInitialized = false;
-var mediaCurrentState = playerStates.PAUSED;
+var clientCountsReportingIn = 0;
+var mediaCurrentState = playerStates.PLAYING;
 var mediaElapsedTime = 0;
+var playerMediaType = MEDIAPLAYERTYPES.NONE;
+var playerMediaVideoID;
+var playerMediaTitle;
 
-// Queue
+// Queue of media entries
 var queueList = [];
 // Used to see if there are duplicates in the Queue or not
 var queueListHashSet = {};
@@ -92,20 +104,15 @@ io.on('connection', function(socket) {
     });
   });
 
-  // Sends to all clients to get the elapsed time, prepares to save a random time for server
-  socket.on("From Client: Get elapsed time", function(data) {
-    io.emit("From Server: Get elapsed time", 1);
-  });
-
   // Saves the last client's elapsed time into the server
-  socket.on("From Client: Send elapsed time", function(time) {
-    // When the time is 0, does not set the overall mediaElapsedTime to 0
-    // Does this because every client is going to send in the time, and the 
-    if (time == 0) {
-      return;
-    }
-    mediaElapsedTime = time;
-  });
+  // socket.on("From Client: Send elapsed time", function(time) {
+  //   // When the time is 0, does not set the overall mediaElapsedTime to 0
+  //   // Does this because every client is going to send in the time, and the 
+  //   if (time == 0) {
+  //     return;
+  //   }
+  //   mediaElapsedTime = time;
+  // });
 
   // When the user selects a spot on the status play bar, sends all
   // elapsed times for to that specific time.
@@ -119,23 +126,104 @@ io.on('connection', function(socket) {
     ifMediaIsInitialized = true;
   });
 
-  // Sets the state to PLAYING and sends to client to play media
-  socket.on('From Client: Play media', function(data) {
-    mediaCurrentState = playerStates.PLAYING;
-    io.emit('From Server: Play media', 0);
-  });  
-
-  // Sets the state to PAUSED and sends to client to pause media
-  socket.on('From Client: Pause media', function(data) {
-    mediaCurrentState = playerStates.PAUSED
-    io.emit('From Server: Pause media', 0);
-  });
-
   // Resets the variables of the media
   socket.on('From Client: Reset media states', function(data) {
     ifMediaIsInitialized = false;
     mediaCurrentState = playerStates.PAUSED;
     mediaElapsedTime = 0;
+  });
+
+  /*  =============================================================================
+      Media Player
+      ========================================================================== */  
+  socket.on('From Client: Entering page, check initial media player state', function() {
+    // If the server currently isn't playing a media, then don't do anything for the new client
+    if (playerMediaType == MEDIAPLAYERTYPES.NONE) {
+      console.log("NONE");
+      return;
+    }
+    // Initializes the media player for the client if the server currently is playing a media
+    else {
+      socket.emit('From Server: Get elapsed time', 0, function(currentTime) {
+        if (currentTime !== 0) {
+          mediaElapsedTime = currentTime;
+          socket.emit('From Server: Initialize media player', {
+            mediaType: playerMediaType,
+            videoId: playerMediaVideoID,
+            title: playerMediaTitle,
+            elapsedTime: mediaElapsedTime
+          });
+        }
+      });  
+    }
+  });
+
+  // socket.on('From Client: Initialize ')
+
+  socket.on('From Client: Initialize media player', function(data) {
+    playerMediaType = data.mediaType;
+    playerMediaVideoID = data.videoId;
+    playerMediaTitle = data.title;
+    ifMediaIsInitialized = true;
+
+    socket.emit('From Server: Initialize media player', {
+      mediaType: data.mediaType,
+      videoId: data.videoId,
+      title: data.title,
+      elapsedTime: mediaElapsedTime
+    });
+  });
+
+  socket.on('From Client: Initialize media player with server data', function() {
+    socket.emit('From Server: Initialize media player', {
+      mediaType: playerMediaType,
+      videoId: playerMediaVideoID,
+      title: playerMediaTitle,
+      elapsedTime: mediaElapsedTime
+    });
+  });
+
+  socket.on('From Client: Get media player states', function(data) {
+    socket.emit('From Server: Send media player states', {
+      mediaType: playerMediaType,
+      videoId: playerMediaVideoID,
+      title: playerMediaTitle,
+      state: mediaCurrentState,
+      elapsedTime: mediaElapsedTime
+    });
+  });
+
+  // Sets the state to PLAYING and sends to clients to play media
+  socket.on('From Client: Play media', function(data) {
+    mediaCurrentState = playerStates.PLAYING;
+    io.emit('From Server: Play media', {
+      mediaType: playerMediaType,
+      initialized: ifMediaIsInitialized,
+      state: mediaCurrentState,
+      elapsedTime: mediaElapsedTime
+    });
+  });  
+
+  // Sets the state to PAUSED and sends to clients to pause media
+  socket.on('From Client: Pause media', function(data) {
+    mediaCurrentState = playerStates.PAUSED
+    io.emit('From Server: Pause media', {
+      mediaType: playerMediaType,
+      initialized: ifMediaIsInitialized,
+      state: mediaCurrentState,
+      elapsedTime: mediaElapsedTime
+    });
+  });
+
+  // Sends to all clients to get the elapsed time, prepares to save a random time for server
+  socket.on('From Client: Get elapsed time', function(data, callback) {
+    io.emit('From Server: Get elapsed time', 0);
+  });
+
+  socket.on('From Client: Send elapsed time', function(currentTime) {
+    if (currentTime !== 0) {
+      mediaElapsedTime = currentTime;
+    }
   });
 
   /*  =============================================================================
