@@ -11,10 +11,8 @@
 /*  =============================================================================
     Variables
     
-    socket   - The socket object used to detect the event handlers of socket.io
     userName - The name of the current Username.
     ========================================================================== */
-var socket = io();
 var connected = false;
 var username = "";
 

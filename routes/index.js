@@ -3,7 +3,10 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'AppleTea' });
+  // var reactHtml = React.renderToString(ReactApp({}));
+  res.render('Index', { 
+      title: 'AppleTea'
+  });
 });
 
 module.exports = router;
