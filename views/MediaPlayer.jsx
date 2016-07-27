@@ -4,9 +4,7 @@ var React = require('react');
 var MediaPlayer = React.createClass({
   render: function() {
     return (
-      <div id="media-player">
-
-      </div>
+      <div id="media-player"></div>
     );
   }
 });

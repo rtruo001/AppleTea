@@ -4,19 +4,36 @@ var React = require('react');
 var Chatbox = React.createClass({
   render: function() {
     return (
-      <div id="chat-box">
-        <h1>Chatbox</h1>
-        <ul id="chat-box-messages"></ul>
+      <div>
+        <div className="room-header">
+          <div>Vent Room</div>
+        </div>
 
-        <form id='chat-form' action="">
-          <input id="m" autoComplete="off" />
-          <button>Send</button>
-        </form>
+        <div className="chat">
+          <div className="chat-msg-user">
 
-        <form id='username-form'>
-          <input id="u" autoComplete="off" />
-          <button>Send</button>
-        </form>
+          </div>
+          <div className="chat-msg-user">
+
+          </div>
+          <div className="chat-msg-user">
+
+          </div>
+          <div className="chat-msg">
+
+          </div>
+        </div>
+
+        <div className="chat-type">
+          <form className="chat-input" id='chat-form' action="">
+            <input id="m" autoComplete="off" type="text" className="chat-textbox" name="" placeholder="Type a message..." />
+          </form>
+
+          <form className="chat-input" id='username-form' action="">
+            <input id="u" autoComplete="off" type="text" className="chat-textbox" name="" placeholder="Type a message..." />
+          </form>
+          
+        </div>
       </div>
     );
   }

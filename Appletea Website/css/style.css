@@ -184,7 +184,7 @@ form {
   margin: 0px;
 }
 
-#chat-input input {
+.chat-input input {
   color: #ddd;
   font-family: Avenir;
   font-weight: 100;

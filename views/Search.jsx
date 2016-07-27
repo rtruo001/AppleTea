@@ -81,19 +81,21 @@ var Search = React.createClass({
             categoryType={'SEARCH'}
             mediaType={'YOUTUBE'}
             thumbnail={jsonItem.snippet.thumbnails.default.url} 
-            title={jsonItem.snippet.title} /> 
+            title={jsonItem.snippet.title}
+            artist={jsonItem.snippet.channelTitle} /> 
         );
       }
     }
 
     return (
       <div>
-        Search: 
-        <form id='search-form' onSubmit={this.handleSubmit}>
-          <input type="text" onChange={this.handleChange} />
-        </form>
-        <div id='search-container'>
-          {this.state.searchQuery}
+        <div className="search-container">
+          <form id='search-form' className="search-input" onSubmit={this.handleSubmit}>
+            <input className="chat-textbox" name="" placeholder="Search Youtube..." type="text" onChange={this.handleChange} />
+          </form>
+        </div>
+
+        <div id='search-media-container'>
           {searchEntries}
         </div>
       </div>
