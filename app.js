@@ -27,8 +27,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Public files including css and javascripts
-app.use('/css/stylesheets', express.static(__dirname + '/public/stylesheets'));
-app.use('/javascripts', express.static(__dirname + '/public/javascripts'));
+app.use('/css', express.static(__dirname + '/public/stylesheets'));
+app.use('/js', express.static(__dirname + '/public/javascripts'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
