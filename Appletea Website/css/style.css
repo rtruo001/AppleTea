@@ -13,7 +13,7 @@ body{
 }
 
 
-/* Icon */
+/* FontAwesome Icon Colors */
 
 .fa-heart {
   color: #4bb9c3;
@@ -23,6 +23,71 @@ body{
   color: #000;
 }
 
+
+/* Bootstrap Button Style Ovverid */
+
+.btn {
+  font-size: 13px !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn-primary {
+  color: #fff !important;
+  background-color: #4bb9c3 !important;
+}
+
+.btn-primary:hover {
+  background-color: #47afb8 !important;
+}
+
+.btn-primary:active {
+  background-color: #339199 !important;
+}
+
+.btn-secondary {
+  color: #444 !important;
+  background-color: #eee !important;
+}
+
+.btn-secondary:hover {
+  background-color: #e6e6e6 !important;
+}
+
+.btn-secondary:active {
+  background-color: #ddd !important;
+}
+
+.btn-trash {
+  height: 30px;
+  color: #444 !important;
+  background-color: #eee !important;
+}
+
+.btn-trash:hover {
+  color: #fff !important;
+  background-color: #e64a60 !important;
+}
+
+.btn-trash:active {
+  color: #fff !important;
+  background-color: #cd4054 !important;
+}
+
+.disabled {
+  color: #ccc !important;
+  background-color: #f2f2f2 !important;
+  cursor: default !important;
+}
+
+.disabled:hover {
+  background-color: #f2f2f2 !important;
+}
+
+.disabled:active {
+  background-color: #f2f2f2 !important;
+}
 
 /* Green Dot appears when online */
 
@@ -73,21 +138,20 @@ body{
 }
 
 .video-container {
+  float: left;
   width: 900px;
   height: 506px;
   margin: 0px !important;
   background-color: #111;
-  float: left;
 }
-
 
 
 /* Room Header */
 
 .chatbox-container {
+  float: left;
   width: 300px;
   height: 100%;
-  float: left;
 }
 
 .room-header {
@@ -233,13 +297,12 @@ form {
 /* Queue Column */
 
 .queue-container {
-  background-color: #fff;
   padding: 30px !important;
 }
 
 .queue-header {
-  padding-left: 16px;
-  padding-bottom: 32px;
+  height: 34px;
+  padding-left: 10px;
   margin-bottom: 8px;
 
   border-bottom-style: solid;
@@ -248,23 +311,23 @@ form {
 }
 
 .queue-title-container {
-  width: 68%;
   float: left;
 }
 
 .queue-title {
+  display: inline-block;
   color: #000;
   font-weight: bold;
   font-size: 16px;
-  float: left;
+  margin: 0px 3px;
 }
 
 .pill {
-  float: left;
+  display: inline-block;
+  vertical-align: top;
   background-color: #eee;
   border-radius: 10px;
   padding: 3px 7px;
-  margin-left: 6px;
   color: #111;
   font-weight: 100;
   font-size: 10px;
@@ -276,8 +339,7 @@ form {
 }
 
 .queue-icon-container {
-  float: left;
-  width: 30%;
+  float: right;
 }
 
 .queue-icon {
@@ -293,7 +355,7 @@ form {
   position: relative;
   background-color: #eee;
   width: 100%;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   border-radius: 4px;
   display: inline-block;
   overflow: hidden;
@@ -307,7 +369,6 @@ form {
                                   not supported by any browser */
   /* This fixes the overflow:hidden for rounded corners in Chrome */
   -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
-
 }
 
 .media-img {
@@ -329,10 +390,18 @@ form {
   text-align: center;
 }
 
-.media-text {
+.number {
+  position: absolute;
+  left: 12px;
+  bottom: 6px;
+  font-size: 12px;
+  color: #fff;
+  text-shadow: 0px 0px 10px #666;
+}
+
+.media-text-container {
   float:left;
-  width: 165px;
-  padding: 15px 5px 10px 5px;
+  padding: 10px 6px 10px 4px;
 }
 
 .media-title {
@@ -382,7 +451,7 @@ form {
 }
 
 .media-card-added:hover {
-  background-color: #40b5bf !important;
+  background-color: #47afb8 !important;
 }
 
 /* Corner Added Indicator, Rotate Plus on Hover */
@@ -410,6 +479,18 @@ form {
 }
 
 .media-card-added:hover .media-card-added-plus {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.media-card-added-x {
+  position: absolute;
+  font-weight: 600;
+  color: #fff;
+  top: 0px;
+  right: 0px;
+  padding: 1px 6px;
+
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
@@ -465,8 +546,9 @@ form {
 /* Global Search Bar and Dropdown */
 
 .search-container {
-  padding: 14px 0px 4px 0px;
-  width: 100%;
+  position: relative;
+  padding: 14px 7px 4px 7px;
+
 }
 
 .search-input input {
@@ -482,20 +564,20 @@ form {
   outline: none;
 }
 
-.search-input-dropdown input{
+/* Search Dropdown Bootstrap Override */
+
+.search-input-dropdown input {
   border-radius: 5px 0px 0px 5px !important;
 }
 
-
-/* Search Dropdown Bootstrap Override */
-
-.btn-default {
+.search-input-dropdown .btn {
+  font-size: 14px !important;
+  border: solid 1px #4bb9c3 !important;
   color: #fff !important;
   background-color: #4bb9c3 !important;
-  border-color: #4bb9c3 !important; 
 }
 
-.dropdown-icon {
+.search-input-dropdown .dropdown-icon {
   color: #fff !important;
 }
 
@@ -510,20 +592,24 @@ form {
   min-width: 100px !important;
 }
 
+.dropdown-menu .fa {
+  padding-right: 8px;
+}
+
 
 /* Explore and My Playlist Tabs */
 
 .col-padding {
-  padding:8px !important;
+  padding: 7px !important;
 }
 
 .playlist-card {
+  position: relative;
+  display: inline-block;
   background-color: #eee;
   width: 100%;
   border-radius: 4px;
   padding: 6px !important;
-  display: inline-block;
-  position: relative;
 }
 
 .playlist-img-container {
@@ -537,28 +623,27 @@ form {
 }
 
 .playlist-overlay {
-    position: absolute;
-    display: none;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    color: #fff;
-    margin-bottom: 6px;
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  margin-bottom: 6px;
 
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 1;
-    text-align: center;
-    padding-top: 20px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1;
+  text-align: center;
+  padding-top: 20px;
 }
 
 .playlist-img {
   width: 100%;
 }
 
-.playlist-text {
-  display: block;
+.playlist-text-container {
   padding: 4px 0px 4px 8px;
   text-align: left;
   margin: auto;
@@ -585,7 +670,7 @@ form {
   font-size: 9px;
 }
 
-.playlist-artist {
+.playlist-curator {
   margin-top: 4px;
   color: #666;
   font-size: 10px;
@@ -593,8 +678,14 @@ form {
 
 .playlist-icon-container {
   position: absolute;
-  bottom: 7px;
+  bottom: 8px;
   right: 6px;
+  color: #339199;
+}
+
+.playlist-icon-container .fa-lock {
+  color: #fff;
+  margin-right: 2px;
 }
 
 .playlist-icon {
@@ -610,7 +701,7 @@ form {
   color: #fff !important;
 }
 
-.user-playlist .playlist-artist {
+.user-playlist .playlist-curator {
   color: #b3e1e6;
 }
 
@@ -626,6 +717,129 @@ form {
 .playlist-img-container:hover .playlist-overlay{
     display: block;
     background: rgba(0, 0, 0, .3);
+}
+
+
+/* Open and Edit Playlist */
+
+.open-playlist-container {
+}
+
+.open-playlist-header {
+  padding-top: 26px;
+  width: 100%;
+  height: 82px;
+}
+
+.open-playlist-text-container {
+  float: left;
+}
+
+.open-playlist-back-btn {
+  display: inline-block;
+  vertical-align: top;
+  padding: 8px 8px 0px 0px;
+}
+
+.open-playlist-title {
+  display: inline-block;
+  font-size: 20px;
+  margin-right: 3px;
+}
+
+.open-playlist-curator {
+  margin-top: 2px;
+  margin-left: 26px;
+  color: #666;
+  font-size: 13px;
+}
+
+.open-playlist-right-container {
+  float: right;
+  margin-right: 7px;
+}
+
+.open-playlist-icon-container {
+  margin-bottom: 4px;
+}
+
+.open-playlist-likes {
+  margin-top: 9px;
+  margin-right: 4px;
+  text-align: right;
+}
+
+.open-playlist-likes-text {
+  display: inline-block;
+  font-size: 12px;
+  color: #888;
+}
+
+
+/* Edit Playlist Container */
+
+.edit-playlist-container {
+}
+
+.edit-playlist-btn-container {
+  text-align: center;
+  padding: 16px 0px;
+  border-bottom: solid 1px #eee;
+}
+
+.save-cancel {
+  position: absolute;
+  margin-left: 8px;
+}
+
+.private-public {
+  display: inline-block;
+}
+
+.edit-playlist-btn-container .dropdown-icon{
+  padding-right: 6px;
+}
+
+.public-note {
+  display: inline-block;
+  vertical-align: bottom;
+  padding: 6px 12px !important;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #aaa;
+  background-color: #eee;
+}
+
+.trash-playlist-btn {
+  position: absolute;
+  right: 38px;
+}
+
+.user-heart {
+  color: #888;
+}
+
+.edit-playlist-card {
+  /* class created to identify drag-arrange group */
+}
+
+.playlist-media-card {
+  position: relative;
+  background-color: #eee;
+  width: 100%;
+  border-radius: 4px;
+  display: inline-block;
+  overflow: hidden;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
+  /* This fixes the overflow:hidden for rounded corners in Chrome */
+  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 }
 
 
@@ -649,7 +863,7 @@ form {
   width: 130px;
 }
 
-.search-media-text {
+.search-media-text-container {
   float: left;
   padding: 8px 0px 0px 14px;
 }
@@ -672,7 +886,7 @@ form {
 .search-media-icon-container {
   position: absolute;
   bottom: 29px;
-  right: 30px;
+  right: 26px;
 }
 
 .search-media-icon {
@@ -740,6 +954,11 @@ a.playlist-link:link {color: #4bb9c3; text-decoration:none;}
 a.playlist-link:visited {color: #4bb9c3; text-decoration:none;}
 a.playlist-link:hover {color: #4bb9c3; text-decoration: underline;}
 a.playlist-link:active {color: #4bb9c3; text-decoration: underline;}
+
+a.curator-link:link {color: #666; text-decoration:none;}
+a.curator-link:visited {color: #666; text-decoration:none;}
+a.curator-link:hover {color: #666; text-decoration: underline;}
+a.curator-link:active {color: #666; text-decoration: underline;}
 
 
 /* Search input placeholder styling
