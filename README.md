@@ -24,13 +24,11 @@ Sync different medias at the same time
 **Current Roles:**
 
 
-Randy - Backend/Frontend
+**Randy -** Backend/Frontend
 
-Gerard - Design
+**Gerard -** UI & UX Design/Frontend
 
-Harrison - Backend/Frontend
-
-
+**Harrison -** Backend/Frontend
 
 
 
@@ -39,9 +37,16 @@ Harrison - Backend/Frontend
 
 
 
+
+
+###COMPLETED###
+
+Convert media.js into their React counterpart
 
 
 ##TODOs: (Ranked in Priority)
+
+**NEEDS A LOT MORE BRAINSTORMING -** Come up with the best Video syncing algorithm.
 
 **NOT STARTED -** Generate a Database of users
 
@@ -49,15 +54,19 @@ Harrison - Backend/Frontend
 
 **IN PROGRESS -** Build the Queue, currently need to update media whenever the media finishes playing, and updates the queue of medias.
 
-**IN PROGRESS -** Refine the Search
-
 **NOT STARTED -** Build the Explore Tab
 
-**NOT STARTED -** Merge the UI with the Backend
+**NOT STARTED -** Build the Playlist Tab
+
+**NOT STARTED -** Rehaul the Search which is in Search.jsx, Search has some bugs where the API isn't getting called for the full query.
+
+**ALWAYS IN PROGRESS -** Merge the UI with the Backend
 
 **IN PROGRESS -** Rehaul Socket.io (Video Sync and Chat), potentially use other client to server side connections for quick media syncs as well as a scalable and responsive chat system
 
-**NOT STARTED -** Convert chat.js and media.js into their React counterparts (Maybe)
+**IN PROGRESS -** Manage the Draggables
+
+**NOT STARTED -** Convert chat.js into React counterpart 
 
 **NOT STARTED -** Add functions for Soundcloud
 
@@ -77,6 +86,8 @@ Harrison - Backend/Frontend
 
 
 
+
+
 ##Current Stack:##
 
 Express
@@ -87,7 +98,6 @@ Bootstrap
 
 Jquery
 
-Github
 
 
 

@@ -25,8 +25,6 @@ var Explore = require('./Explore');
 var PrivatePlaylists = require('./PrivatePlaylists');
 var Search = require('./Search');
 
-// var searchHTML = ReactDOMServer.renderToString(<SearchComponent />);
-
 // TODO: The scripts for the React librarys are through cdns, want to change this in order for them to be locally stored into our
 // directories, do the same for jquery as well.
 var Index = React.createClass({
@@ -54,7 +52,9 @@ var Index = React.createClass({
             <div className="vid-chat-container">
 
               <div className="video-container">
-                <MediaPlayer />
+                <div id="media-player-status-bar">
+                  <MediaPlayer />
+                </div>
                 {
                  //<div data-type="youtube" data-video-id="A17rVbNTtrg"></div>
                 }
@@ -110,6 +110,12 @@ var Index = React.createClass({
           {/* Rangetouch to fix <input type="range"> on touch devices (see https://rangetouch.com) */} 
           <script src="https://cdn.rangetouch.com/0.0.9/rangetouch.js" async></script>
 
+          {/* Files to initialize constants */} 
+          <script src="/js/constantVariables.js"></script>
+
+          {/* Files to initialize objects */} 
+          <script src="/js/objectInit.js"></script>
+
           {/* Socket.io */} 
           <script src="../socket.io/socket.io.js"></script>
           <script src="/js/socket.js"></script>
@@ -117,13 +123,20 @@ var Index = React.createClass({
           {/* Browserify bundle */} 
           <script src="/bundle.js"></script>
           <script src="/js/chat.js"></script>
-          <script src="/js/media.js"></script>
+          <script src="/js/youtube.js"></script>
+
+          {
+          // <script src="/js/media.js"></script>
+          }
+
           <script src="js/drag-arrange.js"></script>
           {/*<script src="js/drag-arrange.min.js"></script>*/}
           <script src="js/script.js"></script>
 
           {/* Youtube API */} 
-          <script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>
+          <script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>          
+          {/* <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script> */}
+
         </body>
       </html>
     );  

@@ -1,3 +1,5 @@
+// TODO: Update the draggable to min with our updated code
+
 /**
  * drag-shift
  * http://github.com/vishalok12

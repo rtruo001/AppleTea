@@ -1,3 +1,12 @@
+/*  =============================================================================
+    Copyright © 
+    ========================================================================== */
+
+/*  =============================================================================
+    app.js
+
+    The server side used in www. Sets up all the middleware and routes.
+    ========================================================================== */
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -8,7 +17,7 @@ var bodyParser = require('body-parser');
 // USE THIS ERRORHANDLER
 var errorHandler = require('errorhandler');
 
-// To render via server
+// Potentially used to render through the client side with the server side code.
 // var browserify = require('browserify');
 // var literalify = require('literalify');
 
@@ -19,7 +28,8 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
 
-// TODO uncomment after placing your favicon in /public
+// More middlware
+// TODO: favicon needs to be updated
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -71,6 +81,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

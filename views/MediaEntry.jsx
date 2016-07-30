@@ -1,4 +1,8 @@
 /*  =============================================================================
+    Copyright © 
+    ========================================================================== */
+
+/*  =============================================================================
     Main-Component MediaEntry
 
     A component for each individal media entry. Each medi aentry has a thumbnail and title.
@@ -13,34 +17,6 @@
     @Exports:     MediaEntry
     ========================================================================== */
 var React = require('react');
-
-const CATEGORYOFMEDIA = {
-  QUEUE: 'QUEUE',
-  SEARCH: 'SEARCH'
-};
-
-const PLAYNEXTMEDIAENTRYPOS = 0;
-
-// <div class="media-card grabbable">
-//   <img class="media-img" src="images/media-icon.png"/>
-//   <div class="media-text">
-//     <div class="media-title">Flume - Say It feat. Tove Lo</div>
-//     <div class="media-artist">FlumeAUS</div>
-//     <div class="media-icons"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
-//     <div class="media-icons"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
-//   </div>
-// </div>
-
-// <div class="search-card-padding">
-//   <div class="search-media-card">
-//     <img class="search-media-icon" src="images/media-icon.png">
-//     <div class="search-media-text">
-//       <div class="search-media-title">Flume - Say It feat. Tove Lo</div>
-//       <div class="search-media-artist">FlumeAUS</div>
-//     </div>
-//   </div>
-// </div>
-
 
 // Thumbnail of the media
 var Thumbnail = React.createClass({
@@ -125,9 +101,11 @@ var Duration = React.createClass({
 
 // Each individual media entry in the list
 var MediaEntry = React.createClass({
-  handleClick: function() {
+  // When the add to queue button is clicked, adds the media to the queue.
+  addToQueue: function() {
     var mediaEntry = {
       videoId: this.props.videoId,
+      mediaType: this.props.mediaType,
       thumbnail: this.props.thumbnail,
       title: this.props.title,
       artist: this.props.artist
@@ -141,7 +119,7 @@ var MediaEntry = React.createClass({
 
     // Renders the Media entry to the correct category.
     switch(this.props.categoryType) {
-      // Queue
+      // Media Entry that is in the Queue component
       case CATEGORYOFMEDIA.QUEUE:
         var queueMediaEntryId = "-queue-media-entry-id";
 
@@ -175,7 +153,7 @@ var MediaEntry = React.createClass({
         ); 
         break;
 
-      // Search has a button that adds the media into the queue
+      // Media Entry in the Search component, also has a button that adds the media entry into the queue
       case CATEGORYOFMEDIA.SEARCH:
         var searchMediaEntryId = "-search-media-entry-id";
         return (
@@ -186,7 +164,7 @@ var MediaEntry = React.createClass({
                 <Title title={this.props.title} categoryType={this.props.categoryType} />
                 <Artist artist={this.props.artist} categoryType={this.props.categoryType} />
               </div>
-              <button id={'media-entry-button-' + this.props.pos} className='media-entry-button' onClick={this.handleClick}>Add To Queue</button>
+              <button id={'media-entry-button-' + this.props.pos} className='media-entry-button' onClick={this.addToQueue}>Add To Queue</button>
             </div>
           </div>
         );
@@ -194,7 +172,7 @@ var MediaEntry = React.createClass({
 
       // ERROR, No Category type
       default:
-        console.log('Media Category Error:: NO TYPE');
+        console.log('Media Category Error: NO TYPE');
         return;
         break;
     }
