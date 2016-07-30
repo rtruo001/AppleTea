@@ -34,14 +34,15 @@ Sync different medias at the same time
 
 
 
+##ZenHub
+
+ZenHub is used for tracking our TODOs, timeframes, and collaborations. It is just a Chrome extension that integrates with Github.
+
+**ZenHub:** https://github.com/integrations/zenhub
 
 
 
 
-
-###COMPLETED###
-
-Convert media.js into their React counterpart
 
 
 ##TODOs: (Ranked in Priority)
@@ -73,6 +74,9 @@ Convert media.js into their React counterpart
 **NOT STARTED -** Add functions for Vimeo
 
 
+
+
+
 ###Optional###
 
 **NOT STARTED -** Use Gulp for automating javascript/css into minify, and automate other things like testing too maybe. Also use Gulp for automating browserify whenever the file changes, makes things easier.
@@ -82,6 +86,13 @@ Convert media.js into their React counterpart
 **NOT STARTED -** Research Browserify to do it properly or efficiently. Either by having it called the code or having a different command through the terminal.
 
 *Also throughout the code, There are ( // TODO: ), those need to be worked on as well.
+
+
+
+
+###COMPLETED###
+
+Convert media.js into their React counterpart
 
 
 
@@ -316,19 +327,19 @@ Static files are used to handle any CSS or public JavaScripts. Can also handle a
 
 ```
 // Public files including css and javascripts
-app.use('/css/stylesheets', express.static(__dirname + '/public/stylesheets'));
-app.use('/javascripts', express.static(__dirname + '/public/javascripts'));
+app.use('/css', express.static(__dirname + '/public/stylesheets'));
+app.use('/js', express.static(__dirname + '/public/javascripts'));
 app.use(express.static(path.join(__dirname, 'public')));
 ```
 
 **Examples:**
 Now we can do things like this in our HTML: 
 
-`<link rel="stylesheet" href="/css/stylesheets/style.css"/>`
+`<link rel="stylesheet" href="/css/style.css"/>`
 
 Or 
 
-`<script src="/javascripts/media.js"></script>`
+`<script src="/js/media.js"></script>`
 
 And for the last line, public directory would be used when ‘/’ is called:
 
@@ -542,6 +553,7 @@ The chat system starts off with using Socket.io. I was trying to find a server s
 First lets start off with Socket.io. The code below is how Socket.io should start. Server needs to listen after setting up Socket.io.
 
 This portion of the code is currently in ./bin/www
+
 ```
 var port = 3000;
 
@@ -578,12 +590,13 @@ socket.on('From Client: Add user', function(user) {
 
 And on the Client side in chat.js:
  
-  var allDifferentUsers = [];
-  function onSomeEvent () {
+var usersArray = [];
+function onSomeEvent () {
   socket.emit('From Client: Add user', “newUserName”);
 }
+
 socket.on("From Server: User joined", function(user) {
-    allDifferentUsers.push(user);
+    usersArray.push(user);
 }
 ```
 
@@ -609,7 +622,9 @@ Things to consider: I am thinking of changing the entire chat system into React.
 
 `<script src="../socket.io/socket.io.js"></script>`
 
-**Reference: **
+**However** in our current case, the variable is called in /public/javascripts/socket.js. This file is placed at the top of the scripts section in the HTML.
+
+**Reference:**
 Very useful docs from these links
 
 * http://socket.io/get-started/chat/ 
@@ -629,7 +644,9 @@ Receive by using socket.on(“Whatever name is”, function(data))
 
 ###Server:###
 
-io.emit() sends from server to all clients, socket.broadcast.emit() sends to all clients as well
+io.emit() sends from server to all clients including the client that accessed the server.
+
+socket.broadcast.emit() sends to all other clients that isn't the current client accessing the server.
 
 On client side, have a global variable at the beginning.
 
@@ -641,6 +658,7 @@ Include this in the bottom of the html
 
 `<script src="../socket.io/socket.io.js"></script>`
 
+
 ###Video Syncing###
 
 For the video syncing, I used the same concept for the chat system. The code would be in ./bin/www for the server side and in media.js for the client side. When the user plays or pauses the video, an event will trigger on the client side, sending a message to the server that the video has either been played or paused. This will then send a message to all Clients signaling that the video has changed states. 
@@ -648,6 +666,8 @@ For the video syncing, I used the same concept for the chat system. The code wou
 This is also done the same with seekTo. When the Youtube video’s time is changed, the new time is sent to the server and then back to all the clients. The clients reads and all syncs up to the new time.
 
 This process needs to be REFINED with either another framework, or continuous changes to the system. Some things to note, the server’s elapsed time currently is set to client that emits the message last. Have to think of concurrency problems and overall video syncing system.
+
+This is currently all done in the MediaPlayer.jsx.
 
 **Reference:**
 Start here for Youtube API/Iframe
