@@ -38,7 +38,9 @@
         <div class="chatbox-container">
 
           <div class="room-header">
-            <div class="room-name">Vent Room</div>
+            <div class="room-name onclick-edit inactive">Vent Room
+            <a class="icon-btn-dark" href="javascript:void"><i class="fa fa-edit" aria-hidden="true"></i></a>
+            </div>
             <div class="users-list">
               3
               <i class="fa fa-users"></i>
@@ -71,9 +73,10 @@
 
           <div class="chat-input-container">
             <form class="chat-input">
-              <input type="text" name="" placeholder="Type a message..."></form>
+              <input type="text" name="" placeholder="Type a message..."/>
             </form>
           </div>
+
         </div>
 
       </div><!-- end vid-chat-container -->
@@ -83,25 +86,26 @@
 
 <!-- Queue List Column -->
 
-      <div class="col-xs-4 queue-container">
+      <div class="col-md-4 col-sm-6 queue-container">
 
         <div class="queue-header">
           <div class="queue-title-container">
             <div class="queue-title">Chill Ass Music</div>
-            <div class="pill">27</div>
-            <div class="pill pill-blue">+2</div>
+            <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
+            <div class="pill pill-blue" data-toggle="tooltip" title="Items Added">+2</div>
           </div>
           <div class="queue-icon-container">
-            <div class="queue-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-square-o" aria-hidden="true"></i></a></div>
-            <div class="queue-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart-o" aria-hclassden="true"></i></a></div>
-            <div class="queue-icon shfl-btn"><a class="icon-btn" href="javascript:void"><i class="fa fa-random" aria-hidden="true"></i></a></div>
+            <div class="queue-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-square-o" data-toggle="tooltip" title="Clear" aria-hidden="true"></i></a></div>
+            <div class="queue-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart-o" data-toggle="tooltip" title="Like Playlist" aria-hclassden="true"></i></a></div>
+            <div class="queue-icon shfl-btn"><a class="icon-btn" href="javascript:void"><i class="fa fa-random" data-toggle="tooltip" title="Shuffle" aria-hidden="true"></i></a></div>
+            <div class="queue-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-edit" data-toggle="tooltip" title="Edit" aria-hidden="true"></i></a></div>
           </div>
         </div>
 
         <div class="queue-body col-padding">
 
           <div class="media-card media-card-added grabbable">
-            <div class="media-card-added-corner"></div>
+            <div class="media-card-added-corner-container"><div class="media-card-added-corner"></div></div>
             <a class="media-card-added-plus icon-btn-white" href="">+</a>
             <img class="media-img" src="images/media-icon.png"/>
             <div class="media-next">PLAYING NEXT:</div>
@@ -112,12 +116,12 @@
               <div class="media-type"><i class="fa fa-youtube-play"></i></div>
               <div class="media-icon-container">
                 <div class="media-icon"></div>
-                <a class="icon-btn-blue-lite" href="javascript:void"><div class="media-icon"><i class="fa fa-play" aria-hidden="true"></i></div></a>
+                <a class="icon-btn-blue-lite" href="javascript:void"><div class="media-icon"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></div></a>
               </div>
             </div>
           </div>
           <div class="media-card media-card-added grabbable">
-            <div class="media-card-added-corner"></div>
+            <div class="media-card-added-corner-container"><div class="media-card-added-corner"></div></div>
             <a class="media-card-added-plus icon-btn-white" href="">+</a>
             <img class="media-img" src="images/media-icon.png"/>
             <div class="number">2.</div>
@@ -126,8 +130,8 @@
               <div class="media-artist">FlumeAUS</div>
               <div class="media-type"><i class="fa fa-vimeo"></i></div>
               <div class="media-icon-container">
-                <a class="icon-btn-blue-lite" href="javascript:void"><div class="media-icon"><i class="fa fa-chevron-up" aria-hidden="true"></i></div></a>
-                <a class="icon-btn-blue-lite" href="javascript:void"><div class="media-icon"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+                <a class="icon-btn-blue-lite" href="javascript:void"><div class="media-icon"><i class="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></div></a>
+                <a class="icon-btn-blue-lite" href="javascript:void"><div class="media-icon"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
               </div>
             </div>
           </div>
@@ -139,8 +143,8 @@
               <div class="media-artist">FlumeAUS</div>
               <div class="media-type"><i class="fa fa-youtube-play"></i></div>
               <div class="media-icon-container">
-                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
-                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
               </div>
             </div>
           </div>
@@ -152,8 +156,8 @@
               <div class="media-artist">FlumeAUS</div>
               <div class="media-type"><i class="fa fa-vimeo"></i></div>
               <div class="media-icon-container">
-                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
-                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
               </div>
             </div>
           </div>
@@ -165,8 +169,8 @@
               <div class="media-artist">FlumeAUS</div>
               <div class="media-type"><i class="fa fa-youtube-play"></i></div>
               <div class="media-icon-container">
-                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
-                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
               </div>
             </div>
           </div>
@@ -178,8 +182,8 @@
               <div class="media-artist">FlumeAUS</div>
               <div class="media-type"><i class="fa fa-youtube-play"></i></div>
               <div class="media-icon-container">
-                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
-                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
               </div>
             </div>
           </div>
@@ -191,8 +195,8 @@
               <div class="media-artist">FlumeAUS</div>
               <div class="media-type"><i class="fa fa-soundcloud"></i></div>
               <div class="media-icon-container">
-                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
-                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
               </div>
             </div>
           </div>
@@ -204,19 +208,30 @@
               <div class="media-artist">FlumeAUS</div>
               <div class="media-type"><i class="fa fa-soundcloud"></i></div>
               <div class="media-icon-container">
-                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
-                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
               </div>
             </div>
           </div>
 
         </div>
+
+        <nav aria-label="page navigation">
+          <ul class="pagination">
+            <li class="disabled"><a href="#" aria-label="Previous"><i class="fa fa-angle-left"></i></a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#" aria-label="Next"><i class="fa fa-angle-right"></i></a></li>
+          </ul>
+        </nav>
+
       </div>
 
 <!-- Tab Navigation Bar -->
 
-      <div class="col-md-8 tabbed-container">
-
+      <div class="col-md-8 col-sm-6 tabbed-container">
+      
         <ul class="nav nav-tabs">
           <li class="active"><a data-toggle="tab" href="#explore">Explore </a></li>
           <li><a data-toggle="tab" href="#myplaylists">My Playlists</a></li>
@@ -232,12 +247,12 @@
           <div id="explore" class="tab-pane fade in active">
             <div class="search-container">
               <form class="search-input">
-                <input type="text" placeholder="Search Public Playlists..."></form>
+                <input type="text" placeholder="Search Public Playlists..."/>
               </form>
             </div>
             <div class="explore-container">
 
-              <div class="col-md-3 col-padding">
+              <div class="col-md-3 col-sm-6 col-padding">
                   <div class="playlist-card">
                     <div class="playlist-img-container">
                       <a href="">
@@ -251,7 +266,7 @@
                     <div class="playlist-text-container">
                       <div class="playlist-title">
                         <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a> <!--delete data toggle -->
-                        <div class="playlist-pill">27</div>
+                        <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                       </div>
                       <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
                     </div>
@@ -260,7 +275,7 @@
                     </div>
                   </div>
               </div>
-              <div class="col-md-3 col-padding">
+              <div class="col-md-3 col-sm-6 col-padding">
                   <div class="playlist-card">
                     <div class="playlist-img-container">
                       <a href="">
@@ -274,7 +289,7 @@
                     <div class="playlist-text-container">
                       <div class="playlist-title">
                         <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
-                        <div class="playlist-pill">27</div>
+                        <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                       </div>
                       <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
                     </div>
@@ -283,7 +298,7 @@
                     </div>
                   </div>
               </div>
-              <div class="col-md-3 col-padding">
+              <div class="col-md-3 col-sm-6 col-padding">
                   <div class="playlist-card">
                     <div class="playlist-img-container">
                       <a href="">
@@ -297,7 +312,7 @@
                     <div class="playlist-text-container">
                       <div class="playlist-title">
                         <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
-                        <div class="playlist-pill">27</div>
+                        <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                       </div>
                       <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
                     </div>
@@ -306,7 +321,7 @@
                     </div>
                   </div>
               </div>
-              <div class="col-md-3 col-padding">
+              <div class="col-md-3 col-sm-6 col-padding">
                   <div class="playlist-card">
                     <div class="playlist-img-container">
                       <a href="">
@@ -320,7 +335,7 @@
                     <div class="playlist-text-container">
                       <div class="playlist-title">
                         <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
-                        <div class="playlist-pill">27</div>
+                        <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                       </div>
                       <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
                     </div>
@@ -329,7 +344,7 @@
                     </div>
                   </div>
               </div>
-              <div class="col-md-3 col-padding">
+              <div class="col-md-3 col-sm-6 col-padding">
                   <div class="playlist-card">
                     <div class="playlist-img-container">
                       <a href="">
@@ -343,7 +358,7 @@
                     <div class="playlist-text-container">
                       <div class="playlist-title">
                         <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
-                        <div class="playlist-pill">27</div>
+                        <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                       </div>
                       <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
                     </div>
@@ -352,7 +367,7 @@
                     </div>
                   </div>
               </div>
-              <div class="col-md-3 col-padding">
+              <div class="col-md-3 col-sm-6 col-padding">
                   <div class="playlist-card">
                     <div class="playlist-img-container">
                       <a href="">
@@ -366,7 +381,7 @@
                     <div class="playlist-text-container">
                       <div class="playlist-title">
                         <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
-                        <div class="playlist-pill">27</div>
+                        <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                       </div>
                       <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
                     </div>
@@ -375,7 +390,7 @@
                     </div>
                   </div>
               </div>
-              <div class="col-md-3 col-padding">
+              <div class="col-md-3 col-sm-6 col-padding">
                   <div class="playlist-card">
                     <div class="playlist-img-container">
                       <a href="">
@@ -389,7 +404,7 @@
                     <div class="playlist-text-container">
                       <div class="playlist-title">
                         <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
-                        <div class="playlist-pill">27</div>
+                        <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                       </div>
                       <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
                     </div>
@@ -398,7 +413,7 @@
                     </div>
                   </div>
               </div>
-              <div class="col-md-3 col-padding">
+              <div class="col-md-3 col-sm-6 col-padding">
                   <div class="playlist-card">
                     <div class="playlist-img-container">
                       <a href="">
@@ -412,7 +427,7 @@
                     <div class="playlist-text-container">
                       <div class="playlist-title">
                         <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
-                        <div class="playlist-pill">27</div>
+                        <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                       </div>
                       <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
                     </div>
@@ -421,7 +436,7 @@
                     </div>
                   </div>
               </div>
-              <div class="col-md-3 col-padding">
+              <div class="col-md-3 col-sm-6 col-padding">
                   <div class="playlist-card">
                     <div class="playlist-img-container">
                       <a href="">
@@ -435,7 +450,7 @@
                     <div class="playlist-text-container">
                       <div class="playlist-title">
                         <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
-                        <div class="playlist-pill">27</div>
+                        <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                       </div>
                       <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
                     </div>
@@ -444,7 +459,7 @@
                     </div>
                   </div>
               </div>
-              <div class="col-md-3 col-padding">
+              <div class="col-md-3 col-sm-6 col-padding">
                   <div class="playlist-card">
                     <div class="playlist-img-container">
                       <a href="">
@@ -458,7 +473,7 @@
                     <div class="playlist-text-container">
                       <div class="playlist-title">
                         <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
-                        <div class="playlist-pill">27</div>
+                        <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                       </div>
                       <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
                     </div>
@@ -467,7 +482,7 @@
                     </div>
                   </div>
               </div>
-              <div class="col-md-3 col-padding">
+              <div class="col-md-3 col-sm-6 col-padding">
                   <div class="playlist-card">
                     <div class="playlist-img-container">
                       <a href="">
@@ -481,7 +496,7 @@
                     <div class="playlist-text-container">
                       <div class="playlist-title">
                         <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
-                        <div class="playlist-pill">27</div>
+                        <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                       </div>
                       <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
                     </div>
@@ -490,7 +505,7 @@
                     </div>
                   </div>
               </div>
-              <div class="col-md-3 col-padding">
+              <div class="col-md-3 col-sm-6 col-padding">
                   <div class="playlist-card">
                     <div class="playlist-img-container">
                       <a href="">
@@ -504,7 +519,7 @@
                     <div class="playlist-text-container">
                       <div class="playlist-title">
                         <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
-                        <div class="playlist-pill">27</div>
+                        <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                       </div>
                       <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
                     </div>
@@ -515,6 +530,19 @@
               </div>
 
             </div>
+
+            <nav aria-label="page navigation">
+              <ul class="pagination">
+                <li class="disabled"><a href="#" aria-label="Previous"><i class="fa fa-angle-left"></i></a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#" aria-label="Next"><i class="fa fa-angle-right"></i></a></li>
+              </ul>
+            </nav>
+
           </div>
 
 <!-- My Playlist Tab -->
@@ -522,13 +550,13 @@
           <div id="myplaylists" class="tab-pane fade">
             <div class="search-container">
               <form class="search-input">
-                <input type="text" name="" placeholder="Search My Playlists..."></form>
+                <input type="text" name="" placeholder="Search My Playlists..."/>
               </form>
             </div>
 
             <div class="myplaylists-container">
 
-                <div class="col-md-3 col-padding">
+                <div class="col-md-3 col-sm-6 col-padding">
                     <div class="playlist-card user-playlist">
                       <div class="playlist-img-container">
                         <a href="">
@@ -542,7 +570,7 @@
                       <div class="playlist-text-container">
                         <div class="playlist-title">
                           <a class="playlist-link playlist-title-text" data-toggle="tab" href="#edit-playlist">Chill Ass Music</a>
-                          <div class="playlist-pill">27</div>
+                          <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                         </div>
                         <div class="playlist-curator">
                           <div class="playlist-user-icon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></div>
@@ -554,7 +582,7 @@
                       </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-padding">
+                <div class="col-md-3 col-sm-6 col-padding">
                     <div class="playlist-card user-playlist">
                       <div class="playlist-img-container">
                         <a href="">
@@ -568,7 +596,7 @@
                       <div class="playlist-text-container">
                         <div class="playlist-title">
                           <a class="playlist-link playlist-title-text" data-toggle="tab" href="#edit-playlist">Chill Ass Music</a>
-                          <div class="playlist-pill">27</div>
+                          <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                         </div>
                         <div class="playlist-curator">
                           <div class="playlist-user-icon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></div>
@@ -580,7 +608,7 @@
                       </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-padding">
+                <div class="col-md-3 col-sm-6 col-padding">
                     <div class="playlist-card">
                       <div class="playlist-img-container">
                         <a href="">
@@ -594,7 +622,7 @@
                       <div class="playlist-text-container">
                         <div class="playlist-title">
                           <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
-                          <div class="playlist-pill">27</div>
+                          <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                         </div>
                         <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
                       </div>
@@ -603,7 +631,7 @@
                       </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-padding">
+                <div class="col-md-3 col-sm-6 col-padding">
                     <div class="playlist-card">
                       <div class="playlist-img-container">
                         <a href="">
@@ -617,7 +645,7 @@
                       <div class="playlist-text-container">
                         <div class="playlist-title">
                           <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
-                          <div class="playlist-pill">27</div>
+                          <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                         </div>
                         <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
                       </div>
@@ -626,7 +654,7 @@
                       </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-padding">
+                <div class="col-md-3 col-sm-6 col-padding">
                     <div class="playlist-card">
                       <div class="playlist-img-container">
                         <a href="">
@@ -640,7 +668,7 @@
                       <div class="playlist-text-container">
                         <div class="playlist-title">
                           <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
-                          <div class="playlist-pill">27</div>
+                          <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                         </div>
                         <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
                       </div>
@@ -649,7 +677,7 @@
                       </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-padding">
+                <div class="col-md-3 col-sm-6 col-padding">
                     <div class="playlist-card">
                       <div class="playlist-img-container">
                         <a href="">
@@ -663,7 +691,7 @@
                       <div class="playlist-text-container">
                         <div class="playlist-title">
                           <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
-                          <div class="playlist-pill">27</div>
+                          <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                         </div>
                         <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
                       </div>
@@ -672,7 +700,7 @@
                       </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-padding">
+                <div class="col-md-3 col-sm-6 col-padding">
                     <div class="playlist-card">
                       <div class="playlist-img-container">
                         <a href="">
@@ -686,7 +714,7 @@
                       <div class="playlist-text-container">
                         <div class="playlist-title">
                           <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
-                          <div class="playlist-pill">27</div>
+                          <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
                         </div>
                         <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
                       </div>
@@ -697,6 +725,19 @@
                 </div>
 
             </div>
+
+            <nav aria-label="page navigation">
+              <ul class="pagination">
+                <li><a href="#" aria-label="Previous"><i class="fa fa-angle-left"></i></a></li>
+                <li><a href="#">1</a></li>
+                <li class="active"><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#" aria-label="Next"><i class="fa fa-angle-right"></i></a></li>
+              </ul>
+            </nav>
+
           </div>
 
 <!-- Open Playlist Hidden Tab -->
@@ -707,7 +748,7 @@
 
               <div class="open-playlist-header">
                 <div class="open-playlist-text-container">
-                  <a class="icon-btn" href=""><div class="open-playlist-back-btn"><i class="fa fa-lg fa-chevron-left"></i></div></a>
+                  <a class="icon-btn" href=""><div class="open-playlist-back-btn"><i class="fa fa-lg fa-chevron-circle-left"></i></div></a>
                   <div class="open-playlist-title">Chill Ass Music</div>
                   <div class="open-playlist-curator">
                     <a class="curator-link" href="">Gliu</a>
@@ -728,7 +769,7 @@
 
               <div class="search-container">
                 <form class="search-input">
-                  <input type="text" name="" placeholder="Search in Playlist..."></form>
+                  <input type="text" name="" placeholder="Search in Playlist..."/>
                 </form>
               </div>
 
@@ -741,9 +782,18 @@
                     <div class="media-artist">FlumeAUS</div>
                     <div class="media-type"><i class="fa fa-youtube-play"></i></div>
                     <div class="media-icon-container">
-                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
-                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
-                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus" data-toggle="tooltip" title="Add to Queue" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
+                      <div class="media-icon">
+                        <a class="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void"><i class="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                          <li class="dropdown-header">Add To:</li>
+                          <li><a href="#">Chill Ass Music</a></li>
+                          <li><a href="#">Comp Sci Lectures</a></li>
+                          <li><a href="#">The Trippiest Videos</a></li>
+                          <li><a href="#">Sick Music Videos</a></li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -757,9 +807,18 @@
                     <div class="media-artist">FlumeAUS</div>
                     <div class="media-type"><i class="fa fa-youtube-play"></i></div>
                     <div class="media-icon-container">
-                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
-                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
-                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus" data-toggle="tooltip" title="Add to Queue" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
+                      <div class="media-icon">
+                        <a class="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void"><i class="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                          <li class="dropdown-header">Add To:</li>
+                          <li><a href="#">Chill Ass Music</a></li>
+                          <li><a href="#">Comp Sci Lectures</a></li>
+                          <li><a href="#">The Trippiest Videos</a></li>
+                          <li><a href="#">Sick Music Videos</a></li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -773,9 +832,18 @@
                     <div class="media-artist">FlumeAUS</div>
                     <div class="media-type"><i class="fa fa-youtube-play"></i></div>
                     <div class="media-icon-container">
-                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
-                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
-                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus" data-toggle="tooltip" title="Add to Queue" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
+                      <div class="media-icon">
+                        <a class="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void"><i class="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                          <li class="dropdown-header">Add To:</li>
+                          <li><a href="#">Chill Ass Music</a></li>
+                          <li><a href="#">Comp Sci Lectures</a></li>
+                          <li><a href="#">The Trippiest Videos</a></li>
+                          <li><a href="#">Sick Music Videos</a></li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -789,9 +857,18 @@
                     <div class="media-artist">FlumeAUS</div>
                     <div class="media-type"><i class="fa fa-youtube-play"></i></div>
                     <div class="media-icon-container">
-                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
-                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
-                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus" data-toggle="tooltip" title="Add to Queue" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
+                      <div class="media-icon">
+                        <a class="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void"><i class="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                          <li class="dropdown-header">Add To:</li>
+                          <li><a href="#">Chill Ass Music</a></li>
+                          <li><a href="#">Comp Sci Lectures</a></li>
+                          <li><a href="#">The Trippiest Videos</a></li>
+                          <li><a href="#">Sick Music Videos</a></li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -831,8 +908,11 @@
 
               <div class="open-playlist-header">
                 <div class="open-playlist-text-container">
-                  <a class="icon-btn" href=""><div class="open-playlist-back-btn"><i class="fa fa-lg fa-chevron-left"></i></div></a>
-                  <div class="open-playlist-title">Chill Ass Music</div>
+                  <a class="icon-btn" href=""><div class="open-playlist-back-btn"><i class="fa fa-lg fa-chevron-circle-left"></i></div></a>
+                  <div class="open-playlist-title onclick-edit inactive">
+                    Chill Ass Music
+                    <a class="icon-btn-blue" href="javascript:void"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                  </div>
                   <div class="open-playlist-curator">
                     <div class="playlist-user-icon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></div>
                     Your Playlist
@@ -853,13 +933,13 @@
 
               <div class="search-container">
                 <form class="search-input">
-                  <input type="text" name="" placeholder="Search in Playlist..."></form>
+                  <input type="text" name="" placeholder="Search in Playlist..."/>
                 </form>
               </div>
 
               <div class="col-md-6 col-padding edit-playlist-card">
                 <div class="playlist-media-card media-card-added grabbable">
-                  <div class="media-card-added-corner"></div>
+                  <div class="media-card-added-corner-container"><div class="media-card-added-corner"></div></div>
                   <a class="media-card-added-x icon-btn-white" href="javascript:void">+</a>
                   <img class="media-img" src="images/media-icon.png"/>
                   <div class="media-text-container">
@@ -868,16 +948,25 @@
                     <div class="media-artist">FlumeAUS</div>
                     <div class="media-type"><i class="fa fa-youtube-play"></i></div>
                     <div class="media-icon-container">
-                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
-                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
-                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-list-ul" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-plus" data-toggle="tooltip" title="Add to Queue" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
+                      <div class="media-icon">
+                        <a class="icon-btn-blue-lite dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void"><i class="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                          <li class="dropdown-header">Add To:</li>
+                          <li><a href="#">Chill Ass Music</a></li>
+                          <li><a href="#">Comp Sci Lectures</a></li>
+                          <li><a href="#">The Trippiest Videos</a></li>
+                          <li><a href="#">Sick Music Videos</a></li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-6 col-padding edit-playlist-card">
                 <div class="playlist-media-card media-card-added grabbable">
-                  <div class="media-card-added-corner"></div>
+                  <div class="media-card-added-corner-container"><div class="media-card-added-corner"></div></div>
                   <a class="media-card-added-x icon-btn-white" href="javascript:void">+</a>
                   <img class="media-img" src="images/media-icon.png"/>
                   <div class="media-text-container">
@@ -886,16 +975,25 @@
                     <div class="media-artist">FlumeAUS</div>
                     <div class="media-type"><i class="fa fa-youtube-play"></i></div>
                     <div class="media-icon-container">
-                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
-                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
-                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-list-ul" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-plus" data-toggle="tooltip" title="Add to Queue" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
+                      <div class="media-icon">
+                        <a class="icon-btn-blue-lite dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void"><i class="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                          <li class="dropdown-header">Add To:</li>
+                          <li><a href="#">Chill Ass Music</a></li>
+                          <li><a href="#">Comp Sci Lectures</a></li>
+                          <li><a href="#">The Trippiest Videos</a></li>
+                          <li><a href="#">Sick Music Videos</a></li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-6 col-padding edit-playlist-card">
                 <div class="playlist-media-card media-card-added grabbable">
-                  <div class="media-card-added-corner"></div>
+                  <div class="media-card-added-corner-container"><div class="media-card-added-corner"></div></div>
                   <a class="media-card-added-x icon-btn-white" href="javascript:void">+</a>
                   <img class="media-img" src="images/media-icon.png"/>
                   <div class="media-text-container">
@@ -904,16 +1002,25 @@
                     <div class="media-artist">FlumeAUS</div>
                     <div class="media-type"><i class="fa fa-youtube-play"></i></div>
                     <div class="media-icon-container">
-                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
-                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
-                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-list-ul" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-plus" data-toggle="tooltip" title="Add to Queue" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
+                      <div class="media-icon">
+                        <a class="icon-btn-blue-lite dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void"><i class="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                          <li class="dropdown-header">Add To:</li>
+                          <li><a href="#">Chill Ass Music</a></li>
+                          <li><a href="#">Comp Sci Lectures</a></li>
+                          <li><a href="#">The Trippiest Videos</a></li>
+                          <li><a href="#">Sick Music Videos</a></li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-6 col-padding edit-playlist-card">
                 <div class="playlist-media-card media-card-added grabbable">
-                  <div class="media-card-added-corner"></div>
+                  <div class="media-card-added-corner-container"><div class="media-card-added-corner"></div></div>
                   <a class="media-card-added-x icon-btn-white" href="javascript:void">+</a>
                   <img class="media-img" src="images/media-icon.png"/>
                   <div class="media-text-container">
@@ -922,9 +1029,18 @@
                     <div class="media-artist">FlumeAUS</div>
                     <div class="media-type"><i class="fa fa-youtube-play"></i></div>
                     <div class="media-icon-container">
-                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
-                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
-                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-list-ul" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-plus" data-toggle="tooltip" title="Add to Queue" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
+                      <div class="media-icon">
+                        <a class="icon-btn-blue-lite dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void"><i class="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                          <li class="dropdown-header">Add To:</li>
+                          <li><a href="#">Chill Ass Music</a></li>
+                          <li><a href="#">Comp Sci Lectures</a></li>
+                          <li><a href="#">The Trippiest Videos</a></li>
+                          <li><a href="#">Sick Music Videos</a></li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -970,9 +1086,18 @@
                     <div class="search-media-type"><i class="fa fa-youtube-play"></i></div>
                   </div>
                   <div class="search-media-icon-container">
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg"></i></a></div>
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play"></i></a></div>
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul"></i></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg" data-toggle="tooltip" title="Add to Queue"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now"></i></a></div>
+                    <div class="search-media-icon">
+                      <a class="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void"><i class="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+                      <ul class="dropdown-menu dropdown-menu-right">
+                        <li class="dropdown-header">Add To:</li>
+                        <li><a href="#">Chill Ass Music</a></li>
+                        <li><a href="#">Comp Sci Lectures</a></li>
+                        <li><a href="#">The Trippiest Videos</a></li>
+                        <li><a href="#">Sick Music Videos</a></li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -985,9 +1110,18 @@
                     <div class="search-media-type"><i class="fa fa-vimeo"></i></div>
                   </div>
                   <div class="search-media-icon-container">
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg"></i></a></div>
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play"></i></a></div>
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul"></i></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg" data-toggle="tooltip" title="Add to Queue"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now"></i></a></div>
+                    <div class="search-media-icon">
+                      <a class="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void"><i class="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+                      <ul class="dropdown-menu dropdown-menu-right">
+                        <li class="dropdown-header">Add To:</li>
+                        <li><a href="#">Chill Ass Music</a></li>
+                        <li><a href="#">Comp Sci Lectures</a></li>
+                        <li><a href="#">The Trippiest Videos</a></li>
+                        <li><a href="#">Sick Music Videos</a></li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1000,9 +1134,18 @@
                     <div class="search-media-type"><i class="fa fa-soundcloud"></i></div>
                   </div>
                   <div class="search-media-icon-container">
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg"></i></a></div>
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play"></i></a></div>
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul"></i></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg" data-toggle="tooltip" title="Add to Queue"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now"></i></a></div>
+                    <div class="search-media-icon">
+                      <a class="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void"><i class="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+                      <ul class="dropdown-menu dropdown-menu-right">
+                        <li class="dropdown-header">Add To:</li>
+                        <li><a href="#">Chill Ass Music</a></li>
+                        <li><a href="#">Comp Sci Lectures</a></li>
+                        <li><a href="#">The Trippiest Videos</a></li>
+                        <li><a href="#">Sick Music Videos</a></li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1015,9 +1158,18 @@
                     <div class="search-media-type"><i class="fa fa-spotify"></i></div>
                   </div>
                   <div class="search-media-icon-container">
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg"></i></a></div>
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play"></i></a></div>
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul"></i></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg" data-toggle="tooltip" title="Add to Queue"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now"></i></a></div>
+                    <div class="search-media-icon">
+                      <a class="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void"><i class="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+                      <ul class="dropdown-menu dropdown-menu-right">
+                        <li class="dropdown-header">Add To:</li>
+                        <li><a href="#">Chill Ass Music</a></li>
+                        <li><a href="#">Comp Sci Lectures</a></li>
+                        <li><a href="#">The Trippiest Videos</a></li>
+                        <li><a href="#">Sick Music Videos</a></li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1030,9 +1182,18 @@
                     <div class="search-media-type"><i class="fa fa-youtube-play"></i></div>
                   </div>
                   <div class="search-media-icon-container">
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg"></i></a></div>
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play"></i></a></div>
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul"></i></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg" data-toggle="tooltip" title="Add to Queue"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now"></i></a></div>
+                    <div class="search-media-icon">
+                      <a class="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void"><i class="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+                      <ul class="dropdown-menu dropdown-menu-right">
+                        <li class="dropdown-header">Add To:</li>
+                        <li><a href="#">Chill Ass Music</a></li>
+                        <li><a href="#">Comp Sci Lectures</a></li>
+                        <li><a href="#">The Trippiest Videos</a></li>
+                        <li><a href="#">Sick Music Videos</a></li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1045,18 +1206,41 @@
                     <div class="search-media-type"><i class="fa fa-youtube-play"></i></div>
                   </div>
                   <div class="search-media-icon-container">
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg"></i></a></div>
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play"></i></a></div>
-                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul"></i></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg" data-toggle="tooltip" title="Add to Queue"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" data-toggle="tooltip" title="Play Now"></i></a></div>
+                    <div class="search-media-icon">
+                      <a class="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void"><i class="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+                      <ul class="dropdown-menu dropdown-menu-right">
+                        <li class="dropdown-header">Add To:</li>
+                        <li><a href="#">Chill Ass Music</a></li>
+                        <li><a href="#">Comp Sci Lectures</a></li>
+                        <li><a href="#">The Trippiest Videos</a></li>
+                        <li><a href="#">Sick Music Videos</a></li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
 
             </div>
+
+            <nav aria-label="page navigation">
+              <ul class="pagination">
+                <li><a href="#" aria-label="Previous"><i class="fa fa-angle-left"></i></a></li>
+                <li><a href="#">1</a></li>
+                <li class="active"><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#" aria-label="Next"><i class="fa fa-angle-right"></i></a></li>
+              </ul>
+            </nav>
+            
           </div>
 
         </div> <!-- end tabbed-content -->
-      </div><!-- end col-8 tabbed container -->
+      </div><!-- end tabbed-container -->
+
     </div><!-- end main container -->
 
 <!-- End Scripts -->

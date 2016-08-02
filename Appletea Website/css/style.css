@@ -4,7 +4,6 @@ body{
 	margin:0;
 	padding:0;
   font-family: Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-  background-color: #fff;
 }
 
 @font-face {
@@ -106,15 +105,12 @@ body{
 
 .header {
   width: 100%;
-  height:70px;
   background-color: #fff;
 }
 
 .header-logo {
-  width: 140px;
-  /*margin: auto;
-  display: block;*/
-  margin-top: 14px;
+  width: 170px;
+  padding: 14px;
   margin-left: 140px;
 }
 
@@ -123,7 +119,6 @@ body{
 
 .banner-container {
   background-color: #111;
-  width: 100%;
   height:506px;
   margin: auto;
 }
@@ -167,9 +162,28 @@ body{
 
 .room-header .room-name {
   display: inline-block;
+  width: 80%;
   font-size: 16px;
   font-weight: 100;
   color: #fff;
+}
+
+.room-header .edit-input {
+  background-color: #eee;
+  width: inherit;
+  color: #ddd;
+  font-weight: 100;
+  font-size: 16px;
+  background: #222;
+  border: none;
+  border-radius: 5px;
+  padding: 0px 6px 0px 6px;
+  outline: none;
+}
+
+.room-header .fa-edit {
+  padding-left: 6px;
+  font-size: 14px;
 }
 
 .room-header .users-list {
@@ -290,6 +304,7 @@ form {
 .main-container {
   background-color: #fff;
   width: 1200px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -297,7 +312,7 @@ form {
 /* Queue Column */
 
 .queue-container {
-  padding: 30px !important;
+  padding: 30px 15px !important;
 }
 
 .queue-header {
@@ -331,6 +346,7 @@ form {
   color: #111;
   font-weight: 100;
   font-size: 10px;
+  cursor: default;
 }
 
 .pill-blue {
@@ -358,7 +374,6 @@ form {
   margin-bottom: 12px;
   border-radius: 4px;
   display: inline-block;
-  overflow: hidden;
 
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none;   /* Chrome/Safari/Opera */
@@ -367,8 +382,6 @@ form {
   -ms-user-select: none;       /* Internet Explorer/Edge */
   user-select: none;           /* Non-prefixed version, currently
                                   not supported by any browser */
-  /* This fixes the overflow:hidden for rounded corners in Chrome */
-  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 }
 
 .media-img {
@@ -456,14 +469,25 @@ form {
 
 /* Corner Added Indicator, Rotate Plus on Hover */
 
+.media-card-added-corner-container{
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  border-radius: 4px;
+  overflow: hidden;
+  /* this fixes the overflow:hidden in Chrome */
+  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+
+}
+
 .media-card-added-corner {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    border-width: 0px 35px 35px 0px;
-    border-style: solid;
-    border-color: transparent #339199 transparent #339199;
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-width: 0px 35px 35px 0px;
+  border-style: solid;
+  border-color: transparent #339199 transparent #339199;
 }
 
 .media-card-added-plus {
@@ -499,24 +523,67 @@ form {
 /* Grab Cursor */
 
 .grabbable {
-    cursor: move; /* fallback if grab cursor is unsupported */
-    cursor: grab;
-    cursor: -moz-grab;
-    cursor: -webkit-grab;
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
 }
 
 .grabbable:active { 
-    cursor: grabbing;
-    cursor: -moz-grabbing;
-    cursor: -webkit-grabbing;
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+
+
+
+/* Pagination */
+nav {
+  text-align: center;
+}
+
+.queue-container nav .pagination {
+  margin-top: 6px;
+}
+
+.pagination li a {
+  border: none !important;
+}
+
+.pagination .fa {
+  font-size: 16px;
+}
+
+.pagination a {
+  color: #4bb9c3 !important;
+  background-color: transparent !important;
+}
+
+.pagination a:hover {
+  text-decoration: underline;
+  color: #339199 !important;
+  background-color: transparent !important;
+}
+
+.pagination .disabled a {
+  display: none;
+}
+
+.pagination .active a {
+  background-color: transparent !important;
+  color: #000 !important;
+  font-weight: bold !important;
+}
+
+.pagination .active a:hover {
+  text-decoration: none;
 }
 
 
 /* Navigation Tabs */
 
 .tabbed-container {
-  background-color: #fff;
-  padding: 20px 30px 30px 30px !important;
+  padding: 20px 15px 30px 15px !important;
 }
 
 .nav-tabs {
@@ -543,12 +610,18 @@ form {
 }
 
 
+/* Explore Randomizer */
+.randomizer-container {
+  padding: 16px 0px;
+  border-bottom: solid 1px #eee;
+}
+
+
 /* Global Search Bar and Dropdown */
 
 .search-container {
   position: relative;
   padding: 14px 7px 4px 7px;
-
 }
 
 .search-input input {
@@ -594,6 +667,12 @@ form {
 
 .dropdown-menu .fa {
   padding-right: 8px;
+}
+
+.dropdown-header {
+  color: #4bb9c3 !important;
+  font-weight: bold !important;
+
 }
 
 
@@ -658,7 +737,7 @@ form {
   font-size: 13px;
 }
 
-.playlist-pill {
+.playlist-card .pill {
   position: absolute;
   display: inline-block;
   background-color: #ddd;
@@ -705,7 +784,7 @@ form {
   color: #b3e1e6;
 }
 
-.user-playlist .playlist-pill {
+.user-playlist .pill {
   background-color: #339199;
   color: #fff;
 }
@@ -787,6 +866,19 @@ form {
   border-bottom: solid 1px #eee;
 }
 
+.edit-playlist-container .open-playlist-title .edit-input {
+  background-color: #eee;
+  border: none;
+  border-radius: 5px;
+  padding: 0px 6px 0px 6px;
+  outline: none;
+}
+
+.edit-playlist-container .fa-edit{
+  padding-left: 6px;
+  font-size: 14px;
+}
+
 .save-cancel {
   position: absolute;
   margin-left: 8px;
@@ -812,7 +904,7 @@ form {
 
 .trash-playlist-btn {
   position: absolute;
-  right: 38px;
+  right: 22px;
 }
 
 .user-heart {
@@ -829,7 +921,6 @@ form {
   width: 100%;
   border-radius: 4px;
   display: inline-block;
-  overflow: hidden;
 
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none;   /* Chrome/Safari/Opera */
@@ -838,8 +929,6 @@ form {
   -ms-user-select: none;       /* Internet Explorer/Edge */
   user-select: none;           /* Non-prefixed version, currently
                                   not supported by any browser */
-  /* This fixes the overflow:hidden for rounded corners in Chrome */
-  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 }
 
 
@@ -950,6 +1039,11 @@ a.icon-btn-white:visited {color:#fff; text-decoration:none;}
 a.icon-btn-white:hover {color:#fff; text-decoration:none;}
 a.icon-btn-white:active {color:#fff; text-decoration:none;}
 
+a.icon-btn-dark:link {color:#444; text-decoration:none;}
+a.icon-btn-dark:visited {color:#444; text-decoration:none;}
+a.icon-btn-dark:hover {color:#4bb9c3; text-decoration:none;}
+a.icon-btn-dark:active {color:#4bb9c3; text-decoration:none;}
+
 a.playlist-link:link {color: #4bb9c3; text-decoration:none;}
 a.playlist-link:visited {color: #4bb9c3; text-decoration:none;}
 a.playlist-link:hover {color: #4bb9c3; text-decoration: underline;}
@@ -972,5 +1066,57 @@ a.curator-link:active {color: #666; text-decoration: underline;}
 
 /* Media queries */
 
-@media only screen and (min-resolution: 117dpi) and (max-resolution: 119dpi), only screen and (min-resolution: 131dpi) and (max-resolution: 133dpi), only screen and (min-resolution: 145dpi) and (max-resolution: 154dpi), only screen and (min-resolution: 162dpi) and (max-resolution: 164dpi), only screen and (min-resolution: 169dpi) {
+/*@media only screen and (min-resolution: 117dpi) and (max-resolution: 119dpi), only screen and (min-resolution: 131dpi) and (max-resolution: 133dpi), only screen and (min-resolution: 145dpi) and (max-resolution: 154dpi), only screen and (min-resolution: 162dpi) and (max-resolution: 164dpi), only screen and (min-resolution: 169dpi) {
+}*/
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+
+/*Header*/
+.header-logo {
+  display: block;
+  margin: auto;
+}
+
+/*Vid Chat Banner*/
+.banner-container {
+  height:auto;
+}
+
+.vid-chat-container {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.video-container {
+  float: none;
+  width: 100%;
+  height: auto;
+}
+
+.chatbox-container {
+  display: none;
+}
+
+/*Main Container*/
+.main-container {
+  width: 100%;
+}
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+
+
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+
 }
