@@ -1,27 +1,28 @@
+/* Sets Up Plyr Plugin */
+plyr.setup();
+
+/* Drag Arrange for Queue*/
 $(function() {
   $('.media-card').arrangeable(
   );
 });
 
+$(function() {
+  $('.edit-playlist-card').arrangeable(
+  );
+});
+
+/* Like and Shuffle Icon Toggle */
 $('.like-btn').click(function(){
     $(this).find('i').toggleClass('fa-heart-o fa-heart')
 });
+
+
 
 $('.shfl-btn').click(function(){
     $(this).find('i').toggleClass('active')
 });
 
-// Volume Slider with Jquery
-$('#vol-slider').slider({
-	formatter: function(value) {
-		return 'Current value: ' + value;
-	}
-});
-
-$(document).ready(function() {
-	$('#vol-slider').slider({
-      	formatter: function(value) {
-        	return 'Current value: ' + value;
-      	}
-    });
-});
+/* Chat Scrolled to Bottom on Load */
+var chat = $('.chat');
+chat.scrollTop(chat.prop("scrollHeight"));

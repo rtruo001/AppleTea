@@ -9,7 +9,7 @@
     ========================================================================== */
 
 /*  =============================================================================
-    Function setYoutubeObj
+    Function initializeYoutubeObj
 
     Sets the youtubeObj variable with the given Youtube data
     ========================================================================== */
@@ -17,20 +17,37 @@ function initializeYoutubeObj(youtubeVideoData) {
   youtubeObj.youtubeVideoId = youtubeVideoData.videoId;
   youtubeObj.youtubeStartTime = youtubeVideoData.elapsedTime;
   youtubeObj.youtubeElapsedTime = youtubeVideoData.elapsedTime;
-  youtubeObj.youtubeCurrentState = MEDIAPLAYERSTATES.NONE;
+  youtubeObj.youtubeCurrentState = youtubeVideoData.state;
   youtubeObj.youtubeIfAlreadySentFromOneClient = false;
   youtubeObj.youtubeIfInitialized = true;
 }
 
 /*  =============================================================================
-    Function initializeYoutubeIFrame
+    Function resetYoutubeObj
+
+    Resets the youtubeObj variable to its initial state
+    ========================================================================== */
+function resetYoutubeObj() {
+  youtubeObj.youtubeVideoId =  null;
+  youtubeObj.youtubeStartTime =  null;
+  youtubeObj.youtubeElapsedTime =  null;
+  youtubeObj.youtubeCurrentState = MEDIAPLAYERSTATES.NONE;
+  youtubeObj.youtubeIfAlreadySentFromOneClient =  false;
+  youtubeObj.youtubeIfInitialized =  true;
+  
+  player.stopVideo();    
+  $('#media-player').hide();
+}
+
+/*  =============================================================================
+    Function initializeYoutubeIFrame (OLD VERSION)
 
     This function initializes and creates the <iframe> (and YouTube player). 
     onYoutubeIframeAPIREADY is automaticlly called after Iframe finishes initializing.
     ========================================================================== */
 function initializeYoutubeIFrame(youtubeMediaData) {
   // If Youtube player is already initialized, do not reinitialize it
-  if (youtubeObj.youtubeIfInitialized) {
+  if (youtubeObj.youtubeIfInitialized == true) {
     return;
   }
   initializeYoutubeObj(youtubeMediaData);
@@ -40,7 +57,34 @@ function initializeYoutubeIFrame(youtubeMediaData) {
   tag.src = "https://www.youtube.com/iframe_api";
   var firstScriptTag = document.getElementsByTagName('script')[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  // console.log("Initializing plyr");
+
+  // var instance = plyr.setup(document.getElementById('media-player'), {
+  //   seekTime: youtubeObj.youtubeStartTime
+  // });
+
+  // player = instance[0].plyr;
+
+  // player = plyr.setup(document.querySelector('.js-plyr')[0], {
+  //   seekTime: youtubeObj.youtubeStartTime
+  // });
+  // player.play();
 }
+
+/*  =============================================================================
+    Function initializeYoutubeIFrame
+
+    This function initializes and creates the <iframe> (and YouTube player). 
+    onYoutubeIframeAPIREADY is automaticlly called after Iframe finishes initializing.
+    ========================================================================== */
+// function initializeYoutubeIFrame() {
+//   // This code loads the Youtube IFrame Player API code asynchronously.
+//   var tag = document.createElement('script');
+//   tag.src = "https://www.youtube.com/iframe_api";
+//   var firstScriptTag = document.getElementsByTagName('script')[0];
+//   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+// }
 
 /*  =============================================================================
     Function onYouTubeIframeAPIReady
@@ -74,6 +118,11 @@ function onYouTubeIframeAPIReady() {
     returns information for the current client Youtube video to play at the elapsed time.
     ========================================================================== */
 function onPlayerReady(event) {
+  if (youtubeObj.youtubeCurrentState == MEDIAPLAYERSTATES.NONE) {
+    player.stopVideo();    
+    $('#media-player').hide();
+    return;
+  }
   socket.emit("From Client: Get media player states", 0);  
 }
 
@@ -107,13 +156,35 @@ function onPlayerStateChange(event) {
     }
     youtubeObj.youtubeIfAlreadySentFromOneClient = false;
   }
+
+  if(event.data == YT.PlayerState.ENDED) {
+    youtubeObj.youtubeCurrentState = MEDIAPLAYERSTATES.NONE;
+    if (youtubeObj.youtubeIfAlreadySentFromOneClient == false) {
+      socket.emit('From Client: Media player has ended', true);
+    }
+    youtubeObj.youtubeIfAlreadySentFromOneClient = false;
+  }
+}
+
+function youtubeLoadVideo(youtubeData) {
+  console.log("Loading");
+  if(player != null) {
+    $('#media-player').show();
+    // plyr
+    // player.source({
+    //   type:       'video',
+    //   title:      'Example title',
+    //   sources: [{
+    //       src:    youtubeData.videoId,
+    //       type:   'youtube'
+    //   }]
+    // });
+    youtubeObj.youtubeIfAlreadySentFromOneClient = youtubeData.ifAlreadySentFromClient;
+    player.loadVideoById(youtubeData.videoId, 0, "large");
+  }
 }
 
 function youtubePlayVideo(youtubeData) {
-  // if (youtubeData.ifAlreadySentFromClient == null || youtubeData.ifAlreadySentFromClient == undefined) {
-  //   youtubeData.ifAlreadySentFromClient = false;
-  // }
-
   if(player != null) {
     youtubeObj.youtubeIfAlreadySentFromOneClient = youtubeData.ifAlreadySentFromClient;
     player.playVideo();
@@ -122,10 +193,6 @@ function youtubePlayVideo(youtubeData) {
 }
 
 function youtubePauseVideo(youtubeData) {
-  // if (youtubeData.ifAlreadySentFromClient == null || youtubeData.ifAlreadySentFromClient == undefined) {
-  //   youtubeData.ifAlreadySentFromClient = false;
-  // }
-
   if(player != null) {
     youtubeObj.youtubeIfAlreadySentFromOneClient = youtubeData.ifAlreadySentFromClient;
     player.pauseVideo();

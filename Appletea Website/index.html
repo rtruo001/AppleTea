@@ -7,17 +7,19 @@
   	<title>Apple Tea</title>
     <link rel="shortcut icon" href="images/fav.png"/>
 
+<!-- CSS -->
+
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/bootstrap-slider.css"/>
     <link rel="stylesheet" href="css/plyr.css">
-
-    <!-------- FONTS -------->
     <link rel="stylesheet" href="css/font-awesome.min.css">
 
   </head>
 
   <body>
+
+<!-- Header -->
+
     <div class="header">
       <img class="header-logo" src="images/logo.png">
     </div>
@@ -25,734 +27,1047 @@
     <div class="banner-container">
       <div class="vid-chat-container">
 
+<!-- Video -->
+
         <div class="video-container">
-          <!--<img class="video" src="images/vid-bg.jpg"/>-->
-          <div data-type="youtube" data-video-id="A17rVbNTtrg"></div>
-
-          <!--        
-          <div class="player-container">
-            <div class="track"></div>
-            <div class="track-loaded"></div>
-            <div class="track-left"></div>
-            <div class="track-mark"></div>
-
-            <div class="player-control">
-              <div class="btn-play"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
-              <div class="btn-next"><a class="icon-btn" href="javascript:void"><i class="fa fa-step-forward" aria-hidden="true"></i></a></div>
-              <div class="btn-vol"><a class="icon-btn" href="javascript:void"><i class="fa fa-volume-up" aria-hidden="true"></i></a></div>
-              
-              <input id="vol-slider" data-slider-id='vol-slider1' type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="14"/>
-            </div>
-          </div>
-          -->
-
+          <div data-type="youtube" data-video-id="A17rVbNTtrg "></div>
         </div>
 
+<!-- Chatbox -->
+
         <div class="chatbox-container">
+
           <div class="room-header">
-            <div>Vent Room</div>
+            <div class="room-name">Vent Room</div>
+            <div class="users-list">
+              3
+              <i class="fa fa-users"></i>
+              <i class="fa fa-circle online-status status status-online"></i>
+            </div>
           </div>
 
           <div class="chat" onmouseover="document.body.style.overflow='hidden';" onmouseout="document.body.style.overflow='auto';">
-           <div class="chat-msg"><div class="name">Ranz:</div><div class="msg">sup</div></div>
-           <div class="chat-msg"><div class="name">Minz:</div><div class="msg">yo</div></div>
-           <div class="chat-msg"><div class="name">Ranz:</div><div class="msg">this is pretty sick</div></div>
-           <div class="chat-msg-user"><div class="msg">sup sup gliu in the haus</div></div>
-           <div class="chat-msg"><div class="name">Minz:</div><div class="msg">yeeet boi</div><div class="msg">this is a consecutive message from one user that tests the max width of each chat message.</div></div>
-
-           <div class="chat-msg-user"><div class="msg">this also tests the boundaries of a chat box, except from the user perspective. lorem ipsum lorem yeet.</div></div>
-
-           <div class="chat-msg"><div class="name">Ranz:</div><div class="msg">sup</div></div>
-           <div class="chat-msg"><div class="name">Minz:</div><div class="msg">yo</div></div>
-           <div class="chat-msg"><div class="name">Ranz:</div><div class="msg">this is pretty sick</div></div>
-           <div class="chat-msg-user"><div class="msg">sup sup gliu in the haus</div></div>
-           <div class="chat-msg"><div class="name">Minz:</div><div class="msg">yeeet boi</div></div>
-
-           <div class="chat-msg-user"><div class="msg">this also tests the boundaries of a chat box, except from the user perspective. lorem ipsum lorem yeet.</div></div>
+            <div class="chat-load"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></div>
+            <div class="chat-msg"><div class="name">Ranz:</div><div class="msg">sup</div></div>
+            <div class="chat-notif">4:20PM</div>
+            <div class="chat-msg"><div class="name">Minz:</div><div class="msg">yo</div></div>
+            <div class="chat-msg"><div class="name">Ranz:</div><div class="msg">this is pretty sick</div></div>
+            <div class="chat-notif">Gliu joined the room</div>
+            <div class="chat-msg-user"><div class="msg">sup sup gliu in the haus</div></div>
+            <div class="chat-msg"><div class="name">Minz:</div><div class="msg">yeeet boi</div><div class="msg">hi</div><div class="msg">this is a consecutive message from one user that tests the max width of each chat message.</div></div>
+            <div class="chat-notif">6:60PM</div>
+            <div class="chat-msg"><div class="name">Minz:</div><div class="msg">this is a consecutive message from one user that tests the max width of each chat message.</div></div>
+            <div class="chat-msg-user"><div class="msg">testing</div><div class="msg">this also tests the boundaries of a chat box, except from the user perspective. lorem ipsum lorem yeet.</div></div>
+            <div class="chat-msg"><div class="name">Ranz:</div><div class="msg">sup</div></div>
+            <div class="chat-msg"><div class="name">Minz:</div><div class="msg">yo</div></div>
+            <div class="chat-msg"><div class="name">Ranz:</div><div class="msg">this is pretty sick</div></div>
+            <div class="chat-notif">Kchiao was added to the VentRoom</div>
+            <div class="chat-notif">Randy left the room</div>
+            <div class="chat-notif">Randy joined the room</div>
+            <div class="chat-msg-user"><div class="msg">sup sup gliu in the haus</div></div>
+            <div class="chat-msg"><div class="name">Minz:</div><div class="msg">yeeet boi</div></div>
+            <div class="chat-msg-user"><div class="msg">this also tests the boundaries of a chat box, except from the user perspective. lorem ipsum lorem yeet.</div></div>
           </div>
 
-          <div class="chat-type">
-            <form id="chat-input">
-              <input type="text" class="chat-textbox" name="" placeholder="Type a message..."></form>
+          <div class="chat-input-container">
+            <form class="chat-input">
+              <input type="text" name="" placeholder="Type a message..."></form>
             </form>
           </div>
-
         </div>
 
-      </div>
-    </div>
+      </div><!-- end vid-chat-container -->
+    </div><!-- end banner-container -->
 
     <div class="main-container">
 
-        <div class="col-xs-4 queue-container">
-          <div class="queue-header">
-            <div class="queue-title-container">
-              <div class="queue-title">Chill Ass Music</div>
-              <div class="pill">27</div>
-              <div class="pill pill-blue">+1</div>
-            </div>
-            <div class="queue-icon-container">
-              <div class="queue-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-square-o" aria-hidden="true"></i></a></div>
-              <div class="queue-icon like-btn"><a class="icon-btn" href="javascript:void"><i class="fa fa-heart-o" aria-hclassden="true"></i></a></div>
-              <div class="queue-icon shfl-btn"><a class="icon-btn" href="javascript:void"><i class="fa fa-random" aria-hidden="true"></i></a></div>
+<!-- Queue List Column -->
+
+      <div class="col-xs-4 queue-container">
+
+        <div class="queue-header">
+          <div class="queue-title-container">
+            <div class="queue-title">Chill Ass Music</div>
+            <div class="pill">27</div>
+            <div class="pill pill-blue">+2</div>
+          </div>
+          <div class="queue-icon-container">
+            <div class="queue-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-square-o" aria-hidden="true"></i></a></div>
+            <div class="queue-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart-o" aria-hclassden="true"></i></a></div>
+            <div class="queue-icon shfl-btn"><a class="icon-btn" href="javascript:void"><i class="fa fa-random" aria-hidden="true"></i></a></div>
+          </div>
+        </div>
+
+        <div class="queue-body col-padding">
+
+          <div class="media-card media-card-added grabbable">
+            <div class="media-card-added-corner"></div>
+            <a class="media-card-added-plus icon-btn-white" href="">+</a>
+            <img class="media-img" src="images/media-icon.png"/>
+            <div class="media-next">PLAYING NEXT:</div>
+            <div class="number">1.</div>
+            <div class="media-text-container">
+              <div class="media-title">Flume - Say It feat. Tove Lo</div>
+              <div class="media-artist">FlumeAUS</div>
+              <div class="media-type"><i class="fa fa-youtube-play"></i></div>
+              <div class="media-icon-container">
+                <div class="media-icon"></div>
+                <a class="icon-btn-blue-lite" href="javascript:void"><div class="media-icon"><i class="fa fa-play" aria-hidden="true"></i></div></a>
+              </div>
             </div>
           </div>
-
-          <div class="queue-body col-md-12">
-            <div class="media-card media-card-added grabbable">
-              <img class="media-img" src="images/media-icon.png"/>
-              <div class="media-next">PLAYING NEXT:</div>
-              <div class="media-text">
-                <div class="media-title">Flume - Say It feat. Tove Lo</div>
-                <div class="media-artist">FlumeAUS</div>
-                <div class="media-added-note">Added to queue</div>
-                <div class="media-icons"><a class="icon-btn-dark" href="javascript:void"><i class="fa fa-remove" aria-hidden="true"></i></a></div>
-                <div class="media-icons"><a class="icon-btn-dark" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+          <div class="media-card media-card-added grabbable">
+            <div class="media-card-added-corner"></div>
+            <a class="media-card-added-plus icon-btn-white" href="">+</a>
+            <img class="media-img" src="images/media-icon.png"/>
+            <div class="number">2.</div>
+            <div class="media-text-container">
+              <div class="media-title">Flume - Say It feat. Tove Lo</div>
+              <div class="media-artist">FlumeAUS</div>
+              <div class="media-type"><i class="fa fa-vimeo"></i></div>
+              <div class="media-icon-container">
+                <a class="icon-btn-blue-lite" href="javascript:void"><div class="media-icon"><i class="fa fa-chevron-up" aria-hidden="true"></i></div></a>
+                <a class="icon-btn-blue-lite" href="javascript:void"><div class="media-icon"><i class="fa fa-play" aria-hidden="true"></i></a></div>
               </div>
             </div>
-            <div class="media-card grabbable">
-              <img class="media-img" src="images/media-icon.png"/>
-              <div class="media-text">
-                <div class="media-title">Flume - Say It feat. Tove Lo</div>
-                <div class="media-artist">FlumeAUS</div>
-                <div class="media-icons"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
-                <div class="media-icons"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+          </div>
+          <div class="media-card grabbable">
+            <img class="media-img" src="images/media-icon.png"/>
+            <div class="number">3.</div>
+            <div class="media-text-container">
+              <div class="media-title">Flume - Say It feat. Tove Lo</div>
+              <div class="media-artist">FlumeAUS</div>
+              <div class="media-type"><i class="fa fa-youtube-play"></i></div>
+              <div class="media-icon-container">
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
               </div>
             </div>
-            <div class="media-card grabbable">
-              <img class="media-img" src="images/media-icon.png"/>
-              <div class="media-text">
-                <div class="media-title">Flume - Say It feat. Tove Lo</div>
-                <div class="media-artist">FlumeAUS</div>
-                <div class="media-icons"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
-                <div class="media-icons"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+          </div>
+          <div class="media-card grabbable">
+            <img class="media-img" src="images/media-icon.png"/>
+            <div class="number">4.</div>
+            <div class="media-text-container">
+              <div class="media-title">Flume - Say It feat. Tove Lo</div>
+              <div class="media-artist">FlumeAUS</div>
+              <div class="media-type"><i class="fa fa-vimeo"></i></div>
+              <div class="media-icon-container">
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
               </div>
             </div>
-            <div class="media-card grabbable">
-              <img class="media-img" src="images/media-icon.png"/>
-              <div class="media-text">
-                <div class="media-title">Flume - Say It feat. Tove Lo</div>
-                <div class="media-artist">FlumeAUS</div>
-                <div class="media-icons"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
-                <div class="media-icons"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+          </div>
+          <div class="media-card grabbable">
+            <img class="media-img" src="images/media-icon.png"/>
+            <div class="number">5.</div>
+            <div class="media-text-container">
+              <div class="media-title">Flume - Say It feat. Tove Lo</div>
+              <div class="media-artist">FlumeAUS</div>
+              <div class="media-type"><i class="fa fa-youtube-play"></i></div>
+              <div class="media-icon-container">
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
               </div>
             </div>
-            <div class="media-card grabbable">
-              <img class="media-img" src="images/media-icon.png"/>
-              <div class="media-text">
-                <div class="media-title">Flume - Say It feat. Tove Lo</div>
-                <div class="media-artist">FlumeAUS</div>
-                <div class="media-icons"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
-                <div class="media-icons"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+          </div>
+          <div class="media-card grabbable">
+            <img class="media-img" src="images/media-icon.png"/>
+            <div class="number">6.</div>
+            <div class="media-text-container">
+              <div class="media-title">Flume - Say It feat. Tove Lo</div>
+              <div class="media-artist">FlumeAUS</div>
+              <div class="media-type"><i class="fa fa-youtube-play"></i></div>
+              <div class="media-icon-container">
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
               </div>
             </div>
-            <div class="media-card grabbable">
-              <img class="media-img" src="images/media-icon.png"/>
-              <div class="media-text">
-                <div class="media-title">Flume - Say It feat. Tove Lo</div>
-                <div class="media-artist">FlumeAUS</div>
-                <div class="media-icons"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
-                <div class="media-icons"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+          </div>
+          <div class="media-card grabbable">
+            <img class="media-img" src="images/media-icon.png"/>
+            <div class="number">7.</div>
+            <div class="media-text-container">
+              <div class="media-title">Flume - Say It feat. Tove Lo</div>
+              <div class="media-artist">FlumeAUS</div>
+              <div class="media-type"><i class="fa fa-soundcloud"></i></div>
+              <div class="media-icon-container">
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
               </div>
             </div>
-            <div class="media-card grabbable">
-              <img class="media-img" src="images/media-icon.png"/>
-              <div class="media-text">
-                <div class="media-title">Flume - Say It feat. Tove Lo</div>
-                <div class="media-artist">FlumeAUS</div>
-                <div class="media-icons"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
-                <div class="media-icons"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
-              </div>
-            </div>
-            <div class="media-card grabbable">
-              <img class="media-img" src="images/media-icon.png"/>
-              <div class="media-text">
-                <div class="media-title">Flume - Say It feat. Tove Lo</div>
-                <div class="media-artist">FlumeAUS</div>
-                <div class="media-icons"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
-                <div class="media-icons"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+          </div>
+          <div class="media-card grabbable">
+            <img class="media-img" src="images/media-icon.png"/>
+            <div class="number">8.</div>
+            <div class="media-text-container">
+              <div class="media-title">Flume - Say It feat. Tove Lo</div>
+              <div class="media-artist">FlumeAUS</div>
+              <div class="media-type"><i class="fa fa-soundcloud"></i></div>
+              <div class="media-icon-container">
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
+                <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
               </div>
             </div>
           </div>
 
         </div>
-        <div class="col-md-8 tabbed-container">
+      </div>
 
-          <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#explore">Explore </a></li>
-            <li><a data-toggle="tab" href="#myplaylists">Private Playlists</a></li>
-            <li><a data-toggle="tab" href="#search">Search</a></li>
-          </ul>
+<!-- Tab Navigation Bar -->
 
-          <div class="tab-content">
-            <div id="explore" class="tab-pane fade in active">
-              <div class="search-container">
-                <form class="search-input">
-                  <input type="text" class="chat-textbox" name="" placeholder="Search Public Playlists..."></form>
-                </form>
-              </div>
-              <div class="explore-container">
+      <div class="col-md-8 tabbed-container">
 
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#explore">Explore </a></li>
+          <li><a data-toggle="tab" href="#myplaylists">My Playlists</a></li>
+          <li><a data-toggle="tab" href="#search">Search</a></li>
+          <li><a data-toggle="tab" href="#open-playlist">Open Playlist</a></li>
+          <li><a data-toggle="tab" href="#edit-playlist">Edit Playlist</a></li>
+        </ul>
 
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">Vent Anon</div>
-                        </div>
-                        <div class="playlist-icons-container">
-                          <div class="playlist-icons like-btn"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
+        <div class="tab-content">
 
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">Vent Anon</div>
-                        </div>
-                        <div class="playlist-icons-container">
-                          <div class="playlist-icons like-btn"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
+<!-- Explore Tab -->
 
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">Vent Anon</div>
-                        </div>
-                        <div class="playlist-icons-container">
-                          <div class="playlist-icons like-btn"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
-
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">Vent Anon</div>
-                        </div>
-                        <div class="playlist-icons-container">
-                          <div class="playlist-icons like-btn"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
-
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">Vent Anon</div>
-                        </div>
-                        <div class="playlist-icons-container">
-                          <div class="playlist-icons like-btn"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
-
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">Vent Anon</div>
-                        </div>
-                        <div class="playlist-icons-container">
-                          <div class="playlist-icons like-btn"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
-
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">Vent Anon</div>
-                        </div>
-                        <div class="playlist-icons-container">
-                          <div class="playlist-icons like-btn"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
-
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">Vent Anon</div>
-                        </div>
-                        <div class="playlist-icons-container">
-                          <div class="playlist-icons like-btn"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
-
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">Vent Anon</div>
-                        </div>
-                        <div class="playlist-icons-container">
-                          <div class="playlist-icons like-btn"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
-
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">Vent Anon</div>
-                        </div>
-                        <div class="playlist-icons-container">
-                          <div class="playlist-icons like-btn"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
-
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">Vent Anon</div>
-                        </div>
-                        <div class="playlist-icons-container">
-                          <div class="playlist-icons like-btn"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
-
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">Vent Anon</div>
-                        </div>
-                        <div class="playlist-icons-container">
-                          <div class="playlist-icons like-btn"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-              </div>
+          <div id="explore" class="tab-pane fade in active">
+            <div class="search-container">
+              <form class="search-input">
+                <input type="text" placeholder="Search Public Playlists..."></form>
+              </form>
             </div>
-            <div id="myplaylists" class="tab-pane fade">
-              <div class="search-container">
-                <form class="search-input">
-                  <input type="text" class="chat-textbox" name="" placeholder="Search Private Playlists..."></form>
-                </form>
+            <div class="explore-container">
+
+              <div class="col-md-3 col-padding">
+                  <div class="playlist-card">
+                    <div class="playlist-img-container">
+                      <a href="">
+                        <div class="playlist-overlay">
+                          <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                          PLAY ALL
+                        </div>
+                      </a>
+                      <img class="playlist-img" src="images/media-icon.png">
+                    </div>
+                    <div class="playlist-text-container">
+                      <div class="playlist-title">
+                        <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a> <!--delete data toggle -->
+                        <div class="playlist-pill">27</div>
+                      </div>
+                      <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
+                    </div>
+                    <div class="playlist-icon-container">
+                      <div class="playlist-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-3 col-padding">
+                  <div class="playlist-card">
+                    <div class="playlist-img-container">
+                      <a href="">
+                        <div class="playlist-overlay">
+                          <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                          PLAY ALL
+                        </div>
+                      </a>
+                      <img class="playlist-img" src="images/media-icon.png">
+                    </div>
+                    <div class="playlist-text-container">
+                      <div class="playlist-title">
+                        <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
+                        <div class="playlist-pill">27</div>
+                      </div>
+                      <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
+                    </div>
+                    <div class="playlist-icon-container">
+                      <div class="playlist-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-3 col-padding">
+                  <div class="playlist-card">
+                    <div class="playlist-img-container">
+                      <a href="">
+                        <div class="playlist-overlay">
+                          <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                          PLAY ALL
+                        </div>
+                      </a>
+                      <img class="playlist-img" src="images/media-icon.png">
+                    </div>
+                    <div class="playlist-text-container">
+                      <div class="playlist-title">
+                        <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
+                        <div class="playlist-pill">27</div>
+                      </div>
+                      <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
+                    </div>
+                    <div class="playlist-icon-container">
+                      <div class="playlist-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-3 col-padding">
+                  <div class="playlist-card">
+                    <div class="playlist-img-container">
+                      <a href="">
+                        <div class="playlist-overlay">
+                          <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                          PLAY ALL
+                        </div>
+                      </a>
+                      <img class="playlist-img" src="images/media-icon.png">
+                    </div>
+                    <div class="playlist-text-container">
+                      <div class="playlist-title">
+                        <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
+                        <div class="playlist-pill">27</div>
+                      </div>
+                      <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
+                    </div>
+                    <div class="playlist-icon-container">
+                      <div class="playlist-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-3 col-padding">
+                  <div class="playlist-card">
+                    <div class="playlist-img-container">
+                      <a href="">
+                        <div class="playlist-overlay">
+                          <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                          PLAY ALL
+                        </div>
+                      </a>
+                      <img class="playlist-img" src="images/media-icon.png">
+                    </div>
+                    <div class="playlist-text-container">
+                      <div class="playlist-title">
+                        <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
+                        <div class="playlist-pill">27</div>
+                      </div>
+                      <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
+                    </div>
+                    <div class="playlist-icon-container">
+                      <div class="playlist-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-3 col-padding">
+                  <div class="playlist-card">
+                    <div class="playlist-img-container">
+                      <a href="">
+                        <div class="playlist-overlay">
+                          <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                          PLAY ALL
+                        </div>
+                      </a>
+                      <img class="playlist-img" src="images/media-icon.png">
+                    </div>
+                    <div class="playlist-text-container">
+                      <div class="playlist-title">
+                        <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
+                        <div class="playlist-pill">27</div>
+                      </div>
+                      <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
+                    </div>
+                    <div class="playlist-icon-container">
+                      <div class="playlist-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-3 col-padding">
+                  <div class="playlist-card">
+                    <div class="playlist-img-container">
+                      <a href="">
+                        <div class="playlist-overlay">
+                          <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                          PLAY ALL
+                        </div>
+                      </a>
+                      <img class="playlist-img" src="images/media-icon.png">
+                    </div>
+                    <div class="playlist-text-container">
+                      <div class="playlist-title">
+                        <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
+                        <div class="playlist-pill">27</div>
+                      </div>
+                      <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
+                    </div>
+                    <div class="playlist-icon-container">
+                      <div class="playlist-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-3 col-padding">
+                  <div class="playlist-card">
+                    <div class="playlist-img-container">
+                      <a href="">
+                        <div class="playlist-overlay">
+                          <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                          PLAY ALL
+                        </div>
+                      </a>
+                      <img class="playlist-img" src="images/media-icon.png">
+                    </div>
+                    <div class="playlist-text-container">
+                      <div class="playlist-title">
+                        <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
+                        <div class="playlist-pill">27</div>
+                      </div>
+                      <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
+                    </div>
+                    <div class="playlist-icon-container">
+                      <div class="playlist-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-3 col-padding">
+                  <div class="playlist-card">
+                    <div class="playlist-img-container">
+                      <a href="">
+                        <div class="playlist-overlay">
+                          <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                          PLAY ALL
+                        </div>
+                      </a>
+                      <img class="playlist-img" src="images/media-icon.png">
+                    </div>
+                    <div class="playlist-text-container">
+                      <div class="playlist-title">
+                        <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
+                        <div class="playlist-pill">27</div>
+                      </div>
+                      <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
+                    </div>
+                    <div class="playlist-icon-container">
+                      <div class="playlist-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-3 col-padding">
+                  <div class="playlist-card">
+                    <div class="playlist-img-container">
+                      <a href="">
+                        <div class="playlist-overlay">
+                          <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                          PLAY ALL
+                        </div>
+                      </a>
+                      <img class="playlist-img" src="images/media-icon.png">
+                    </div>
+                    <div class="playlist-text-container">
+                      <div class="playlist-title">
+                        <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
+                        <div class="playlist-pill">27</div>
+                      </div>
+                      <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
+                    </div>
+                    <div class="playlist-icon-container">
+                      <div class="playlist-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-3 col-padding">
+                  <div class="playlist-card">
+                    <div class="playlist-img-container">
+                      <a href="">
+                        <div class="playlist-overlay">
+                          <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                          PLAY ALL
+                        </div>
+                      </a>
+                      <img class="playlist-img" src="images/media-icon.png">
+                    </div>
+                    <div class="playlist-text-container">
+                      <div class="playlist-title">
+                        <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
+                        <div class="playlist-pill">27</div>
+                      </div>
+                      <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
+                    </div>
+                    <div class="playlist-icon-container">
+                      <div class="playlist-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-3 col-padding">
+                  <div class="playlist-card">
+                    <div class="playlist-img-container">
+                      <a href="">
+                        <div class="playlist-overlay">
+                          <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                          PLAY ALL
+                        </div>
+                      </a>
+                      <img class="playlist-img" src="images/media-icon.png">
+                    </div>
+                    <div class="playlist-text-container">
+                      <div class="playlist-title">
+                        <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
+                        <div class="playlist-pill">27</div>
+                      </div>
+                      <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
+                    </div>
+                    <div class="playlist-icon-container">
+                      <div class="playlist-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
               </div>
 
-              <div class="private-container">
-
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card user-playlist">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
-
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">
-                            <div class="playlist-user-icon"><i class="fa fa-user" aria-hidden="true"></i></div>
-                            Your Playlist
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card user-playlist">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
-
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">
-                            <div class="playlist-user-icon"><i class="fa fa-user" aria-hidden="true"></i></div>
-                            Your Playlist
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
-
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">Vent Anon</div>
-                        </div>
-                        <div class="playlist-icons-container">
-                          <div class="playlist-icons like-btn"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
-
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">Vent Anon</div>
-                        </div>
-                        <div class="playlist-icons-container">
-                          <div class="playlist-icons like-btn"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
-
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">Vent Anon</div>
-                        </div>
-                        <div class="playlist-icons-container">
-                          <div class="playlist-icons like-btn"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
-
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">Vent Anon</div>
-                        </div>
-                        <div class="playlist-icons-container">
-                          <div class="playlist-icons like-btn"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-                <a class="playlist-link" href="javascript:void">
-                  <div class="col-md-3 col-padding">
-                      <div class="playlist-card">
-                        <div class="playlist-img-container">
-                          <div class="playlist-overlay">
-                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
-                            PLAY ALL
-                          </div>
-
-                          <img class="playlist-img" src="images/media-icon.png">
-                        </div>
-                        <div class="playlist-text">
-                          <div class="playlist-title">
-                            <div class="playlist-title-text">Chill Ass Music</div>
-                            <div class="playlist-pill">27</div>
-                          </div>
-                          <div class="playlist-artist">Vent Anon</div>
-                        </div>
-                        <div class="playlist-icons-container">
-                          <div class="playlist-icons like-btn"><a class="icon-btn-lite" href="javascript:void"><i class="fa fa-heart-o" aria-hidden="true"></i></a></div>
-                        </div>
-                      </div>
-                  </div>
-                </a>
-              </div>
             </div>
-            <div id="search" class="tab-pane fade">
+          </div>
+
+<!-- My Playlist Tab -->
+
+          <div id="myplaylists" class="tab-pane fade">
+            <div class="search-container">
+              <form class="search-input">
+                <input type="text" name="" placeholder="Search My Playlists..."></form>
+              </form>
+            </div>
+
+            <div class="myplaylists-container">
+
+                <div class="col-md-3 col-padding">
+                    <div class="playlist-card user-playlist">
+                      <div class="playlist-img-container">
+                        <a href="">
+                          <div class="playlist-overlay">
+                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                            PLAY ALL
+                          </div>
+                        </a>
+                        <img class="playlist-img" src="images/media-icon.png">
+                      </div>
+                      <div class="playlist-text-container">
+                        <div class="playlist-title">
+                          <a class="playlist-link playlist-title-text" data-toggle="tab" href="#edit-playlist">Chill Ass Music</a>
+                          <div class="playlist-pill">27</div>
+                        </div>
+                        <div class="playlist-curator">
+                          <div class="playlist-user-icon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></div>
+                          Your Playlist
+                        </div>
+                      </div>
+                      <div class="playlist-icon-container">
+                        <div class="playlist-icon"><i class="fa fa-lock" aria-hidden="true"></i></div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-padding">
+                    <div class="playlist-card user-playlist">
+                      <div class="playlist-img-container">
+                        <a href="">
+                          <div class="playlist-overlay">
+                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                            PLAY ALL
+                          </div>
+                        </a>
+                        <img class="playlist-img" src="images/media-icon.png">
+                      </div>
+                      <div class="playlist-text-container">
+                        <div class="playlist-title">
+                          <a class="playlist-link playlist-title-text" data-toggle="tab" href="#edit-playlist">Chill Ass Music</a>
+                          <div class="playlist-pill">27</div>
+                        </div>
+                        <div class="playlist-curator">
+                          <div class="playlist-user-icon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></div>
+                          Your Playlist
+                        </div>
+                      </div>
+                      <div class="playlist-icon-container">
+                        <div class="playlist-icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-padding">
+                    <div class="playlist-card">
+                      <div class="playlist-img-container">
+                        <a href="">
+                          <div class="playlist-overlay">
+                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                            PLAY ALL
+                          </div>
+                        </a>
+                        <img class="playlist-img" src="images/media-icon.png">
+                      </div>
+                      <div class="playlist-text-container">
+                        <div class="playlist-title">
+                          <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
+                          <div class="playlist-pill">27</div>
+                        </div>
+                        <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
+                      </div>
+                      <div class="playlist-icon-container">
+                        <div class="playlist-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart" aria-hidden="true"></i></a></div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-padding">
+                    <div class="playlist-card">
+                      <div class="playlist-img-container">
+                        <a href="">
+                          <div class="playlist-overlay">
+                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                            PLAY ALL
+                          </div>
+                        </a>
+                        <img class="playlist-img" src="images/media-icon.png">
+                      </div>
+                      <div class="playlist-text-container">
+                        <div class="playlist-title">
+                          <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
+                          <div class="playlist-pill">27</div>
+                        </div>
+                        <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
+                      </div>
+                      <div class="playlist-icon-container">
+                        <div class="playlist-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart" aria-hidden="true"></i></a></div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-padding">
+                    <div class="playlist-card">
+                      <div class="playlist-img-container">
+                        <a href="">
+                          <div class="playlist-overlay">
+                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                            PLAY ALL
+                          </div>
+                        </a>
+                        <img class="playlist-img" src="images/media-icon.png">
+                      </div>
+                      <div class="playlist-text-container">
+                        <div class="playlist-title">
+                          <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
+                          <div class="playlist-pill">27</div>
+                        </div>
+                        <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
+                      </div>
+                      <div class="playlist-icon-container">
+                        <div class="playlist-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart" aria-hidden="true"></i></a></div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-padding">
+                    <div class="playlist-card">
+                      <div class="playlist-img-container">
+                        <a href="">
+                          <div class="playlist-overlay">
+                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                            PLAY ALL
+                          </div>
+                        </a>
+                        <img class="playlist-img" src="images/media-icon.png">
+                      </div>
+                      <div class="playlist-text-container">
+                        <div class="playlist-title">
+                          <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
+                          <div class="playlist-pill">27</div>
+                        </div>
+                        <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
+                      </div>
+                      <div class="playlist-icon-container">
+                        <div class="playlist-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart" aria-hidden="true"></i></a></div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-padding">
+                    <div class="playlist-card">
+                      <div class="playlist-img-container">
+                        <a href="">
+                          <div class="playlist-overlay">
+                            <div class="playlist-play-icon"><i class="fa fa-play" aria-hidden="true"></i></div>
+                            PLAY ALL
+                          </div>
+                        </a>
+                        <img class="playlist-img" src="images/media-icon.png">
+                      </div>
+                      <div class="playlist-text-container">
+                        <div class="playlist-title">
+                          <a class="playlist-link playlist-title-text" data-toggle="tab" href="#open-playlist">Chill Ass Music</a>
+                          <div class="playlist-pill">27</div>
+                        </div>
+                        <div class="playlist-curator"><a class="curator-link" href="">Vent Anon</a></div>
+                      </div>
+                      <div class="playlist-icon-container">
+                        <div class="playlist-icon"><a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart" aria-hidden="true"></i></a></div>
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+          </div>
+
+<!-- Open Playlist Hidden Tab -->
+
+          <div id="open-playlist" class="tab-pane fade">
+
+            <div class="open-playlist-container">
+
+              <div class="open-playlist-header">
+                <div class="open-playlist-text-container">
+                  <a class="icon-btn" href=""><div class="open-playlist-back-btn"><i class="fa fa-lg fa-chevron-left"></i></div></a>
+                  <div class="open-playlist-title">Chill Ass Music</div>
+                  <div class="open-playlist-curator">
+                    <a class="curator-link" href="">Gliu</a>
+                  </div>
+                </div>
+                <div class="open-playlist-right-container">
+                  <div class="open-playlist-icon-container">
+                    <i class="fa fa-youtube-play" aria-hidden="true"></i>
+                    <i class="fa fa-vimeo" aria-hidden="true"></i>
+                    <div class="pill">27 Items</div>
+                  </div>
+                  <div class="open-playlist-likes">
+                    <div class="open-playlist-likes-text">420</div>
+                    <a class="icon-btn like-btn" href="javascript:void"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                  </div>
+                </div>
+              </div>
+
               <div class="search-container">
                 <form class="search-input">
-                  <input type="text" class="chat-textbox" name="" placeholder="Search Youtube..."></form>
+                  <input type="text" name="" placeholder="Search in Playlist..."></form>
                 </form>
               </div>
 
-              <div class="search-media-container">
-                <div class="search-card-padding">
-                  <div class="search-media-card">
-                    <img class="search-media-icon" src="images/media-icon.png">
-                    <div class="search-media-text">
-                      <div class="search-media-title">Flume - Say It feat. Tove Lo</div>
-                      <div class="search-media-artist">FlumeAUS</div>
+              <div class="col-md-6 col-padding">
+                <div class="playlist-media-card">
+                  <img class="media-img" src="images/media-icon.png"/>
+                  <div class="media-text-container">
+                    <div class="media-title">Flume - Say It feat. Tove Lo</div>
+                    <div class="number">1.</div>
+                    <div class="media-artist">FlumeAUS</div>
+                    <div class="media-type"><i class="fa fa-youtube-play"></i></div>
+                    <div class="media-icon-container">
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul" aria-hidden="true"></i></a></div>
                     </div>
                   </div>
                 </div>
-                <div class="search-card-padding">
-                  <div class="search-media-card">
-                    <img class="search-media-icon" src="images/media-icon.png">
-                    <div class="search-media-text">
-                      <div class="search-media-title">Flume - Say It feat. Tove Lo</div>
-                      <div class="search-media-artist">FlumeAUS</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="search-card-padding">
-                  <div class="search-media-card">
-                    <img class="search-media-icon" src="images/media-icon.png">
-                    <div class="search-media-text">
-                      <div class="search-media-title">Flume - Say It feat. Tove Lo</div>
-                      <div class="search-media-artist">FlumeAUS</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="search-card-padding">
-                  <div class="search-media-card">
-                    <img class="search-media-icon" src="images/media-icon.png">
-                    <div class="search-media-text">
-                      <div class="search-media-title">Flume - Say It feat. Tove Lo</div>
-                      <div class="search-media-artist">FlumeAUS</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="search-card-padding">
-                  <div class="search-media-card">
-                    <img class="search-media-icon" src="images/media-icon.png">
-                    <div class="search-media-text">
-                      <div class="search-media-title">Flume - Say It feat. Tove Lo</div>
-                      <div class="search-media-artist">FlumeAUS</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="search-card-padding">
-                  <div class="search-media-card">
-                    <img class="search-media-icon" src="images/media-icon.png">
-                    <div class="search-media-text">
-                      <div class="search-media-title">Flume - Say It feat. Tove Lo</div>
-                      <div class="search-media-artist">FlumeAUS</div>
-                    </div>
-                  </div>
-                </div>
-
               </div>
+              <div class="col-md-6 col-padding">
+                <div class="playlist-media-card">
+                  <img class="media-img" src="images/media-icon.png"/>
+                  <div class="media-text-container">
+                    <div class="media-title">Flume - Say It feat. Tove Lo</div>
+                    <div class="number">2.</div>
+                    <div class="media-artist">FlumeAUS</div>
+                    <div class="media-type"><i class="fa fa-youtube-play"></i></div>
+                    <div class="media-icon-container">
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-padding">
+                <div class="playlist-media-card">
+                  <img class="media-img" src="images/media-icon.png"/>
+                  <div class="media-text-container">
+                    <div class="media-title">Flume - Say It feat. Tove Lo</div>
+                    <div class="number">3.</div>
+                    <div class="media-artist">FlumeAUS</div>
+                    <div class="media-type"><i class="fa fa-youtube-play"></i></div>
+                    <div class="media-icon-container">
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-padding">
+                <div class="playlist-media-card">
+                  <img class="media-img" src="images/media-icon.png"/>
+                  <div class="media-text-container">
+                    <div class="media-title">Flume - Say It feat. Tove Lo</div>
+                    <div class="number">4.</div>
+                    <div class="media-artist">FlumeAUS</div>
+                    <div class="media-type"><i class="fa fa-youtube-play"></i></div>
+                    <div class="media-icon-container">
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+<!-- User's Open Playlist Hidden Tab -->
+
+          <div id="edit-playlist" class="tab-pane fade">
+
+            <div class="edit-playlist-container">
+
+              <div class="edit-playlist-btn-container">
+                <div class="save-cancel">
+                  <button type="button" class="btn btn-primary">Save</button>
+                  <button type="button" class="btn btn-secondary">Cancel</button>
+                </div>
+                <div class="private-public">
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fa fa-lock dropdown-icon"></i>
+                      Private Playlist
+                      <i class="fa fa-angle-down dropdown-arrow"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a href="#"><i class="fa fa-lock"></i>Private Playlist</a></li>
+                      <li><a href="#"><i class="fa fa-globe"></i>Public Playlist</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <!--<div class="public-note"><i class="fa fa-globe dropdown-icon"></i>Public Playlist</div>-->
+
+                <button type="button" class="btn btn-trash trash-playlist-btn"><i class="fa fa-trash"></i></button>
+              </div>
+
+              <div class="open-playlist-header">
+                <div class="open-playlist-text-container">
+                  <a class="icon-btn" href=""><div class="open-playlist-back-btn"><i class="fa fa-lg fa-chevron-left"></i></div></a>
+                  <div class="open-playlist-title">Chill Ass Music</div>
+                  <div class="open-playlist-curator">
+                    <div class="playlist-user-icon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></div>
+                    Your Playlist
+                  </div>
+                </div>
+                <div class="open-playlist-right-container">
+                  <div class="open-playlist-icon-container">
+                    <i class="fa fa-youtube-play" aria-hidden="true"></i>
+                    <i class="fa fa-vimeo" aria-hidden="true"></i>
+                    <div class="pill">27 Items</div>
+                  </div>
+                  <div class="open-playlist-likes">
+                    <div class="open-playlist-likes-text">420</div>
+                    <i class="fa fa-heart user-heart" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="search-container">
+                <form class="search-input">
+                  <input type="text" name="" placeholder="Search in Playlist..."></form>
+                </form>
+              </div>
+
+              <div class="col-md-6 col-padding edit-playlist-card">
+                <div class="playlist-media-card media-card-added grabbable">
+                  <div class="media-card-added-corner"></div>
+                  <a class="media-card-added-x icon-btn-white" href="javascript:void">+</a>
+                  <img class="media-img" src="images/media-icon.png"/>
+                  <div class="media-text-container">
+                    <div class="media-title">Flume - Say It feat. Tove Lo</div>
+                    <div class="number">1.</div>
+                    <div class="media-artist">FlumeAUS</div>
+                    <div class="media-type"><i class="fa fa-youtube-play"></i></div>
+                    <div class="media-icon-container">
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-list-ul" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-padding edit-playlist-card">
+                <div class="playlist-media-card media-card-added grabbable">
+                  <div class="media-card-added-corner"></div>
+                  <a class="media-card-added-x icon-btn-white" href="javascript:void">+</a>
+                  <img class="media-img" src="images/media-icon.png"/>
+                  <div class="media-text-container">
+                    <div class="media-title">Flume - Say It feat. Tove Lo</div>
+                    <div class="number">2.</div>
+                    <div class="media-artist">FlumeAUS</div>
+                    <div class="media-type"><i class="fa fa-youtube-play"></i></div>
+                    <div class="media-icon-container">
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-list-ul" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-padding edit-playlist-card">
+                <div class="playlist-media-card media-card-added grabbable">
+                  <div class="media-card-added-corner"></div>
+                  <a class="media-card-added-x icon-btn-white" href="javascript:void">+</a>
+                  <img class="media-img" src="images/media-icon.png"/>
+                  <div class="media-text-container">
+                    <div class="media-title">Flume - Say It feat. Tove Lo</div>
+                    <div class="number">3.</div>
+                    <div class="media-artist">FlumeAUS</div>
+                    <div class="media-type"><i class="fa fa-youtube-play"></i></div>
+                    <div class="media-icon-container">
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-list-ul" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-padding edit-playlist-card">
+                <div class="playlist-media-card media-card-added grabbable">
+                  <div class="media-card-added-corner"></div>
+                  <a class="media-card-added-x icon-btn-white" href="javascript:void">+</a>
+                  <img class="media-img" src="images/media-icon.png"/>
+                  <div class="media-text-container">
+                    <div class="media-title">Flume - Say It feat. Tove Lo</div>
+                    <div class="number">4.</div>
+                    <div class="media-artist">FlumeAUS</div>
+                    <div class="media-type"><i class="fa fa-youtube-play"></i></div>
+                    <div class="media-icon-container">
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-plus" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-play" aria-hidden="true"></i></a></div>
+                      <div class="media-icon"><a class="icon-btn-blue-lite" href="javascript:void"><i class="fa fa-list-ul" aria-hidden="true"></i></a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
 
-        </div>
-    </div>
+<!-- Search -->
 
+          <div id="search" class="tab-pane fade">
 
-    <script src="js/script.js"></script>
+            <div class="search-container">
+              <form class="search-input search-input-dropdown">
+                <div class="input-group">
+                  <input type="text" name="" placeholder="Search Youtube..."/>
+                  <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fa fa-youtube-play dropdown-icon"></i>
+                      Youtube
+                      <i class="fa fa-angle-down dropdown-arrow"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                      <li><a href="#"><i class="fa fa-youtube-play"></i>Youtube</a></li>
+                      <li><a href="#"><i class="fa fa-vimeo"></i>Vimeo</a></li>
+                      <li><a href="#"><i class="fa fa-soundcloud"></i>SoundCloud</a></li>
+                      <li><a href="#"><i class="fa fa-spotify"></i>Spotify</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="search-media-container">
+
+              <div class="search-card-padding">
+                <div class="search-media-card">
+                  <img class="search-media-img" src="images/media-icon.png">
+                  <div class="search-media-text-container">
+                    <div class="search-media-title">Flume - Say It feat. Tove Lo</div>
+                    <div class="search-media-artist">FlumeAUS</div>
+                    <div class="search-media-type"><i class="fa fa-youtube-play"></i></div>
+                  </div>
+                  <div class="search-media-icon-container">
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul"></i></div>
+                  </div>
+                </div>
+              </div>
+              <div class="search-card-padding">
+                <div class="search-media-card">
+                  <img class="search-media-img" src="images/media-icon.png">
+                  <div class="search-media-text-container">
+                    <div class="search-media-title">Flume - Say It feat. Tove Lo</div>
+                    <div class="search-media-artist">FlumeAUS</div>
+                    <div class="search-media-type"><i class="fa fa-vimeo"></i></div>
+                  </div>
+                  <div class="search-media-icon-container">
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul"></i></div>
+                  </div>
+                </div>
+              </div>
+              <div class="search-card-padding">
+                <div class="search-media-card">
+                  <img class="search-media-img" src="images/media-icon.png">
+                  <div class="search-media-text-container">
+                    <div class="search-media-title">Flume - Say It feat. Tove Lo</div>
+                    <div class="search-media-artist">FlumeAUS</div>
+                    <div class="search-media-type"><i class="fa fa-soundcloud"></i></div>
+                  </div>
+                  <div class="search-media-icon-container">
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul"></i></div>
+                  </div>
+                </div>
+              </div>
+              <div class="search-card-padding">
+                <div class="search-media-card">
+                  <img class="search-media-img" src="images/media-icon.png">
+                  <div class="search-media-text-container">
+                    <div class="search-media-title">Flume - Say It feat. Tove Lo</div>
+                    <div class="search-media-artist">FlumeAUS</div>
+                    <div class="search-media-type"><i class="fa fa-spotify"></i></div>
+                  </div>
+                  <div class="search-media-icon-container">
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul"></i></div>
+                  </div>
+                </div>
+              </div>
+              <div class="search-card-padding">
+                <div class="search-media-card">
+                  <img class="search-media-img" src="images/media-icon.png">
+                  <div class="search-media-text-container">
+                    <div class="search-media-title">Flume - Say It feat. Tove Lo</div>
+                    <div class="search-media-artist">FlumeAUS</div>
+                    <div class="search-media-type"><i class="fa fa-youtube-play"></i></div>
+                  </div>
+                  <div class="search-media-icon-container">
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul"></i></div>
+                  </div>
+                </div>
+              </div>
+              <div class="search-card-padding">
+                <div class="search-media-card">
+                  <img class="search-media-img" src="images/media-icon.png">
+                  <div class="search-media-text-container">
+                    <div class="search-media-title">Flume - Say It feat. Tove Lo</div>
+                    <div class="search-media-artist">FlumeAUS</div>
+                    <div class="search-media-type"><i class="fa fa-youtube-play"></i></div>
+                  </div>
+                  <div class="search-media-icon-container">
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-plus fa-lg"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-play"></i></a></div>
+                    <div class="search-media-icon"><a class="icon-btn" href="javascript:void"><i class="fa fa-list-ul"></i></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div> <!-- end tabbed-content -->
+      </div><!-- end col-8 tabbed container -->
+    </div><!-- end main container -->
+
+<!-- End Scripts -->
+
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
     <script src="js/drag-arrange.min.js"></script>
-    <script src="js/bootstrap-slider.min.js"></script>
+    <script src="js/plyr.min.js"></script>
     <script src="js/script.js"></script>
 
-    <script src="js/plyr.js"></script>
-    <script>plyr.setup();</script>
-
-        <!-- Rangetouch to fix <input type="range"> on touch devices (see https://rangetouch.com) -->
-        <script src="https://cdn.rangetouch.com/0.0.9/rangetouch.js" async></script>
-
-        <!-- Sharing libary (https://shr.one) -->
-        <script src="https://cdn.shr.one/0.1.9/shr.js"></script>
-        <script>if(window.shr) { window.shr.setup({ count: { classname: 'btn__count' } }); }</script>
+    <script src="https://cdn.rangetouch.com/0.0.9/rangetouch.js" async></script><!-- Rangetouch to fix <input type="range"> on touch devices for plyr (see https://rangetouch.com) -->
 
   </body>
 </html>

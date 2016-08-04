@@ -16,7 +16,6 @@ var youtubeObj = {
   youtubeCurrentState: MEDIAPLAYERSTATES.NONE,
   youtubeIfAlreadySentFromOneClient: false,
   youtubeIfInitialized: false
-
 };
 
 // TODO: Move player into youtubeObj and change it to youtubePlayer
@@ -25,3 +24,4 @@ var player = null;
 // TODO: Soundcloud Object
 
 // TODO: Vimeo Object
+

@@ -34,3 +34,5 @@ const VOLUME_MAX = 100;
 
 // Position in the Queue for the media entry that would play next
 const PLAYNEXTMEDIAENTRYPOS = 0;
+
+const MAX_SEARCH_RESULTS = 10;

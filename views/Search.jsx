@@ -39,7 +39,8 @@ var Search = React.createClass({
       var request = gapi.client.youtube.search.list({
         q: query,
         part: 'id, snippet',
-        type: 'video'
+        type: 'video',
+        maxResults: MAX_SEARCH_RESULTS
       });
 
       // The binds are needed (Still need more of an explanation on this)
@@ -86,7 +87,8 @@ var Search = React.createClass({
             mediaType={'YOUTUBE'}
             thumbnail={jsonItem.snippet.thumbnails.default.url} 
             title={jsonItem.snippet.title}
-            artist={jsonItem.snippet.channelTitle} /> 
+            artist={jsonItem.snippet.channelTitle} 
+            ifMediaCardAdded={false} /> 
         );
       }
     }

@@ -23,18 +23,6 @@ function reinitializeDraggable(callback) {
   callback();
 }
 
-// Top of the queue component
-var TopOfQueueList = React.createClass({
-  render: function() {
-    return (
-      <div>
-        {this.props.currentTop}
-        Top of Queue
-      </div>
-    );
-  }
-});
-
 var ShuffleButton = React.createClass({
   render: function() {
     return (
@@ -67,7 +55,7 @@ var Queue = React.createClass({
     // Event handlers sent from server when medias are added to the queue
     socket.on('From Server: Initialize Queue', this.initializeQueue);
     socket.on('From Server: Push into queue', this.pushIntoQueue);
-    socket.on('From Server: Update queue with swaps', this.updateIndicesInQueue);
+    socket.on('From Server: Update queue with new queue', this.updateIndicesInQueue);
   },
 
   initializeQueue: function(mediaEntries) {
@@ -81,9 +69,6 @@ var Queue = React.createClass({
   },
 
   pushIntoQueue: function(mediaEntry) {
-    if (this.state.queueList.length <= 0) {
-      socket.emit('From Client: Initialize media player', mediaEntry);
-    }
     var queueListWithNewMediaEntry = this.state.queueList.concat(mediaEntry);
     this.setState({queueList: queueListWithNewMediaEntry}, function() {
       reinitializeDraggable(function() {
@@ -117,13 +102,13 @@ var Queue = React.createClass({
           mediaType={'YOUTUBE'}
           thumbnail={queueEntry.thumbnail} 
           title={queueEntry.title}
-          artist={queueEntry.artist} />
+          artist={queueEntry.artist} 
+          ifMediaCardAdded={queueEntry.ifMediaCardAdded} />
       );
     }
 
     return (
       <div>
-
         <div className="col-xs-4 queue-container">
           <div className="queue-header">
             <div className="queue-title-container">
@@ -133,9 +118,9 @@ var Queue = React.createClass({
               <div className="pill pill-blue">+{this.state.queueList.length}</div>
             </div>
             <div className="queue-icon-container">
-              <div className="queue-icon"><a className="icon-btn" href="javascript:void"><i className="fa fa-square-o" aria-hidden="true"></i></a></div>
-              <div className="queue-icon like-btn"><a className="icon-btn" href="javascript:void"><i className="fa fa-heart-o" aria-hclassden="true"></i></a></div>
-              <div className="queue-icon shfl-btn"><a className="icon-btn" href="javascript:void"><i className="fa fa-random" aria-hidden="true"></i></a></div>
+              <div className="queue-icon"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-square-o" aria-hidden="true"></i></a></div>
+              <div className="queue-icon like-btn"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-heart-o" aria-hclassden="true"></i></a></div>
+              <div className="queue-icon shfl-btn"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-random" aria-hidden="true"></i></a></div>
             </div>
           </div>
 
@@ -143,7 +128,6 @@ var Queue = React.createClass({
             {queueEntries}
           </div>
         </div>
-
       </div>
     );
   }

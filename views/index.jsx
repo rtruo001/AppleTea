@@ -55,9 +55,7 @@ var Index = React.createClass({
                 <div id="media-player-status-bar">
                   <MediaPlayer />
                 </div>
-                {
-                 //<div data-type="youtube" data-video-id="A17rVbNTtrg"></div>
-                }
+                
               </div>
 
               <div className="chatbox-container">
@@ -101,11 +99,9 @@ var Index = React.createClass({
           <script src="js/bootstrap.min.js"></script>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
           <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
           {/*<script src="js/bootstrap-slider.min.js"></script>*/}
 
           <script src="js/plyr.js"></script>
-          <script>plyr.setup();</script>
 
           {/* Rangetouch to fix <input type="range"> on touch devices (see https://rangetouch.com) */} 
           <script src="https://cdn.rangetouch.com/0.0.9/rangetouch.js" async></script>
@@ -134,7 +130,7 @@ var Index = React.createClass({
           <script src="js/script.js"></script>
 
           {/* Youtube API */} 
-          <script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>          
+          <script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>
           {/* <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script> */}
 
         </body>

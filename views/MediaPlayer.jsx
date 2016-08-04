@@ -21,7 +21,6 @@
     ========================================================================== */
 var React = require('react');
 var StatusBar = require('./StatusBar');
-var MediaEntry = require('./MediaEntry');
 
 /*  =============================================================================
     Function initializeYoutubeIFrame
@@ -89,8 +88,10 @@ var MediaPlayer = React.createClass({
     socket.on('From Server: Initialize media player', this.initializeMedia);
     socket.on('From Server: Send media player states', this.sendMediaPlayerStates);
     socket.on('From Server: Get elapsed time for specific client', this.getElapsedTimeForSpecificClient);
+    socket.on('From Server: Load media entry', this.loadMedia);
     socket.on('From Server: Play media', this.playMedia);
     socket.on('From Server: Pause media', this.pauseMedia);
+    socket.on('From Server: Change media player to none', this.changeMediaPlayerToNone);
 
     // When a new client joins the room, initializes the player state depending on the current state
     socket.emit('From Client: Entering page, check initial media player state', 0);
@@ -99,23 +100,15 @@ var MediaPlayer = React.createClass({
   // EVENT HANDLER: Initializes the media with with the data sent from the server
   initializeMedia: function(mediaData) {
     console.log("Initializing Media");
+    
     this.setState({mediaType: mediaData.mediaType}, function() {
-      switch(this.state.mediaType) {
-        case MEDIATYPES.YOUTUBE:
-          initializeYoutubeIFrame(mediaData);
-          break;
-        case MEDIATYPES.SOUNDCLOUD:
-          break;
-        case MEDIATYPES.VIMEO:
-          break;
-        case MEDIATYPES.NONE:
-          // TODO: Remove the players
-          break;
-        default:
-          // ERROR
-          console.log("ERROR: No media type");
-          break;
-      }
+      initializeYoutubeIFrame(mediaData);  
+      
+      // TODO: Initialize Soundcloud
+      // initializeSoundcloudPlayer(mediaData);  
+
+      // TODO: Initialize Vimeo
+      // initializeVimeoPlayer(mediaData);  
     });
   },
 
@@ -131,7 +124,7 @@ var MediaPlayer = React.createClass({
           pauseMediaByMediaType(mediaData);
           break;
         case MEDIAPLAYERSTATES.NONE:
-          // TODO: Remove the players
+          // EMPTY
           break;
         default:
           // ERROR
@@ -151,6 +144,30 @@ var MediaPlayer = React.createClass({
     });
   },
 
+  // EVENT HANDLER: Loads the specified media player
+  loadMedia: function(mediaData) {
+    this.setState({mediaType: mediaData.mediaType}, function() {
+      switch(this.state.mediaType) {
+        case MEDIATYPES.YOUTUBE:
+          youtubeLoadVideo(mediaData);
+          break;
+        case MEDIATYPES.SOUNDCLOUD:
+          // TODO: Load Soundcloud
+          break;
+        case MEDIATYPES.VIMEO:
+          // TODO: Load Vimeo
+          break;
+        case MEDIATYPES.NONE:
+          // TODO: Remove the players
+          break;
+        default:
+          // ERROR
+          console.log("ERROR: No media type");
+          break;
+      }
+    });
+  },
+
   // EVENT HANDLER: Plays media with given type
   playMedia: function(mediaData) {
     this.setState({mediaState: MEDIAPLAYERSTATES.PLAYING}, function() {
@@ -165,12 +182,19 @@ var MediaPlayer = React.createClass({
     });
   },
 
+  changeMediaPlayerToNone: function() {
+    resetYoutubeObj();
+  },
+
   render: function() {
     // Media player is loaded onto the media-player div
     return (
       <div>
-        <div id='media-player'></div>
+        <div id='media-player' className='js-plyr' data-type="youtube"></div>
+                
         {
+          // <div data-type="youtube" data-video-id="A17rVbNTtrg"></div>
+
           // TODO: Get the Status bar working
 
           // <div id='status-bar'>
