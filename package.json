@@ -1,6 +1,9 @@
 {
   "name": "AppleTea",
   "version": "0.0.0",
+  "engines": {
+    "node": "5.1.0"
+  },
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
