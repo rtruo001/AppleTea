@@ -191,7 +191,6 @@
       $elements = null;
       dragMoveHandler = null;
       dragEndHandler = null;
-      console.log("Destroyed");
     }
 
     this.eq(0).data('drag-arrange-destroy', destroy);

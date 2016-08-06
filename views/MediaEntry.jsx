@@ -180,7 +180,8 @@ var MediaEntry = React.createClass({
       thumbnail: this.props.thumbnail,
       title: this.props.title,
       artist: this.props.artist,
-      ifMediaCardAdded: true
+      ifMediaCardAdded: true,
+      posInQueue: this.props.pos
     }
     socket.emit('From Client: Delete media entry from queue', mediaEntry);
   },

@@ -67,7 +67,6 @@ var Index = React.createClass({
 
           {/* Queue and tabbed contents */}
           <div className="main-container">
-
             <div id='queue'>
               <Queue />
             </div>

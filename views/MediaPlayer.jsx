@@ -182,8 +182,12 @@ var MediaPlayer = React.createClass({
     });
   },
 
+  // EVENT HANDLER: When media player has ended
   changeMediaPlayerToNone: function() {
-    resetYoutubeObj();
+    console.log("ENDING: Media player");
+    this.setState({mediaState: MEDIAPLAYERSTATES.NONE}, function() {
+      resetYoutubeObj();
+    })
   },
 
   render: function() {
@@ -193,8 +197,6 @@ var MediaPlayer = React.createClass({
         <div id='media-player' className='js-plyr' data-type="youtube"></div>
                 
         {
-          // <div data-type="youtube" data-video-id="A17rVbNTtrg"></div>
-
           // TODO: Get the Status bar working
 
           // <div id='status-bar'>
