@@ -26,10 +26,8 @@ $('.mod-toggle').click(function(){
 });
 
 
-/* Chat Scrolled to Bottom on Load */
-var chat = $('.chat');
-chat.scrollTop(chat.prop("scrollHeight"));
-
+/* Chat Scrolled to Bottom on Window Load */
+$('.chat').scrollTop($('.chat')[0].scrollHeight);
 
 /* Tooltips */
 $(function () {
@@ -42,7 +40,6 @@ $('#page-overlay').click(function(){
     $('#page-overlay').toggle(false);
     hideOptions();
     hideUserList();
-    saveEdit('.onclick-edit');
 });
 
 
@@ -105,6 +102,32 @@ $('.users-list-edit-btn').click(function(){
 });
 
 
+/* Dyanmic Search When User Types (will need update when dyanmic search is implemented) */
+$('#search-user-input').keyup(function(event){
+    if(!$(this).hasClass('active')){
+        $(this).addClass('active');
+        $('.search-user-header').css('border-bottom','solid 1px #e5e5e5')
+        $('#search-user-list').css('display','block');
+    }
+});
+
+
+/* Select User in Add User Search */
+$('.search-user').click(function(){
+    if (!$(this).hasClass('active')) {
+        $(this).addClass('active');
+        $(this).find('.search-media-card').css('background-color','#4bb9c3');
+        $(this).find('.search-media-title').css('color','#fff');
+        $(this).find('.search-media-artist').css('color','#b3e1e6');
+    } else {
+        $(this).removeClass('active');
+        $(this).find('.search-media-card').css('background-color','#eee');
+        $(this).find('.search-media-title').css('color','#111');
+        $(this).find('.search-media-artist').css('color','#666');
+    }
+});
+
+
 /* Input On-Click Edit */
 function activateEdit(element) {
     var title = $.trim($(element).text()); /* whitespaces trimmed */
@@ -142,6 +165,12 @@ $('.onclick-edit').click(function(){
         $('#page-overlay').toggle(true);
         activateEdit(this);
     };
+    $('#page-overlay').click(function(){
+        $('#page-overlay').toggle(false);
+        if ($(e).hasClass('active')){
+            saveEdit(e);
+        };
+    });
 });
 
 $('.onclick-edit').keyup(function(event){

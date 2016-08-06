@@ -3,12 +3,8 @@ body {
   height: 100%;
 	margin:0;
 	padding:0;
-  font-family: Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-}
-
-@font-face {
-  font-family: Avenir;
-  src: url('../fonts/avenir.ttc');
+  font-family: 'Nunito', 'Avenir', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  font-weight: 300;
 }
 
 .row {
@@ -48,6 +44,7 @@ body {
 
 .btn {
   font-size: 13px !important;
+  font-weight: 300 !important;
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
@@ -174,6 +171,13 @@ body {
 }
 
 
+/* Profile Picture Circle */
+.profile-pic {
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+
 /* Rotates + to x */
 .rotate-x {
   -webkit-transform: rotate(45deg);
@@ -191,7 +195,7 @@ body {
 
 /* Modal Styles */
 .modal-dialog {
-  margin: 20% auto !important;
+  margin: 13% auto !important;
 }
 
 .modal-content {
@@ -213,12 +217,28 @@ body {
 .header {
   width: 100%;
   background-color: #fff;
+  display: block;
+  margin: auto;
+}
+
+.header-content-container {
+  width: 1100px;
+  margin: auto !important;
 }
 
 .header-logo {
   width: 170px;
   padding: 14px;
-  margin-left: 140px;
+}
+
+.header-profile-btn {
+  text-align: right;
+}
+
+.header .profile-pic {
+  width: 35px;
+  margin: 18px;
+  z-index: 120;
 }
 
 
@@ -226,22 +246,22 @@ body {
 
 .banner-container {
   background-color: #111;
-  height: 506px;
-  margin: auto;
+  height: 480px;
+  min-width: 1200px;
+  width: 100%;
 }
 
 
 /* Video */
 
 .vid-chat-container {
-  width: 1200px;
+  width: 1160px;
   margin: auto;
 }
 
 .video-container {
   float: left;
-  width: 900px;
-  height: 506px;
+  width: 854px;
   margin: 0px !important;
   background-color: #111;
 }
@@ -251,7 +271,7 @@ body {
 
 .chatbox-container {
   float: left;
-  width: 300px;
+  width: 306px;
   height: 100%;
 }
 
@@ -270,7 +290,6 @@ body {
   display: inline-block;
   width: 80%;
   font-size: 16px;
-  font-weight: 100;
   color: #fff;
 }
 
@@ -295,7 +314,6 @@ body {
   display: inline-block;
   float: right;
   font-size: 12px;
-  font-weight: 100;
   color: #fff;
   padding: 3px 8px;
   background-color: #222;
@@ -344,7 +362,7 @@ body {
 }
 
 .users-list-scroll-container {
-  max-height: 307px;
+  max-height: 288px;
   overflow: scroll;
 }
 
@@ -404,17 +422,66 @@ body {
   font-size: 12px !important;
 }
 
+.search-user-header {
+  border-bottom: none;
+}
+
+#search-user-list {
+  display: none;
+  max-height: 175px;
+  overflow: scroll;
+  padding: 6px 15px 15px 15px;
+}
+
+.search-user .search-media-card {
+  position: relative;
+  display: inline-block;
+  background-color: #eee;
+  width: 100%;
+  border-radius: 4px;
+  padding: 6px;
+}
+
+.search-user .search-media-card:hover {
+  background-color: #e6e6e6;
+}
+
+.search-user .search-media-img {
+  float: left;
+  width: 17%;
+}
+
+.search-user .search-media-text-container {
+  float: left;
+  width: auto;
+  padding: 0px 10px;
+  text-align: left;
+}
+
 
 /* Chatbox */
-
-.chat{
+.chat-load {
   position: relative;
-  padding:10px 20px 0px 20px;
-  overflow-y: scroll;
   height: 385px;
 }
 
-.chat-load {
+.chat-load-icon-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  margin-right: -50%;
+}
+
+.chat {
+  position: relative;
+  padding: 10px 20px 0px 50px;
+  overflow-y: scroll;
+  height: 360px;
+}
+
+.chat-load-icon {
   color: #4bb9c3;
   text-align: center;
   padding: 10px 0px 10px 0px;
@@ -424,7 +491,7 @@ body {
   width: 100%;
   text-align: center;
   font-size: 11px;
-  color: #444;
+  color: #666;
   padding: 4px 0px 10px 0px;
   display: inline-block;
 }
@@ -440,13 +507,18 @@ body {
   float: right;
   max-width: 75%;
   margin-bottom: 8px;
-  text-align: right;
   clear: both;
+}
+
+.chat-msg .profile-pic {
+  float: left;
+  clear: both;
+  width: 25px;
+  transform: translate(-34px, -28px);
 }
 
 .chat-msg .name {
   color:#666;
-  font-weight: 100;
   font-size: 10px;
   line-height: 10px;
   margin: 0px;
@@ -457,13 +529,12 @@ body {
   float: left;
   clear: both;
   color:#ddd;
-  font-weight: 100;
   font-size: 12px;
   line-height: 14px;
   margin: 0px;
   background-color: #222; 
   padding: 6px 10px 6px 10px;
-  border-radius: 10px;
+  border-radius: 12px;
   margin-bottom: 1px;
 }
 
@@ -471,13 +542,12 @@ body {
   float: right;
   clear: both;
   color: #eee;
-  font-weight: 100;
   font-size: 12px;
   line-height: 14px;
   margin: 0px;
   background-color: #4bb9c3;
   padding: 6px 10px 6px 10px;
-  border-radius: 10px;
+  border-radius: 12px;
   margin-bottom: 1px;
 }
 
@@ -494,7 +564,6 @@ form {
 
 .chat-input input {
   color: #ddd;
-  font-weight: 100;
   font-size: 12px;
   width: 100%;
   height: 32px;
@@ -539,7 +608,7 @@ form {
 .queue-title {
   display: inline-block;
   color: #000;
-  font-weight: bold;
+  font-weight: 400;
   font-size: 16px;
   margin: 0px 3px;
 }
@@ -551,7 +620,6 @@ form {
   border-radius: 10px;
   padding: 3px 7px;
   color: #111;
-  font-weight: 100;
   font-size: 10px;
   cursor: default;
 }
@@ -602,6 +670,7 @@ form {
   position: absolute;
   background-color: #222;
   font-size: 8px;
+  font-weight: 400;
   color: #fff;
   letter-spacing: 2px;
   padding: 6px;
@@ -700,7 +769,7 @@ form {
 
 .media-card-added-plus {
   position: absolute;
-  font-weight: 600;
+  font-family: 'Arial', serif;
   color: #fff;
   top: 0px;
   right: 0px;
@@ -717,7 +786,7 @@ form {
 
 .media-card-added-x {
   position: absolute;
-  font-weight: 600;
+  font-family: 'Arial', serif;
   color: #fff;
   top: 0px;
   right: 0px;
@@ -785,7 +854,7 @@ nav {
 }
 
 .pagination .active a {
-  font-weight: bold !important;
+  font-weight: 400 !important;
   color: #000 !important;
   background-color: #f2f2f2 !important;
 }
@@ -814,7 +883,7 @@ nav {
 
 .nav-tabs .active a {
   background-color: #fff !important;
-  font-weight: bold;
+  font-weight: 400;
   color: #000 !important;
   border-color: transparent !important;
   border-bottom-color: #000 !important;
@@ -840,7 +909,6 @@ nav {
   width: 100%;
   height: 34px;
   color: #666;
-  font-weight: 100;
   font-size: 14px;
   border: none;
   border-radius: 5px;
@@ -871,7 +939,7 @@ nav {
 
 .dropdown-arrow {
   padding-left: 6px !important;
-  font-weight: bold !important;
+  font-weight: 400 !important;
 }
 
 .dropdown-menu {
@@ -886,9 +954,11 @@ nav {
 
 .dropdown-header {
   color: #aaa !important;
-  font-weight: bold !important;
 }
 
+.dropdown-menu li a{
+    font-weight: 300 !important;
+}
 
 /* Explore and My Playlist Tabs */
 
@@ -929,7 +999,7 @@ nav {
   margin-bottom: 6px;
 
   font-size: 10px;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 1;
   text-align: center;
   padding-top: 20px;
@@ -963,7 +1033,6 @@ nav {
   border-radius: 10px;
   padding: 2px 6px;
   right: 8px;
-  font-weight: 100;
   font-size: 9px;
 }
 
@@ -1222,6 +1291,8 @@ nav {
 
 .footer {
   background-color: #222;
+  min-width: 1200px;
+  width: 100%;
 }
 
 .footer-content {
@@ -1311,14 +1382,25 @@ a.icon-btn-red:active {color:#e64a60; text-decoration:none; outline:none;}
 @media only screen and (max-width : 992px) {
 
 /*Header*/
+.header-content-container {
+  max-width: 100%;
+}
+
 .header-logo {
   display: block;
   margin: auto;
 }
 
+.header-profile-btn {
+  position: absolute !important;
+  top: 0px !important;
+  right: 0px !important;
+}
+
 /*Vid Chat Banner*/
 .banner-container {
   height:auto;
+  min-width: 100%;
 }
 
 .vid-chat-container {
@@ -1350,6 +1432,10 @@ a.icon-btn-red:active {color:#e64a60; text-decoration:none; outline:none;}
   display: inline-block;
   padding: 0px 8px;
   font-size: 14px;
+}
+
+.footer {
+  min-width: 100%;
 }
 
 

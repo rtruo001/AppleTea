@@ -9,6 +9,7 @@
 
 <!-- CSS -->
 
+    <link href='https://fonts.googleapis.com/css?family=Nunito:300,400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/plyr.css">
@@ -20,12 +21,20 @@
     <div class="content-container">
 
 <!-- Hidden Page Overlay -->
+
       <div id="page-overlay"></div>
 
 <!-- Header -->
 
       <div class="header">
-        <img class="header-logo" src="images/logo.png">
+        <div class="header-content-container row">
+          <div class="col-md-6">
+            <img class="header-logo" src="images/logo.png">
+          </div>
+          <div class="col-md-6 header-profile-btn">
+            <a href="javascript:void(0)"><img class="profile-pic" src="images/profile-pic.png"></a>
+          </div>
+        </div>
       </div>
 
       <div class="banner-container">
@@ -34,10 +43,49 @@
 <!-- Video -->
 
           <div class="video-container">
-            <div data-type="youtube" data-video-id="A17rVbNTtrg"></div>
+            <!-- <div data-type="youtube" data-video-id="HAIDqt2aUek"></div> -->
+
+            <div class="plyr plyr--youtube plyr--video plyr--fullscreen-enabled plyr--stopped">
+              <div class="plyr__video-wrapper plyr__video-embed" style="cursor: pointer;">
+                <iframe id="youtube-14" frameborder="0" allowfullscreen="1" title="Player for Porter Robinson - Sad Machine (Lyric Video)" width="640" height="360" src="https://www.youtube.com/embed/HAIDqt2aUek?autoplay=0&amp;controls=0&amp;rel=0&amp;showinfo=0&amp;iv_load_policy=3&amp;cc_load_policy=0&amp;cc_lang_pref=en&amp;wmode=transparent&amp;modestbranding=1&amp;disablekb=1&amp;origin=*&amp;enablejsapi=1&amp;widgetid=1"></iframe>
+              </div>
+
+              <button type="button" class="plyr__play-large">
+                <i class="fa fa-play"></i>
+              </button>
+
+              <div class="plyr__controls">
+                <button type="button">
+                  <i class="fa fa-play"></i>
+                </button>
+                <button type="button" data-plyr="pause">
+                  <i class="fa fa-pause"></i>
+                </button>
+                <span class="plyr__progress">
+                  <input id="seek7140" class="plyr__progress--seek" type="range" min="0" max="100" step="0.1" value="20" data-plyr="seek">
+                  <progress class="plyr__progress--played" max="100" value="20" role="presentation"></progress>
+                  <progress class="plyr__progress--buffer" max="100" value="80"><span>0</span>% buffered</progress>
+                </span>
+                <button type="button" data-plyr="mute" aria-pressed="false">
+                  <div class="icon--muted"><i class="fa fa-volume-off"></i></div>
+                  <i class="fa fa-volume-up"></i>
+                </button>
+                <span class="plyr__volume">
+                  <input id="volume7140" class="plyr__volume--input" type="range" min="0" max="10" value="5" data-plyr="volume">
+                  <progress class="plyr__volume--display" max="10" value="5.2" role="presentation"></progress>
+                </span>
+                <button type="button" data-plyr="fullscreen" aria-pressed="false">
+                  <div class="icon--exit-fullscreen"><i class="fa fa-compress"></i></div>
+                  <i class="fa fa-expand"></i>
+                </button>
+              </div>
+            </div>
+
+
+
           </div>
 
-<!-- Chatbox -->
+<!-- Chatbox Header -->
 
           <div class="chatbox-container">
 
@@ -62,17 +110,17 @@
                       <li>
                         <i class="fa fa-circle status status-online"></i><a class="user-name" href="javascript:void(0)">Gerard Liu</a>
                         <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"><i class="fa fa-refresh fa-spin fa-fw"></i><i class="fa fa-star fa-fw"></i></div>
+                        <div class="users-list-icons"><i class="fa fa-refresh fa-spin fa-fw" data-toggle="tooltip" title="Syncing"></i><i class="fa fa-star fa-fw" data-toggle="tooltip" title="Moderator"></i></div>
                       </li>
                       <li>
                         <i class="fa fa-circle status status-online"></i><a class="user-name" href="javascript:void(0)">Randy Truong</a>
                         <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"><i class="fa fa-star fa-fw"></i></div>
+                        <div class="users-list-icons"><i class="fa fa-star fa-fw" data-toggle="tooltip" title="Moderator"></i></div>
                       </li>
                       <li>
                         <i class="fa fa-circle status status-online"></i><a class="user-name" href="javascript:void(0)">Kevin Chiao</a>
                         <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star-o fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"><i class="fa fa-refresh fa-spin fa-fw"></i></div>
+                        <div class="users-list-icons"><i class="fa fa-refresh fa-spin fa-fw" data-toggle="tooltip" title="Syncing"></i></div>
                       </li>
                       <li>
                         <i class="fa fa-circle status status-online"></i><a class="user-name" href="javascript:void(0)">Harrison Ford</a>
@@ -151,7 +199,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-red">Remove</button>
+                    <button type="button" class="btn btn-red" data-dismiss="modal">Remove</button>
                   </div>
                 </div>
               </div>
@@ -160,38 +208,165 @@
             <div class="modal fade" id="add-user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
-                  <div class="modal-body">
-                    
+                  <div class="modal-body search-user-header">
+                    <div class="search-container">
+                      <form class="search-input" id="search-user-input">
+                        <input type="text" placeholder="Search Users..."/>
+                      </form>
+                    </div>
                   </div>
+
+                  <div id="search-user-list" onmouseover="document.body.style.overflow='hidden';" onmouseout="document.body.style.overflow='auto';">
+                    <div class="search-card-padding">
+                      <a class="search-user" href="javascript:void(0)">
+                        <div class="search-media-card">
+                          <img class="search-media-img profile-pic" src="images/profile-pic.png">
+                          <div class="search-media-text-container">
+                            <div class="search-media-title ellipses">Krid</div>
+                            <div class="search-media-artist">Kristopher Luong</div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="search-card-padding">
+                      <a class="search-user" href="javascript:void(0)">
+                        <div class="search-media-card">
+                          <img class="search-media-img profile-pic" src="images/profile-pic.png">
+                          <div class="search-media-text-container">
+                            <div class="search-media-title ellipses">Gliustick</div>
+                            <div class="search-media-artist">Gerard Liu</div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="search-card-padding">
+                      <a class="search-user" href="javascript:void(0)">
+                        <div class="search-media-card">
+                          <img class="search-media-img profile-pic" src="images/profile-pic.png">
+                          <div class="search-media-text-container">
+                            <div class="search-media-title ellipses">Trash Can Ranz</div>
+                            <div class="search-media-artist">Randy Truong</div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="search-card-padding">
+                      <a class="search-user" href="javascript:void(0)">
+                        <div class="search-media-card">
+                          <img class="search-media-img profile-pic" src="images/profile-pic.png">
+                          <div class="search-media-text-container">
+                            <div class="search-media-title ellipses">Minz</div>
+                            <div class="search-media-artist">Minnal</div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="search-card-padding">
+                      <a class="search-user" href="javascript:void(0)">
+                        <div class="search-media-card">
+                          <img class="search-media-img profile-pic" src="images/profile-pic.png">
+                          <div class="search-media-text-container">
+                            <div class="search-media-title ellipses">ED</div>
+                            <div class="search-media-artist">Eric Dieu</div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="search-card-padding">
+                      <a class="search-user" href="javascript:void(0)">
+                        <div class="search-media-card">
+                          <img class="search-media-img profile-pic" src="images/profile-pic.png">
+                          <div class="search-media-text-container">
+                            <div class="search-media-title ellipses">Kton</div>
+                            <div class="search-media-artist">Kevin Ton</div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
                   </div>
                 </div>
               </div>
             </div>
 
+<!-- Chatbox Chat -->
+
+            <!-- <div class="chat-load">
+              <div class="chat-load-icon-container"><div class="chat-load-icon"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></div></div>
+            </div> -->
+
             <div class="chat" onmouseover="document.body.style.overflow='hidden';" onmouseout="document.body.style.overflow='auto';">
-              <div class="chat-load"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></div>
-              <div class="chat-msg"><div class="name">Ranz:</div><div class="msg">sup</div></div>
+              <div class="chat-load-icon"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></div>
+              <div class="chat-msg">
+                <div class="name">Ranz</div>
+                <div class="msg">sup</div>
+                <img class="profile-pic" src="images/profile-pic.png"/>
+              </div>
               <div class="chat-notif">4:20PM</div>
-              <div class="chat-msg"><div class="name">Minz:</div><div class="msg">yo</div></div>
-              <div class="chat-msg"><div class="name">Ranz:</div><div class="msg">this is pretty sick</div></div>
+              <div class="chat-msg">
+                <div class="name">Minz</div>
+                <div class="msg">yo</div>
+                <img class="profile-pic" src="images/profile-pic.png"/>
+              </div>
+              <div class="chat-msg">
+                <div class="name">Ranz</div>
+                <div class="msg">this is pretty sick</div>
+                <img class="profile-pic" src="images/profile-pic.png"/>
+              </div>
               <div class="chat-notif">Gliu joined the room</div>
-              <div class="chat-msg-user"><div class="msg">sup sup gliu in the haus</div></div>
-              <div class="chat-msg"><div class="name">Minz:</div><div class="msg">yeeet boi</div><div class="msg">hi</div><div class="msg">this is a consecutive message from one user that tests the max width of each chat message.</div></div>
+              <div class="chat-msg-user">
+                <div class="msg">sup sup gliu in the haus</div>
+              </div>
+              <div class="chat-msg">
+                <div class="name">Minz</div>
+                <div class="msg">yeeet boi</div>
+                <div class="msg">hi</div>
+                <div class="msg">this is a consecutive message from one user that tests the max width of each chat message.</div>
+                <img class="profile-pic" src="images/profile-pic.png"/>
+              </div>
               <div class="chat-notif">6:60PM</div>
-              <div class="chat-msg"><div class="name">Minz:</div><div class="msg">this is a consecutive message from one user that tests the max width of each chat message.</div></div>
-              <div class="chat-msg-user"><div class="msg">testing</div><div class="msg">this also tests the boundaries of a chat box, except from the user perspective. lorem ipsum lorem yeet.</div></div>
-              <div class="chat-msg"><div class="name">Ranz:</div><div class="msg">sup</div></div>
-              <div class="chat-msg"><div class="name">Minz:</div><div class="msg">yo</div></div>
-              <div class="chat-msg"><div class="name">Ranz:</div><div class="msg">this is pretty sick</div></div>
+              <div class="chat-msg">
+                <div class="name">Minz</div>
+                <div class="msg">this is a consecutive message from one user that tests the max width of each chat message.</div>
+                <img class="profile-pic" src="images/profile-pic.png"/>
+              </div>
+              <div class="chat-msg-user">
+                <div class="msg">testing</div>
+                <div class="msg">this also tests the boundaries of a chat box, except from the user perspective. lorem ipsum lorem yeet.</div>
+              </div>
+              <div class="chat-msg">
+                <div class="name">Ranz</div>
+                <div class="msg">sup</div>
+                <img class="profile-pic" src="images/profile-pic.png"/>
+              </div>
+              <div class="chat-msg">
+                <div class="name">Minz</div>
+                <div class="msg">yo</div>
+                <img class="profile-pic" src="images/profile-pic.png"/>
+              </div>
+              <div class="chat-msg">
+                <div class="name">Ranz</div>
+                <div class="msg">this is pretty sick</div>
+                <img class="profile-pic" src="images/profile-pic.png"/>
+              </div>
               <div class="chat-notif">Kchiao was added to the VentRoom</div>
               <div class="chat-notif">Randy left the room</div>
               <div class="chat-notif">Randy joined the room</div>
-              <div class="chat-msg-user"><div class="msg">sup sup gliu in the haus</div></div>
-              <div class="chat-msg"><div class="name">Minz:</div><div class="msg">yeeet boi</div></div>
-              <div class="chat-msg-user"><div class="msg">this also tests the boundaries of a chat box, except from the user perspective. lorem ipsum lorem yeet.</div></div>
+              <div class="chat-msg-user">
+                <div class="msg">sup sup gliu in the haus</div>
+              </div>
+              <div class="chat-msg">
+                <div class="name">Minz</div>
+                <div class="msg">yeeet boi</div>
+                <img class="profile-pic" src="images/profile-pic.png"/>
+              </div>
+              <div class="chat-msg-user">
+                <div class="msg">this also tests the boundaries of a chat box, except from the user perspective. lorem ipsum lorem yeet.</div>
+              </div>
             </div>
 
             <div class="chat-input-container">
@@ -206,6 +381,7 @@
 
       <div class="main-container">
         <div class="row">
+
 <!-- Queue List Column -->
 
           <div class="col-md-4 col-sm-6 queue-container">
@@ -1205,7 +1381,7 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                          <button type="button" class="btn btn-red">Delete Playlist</button>
+                          <button type="button" class="btn btn-red" data-dismiss="modal">Delete Playlist</button>
                         </div>
                       </div>
                     </div>
@@ -1559,11 +1735,11 @@
     <footer class="footer">
       <div class="footer-content">
         <div class="row">
-          <div class="col-md-7">
+          <div class="col-xs-7">
             <div class="copyright">Apple Tea &copy; 2016</div>
           </div>
-          <div class="col-md-5">
-            <p>Apple Tea is one of many exciting projects we're working on. If you want to support our development and help keep Apple Tea servers running, you can send us a donation. We'll love you for it. <i class="fa fa-heart"></i></p>
+          <div class="col-xs-5">
+            <p><b>Apple Tea</b> is one of many exciting projects we're working on. If you want to support our development and help keep Apple Tea servers running, you can send us a donation. We'll love you for it. <i class="fa fa-heart"></i></p>
             <button type="button" class="btn btn-dark">Donate</button>
           </div>
         </div>
