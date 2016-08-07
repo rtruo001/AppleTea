@@ -45,7 +45,13 @@
           <div class="video-container">
             <!-- <div data-type="youtube" data-video-id="HAIDqt2aUek"></div> -->
 
-            <div class="plyr plyr--youtube plyr--video plyr--fullscreen-enabled plyr--stopped">
+            <div class="player">
+              <div class="player-video-embed" style="cursor: pointer;">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/PEmqJBcQ2lg" frameborder="0" allowfullscreen></iframe>
+              </div>
+            </div>
+
+            <!-- <div class="plyr plyr--youtube plyr--video plyr--fullscreen-enabled plyr--stopped">
               <div class="plyr__video-wrapper plyr__video-embed" style="cursor: pointer;">
                 <iframe id="youtube-14" frameborder="0" allowfullscreen="1" title="Player for Porter Robinson - Sad Machine (Lyric Video)" width="640" height="360" src="https://www.youtube.com/embed/HAIDqt2aUek?autoplay=0&amp;controls=0&amp;rel=0&amp;showinfo=0&amp;iv_load_policy=3&amp;cc_load_policy=0&amp;cc_lang_pref=en&amp;wmode=transparent&amp;modestbranding=1&amp;disablekb=1&amp;origin=*&amp;enablejsapi=1&amp;widgetid=1"></iframe>
               </div>
@@ -79,9 +85,7 @@
                   <i class="fa fa-expand"></i>
                 </button>
               </div>
-            </div>
-
-
+            </div> -->
 
           </div>
 
@@ -1047,6 +1051,7 @@
                 <div class="open-playlist-header curator-header">
                   <div class="open-playlist-text-container">
                     <a class="icon-btn" href="javascript:void(0)"><div class="open-playlist-back-btn"><i class="fa fa-lg fa-chevron-circle-left"></i></div></a>
+                    <img class="profile-pic" src="images/profile-pic.png"/>
                     <div class="open-playlist-title">Gliu's Playlists</div>
                   </div>
                 </div>
@@ -1735,10 +1740,10 @@
     <footer class="footer">
       <div class="footer-content">
         <div class="row">
-          <div class="col-xs-7">
+          <div class="col-sm-7 col-xs-5">
             <div class="copyright">Apple Tea &copy; 2016</div>
           </div>
-          <div class="col-xs-5">
+          <div class="col-sm-5 col-xs-7">
             <p><b>Apple Tea</b> is one of many exciting projects we're working on. If you want to support our development and help keep Apple Tea servers running, you can send us a donation. We'll love you for it. <i class="fa fa-heart"></i></p>
             <button type="button" class="btn btn-dark">Donate</button>
           </div>
