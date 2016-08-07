@@ -8,10 +8,6 @@
     Client side functions of the media system.
     ========================================================================== */
 
-/*  =============================================================================
-    Variables 
-    ========================================================================== */
-
 // Current Client states of the Youtube video
 const STATES = {
   PLAYING: 'PLAYING',
@@ -48,9 +44,9 @@ function reinitializeMedia() {
     ========================================================================== */
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('media-player', {
-    height: '390',
-    width: '640',
-    videoId: 'J9NQFACZYEU',
+    height: '506',
+    width: '900',
+    videoId: 'Mc83aholIJ0',
     events: {
       'onReady': onPlayerReady,
       'onStateChange': onPlayerStateChange
@@ -110,12 +106,18 @@ function onPlayerStateChange(event) {
 
   // Tells Server current state is PLAYING
   if(event.data == YT.PlayerState.PLAYING) {
-    socket.emit('From Client: Play media', 0);
+    if (mediaCurrentState != STATES.PLAYING) {
+      mediaCurrentState = STATES.PLAYING;
+      socket.emit('From Client: Play media', 0);  
+    }
   }
 
   // Tells Server current state is PAUSED
   if(event.data == YT.PlayerState.PAUSED) {
-    socket.emit('From Client: Pause media', 0);
+    if (mediaCurrentState != STATES.PAUSED) {
+      mediaCurrentState = STATES.PAUSED;
+      socket.emit('From Client: Pause media', 0);
+    }
   }
 }
 
@@ -141,6 +143,7 @@ function pauseVideo() {
   if(player != null) {
     mediaCurrentState = STATES.PAUSED;
     player.pauseVideo();
+    console.log("PAUSED");
   }
 }
 
@@ -173,9 +176,7 @@ function syncMedia(data) {
     ========================================================================== */
 function syncTime(callback) {
   if (mediaCurrentState == STATES.PAUSED) {
-    player.pauseVideo();
     pauseVideo();
-    console.log("PAUSED");
   }
   player.seekTo(currentTimeElapsed, true);
 }
@@ -186,8 +187,8 @@ function mediaSeekTo() {
 
 function initializeStatusBar() {
   mediaDuration = player.getDuration();
-  document.getElementById("slider").min = "0";
-  document.getElementById("slider").max = mediaDuration;
+  // document.getElementById("slider").min = "0";
+  // document.getElementById("slider").max = mediaDuration;
 }
 
 function onStatusBarChange(newTime) {

@@ -121,17 +121,38 @@ socket.on('From Server: Logged in', function(data){
 
 // When user has joined, sends the username and outputs it on the box
 socket.on("From Server: User joined", function(user) {
-  $('#chat-box-messages').append($('<div>').text(user.username + " has joined the chat."));
+  $('.chat').append('<div class="join-leave">' + user.username + " has joined the chat." + '</div>');
 })
 
 // When an actual user exits the page/chat
 socket.on('From Server: User disconnected', function(user){
-  $('#chat-box-messages').append($('<div>').text(user.username + " has left the chat."));
+  $('.chat').append('<div class="join-leave">' + user.username + " has left the chat." + '</div>');
 });
 
 // Server emits Chat message 
 socket.on('From Server: Chat message', function(msg){
-  $('#chat-box-messages').append($('<ul>').text(msg.username));  
-  $('#chat-box-messages').append($('<li>').text(msg.message));
+  if (username === msg.username) {
+    $('.chat').append(
+      '<div class="chat-msg-user">' + 
+        '<div class="name">' + msg.username + '</div>' +
+        '<div class="msg">' + msg.message + '</div>'
+    );
+    // $('.chat-msg-user').append('<div class="name">').text(msg.username)); 
+    // $('.chat-msg-user').append('<div class="msg">').text(msg.message));    
+    
+
+
+    // $('.chat-msg-user').append($('<div class="name">').text(msg.username));    
+    // $('.chat-msg-user').append($('<div class="msg">').text(msg.message));
+  }
+  else {
+    $('.chat').append(
+      '<div class="chat-msg">' + 
+        '<div class="name">' + msg.username + '</div>' +
+        '<div class="msg">' + msg.message + '</div>'
+    );
+    // $('.chat-msg').append($('<div class="name">').text(msg.username));  
+    // $('.chat-msg').append($('<div class="msg">').text(msg.message));
+  }
 });
 
