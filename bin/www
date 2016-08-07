@@ -235,13 +235,6 @@ io.on('connection', function(socket) {
     // TODO: Tell chat that new media entry has started
   });
 
-  socket.on('From Client: Delete media entry from queue', function(queueEntry) {
-    console.log('Deleting media entry from Queue: ' + queueEntry.posInQueue);
-    delete queueListHashSet[queueEntry.videoId];
-    queueList.splice(queueEntry.posInQueue, 1);
-    io.emit('From Server: Update queue with new queue', queueList);
-  });
-
   /*  =============================================================================
       Queue
       ========================================================================== */  
@@ -287,6 +280,21 @@ io.on('connection', function(socket) {
     console.log(newQueueList);
     
     io.emit('From Server: Update queue with new queue', newQueueList);
+  });
+
+  socket.on('From Client: Delete media entry from queue', function(queueEntry) {
+    console.log('Deleting media entry from Queue: ' + queueEntry.posInQueue);
+    delete queueListHashSet[queueEntry.videoId];
+    queueList.splice(queueEntry.posInQueue, 1);
+    io.emit('From Server: Update queue with new queue', queueList);
+  });
+
+  socket.on('From Client: Move media entry to front of queue', function(queueEntry) {
+    console.log('Move media entry to top of Queue: ' + queueEntry.posInQueue);
+    var mediaEntry = queueList[queueEntry.posInQueue];
+    queueList.splice(queueEntry.posInQueue, 1);
+    queueList.unshift(mediaEntry);
+    io.emit('From Server: Update queue with new queue', queueList);
   });
 
   /*  =============================================================================

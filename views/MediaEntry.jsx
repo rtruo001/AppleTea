@@ -186,6 +186,20 @@ var MediaEntry = React.createClass({
     socket.emit('From Client: Delete media entry from queue', mediaEntry);
   },
 
+  // EVENT HANDLER: Moves media entry to the front of the queue as a play next media
+  moveToFrontOfTheQueue: function() {
+    var mediaEntry = {
+      videoId: this.props.videoId,
+      mediaType: this.props.mediaType,
+      thumbnail: this.props.thumbnail,
+      title: this.props.title,
+      artist: this.props.artist,
+      ifMediaCardAdded: true,
+      posInQueue: this.props.pos
+    }
+    socket.emit('From Client: Move media entry to front of queue', mediaEntry);
+  },
+
   render: function() {
     var categoryDivName;
     var categoryClassName;
@@ -237,7 +251,7 @@ var MediaEntry = React.createClass({
               <Artist artist={this.props.artist} categoryType={this.props.categoryType} />
               <div className="media-icon-container">
                 <div className="media-icon"></div>
-                <a className="icon-btn-blue-lite" href="javascript:void(0)"><div className="media-icon"><i className="fa fa-chevron-up" aria-hidden="true"></i></div></a>
+                <a className="icon-btn-blue-lite" href="javascript:void(0)" onClick={this.moveToFrontOfTheQueue}><div className="media-icon"><i className="fa fa-chevron-up" aria-hidden="true"></i></div></a>
                 <a className="icon-btn-blue-lite" href="javascript:void(0)" onClick={this.playMediaEntry}><div className="media-icon"><i className="fa fa-play" aria-hidden="true"></i></div></a>
               </div>
             </div>
