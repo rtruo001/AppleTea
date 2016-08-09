@@ -121,12 +121,12 @@ socket.on('From Server: Logged in', function(data){
 
 // When user has joined, sends the username and outputs it on the box
 socket.on("From Server: User joined", function(user) {
-  $('.chat').append('<div class="join-leave">' + user.username + " has joined the chat." + '</div>');
+  $('.chat').append('<div class="chat-notif">' + user.username + " has joined the chat." + '</div>');
 })
 
 // When an actual user exits the page/chat
 socket.on('From Server: User disconnected', function(user){
-  $('.chat').append('<div class="join-leave">' + user.username + " has left the chat." + '</div>');
+  $('.chat').append('<div class="chat-notif">' + user.username + " has left the chat." + '</div>');
 });
 
 // Server emits Chat message 
@@ -134,7 +134,6 @@ socket.on('From Server: Chat message', function(msg){
   if (username === msg.username) {
     $('.chat').append(
       '<div class="chat-msg-user">' + 
-        '<div class="name">' + msg.username + '</div>' +
         '<div class="msg">' + msg.message + '</div>'
     );
     // $('.chat-msg-user').append('<div class="name">').text(msg.username)); 
@@ -149,7 +148,8 @@ socket.on('From Server: Chat message', function(msg){
     $('.chat').append(
       '<div class="chat-msg">' + 
         '<div class="name">' + msg.username + '</div>' +
-        '<div class="msg">' + msg.message + '</div>'
+        '<div class="msg">' + msg.message + '</div>' +
+        '<img class="profile-pic" src="images/profile-pic.png"/>'
     );
     // $('.chat-msg').append($('<div class="name">').text(msg.username));  
     // $('.chat-msg').append($('<div class="msg">').text(msg.message));

@@ -17,6 +17,7 @@
 var React = require('react');
 var ReactDOMServer = require('react-dom/server');
 
+var Header = require('./Header');
 var MediaPlayer = require('./MediaPlayer');
 var Chatbox = require('./Chatbox');
 var StatusBar = require('./StatusBar');
@@ -24,6 +25,7 @@ var Queue = require('./Queue');
 var Explore = require('./Explore');
 var PrivatePlaylists = require('./PrivatePlaylists');
 var Search = require('./Search');
+var Footer = require('./Footer');
 
 // TODO: The scripts for the React librarys are through cdns, want to change this in order for them to be locally stored into our
 // directories, do the same for jquery as well.
@@ -32,6 +34,7 @@ var Index = React.createClass({
     return (
       <html lang="en">
         <head>
+          <link href='https://fonts.googleapis.com/css?family=Nunito:300,400' rel='stylesheet' type='text/css'/>
           <link rel="stylesheet" href="/css/style.css"/>
           <link rel="stylesheet" href="/css/bootstrap.min.css"/>
           <link rel="stylesheet" href="/css/plyr.css"/>
@@ -44,61 +47,70 @@ var Index = React.createClass({
 
         <body>
 
-          <div className="header">
-            <img className="header-logo" src="/images/logo.png"/>
-          </div>
+          <div id="index">
 
-          <div className="banner-container">
-            <div className="vid-chat-container">
+            <div className="content-container">
+              <div id="page-overlay"></div>
 
-              <div className="video-container">
-                <div id="media-player-status-bar">
-                  <MediaPlayer />
-                </div>
-                
-              </div>
+              <Header />
 
-              <div className="chatbox-container">
-               <Chatbox />
-              </div>
+              <div className="banner-container">
+                <div className="vid-chat-container">
 
-            </div>
-          </div>
+                  <div className="video-container">
+                    <MediaPlayer />
+                  </div>
 
-          {/* Queue and tabbed contents */}
-          <div className="main-container">
-            <div id='queue'>
-              <Queue />
-            </div>
+                  <div className="chatbox-container">
+                   <Chatbox />
+                  </div>
 
-            <div className="col-md-8 tabbed-container">
-              <ul className="nav nav-tabs">
-                <li className="active"><a data-toggle="tab" href="#explore">Explore </a></li>
-                <li><a data-toggle="tab" href="#myplaylists">Private Playlists</a></li>
-                <li><a data-toggle="tab" href="#search">Search</a></li>
-              </ul>
-
-              <div className="tab-content">
-                <div id="explore" className="tab-pane fade in active">
-                  <Explore />
-                </div>
-
-                <div id="myplaylists" className="tab-pane fade">
-                  <PrivatePlaylists />
-                </div>
-
-                <div id="search" className="tab-pane fade">
-                  <Search />
                 </div>
               </div>
+
+              {/* Queue and tabbed contents */}
+              <div className="main-container">
+                <div className="row">
+                  <div className="col-md-4 col-sm-6 queue-container">
+                    <Queue />
+                  </div>
+
+                  <div className="col-md-8 col-sm-6 tabbed-container">
+                    <ul className="nav nav-tabs">
+                      <li className="active"><a data-toggle="tab" href="#explore">Explore </a></li>
+                      <li><a data-toggle="tab" href="#myplaylists">Private Playlists</a></li>
+                      <li><a data-toggle="tab" href="#search">Search</a></li>
+                    </ul>
+
+                    <div className="tab-content">
+                      <div id="explore" className="tab-pane fade in active">
+                        <Explore />
+                      </div>
+
+                      <div id="myplaylists" className="tab-pane fade">
+                        <PrivatePlaylists />
+                      </div>
+
+                      <div id="search" className="tab-pane fade">
+                        <Search />
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div className="push"></div>
             </div>
+
+            <Footer />
+
           </div>
 
-          <script src="js/jquery.min.js"></script>
-          <script src="js/bootstrap.min.js"></script>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
           <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-          {/*<script src="js/bootstrap-slider.min.js"></script>*/}
+          <script src="js/jquery.min.js"></script>
+          <script src="js/bootstrap.min.js"></script>
 
           <script src="js/plyr.js"></script>
 

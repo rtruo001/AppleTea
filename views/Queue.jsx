@@ -46,7 +46,7 @@ var QueueTitle = React.createClass({
 var PlaylistLength = React.createClass({
   render: function() {
     return (
-      <div className="pill">{this.props.playlistLength}</div>
+      <div className="pill" data-toggle="tooltip" title="Items in Playlist">{this.props.playlistLength}</div>
     )
   }
 });
@@ -54,15 +54,23 @@ var PlaylistLength = React.createClass({
 var AddedMediaLength = React.createClass({
   render: function() {
     return (
-      <div className="pill pill-blue">+{this.props.addedMediaLength}</div>
+      <div className="pill pill-blue" data-toggle="tooltip" title="Items Added">+{this.props.addedMediaLength}</div>
     )
+  }
+});
+
+var EditButton = React.createClass({
+  render: function() {
+    return (
+      <div className="queue-icon"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-edit" data-toggle="tooltip" title="Edit" aria-hidden="true"></i></a></div>  
+    );
   }
 });
 
 var ShuffleButton = React.createClass({
   render: function() {
     return (
-      <div className="queue-icon shfl-btn"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-random" aria-hidden="true"></i></a></div>
+      <div className="queue-icon shfl-btn"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-random" data-toggle="tooltip" title="Shuffle" aria-hidden="true"></i></a></div>
     )
   }
 });
@@ -70,7 +78,7 @@ var ShuffleButton = React.createClass({
 var LikeButton = React.createClass({
   render: function() {
     return(
-      <div className="queue-icon like-btn"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-heart-o" aria-hclassden="true"></i></a></div>
+      <div className="queue-icon like-btn"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-heart-o" data-toggle="tooltip" title="Like Playlist" aria-hclassden="true"></i></a></div>
     );
   }
 });
@@ -78,7 +86,7 @@ var LikeButton = React.createClass({
 var SquareButton = React.createClass({
   render: function() {
     return (
-      <div className="queue-icon"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-square-o" aria-hidden="true"></i></a></div>  
+      <div className="queue-icon"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-square-o" data-toggle="tooltip" title="Clear" aria-hidden="true"></i></a></div>  
     );
   }
 });
@@ -163,26 +171,35 @@ var Queue = React.createClass({
 
     return (
       <div>
-        <div className="col-xs-4 queue-container">
-          <div className="queue-header">
-            <div className="queue-title-container">
-              {/* TODO: Change queue titles and pill numbers depending on what was added */}
-              <QueueTitle queueTitle={"Chill Ass Music"} />
-              <PlaylistLength playlistLength={this.state.queueList.length} />
-              <AddedMediaLength addedMediaLength={this.state.queueList.length} />
-            </div>
-
-            <div className="queue-icon-container">
-              <SquareButton />
-              <LikeButton />
-              <ShuffleButton />
-            </div>
+        <div className="queue-header">
+          <div className="queue-title-container">
+            {/* TODO: Change queue titles and pill numbers depending on what was added */}
+            <QueueTitle queueTitle={"Chill Ass Music"} />
+            <PlaylistLength playlistLength={this.state.queueList.length} />
+            <AddedMediaLength addedMediaLength={this.state.queueList.length} />
           </div>
 
-          <div className="queue-body col-md-12">
-            {queueEntries}
+          <div className="queue-icon-container">
+            <SquareButton />
+            <LikeButton />
+            <ShuffleButton />
+            <EditButton />
           </div>
         </div>
+
+        <div className="queue-body col-padding">
+          {queueEntries}
+        </div>
+
+        <nav aria-label="page navigation">
+          <ul className="pagination">
+            <li className="disabled"><a href="javascript:void(0)" aria-label="Previous"><i className="fa fa-angle-left"></i></a></li>
+            <li className="active"><a href="javascript:void(0)">1</a></li>
+            <li><a href="javascript:void(0)">2</a></li>
+            <li><a href="javascript:void(0)">3</a></li>
+            <li><a href="javascript:void(0)" aria-label="Next"><i className="fa fa-angle-right"></i></a></li>
+          </ul>
+        </nav>
       </div>
     );
   }
