@@ -122,6 +122,21 @@ body {
   background-color: #cd4054 !important;
 }
 
+.btn-teal-hover {
+  color: #444 !important;
+  background-color: #eee !important;
+}
+
+.btn-teal-hover:hover {
+  color: #fff !important;
+  background-color: #4bb9c3 !important;
+}
+
+.btn-teal-hover:active {
+  color: #fff !important;
+  background-color: #339199 !important;
+}
+
 .btn-dark {
   color: #fff !important;
   background-color: #444 !important;
@@ -1343,7 +1358,6 @@ nav {
 }
 
 .footer {
-  background-color: #222;
   min-width: 1200px;
   width: 100%;
 }
@@ -1351,11 +1365,12 @@ nav {
 .footer-content {
   margin: auto;
   padding: 35px 15px 0px 15px;
-  max-width: 1000px;
-  color: #ccc;
+  max-width: 1200px;
+  color: #aaa;
   font-size: 11px;
   letter-spacing: .5;
   text-align: right;
+  border-top: solid 1px #e5e5e5;
 }
 
 .footer-content p {
@@ -1363,7 +1378,6 @@ nav {
 }
 
 .copyright {
-  color: #555;
   padding-top: 70px;
   padding-bottom: 4px;
   text-align: left;

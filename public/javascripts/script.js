@@ -59,7 +59,8 @@ $('#page-overlay').click(function(){
 /* Users List Toggle and Options Toggle */
 function showOptions() {
     $('.users-list-edit-btn').addClass('active');
-    $('.users-list-edit-btn').toggleClass('btn-red-hover btn-red');
+    $('.users-list-edit-btn').removeClass('btn-secondary');
+    $('.users-list-edit-btn').addClass('btn-red');
     $('#users-list-gear-icon').addClass('fa-spin');
     $('.users-list-icons').css('display','none');
     $('.users-list-edit').css('display','block');
@@ -69,7 +70,8 @@ function showOptions() {
 
 function hideOptions() {
     $('.users-list-edit-btn').removeClass('active');
-    $('.users-list-edit-btn').toggleClass('btn-red btn-red-hover');
+    $('.users-list-edit-btn').removeClass('btn-red');
+    $('.users-list-edit-btn').addClass('btn-secondary');
     $('#users-list-gear-icon').removeClass('fa-spin');
     $('.users-list-icons').css('display','block');
     $('.users-list-edit').css('display','none');
