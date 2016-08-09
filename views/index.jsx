@@ -15,17 +15,9 @@
     Index - Overall website
     ========================================================================== */
 var React = require('react');
-var ReactDOMServer = require('react-dom/server');
 
-var Header = require('./Header');
-var MediaPlayer = require('./MediaPlayer');
-var Chatbox = require('./Chatbox');
-var StatusBar = require('./StatusBar');
-var Queue = require('./Queue');
-var Explore = require('./Explore');
-var PrivatePlaylists = require('./PrivatePlaylists');
-var Search = require('./Search');
-var Footer = require('./Footer');
+// Room component
+var Room = require('./Room');
 
 // TODO: The scripts for the React librarys are through cdns, want to change this in order for them to be locally stored into our
 // directories, do the same for jquery as well.
@@ -47,64 +39,8 @@ var Index = React.createClass({
 
         <body>
 
-          <div id="index">
-
-            <div className="content-container">
-              <div id="page-overlay"></div>
-
-              <Header />
-
-              <div className="banner-container">
-                <div className="vid-chat-container">
-
-                  <div className="video-container">
-                    <MediaPlayer />
-                  </div>
-
-                  <div className="chatbox-container">
-                   <Chatbox />
-                  </div>
-
-                </div>
-              </div>
-
-              {/* Queue and tabbed contents */}
-              <div className="main-container">
-                <div className="row">
-                  <div className="col-md-4 col-sm-6 queue-container">
-                    <Queue />
-                  </div>
-
-                  <div className="col-md-8 col-sm-6 tabbed-container">
-                    <ul className="nav nav-tabs">
-                      <li className="active"><a data-toggle="tab" href="#explore">Explore </a></li>
-                      <li><a data-toggle="tab" href="#myplaylists">Private Playlists</a></li>
-                      <li><a data-toggle="tab" href="#search">Search</a></li>
-                    </ul>
-
-                    <div className="tab-content">
-                      <div id="explore" className="tab-pane fade in active">
-                        <Explore />
-                      </div>
-
-                      <div id="myplaylists" className="tab-pane fade">
-                        <PrivatePlaylists />
-                      </div>
-
-                      <div id="search" className="tab-pane fade">
-                        <Search />
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-              <div className="push"></div>
-            </div>
-
-            <Footer />
-
+          <div id="room">
+            <Room />
           </div>
 
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
