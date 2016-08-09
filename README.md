@@ -5,21 +5,8 @@ Build a web and mobile application similar to how TogetherTube runs. Our idea ex
 
 We were hoping in turning this application into a place where people can watch/listen to people’s playlists. A good analogy is a television, where each channel represents a playlist. Users can also generate their own channels by making private or public playlists. 
 
-**Features**
-Sync different medias at the same time
 
-* Medias
-  * Youtube
-  * Soundcloud
-  * Vimeo
 
-* Chatroom
-
-* Saving playlists
-
-* Searching playlists
-
-* Searching medias
 
 **Current Roles:**
 
@@ -45,106 +32,65 @@ ZenHub is used for tracking our TODOs, timeframes, and collaborations. It is jus
 
 
 
-##TODOs: (Ranked in Priority)
 
-**NEEDS A LOT MORE BRAINSTORMING -** Come up with the best Video syncing algorithm.
 
-**NOT STARTED -** Generate a Database of users
 
-**NOT STARTED -** Generate a Database for user’s playlists
 
-**IN PROGRESS -** Build the Queue, currently need to update media whenever the media finishes playing, and updates the queue of medias.
 
-**NOT STARTED -** Build the Explore Tab
 
-**NOT STARTED -** Build the Playlist Tab
 
-**NOT STARTED -** Rehaul the Search which is in Search.jsx, Search has some bugs where the API isn't getting called for the full query.
 
-**ALWAYS IN PROGRESS -** Merge the UI with the Backend
 
-**IN PROGRESS -** Rehaul Socket.io (Video Sync and Chat), potentially use other client to server side connections for quick media syncs as well as a scalable and responsive chat system
 
-**IN PROGRESS -** Manage the Draggables
 
-**NOT STARTED -** Convert chat.js into React counterpart 
 
-**NOT STARTED -** Add functions for Soundcloud
 
-**NOT STARTED -** Add functions for Vimeo
 
+##How to contribute (Agile)
 
+Our **master** branch is our main live/production branch.
 
+Our **core** branch is our developing branch. We will be pulling from the core branch and making pull requests into the core branch as well. The core branch will continuously update accordingly to every pull request. Whenever we are ready for our portions of the code to go live, we push it to the master branch.
 
+###Now for contributing:
 
-###Optional###
+First go to our boards in Zenhub. Either choose a TODO you want to work on or create another issue that is a TODO. Comment on what you are doing and the tasks needed to finish the TODOS. Label it accordingly and issue the TODO. Be sure to be specific.
 
-**NOT STARTED -** Use Gulp for automating javascript/css into minify, and automate other things like testing too maybe. Also use Gulp for automating browserify whenever the file changes, makes things easier.
+Now on terminal go to your Appletea directory. Make sure to checkout into the **core** branch. 
 
-**NOT STARTED -** Use Mocha/Chai or any unit testing
+From here create a new branch called **appletea-(Issue number)**. The issue number is the same number issued on Zenhub for the TODO you have chosen.
 
-**NOT STARTED -** Research Browserify to do it properly or efficiently. Either by having it called the code or having a different command through the terminal.
+After creating the new branch, work on your updates, making commits every now and then to ensure safe version controls of the TODO. After finishing, make one last check and push to the branch.
 
-*Also throughout the code, There are ( // TODO: ), those need to be worked on as well.
+Go on Github and issue a pull request with the base branch as **core** and the compare branch as your appletea branch.
 
+From here on QA will review the pull request.
 
+For example:
 
+1. Chose Issue #24 in TODOs on Zenhub.
+2. Go on terminal which is currently on **core** branch
+3. 'git checkout -b appletea-24'
+4. Work on the TODO, make continous updates and commits to this branch.
+5. When finished, make a final commit and push to appletea-24 branch
+6. Go on Github and make a pull request with the base branch as **core** and the compare branch as appletea-24
+7. From here the pull request will be reviewd by QA. 
+  - If the pull request satisfies the specifications, it will be accepted and pushed into the core branch.
+  - If the pull request is not ready for the core push, it will be rejected and returned on github with comments on the code.
 
-###COMPLETED###
 
-Convert media.js into their React counterpart
 
 
 
 
 
 
-##Current Stack:##
 
-Express
 
-React
 
-Bootstrap
 
-Jquery
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-##How to Start Project:##
+##How to Start Project
 
 **Github:** https://github.com/rtruo001/AppleTea
 
@@ -156,16 +102,20 @@ Cd into the directory. Now install the node modules: (This will go through your 
 
   `npm install`
 
-To install React. You can also add the --save to also make it a permanent dependency to the project into the package.json. However, there’s some people saying that this is a bad idea to do this for React due to React not updating their versions.
+You also have to install Browserify
 
-`npm install express-react-views react react-dom`
+  `sudo npm install browserify -g (I recommend doing global)`
 
-*Note: For future projects, I might or might not include the React side as dependencies, we’ll see. But if they are not included in the package.json, call the command above.
+After installing browserify, use this command in the root of your project to create your /public/bundle.js
+
+  `browserify ./public/main.js -o ./public/bundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx`
 
 After that, run the application:
 
   `npm start`
+
 or
+
   `nodemon app`
 
 Nodemon app will run the app without having the restart the server when something on the Client side is changed.
@@ -176,9 +126,14 @@ If Nodemon is not installed
 
 or 
 
-`npm install nodemon -g (Global)`
+  `sudo npm install nodemon -g (Global, I recommend just doing this)` 
 
-Now go to the browser and put http://localhost:3000/ as the url
+Now go to the browser and put [a link]http://localhost:3000/ as the url
+
+If you see a favicon.ico error, either add a favicon.ico image in the public directory or go to app.js and comment off the favicon line.
+
+
+
 
 
 
