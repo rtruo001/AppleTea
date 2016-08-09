@@ -1,6 +1,14 @@
 /* Temp Modal for Chat Demo */
-$(window).load(function(){
-    $('#enter-name').modal('show');
+$('#m').click(function(){
+    if(!$(this).hasClass('named')){
+        $('#enter-name').modal('show');
+        $(this).addClass('named');
+        $('#enter-name').keyup(function(event){
+            if(event.keyCode == 13){
+                $('#enter-name').modal('hide');
+            };
+        });
+    };
 });
 
 /* Sets Up Plyr Plugin */

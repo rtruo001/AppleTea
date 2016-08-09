@@ -96,14 +96,40 @@ var Search = React.createClass({
     return (
       <div>
         <div className="search-container">
-          <form id='search-form' className="search-input" onSubmit={this.handleSubmit}>
-            <input className="chat-textbox" name="" placeholder="Search Youtube..." type="text" onChange={this.handleChange} />
+          <form id='search-form' className="search-input search-input-dropdown" onSubmit={this.handleSubmit}>
+            <div className="input-group">
+              <input className="chat-textbox" name="" placeholder="Search Youtube..." type="text" onChange={this.handleChange} />
+              <div className="input-group-btn">
+                <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i className="fa fa-youtube-play dropdown-icon"></i>
+                  Youtube
+                  <i className="fa fa-angle-down dropdown-arrow"></i>
+                </button>
+                <ul className="dropdown-menu dropdown-menu-right">
+                  <li><a href="javascript:void(0)"><i className="fa fa-youtube-play"></i>Youtube</a></li>
+                  <li><a href="javascript:void(0)"><i className="fa fa-vimeo"></i>Vimeo</a></li>
+                  <li><a href="javascript:void(0)"><i className="fa fa-soundcloud"></i>SoundCloud</a></li>
+                  <li><a href="javascript:void(0)"><i className="fa fa-spotify"></i>Spotify</a></li>
+                </ul>
+              </div>
+            </div>
           </form>
         </div>
 
-        <div id='search-media-container'>
+        <div className='search-media-container'>
           {searchEntries}
         </div>
+
+        <nav aria-label="page navigation">
+          <ul className="pagination">
+            <li className="disabled"><a href="javascript:void(0)" aria-label="Previous"><i className="fa fa-angle-left"></i></a></li>
+            <li className="active"><a href="javascript:void(0)">1</a></li>
+            <li><a href="javascript:void(0)">2</a></li>
+            <li><a href="javascript:void(0)">3</a></li>
+            <li><a href="javascript:void(0)" aria-label="Next"><i className="fa fa-angle-right"></i></a></li>
+          </ul>
+        </nav>
+
       </div>
     );
   }
