@@ -128,7 +128,7 @@ or
 
   `sudo npm install nodemon -g (Global, I recommend just doing this)` 
 
-Now go to the browser and put [http://localhost:3000/] as the url
+Now go to the browser and put http://localhost:3000/ as the url
 
 If you see a favicon.ico error, either add a favicon.ico image in the public directory or go to app.js and comment off the favicon line.
 
