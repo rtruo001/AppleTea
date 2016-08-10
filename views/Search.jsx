@@ -74,7 +74,23 @@ var Search = React.createClass({
     // Prepares each media entry. Whenever a State changes, populates the values in each Media Entry from the jsonResponse given from the YoutubeAPI
     var searchEntries = [];
     var json = this.state.jsonResponse;
-    if (json !== "" && json !== undefined) {
+
+    // pushes placeholder div into searchEntries if list is empty
+    if (json == "" || json == undefined) {
+      searchEntries.push(
+        <div className="col-padding">
+          <div className="placeholder placeholder-search">
+            <div className="placeholder-content">
+              <i className="fa fa-search placeholder-icon"></i><br/>
+              <span>No matching search results</span>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    // if generated list has elements, display them
+    else if (json !== "" && json !== undefined) {
       var jsonItem;
       for (var i = 0; i < json.items.length; ++i) {
         jsonItem = json.items[i];
@@ -117,14 +133,6 @@ var Search = React.createClass({
         </div>
 
         <div className='search-media-container'>
-          <div className="col-padding">
-            <div className="placeholder placeholder-search">
-              <div className="placeholder-content">
-                <i className="fa fa-search placeholder-icon"></i><br/>
-                <span>No matching search results.</span>
-              </div>
-            </div>
-          </div>
           {searchEntries}
         </div>
 

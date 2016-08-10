@@ -164,6 +164,16 @@ var Queue = React.createClass({
       )
     }
 
+    /* TODO: When list is empty AFTER FINISHING A PLAYLIST, display this placeholder instead
+      <div className="placeholder">
+        <div className="placeholder-content">
+          <i className="fa fa-child placeholder-icon"></i><br/>
+          <span>You finished your playlist!</span>
+        </div>
+      </div>
+    </div>
+    */
+
     // If there are media entries, pushes every media entry the queueEntries instead
     else {
       for (var i = 0; i < this.state.queueList.length; ++i) {
@@ -203,29 +213,6 @@ var Queue = React.createClass({
         </div>
 
         <div className="queue-body col-padding">
-          {/*
-          I took this out
-
-          <div className="placeholder">
-            <div className="placeholder-content">
-              <i className="fa fa-square-o placeholder-icon"></i><br/>
-              <span>Your queue is empty</span>
-            </div>
-          </div>
-          */}
-          
-          {/*
-
-          <div className="queue-body col-padding">
-            <div className="placeholder">
-              <div className="placeholder-content">
-                <i className="fa fa-child placeholder-icon"></i><br/>
-                <span>You finished your playlist!</span>
-              </div>
-            </div>
-          </div>
-          */}
-
           {queueEntries}
         </div>
 
