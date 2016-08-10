@@ -50,33 +50,37 @@ ZenHub is used for tracking our TODOs, timeframes, and collaborations. It is jus
 
 Our **master** branch is our main live/production branch.
 
-Our **core** branch is our developing branch. We will be pulling from the core branch and making pull requests into the core branch as well. The core branch will continuously update accordingly to every pull request. Whenever we are ready for our portions of the code to go live, we push it to the master branch.
+Our **core** branch is our developing branch. We will be pulling from and making pull requests into the core branch. The core branch will continuously update accordingly to every pull request. Whenever we are ready for our portions of the code to go live, we push it to the master branch.
 
 ###Now for contributing:
 
 First go to our boards in Zenhub. Either choose a TODO you want to work on or create another issue that is a TODO. Comment on what you are doing and the tasks needed to finish the TODOS. Label it accordingly and issue the TODO. Be sure to be specific.
 
-Now on terminal go to your Appletea directory. Make sure to checkout into the **core** branch. 
+Now on terminal go to your Appletea directory. Make sure to checkout into the **core** branch. Make sure this core branch is the most up to date version, verify by just calling
+
+  `git pull origin core`
 
 From here create a new branch called **appletea-(Issue number)**. The issue number is the same number issued on Zenhub for the TODO you have chosen.
 
-After creating the new branch, work on your updates, making commits every now and then to ensure safe version controls of the TODO. After finishing, make one last check and push to the branch.
+After creating the new branch move over to the new branch. Work on your updates, making commits every now and to ensure saved versions of the branch. After finishing, make one last check and push to the **appletea-(Issue number)** branch.
 
 Go on Github and issue a pull request with the base branch as **core** and the compare branch as your appletea branch.
 
-From here on QA will review the pull request.
+From here on QA will review the pull request, either accepting or rejecting the request. After accepting the pull request, QA will close and delete the branch.
 
 For example:
 
 1. Chose Issue #24 in TODOs on Zenhub.
 2. Go on terminal which is currently on **core** branch
-3. 'git checkout -b appletea-24'
-4. Work on the TODO, make continous updates and commits to this branch.
-5. When finished, make a final commit and push to appletea-24 branch
-6. Go on Github and make a pull request with the base branch as **core** and the compare branch as appletea-24
-7. From here the pull request will be reviewd by QA. 
+3. Make sure that core is the most up to date version: 'git pull origin core'
+4. 'git checkout -b appletea-24'
+5. Work on the TODO, make continous updates and commits to this branch.
+6. When finished, make a final commit and push to appletea-24 branch
+7. Go on Github and make a pull request with the base branch as **core** and the compare branch as appletea-24
+8. From here the pull request will be reviewd by QA. 
   - If the pull request satisfies the specifications, it will be accepted and pushed into the core branch.
   - If the pull request is not ready for the core push, it will be rejected and returned on github with comments on the code.
+9. Repeat the process with other issues on Zenhub.
 
 
 
@@ -109,6 +113,8 @@ You also have to install Browserify
 After installing browserify, use this command in the root of your project to create your /public/bundle.js
 
   `browserify ./public/main.js -o ./public/bundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx`
+
+You need to call the above command everytime a file in the views directory is changed.
 
 After that, run the application:
 
