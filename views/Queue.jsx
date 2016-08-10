@@ -152,21 +152,36 @@ var Queue = React.createClass({
     var queueEntry;
     var queueMediaEntryId = 'queue-media-entry-';
 
-    for (var i = 0; i < this.state.queueList.length; ++i) {
-      queueEntry = this.state.queueList[i];
+    // Added If statement that pushes the placeholder div into queueEntries whenever queueList is empty
+    if (this.state.queueList.length <= 0) {
+      queueEntries.push(
+        <div className="placeholder">
+          <div className="placeholder-content">
+            <i className="fa fa-square-o placeholder-icon"></i><br/>
+            <span>Your queue is empty</span>
+          </div>
+        </div>
+      )
+    }
 
-      queueEntries.push (
-        <MediaEntry 
-          key={queueEntry.videoId} 
-          pos={i} 
-          videoId={queueEntry.videoId} 
-          categoryType={'QUEUE'}
-          mediaType={'YOUTUBE'}
-          thumbnail={queueEntry.thumbnail} 
-          title={queueEntry.title}
-          artist={queueEntry.artist} 
-          ifMediaCardAdded={queueEntry.ifMediaCardAdded} />
-      );
+    // If there are media entries, pushes every media entry the queueEntries instead
+    else {
+      for (var i = 0; i < this.state.queueList.length; ++i) {
+        queueEntry = this.state.queueList[i];
+
+        queueEntries.push (
+          <MediaEntry 
+            key={queueEntry.videoId} 
+            pos={i} 
+            videoId={queueEntry.videoId} 
+            categoryType={'QUEUE'}
+            mediaType={'YOUTUBE'}
+            thumbnail={queueEntry.thumbnail} 
+            title={queueEntry.title}
+            artist={queueEntry.artist} 
+            ifMediaCardAdded={queueEntry.ifMediaCardAdded} />
+        );
+      }
     }
 
     return (
@@ -188,14 +203,19 @@ var Queue = React.createClass({
         </div>
 
         <div className="queue-body col-padding">
+          {/*
+          I took this out
+
           <div className="placeholder">
             <div className="placeholder-content">
               <i className="fa fa-square-o placeholder-icon"></i><br/>
               <span>Your queue is empty</span>
             </div>
           </div>
+          */}
           
           {/*
+
           <div className="queue-body col-padding">
             <div className="placeholder">
               <div className="placeholder-content">
