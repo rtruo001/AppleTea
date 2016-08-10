@@ -118,7 +118,7 @@ var Chatbox = React.createClass({
           </form>
         </div>
 
-        <div className="modal fade" id="enter-name" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div className="modal fade" id="enter-name" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div className="modal-dialog modal-sm" role="document">
             <div className="modal-content">
               <div className="modal-body">
