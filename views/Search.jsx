@@ -117,6 +117,14 @@ var Search = React.createClass({
         </div>
 
         <div className='search-media-container'>
+          <div className="col-padding">
+            <div className="placeholder placeholder-search">
+              <div className="placeholder-content">
+                <i className="fa fa-search placeholder-icon"></i><br/>
+                <span>No matching search results.</span>
+              </div>
+            </div>
+          </div>
           {searchEntries}
         </div>
 

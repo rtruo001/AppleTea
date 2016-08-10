@@ -188,6 +188,24 @@ var Queue = React.createClass({
         </div>
 
         <div className="queue-body col-padding">
+          <div className="placeholder">
+            <div className="placeholder-content">
+              <i className="fa fa-square-o placeholder-icon"></i><br/>
+              <span>Your queue is empty</span>
+            </div>
+          </div>
+          
+          {/*
+          <div className="queue-body col-padding">
+            <div className="placeholder">
+              <div className="placeholder-content">
+                <i className="fa fa-child placeholder-icon"></i><br/>
+                <span>You finished your playlist!</span>
+              </div>
+            </div>
+          </div>
+          */}
+
           {queueEntries}
         </div>
 
