@@ -52,7 +52,7 @@ var Room = React.createClass({
             </div>
           </div>
 
-          {/* Queue and Tabbed contents */}
+          {/* Queue and Tabbed Contents */}
           <div className="main-container">
             <div className="row">
               <div className="col-md-4 col-sm-6 queue-container" id="queue">
