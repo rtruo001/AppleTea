@@ -50,10 +50,10 @@ var Title = React.createClass({
     var categoryClassName;
     switch(this.props.categoryType) {
       case CATEGORYOFMEDIA.QUEUE:
-        categoryClassName = 'media-title';
+        categoryClassName = 'media-title ellipses';
         break;
       case CATEGORYOFMEDIA.SEARCH:
-        categoryClassName = 'search-media-title';
+        categoryClassName = 'search-media-title ellipses';
         break;
       default:
         // ERROR, No Category type
@@ -75,10 +75,10 @@ var Artist = React.createClass({
     var categoryClassName;
     switch(this.props.categoryType) {
       case CATEGORYOFMEDIA.QUEUE:
-        categoryClassName = 'media-artist';
+        categoryClassName = 'media-artist ellipses';
         break;
       case CATEGORYOFMEDIA.SEARCH:
-        categoryClassName = 'search-media-artist';
+        categoryClassName = 'search-media-artist ellipses';
         break;
       default:
         // ERROR, No Category type
@@ -220,7 +220,7 @@ var MediaEntry = React.createClass({
         if (this.props.pos === PLAYNEXTMEDIAENTRYPOS) {
           return (
             <div id={this.props.pos + queueMediaEntryId} className={queueMediaCardClassName}>
-              <div className="media-card-added-corner"></div>
+              <div className="media-card-added-corner-container"><div className="media-card-added-corner"></div></div>
               <a className="media-card-added-plus icon-btn-white" href="javascript:void(0)" onClick={this.deleteMediaEntry}>+</a>
               <Thumbnail thumbnail={this.props.thumbnail} categoryType={this.props.categoryType} />
               <div className="media-next">PLAYING NEXT:</div>
@@ -251,8 +251,8 @@ var MediaEntry = React.createClass({
               <Artist artist={this.props.artist} categoryType={this.props.categoryType} />
               <div className="media-icon-container">
                 <div className="media-icon"></div>
-                <a className="icon-btn-blue-lite" href="javascript:void(0)" onClick={this.moveToFrontOfTheQueue}><div className="media-icon"><i className="fa fa-chevron-up" aria-hidden="true"></i></div></a>
-                <a className="icon-btn-blue-lite" href="javascript:void(0)" onClick={this.playMediaEntry}><div className="media-icon"><i className="fa fa-play" aria-hidden="true"></i></div></a>
+                <a className="icon-btn-blue-lite" href="javascript:void(0)" onClick={this.moveToFrontOfTheQueue}><div className="media-icon"><i className="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></div></a>
+                <a className="icon-btn-blue-lite" href="javascript:void(0)" onClick={this.playMediaEntry}><div className="media-icon"><i className="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></div></a>
               </div>
             </div>
           </div>
@@ -273,10 +273,20 @@ var MediaEntry = React.createClass({
                 <Type type={this.props.mediaType} categoryType={this.props.categoryType} />
               </div>
 
+              {/* TODO make tooltips work and make dropdown work */}
               <div className="search-media-icon-container">
-                <div className="search-media-icon"><a id={"media-entry-button-" + this.props.pos} className="icon-btn" href="javascript:void(0)" onClick={this.addToQueue}><i className="fa fa-plus fa-lg"></i></a></div>
-                <div className="search-media-icon"><a className="icon-btn" href="javascript:void(0)" onClick={this.playMediaEntry}><i className="fa fa-play"></i></a></div>
-                <div className="search-media-icon"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-list-ul"></i></a></div>
+                <div className="search-media-icon" data-toggle="tooltip" title="Add to Queue"><a id={"media-entry-button-" + this.props.pos} className="icon-btn" href="javascript:void(0)" onClick={this.addToQueue}><i className="fa fa-plus fa-lg"></i></a></div>
+                <div className="search-media-icon"><a className="icon-btn" href="javascript:void(0)" onClick={this.playMediaEntry}><i className="fa fa-play" data-toggle="tooltip" title="Play Now"></i></a></div>
+                <div className="search-media-icon">
+                  <a className="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void(0)"><i className="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+                    <ul className="dropdown-menu dropdown-menu-right">
+                      <li className="dropdown-header">Add To</li>
+                      <li><a href="javascript:void(0)">Chill Ass Music</a></li>
+                      <li><a href="javascript:void(0)">Comp Sci Lectures</a></li>
+                      <li><a href="javascript:void(0)">The Trippiest Videos</a></li>
+                      <li><a href="javascript:void(0)">Sick Music Videos</a></li>
+                    </ul>
+                </div>
               </div>
             </div>
           </div>

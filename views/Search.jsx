@@ -9,13 +9,30 @@
     entire list of media entries. Each media entry contains the thumbnail,
     title, and duration components
 
-    @Components:  Search
+    @Components:  SearchPlaceHolder
+                  Search
 
     @Exports:     Search
     ========================================================================== */
 var React = require('react');
 // Media Entry component
 var MediaEntry = require('./MediaEntry');
+
+// Placeholder for an empty list of media entries in search
+var SearchPlaceHolder = React.createClass({
+  render: function() {
+    return(
+      <div className="col-padding">
+        <div className="placeholder placeholder-search">
+          <div className="placeholder-content">
+            <i className="fa fa-search placeholder-icon"></i><br/>
+            <span>No matching search results</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
 
 // Search Component
 var Search = React.createClass({
@@ -30,7 +47,12 @@ var Search = React.createClass({
     // Clears the timer to prevent another unnecessary searchMedia from geting called
     clearInterval(this.interval);
     var query = this.state.searchQuery;
-    
+
+    // Do not search for an empty query
+    if (query === '' || query === undefined || query === null) {
+      return;
+    }
+
     // Calls the Youtube API for Searching a list with a given query
     // TODO: Make APIKey secret
     var apiKey = 'AIzaSyDY8WeYCRWqHEdkSLaPfn2hrXplppIt0aU';
@@ -63,18 +85,28 @@ var Search = React.createClass({
 
   handleChange: function(e) {
     // Sets the state of the Search Query
-    this.setState({searchQuery: e.target.value});
-
-    // Reclears the timer to restart at 0 again until 200 milliseconds, then searchMedia gets called
-    clearInterval(this.interval);
-    this.interval = setInterval(this.searchMedia, 200);
+    this.setState({searchQuery: e.target.value}, function() {
+      // Reclears the timer to restart at 0 again until 200 milliseconds, then searchMedia gets called
+      clearInterval(this.interval);
+      this.interval = setInterval(this.searchMedia, 200);
+    });
   },
 
   render: function() {
     // Prepares each media entry. Whenever a State changes, populates the values in each Media Entry from the jsonResponse given from the YoutubeAPI
     var searchEntries = [];
     var json = this.state.jsonResponse;
-    if (json !== "" && json !== undefined) {
+    var query = this.state.searchQuery;
+
+    // pushes placeholder div into searchEntries if list is empty
+    if (query === '' || query === undefined || query === null || json == "" || json == undefined) {
+      searchEntries.push(
+        <SearchPlaceHolder key={'SearchPlaceHolder'} />
+      )
+    }
+
+    // if generated list has elements, display them
+    else if (json !== "" && json !== undefined) {
       var jsonItem;
       for (var i = 0; i < json.items.length; ++i) {
         jsonItem = json.items[i];
@@ -85,7 +117,7 @@ var Search = React.createClass({
             videoId={jsonItem.id.videoId} 
             categoryType={'SEARCH'}
             mediaType={'YOUTUBE'}
-            thumbnail={jsonItem.snippet.thumbnails.default.url} 
+            thumbnail={jsonItem.snippet.thumbnails.medium.url} 
             title={jsonItem.snippet.title}
             artist={jsonItem.snippet.channelTitle} 
             ifMediaCardAdded={false} /> 
@@ -96,14 +128,40 @@ var Search = React.createClass({
     return (
       <div>
         <div className="search-container">
-          <form id='search-form' className="search-input" onSubmit={this.handleSubmit}>
-            <input className="chat-textbox" name="" placeholder="Search Youtube..." type="text" onChange={this.handleChange} />
+          <form id='search-form' className="search-input search-input-dropdown" onSubmit={this.handleSubmit}>
+            <div className="input-group">
+              <input className="chat-textbox" name="" placeholder="Search Youtube..." type="text" onChange={this.handleChange} />
+              <div className="input-group-btn">
+                <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i className="fa fa-youtube-play dropdown-icon"></i>
+                  Youtube
+                  <i className="fa fa-angle-down dropdown-arrow"></i>
+                </button>
+                <ul className="dropdown-menu dropdown-menu-right">
+                  <li><a href="javascript:void(0)"><i className="fa fa-youtube-play"></i>Youtube</a></li>
+                  <li><a href="javascript:void(0)"><i className="fa fa-vimeo"></i>Vimeo</a></li>
+                  <li><a href="javascript:void(0)"><i className="fa fa-soundcloud"></i>SoundCloud</a></li>
+                  <li><a href="javascript:void(0)"><i className="fa fa-spotify"></i>Spotify</a></li>
+                </ul>
+              </div>
+            </div>
           </form>
         </div>
 
-        <div id='search-media-container'>
+        <div className='search-media-container'>
           {searchEntries}
         </div>
+
+        <nav aria-label="page navigation">
+          <ul className="pagination">
+            <li className="disabled"><a href="javascript:void(0)" aria-label="Previous"><i className="fa fa-angle-left"></i></a></li>
+            <li className="active"><a href="javascript:void(0)">1</a></li>
+            <li><a href="javascript:void(0)">2</a></li>
+            <li><a href="javascript:void(0)">3</a></li>
+            <li><a href="javascript:void(0)" aria-label="Next"><i className="fa fa-angle-right"></i></a></li>
+          </ul>
+        </nav>
+
       </div>
     );
   }

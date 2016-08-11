@@ -194,15 +194,24 @@ var MediaPlayer = React.createClass({
     // Media player is loaded onto the media-player div
     return (
       <div>
-        <div id='media-player' className='js-plyr' data-type="youtube"></div>
-                
-        {
-          // TODO: Get the Status bar working
+        <div className="placeholder placeholder-video">
+          <div className="placeholder-content">
+            <i className="fa fa-moon-o placeholder-icon"></i><br/>
+            <span>You don't have any videos</span>
+          </div>
+        </div>
+        <div className="player">
+          <div className="player-video-embed">
+            <div id='media-player' className='js-plyr' data-type="youtube"></div>
+            {
+              // TODO: Get the Status bar working
 
-          // <div id='status-bar'>
-          //   <StatusBar />
-          // </div>
-        }
+              // <div id='status-bar'>
+              //   <StatusBar />
+              // </div>
+            }
+          </div>
+        </div>
       </div>
     );
   }
