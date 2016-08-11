@@ -16,7 +16,8 @@
 // ReactDOM.render(<SearchComponent />, document.getElementById('search'));
 // ReactDOM.render(<QueueComponent />, document.getElementById('queue'));
 // ReactDOM.render(<Header />, document.getElementById('header'));
+// var IndexComponent = require('./../views/index.jsx');
+// ReactDOM.render(<IndexComponent />, document.getElementById('index'));
 
-
-var IndexComponent = require('./../views/index.jsx');
-ReactDOM.render(<IndexComponent />, document.getElementById('index'));
+var RoomComponent = require('./../views/Room.jsx');
+ReactDOM.render(<RoomComponent />, document.getElementById('room'));
