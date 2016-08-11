@@ -24,7 +24,7 @@ var errorHandler = require('errorhandler');
 var app = express();
 
 // View, React
-app.set('views', __dirname + '../views');
+app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
 
