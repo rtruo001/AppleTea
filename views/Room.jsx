@@ -37,27 +37,25 @@ var Room = React.createClass({
 
           <Header />
 
+        {/* Video and Chat Banner */}
           <div className="banner-container">
             <div className="vid-chat-container">
 
-              {/* Media Player */}
               <div className="video-container">
                 <MediaPlayer />
               </div>
 
-              {/* Chat box */}
               <div className="chatbox-container">
-                <Chatbox />
+               <Chatbox />
               </div>
 
             </div>
           </div>
 
-          {/* Queue and tabbed contents */}
+          {/* Queue and Tabbed Contents */}
           <div className="main-container">
             <div className="row">
-
-              <div className="col-md-4 col-sm-6 queue-container">
+              <div className="col-md-4 col-sm-6 queue-container" id="queue">
                 <Queue />
               </div>
 

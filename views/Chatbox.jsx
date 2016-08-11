@@ -20,7 +20,7 @@ var Chatbox = React.createClass({
             <div className="users-list-container">
               <div className="users-list-header users-online-section">
                 Members
-                <button type="button" className="btn btn-sm btn-red-hover users-list-edit-btn"><i className="fa fa-gear" id="users-list-gear-icon"></i></button>
+                <button type="button" className="btn btn-sm btn-secondary users-list-edit-btn"><i className="fa fa-gear" id="users-list-gear-icon"></i></button>
               </div>
               <div className="users-list-scroll-container">
                 <ul className="users-list">

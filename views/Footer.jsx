@@ -11,7 +11,7 @@ var Footer = React.createClass({
             </div>
             <div className="col-sm-5 col-xs-7">
               <p><b>Apple Tea</b> is one of many exciting projects we're working on. If you want to support our development and help keep Apple Tea servers running, you can send us a donation. We'll love you for it. <i className="fa fa-heart"></i></p>
-              <button type="button" className="btn btn-dark">Donate</button>
+              <button type="button" className="btn btn-teal-hover">Donate</button>
             </div>
           </div>
         </div>
