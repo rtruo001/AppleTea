@@ -15,6 +15,7 @@
                   ShuffleButton
                   LikeButton
                   SquareButton
+                  QueuePlaceHolder
                   Queue
 
     @Exports:     Queue
@@ -102,6 +103,20 @@ var LoopButton = React.createClass({
   }
 });
 
+// Placeholder for an empty list of media entries in queue
+var QueuePlaceHolder = React.createClass({
+  render: function() {
+    return (
+      <div className="placeholder">
+        <div className="placeholder-content">
+          <i className="fa fa-square-o placeholder-icon"></i><br/>
+          <span>Your queue is empty</span>
+        </div>
+      </div>
+    );
+  }
+});
+
 // MAIN COMPONENT: The entire queue
 var Queue = React.createClass({
   getInitialState: function() {
@@ -155,12 +170,7 @@ var Queue = React.createClass({
     // Added If statement that pushes the placeholder div into queueEntries whenever queueList is empty
     if (this.state.queueList.length <= 0) {
       queueEntries.push(
-        <div className="placeholder">
-          <div className="placeholder-content">
-            <i className="fa fa-square-o placeholder-icon"></i><br/>
-            <span>Your queue is empty</span>
-          </div>
-        </div>
+        <QueuePlaceHolder key={'QueuePlaceHolder'} />
       )
     }
 
