@@ -68,8 +68,6 @@ function initializeYoutubeIFrame(youtubeMediaData) {
     ========================================================================== */
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('media-player', {
-    height: '506',
-    width: '900',
     videoId: youtubeObj.youtubeVideoId,
     playerVars: {
       'start': youtubeObj.youtubeStartTime
