@@ -9,13 +9,30 @@
     entire list of media entries. Each media entry contains the thumbnail,
     title, and duration components
 
-    @Components:  Search
+    @Components:  SearchPlaceHolder
+                  Search
 
     @Exports:     Search
     ========================================================================== */
 var React = require('react');
 // Media Entry component
 var MediaEntry = require('./MediaEntry');
+
+// Placeholder for an empty list of media entries in search
+var SearchPlaceHolder = React.createClass({
+  render: function() {
+    return(
+      <div className="col-padding">
+        <div className="placeholder placeholder-search">
+          <div className="placeholder-content">
+            <i className="fa fa-search placeholder-icon"></i><br/>
+            <span>No matching search results</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
 
 // Search Component
 var Search = React.createClass({
@@ -30,7 +47,12 @@ var Search = React.createClass({
     // Clears the timer to prevent another unnecessary searchMedia from geting called
     clearInterval(this.interval);
     var query = this.state.searchQuery;
-    
+
+    // Do not search for an empty query
+    if (query === '' || query === undefined || query === null) {
+      return;
+    }
+
     // Calls the Youtube API for Searching a list with a given query
     // TODO: Make APIKey secret
     var apiKey = 'AIzaSyDY8WeYCRWqHEdkSLaPfn2hrXplppIt0aU';
@@ -63,29 +85,23 @@ var Search = React.createClass({
 
   handleChange: function(e) {
     // Sets the state of the Search Query
-    this.setState({searchQuery: e.target.value});
-
-    // Reclears the timer to restart at 0 again until 200 milliseconds, then searchMedia gets called
-    clearInterval(this.interval);
-    this.interval = setInterval(this.searchMedia, 200);
+    this.setState({searchQuery: e.target.value}, function() {
+      // Reclears the timer to restart at 0 again until 200 milliseconds, then searchMedia gets called
+      clearInterval(this.interval);
+      this.interval = setInterval(this.searchMedia, 200);
+    });
   },
 
   render: function() {
     // Prepares each media entry. Whenever a State changes, populates the values in each Media Entry from the jsonResponse given from the YoutubeAPI
     var searchEntries = [];
     var json = this.state.jsonResponse;
+    var query = this.state.searchQuery;
 
     // pushes placeholder div into searchEntries if list is empty
-    if (json == "" || json == undefined) {
+    if (query === '' || query === undefined || query === null || json == "" || json == undefined) {
       searchEntries.push(
-        <div className="col-padding">
-          <div className="placeholder placeholder-search">
-            <div className="placeholder-content">
-              <i className="fa fa-search placeholder-icon"></i><br/>
-              <span>No matching search results</span>
-            </div>
-          </div>
-        </div>
+        <SearchPlaceHolder key={'SearchPlaceHolder'} />
       )
     }
 
