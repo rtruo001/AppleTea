@@ -5494,7 +5494,7 @@ var Room = React.createClass({
                   null,
                   React.createElement(
                     'a',
-                    { 'data-toggle': 'tab', href: '#search' },
+                    { 'data-toggle': 'tab', href: '#search', className: 'focus-search' },
                     'Search'
                   )
                 )
@@ -5553,7 +5553,7 @@ var React = require('react');
 // Media Entry component
 var MediaEntry = require('./MediaEntry');
 
-// Placeholder for an empty list of media entries in search
+// Default Placeholder when query has no entry
 var SearchPlaceHolder = React.createClass({
   displayName: 'SearchPlaceHolder',
 
@@ -5572,7 +5572,61 @@ var SearchPlaceHolder = React.createClass({
           React.createElement(
             'span',
             null,
+            'Type to search'
+          )
+        )
+      )
+    );
+  }
+});
+
+// Placeholder for an empty list of media entries in search
+var SearchEmpty = React.createClass({
+  displayName: 'SearchEmpty',
+
+  render: function render() {
+    return React.createElement(
+      'div',
+      { className: 'col-padding' },
+      React.createElement(
+        'div',
+        { className: 'placeholder placeholder-search' },
+        React.createElement(
+          'div',
+          { className: 'placeholder-content' },
+          React.createElement('i', { className: 'fa fa-remove placeholder-icon' }),
+          React.createElement('br', null),
+          React.createElement(
+            'span',
+            null,
             'No matching search results'
+          )
+        )
+      )
+    );
+  }
+});
+
+// Searching Load Icon for when search results are loading
+var SearchLoad = React.createClass({
+  displayName: 'SearchLoad',
+
+  render: function render() {
+    return React.createElement(
+      'div',
+      { className: 'col-padding' },
+      React.createElement(
+        'div',
+        { className: 'placeholder placeholder-search' },
+        React.createElement(
+          'div',
+          { className: 'placeholder-content' },
+          React.createElement('i', { className: 'fa fa-circle-o-notch fa-spin placeholder-icon' }),
+          React.createElement('br', null),
+          React.createElement(
+            'span',
+            null,
+            'Searching'
           )
         )
       )
@@ -5595,6 +5649,9 @@ var Search = React.createClass({
     // Clears the timer to prevent another unnecessary searchMedia from geting called
     clearInterval(this.interval);
     var query = this.state.searchQuery;
+
+    // after searchMedia is run, display loading icon first until json is loaded
+    this.setState({ jsonResponse: 'loading' });
 
     // Do not search for an empty query
     if (query === '' || query === undefined || query === null) {
@@ -5620,6 +5677,10 @@ var Search = React.createClass({
         if (response.items.length > 0) {
           this.setState({ jsonResponse: response });
         }
+        // Reset jsonResponse to undefined if no matching results for respective placeholder
+        else if (response.items.length == 0) {
+            this.setState({ jsonResponse: 'empty' });
+          }
       }.bind(this));
     }.bind(this));
   },
@@ -5632,11 +5693,14 @@ var Search = React.createClass({
   },
 
   handleChange: function handleChange(e) {
+    // Sets the state of json to searching (will be overriden with searchMedia in 200ms)
+    this.setState({ jsonResponse: 'loading' });
+
     // Sets the state of the Search Query
     this.setState({ searchQuery: e.target.value }, function () {
       // Reclears the timer to restart at 0 again until 200 milliseconds, then searchMedia gets called
       clearInterval(this.interval);
-      this.interval = setInterval(this.searchMedia, 200);
+      this.interval = setInterval(this.searchMedia, 500);
     });
   },
 
@@ -5647,27 +5711,38 @@ var Search = React.createClass({
     var query = this.state.searchQuery;
 
     // pushes placeholder div into searchEntries if list is empty
-    if (query === '' || query === undefined || query === null || json == "" || json == undefined) {
+    if (query === '' || query === undefined || query === null) {
       searchEntries.push(React.createElement(SearchPlaceHolder, { key: 'SearchPlaceHolder' }));
     }
 
-    // if generated list has elements, display them
-    else if (json !== "" && json !== undefined) {
-        var jsonItem;
-        for (var i = 0; i < json.items.length; ++i) {
-          jsonItem = json.items[i];
-          searchEntries.push(React.createElement(MediaEntry, {
-            key: jsonItem.id.videoId,
-            pos: i,
-            videoId: jsonItem.id.videoId,
-            categoryType: 'SEARCH',
-            mediaType: 'YOUTUBE',
-            thumbnail: jsonItem.snippet.thumbnails.medium.url,
-            title: jsonItem.snippet.title,
-            artist: jsonItem.snippet.channelTitle,
-            ifMediaCardAdded: false }));
-        }
+    // whenever there is a change in query, push loading icon
+    else if (json == 'loading') {
+        searchEntries.push(React.createElement(SearchLoad, { key: 'SearchLoad' }));
       }
+
+      // if search returns no results, pushes empty search placeholder
+      else if (json == 'empty') {
+          searchEntries.push(React.createElement(SearchEmpty, { key: 'SearchEmpty' }));
+        }
+
+        // if generated list has elements, display them
+        else if (json !== "" && json !== undefined) {
+            var jsonItem;
+
+            for (var i = 0; i < json.items.length; ++i) {
+              jsonItem = json.items[i];
+              searchEntries.push(React.createElement(MediaEntry, {
+                key: jsonItem.id.videoId,
+                pos: i,
+                videoId: jsonItem.id.videoId,
+                categoryType: 'SEARCH',
+                mediaType: 'YOUTUBE',
+                thumbnail: jsonItem.snippet.thumbnails.medium.url,
+                title: jsonItem.snippet.title,
+                artist: jsonItem.snippet.channelTitle,
+                ifMediaCardAdded: false }));
+            }
+          }
 
     return React.createElement(
       'div',
@@ -5681,7 +5756,7 @@ var Search = React.createClass({
           React.createElement(
             'div',
             { className: 'input-group' },
-            React.createElement('input', { className: 'chat-textbox', name: '', placeholder: 'Search Youtube...', type: 'text', onChange: this.handleChange }),
+            React.createElement('input', { className: 'chat-textbox', id: 'search-media-input', name: '', placeholder: 'Search Youtube...', type: 'text', onChange: this.handleChange }),
             React.createElement(
               'div',
               { className: 'input-group-btn' },
