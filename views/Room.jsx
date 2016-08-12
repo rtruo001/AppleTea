@@ -63,7 +63,7 @@ var Room = React.createClass({
                 <ul className="nav nav-tabs">
                   <li className="active"><a data-toggle="tab" href="#explore">Explore </a></li>
                   <li><a data-toggle="tab" href="#myplaylists">Private Playlists</a></li>
-                  <li><a data-toggle="tab" href="#search">Search</a></li>
+                  <li><a data-toggle="tab" href="#search" className='focus-search'>Search</a></li>
                 </ul>
 
                 <div className="tab-content">

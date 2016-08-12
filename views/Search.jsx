@@ -18,7 +18,7 @@ var React = require('react');
 // Media Entry component
 var MediaEntry = require('./MediaEntry');
 
-// Placeholder for an empty list of media entries in search
+// Default Placeholder when query has no entry
 var SearchPlaceHolder = React.createClass({
   render: function() {
     return(
@@ -26,7 +26,39 @@ var SearchPlaceHolder = React.createClass({
         <div className="placeholder placeholder-search">
           <div className="placeholder-content">
             <i className="fa fa-search placeholder-icon"></i><br/>
+            <span>Type to search</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+// Placeholder for an empty list of media entries in search
+var SearchEmpty = React.createClass({
+  render: function() {
+    return(
+      <div className="col-padding">
+        <div className="placeholder placeholder-search">
+          <div className="placeholder-content">
+            <i className="fa fa-remove placeholder-icon"></i><br/>
             <span>No matching search results</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+// Searching Load Icon for when search results are loading
+var SearchLoad = React.createClass({
+  render: function() {
+    return(
+      <div className="col-padding">
+        <div className="placeholder placeholder-search">
+          <div className="placeholder-content">
+            <i className="fa fa-circle-o-notch fa-spin placeholder-icon"></i><br/>
+            <span>Searching</span>
           </div>
         </div>
       </div>
@@ -47,6 +79,9 @@ var Search = React.createClass({
     // Clears the timer to prevent another unnecessary searchMedia from geting called
     clearInterval(this.interval);
     var query = this.state.searchQuery;
+
+    // after searchMedia is run, display loading icon first until json is loaded
+    this.setState({jsonResponse: 'loading'});
 
     // Do not search for an empty query
     if (query === '' || query === undefined || query === null) {
@@ -72,6 +107,10 @@ var Search = React.createClass({
         if (response.items.length > 0) {
           this.setState({jsonResponse: response});
         }
+        // Reset jsonResponse to undefined if no matching results for respective placeholder
+        else if (response.items.length == 0) {
+          this.setState({jsonResponse: 'empty'});
+        }
       }.bind(this))
     }.bind(this));
   },
@@ -84,11 +123,14 @@ var Search = React.createClass({
   },
 
   handleChange: function(e) {
+    // Sets the state of json to searching (will be overriden with searchMedia in 200ms)
+    this.setState({jsonResponse: 'loading'});
+
     // Sets the state of the Search Query
     this.setState({searchQuery: e.target.value}, function() {
       // Reclears the timer to restart at 0 again until 200 milliseconds, then searchMedia gets called
       clearInterval(this.interval);
-      this.interval = setInterval(this.searchMedia, 200);
+      this.interval = setInterval(this.searchMedia, 500);
     });
   },
 
@@ -99,15 +141,30 @@ var Search = React.createClass({
     var query = this.state.searchQuery;
 
     // pushes placeholder div into searchEntries if list is empty
-    if (query === '' || query === undefined || query === null || json == "" || json == undefined) {
+    if (query === '' || query === undefined || query === null) {
       searchEntries.push(
         <SearchPlaceHolder key={'SearchPlaceHolder'} />
+      )
+    }
+
+    // whenever there is a change in query, push loading icon
+    else if (json == 'loading') {
+      searchEntries.push(
+        <SearchLoad key={'SearchLoad'} />
+      )
+    }
+
+    // if search returns no results, pushes empty search placeholder
+    else if (json == 'empty') {
+      searchEntries.push(
+        <SearchEmpty key={'SearchEmpty'} />
       )
     }
 
     // if generated list has elements, display them
     else if (json !== "" && json !== undefined) {
       var jsonItem;
+
       for (var i = 0; i < json.items.length; ++i) {
         jsonItem = json.items[i];
         searchEntries.push(
@@ -130,7 +187,7 @@ var Search = React.createClass({
         <div className="search-container">
           <form id='search-form' className="search-input search-input-dropdown" onSubmit={this.handleSubmit}>
             <div className="input-group">
-              <input className="chat-textbox" name="" placeholder="Search Youtube..." type="text" onChange={this.handleChange} />
+              <input className="chat-textbox" id='search-media-input' name="" placeholder="Search Youtube..." type="text" onChange={this.handleChange} />
               <div className="input-group-btn">
                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i className="fa fa-youtube-play dropdown-icon"></i>
