@@ -39,6 +39,9 @@ body {
   color: #000;
 }
 
+.icon-padding {
+  padding-right: 6px;
+}
 
 /* Bootstrap Button Style Ovverid */
 
@@ -234,8 +237,9 @@ body {
   position: absolute;
   width: 854px;
   height: 480px;
-  background-color: #0a0a0a;
+  background-color: #000;
   color: #fff;
+  z-index: 50;
 }
 
 .placeholder-video .placeholder-icon {
@@ -986,6 +990,10 @@ nav {
   border-right-width: 0px !important;
 }
 
+.tab-text {
+  display: inline-block;
+}
+
 .tab-content {
   margin-top: 8px;
 }
@@ -1026,10 +1034,6 @@ nav {
 
 .search-input-dropdown .dropdown-icon {
   color: #fff !important;
-}
-
-.dropdown-icon{
-  padding-right: 6px;
 }
 
 .dropdown-arrow {
@@ -1558,6 +1562,9 @@ a.icon-btn-red:active {color:#e64a60; text-decoration:none; outline:none;}
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
 
+.tab-text {
+  display: none;
+}
 
 }
 

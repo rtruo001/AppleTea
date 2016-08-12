@@ -61,9 +61,21 @@ var Room = React.createClass({
 
               <div className="col-md-8 col-sm-6 tabbed-container">
                 <ul className="nav nav-tabs">
-                  <li className="active"><a data-toggle="tab" href="#explore">Explore </a></li>
-                  <li><a data-toggle="tab" href="#myplaylists">Private Playlists</a></li>
-                  <li><a data-toggle="tab" href="#search" className='focus-search'>Search</a></li>
+                  <li className="active">
+                    <a data-toggle="tab" href="#explore">
+                      <i className="fa fa-rocket icon-padding"></i><div className="tab-text">Explore</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a data-toggle="tab" href="#myplaylists">
+                      <i className="fa fa-book icon-padding"></i><div className="tab-text">Private Playlists</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a data-toggle="tab" href="#search" className='focus-search'>
+                      <i className="fa fa-search icon-padding"></i><div className="tab-text">Search</div>
+                    </a>
+                  </li>
                 </ul>
 
                 <div className="tab-content">
