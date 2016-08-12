@@ -74,12 +74,69 @@ function pauseMediaByMediaType(mediaData) {
   }
 }
 
+/* Placeholder for when no media is loaded */
+var VideoPlaceholder = React.createClass({
+  render: function() {
+    return (
+      <div className="placeholder placeholder-video">
+        <div className="placeholder-content">
+          <i className="fa fa-moon-o placeholder-icon"></i><br/>
+          <span>You don't have any videos</span>
+        </div>
+      </div>
+    );
+  }
+});
+
+/* Placeholder for when media is loaded into queue but not played */
+var VideoReady = React.createClass({
+  render: function() {
+    return (
+      <div className="placeholder placeholder-video">
+        <div className="placeholder-content">
+          <i className="fa fa-play placeholder-icon"></i><br/>
+          <span>Play your queue</span>
+        </div>
+      </div>
+    );
+  }
+});
+
+/* Placeholder for when video is loading */
+var VideoLoading = React.createClass({
+  render: function() {
+    return (
+      <div className="placeholder placeholder-video">
+        <div className="placeholder-content">
+          <i className="fa fa-circle-o-notch fa-spin placeholder-icon"></i><br/>
+          <span>Loading</span>
+        </div>
+      </div>
+    );
+  }
+});
+
+/* Placeholder for when video is syncing */
+var VideoSyncing = React.createClass({
+  render: function() {
+    return (
+      <div className="placeholder placeholder-video">
+        <div className="placeholder-content">
+          <i className="fa fa-refresh fa-spin placeholder-icon"></i><br/>
+          <span>Syncing</span>
+        </div>
+      </div>
+    );
+  }
+});
+
 /* Media player */
 var MediaPlayer = React.createClass({
   getInitialState: function() {
     return {
       mediaState: 'NONE',
-      mediaType: 'NONE'
+      mediaType: 'NONE',
+      localState: 'none'
     };
   },
 
@@ -100,9 +157,9 @@ var MediaPlayer = React.createClass({
   // EVENT HANDLER: Initializes the media with with the data sent from the server
   initializeMedia: function(mediaData) {
     console.log("Initializing Media");
-    
+
     this.setState({mediaType: mediaData.mediaType}, function() {
-      initializeYoutubeIFrame(mediaData);  
+      initializeYoutubeIFrame(mediaData);
       
       // TODO: Initialize Soundcloud
       // initializeSoundcloudPlayer(mediaData);  
@@ -150,6 +207,8 @@ var MediaPlayer = React.createClass({
       switch(this.state.mediaType) {
         case MEDIATYPES.YOUTUBE:
           youtubeLoadVideo(mediaData);
+          this.setState({localState: 'active'});
+          console.log("Youtube Player successfuly loaded: loadMedia:");
           break;
         case MEDIATYPES.SOUNDCLOUD:
           // TODO: Load Soundcloud
@@ -172,6 +231,7 @@ var MediaPlayer = React.createClass({
   playMedia: function(mediaData) {
     this.setState({mediaState: MEDIAPLAYERSTATES.PLAYING}, function() {
       playMediaByMediaType(mediaData);
+      console.log('Media is Now Playing');
     });
   },
 
@@ -179,29 +239,58 @@ var MediaPlayer = React.createClass({
   pauseMedia: function(mediaData) {
     this.setState({mediaState: MEDIAPLAYERSTATES.PAUSED}, function() {
       pauseMediaByMediaType(mediaData);
+      console.log('Media is Now Paused');
     });
   },
 
   // EVENT HANDLER: When media player has ended
   changeMediaPlayerToNone: function() {
-    console.log("ENDING: Media player");
+    this.setState({localState: 'none'});
     this.setState({mediaState: MEDIAPLAYERSTATES.NONE}, function() {
       resetYoutubeObj();
-    })
+      console.log("ENDING: Media player");
+    });
   },
 
   render: function() {
     // Media player is loaded onto the media-player div
+    var videoPlaceholder = [];
+
+    // Displays respective placeholder IF the local state is not 'active'
+    switch (this.state.localState) {
+      case 'active':
+        break;
+      case 'none':
+        videoPlaceholder.push(
+          <VideoPlaceholder key={'VideoPlaceholder'} />
+        );
+        break;
+      case 'ready':
+        videoPlaceholder.push(
+          <VideoReady key={'VideoReady'} />
+        );
+        break;
+      case 'loading':
+        videoPlaceholder.push(
+          <VideoLoading key={'VideoLoading'} />
+        );
+        break;
+      case 'syncing':
+        videoPlaceholder.push(
+          <VideoSyncing key={'VideoSyncing'} />
+        );
+        break;
+      default:
+        // ERROR
+        console.log("ERROR: No localState defined");
+        break;
+    };
+
     return (
       <div>
-        <div className="placeholder placeholder-video">
-          <div className="placeholder-content">
-            <i className="fa fa-moon-o placeholder-icon"></i><br/>
-            <span>You don't have any videos</span>
-          </div>
-        </div>
         <div className="player">
           <div className="player-video-embed">
+            {videoPlaceholder}
             <div id='media-player' className='js-plyr' data-type="youtube"></div>
             {
               // TODO: Get the Status bar working
