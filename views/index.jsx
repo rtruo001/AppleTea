@@ -6,7 +6,7 @@
     Index.jsx
 
     Index JSX View
-    The view of the entire index page. Main webpage
+    The view of the entire index page. Main webpage, currently is a room only
     ========================================================================== */
 
 /*  =============================================================================
