@@ -236,6 +236,7 @@ body {
   height: 480px;
   background-color: #0a0a0a;
   color: #fff;
+  z-index: 50;
 }
 
 .placeholder-video .placeholder-icon {

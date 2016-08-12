@@ -74,6 +74,62 @@ function pauseMediaByMediaType(mediaData) {
   }
 }
 
+/* Placeholder for when no media is loaded */
+var VideoPlaceholder = React.createClass({
+  render: function() {
+    return (
+      <div className="placeholder placeholder-video">
+        <div className="placeholder-content">
+          <i className="fa fa-moon-o placeholder-icon"></i><br/>
+          <span>You don't have any videos</span>
+        </div>
+      </div>
+    );
+  }
+});
+
+/* Placeholder for when no media is loaded */
+var VideoReady = React.createClass({
+  render: function() {
+    return (
+      <div className="placeholder placeholder-video">
+        <div className="placeholder-content">
+          <i className="fa fa-play placeholder-icon"></i><br/>
+          <span>Play your queue</span>
+        </div>
+      </div>
+    );
+  }
+});
+
+/* Placeholder for when video is loading */
+var VideoLoading = React.createClass({
+  render: function() {
+    return (
+      <div className="placeholder placeholder-video">
+        <div className="placeholder-content">
+          <i className="fa fa-circle-o-notch fa-spin placeholder-icon"></i><br/>
+          <span>Loading</span>
+        </div>
+      </div>
+    );
+  }
+});
+
+/* Placeholder for when video is syncing */
+var VideoSyncing = React.createClass({
+  render: function() {
+    return (
+      <div className="placeholder placeholder-video">
+        <div className="placeholder-content">
+          <i className="fa fa-refresh fa-spin placeholder-icon"></i><br/>
+          <span>Syncing</span>
+        </div>
+      </div>
+    );
+  }
+});
+
 /* Media player */
 var MediaPlayer = React.createClass({
   getInitialState: function() {
@@ -150,6 +206,7 @@ var MediaPlayer = React.createClass({
       switch(this.state.mediaType) {
         case MEDIATYPES.YOUTUBE:
           youtubeLoadVideo(mediaData);
+          console.log("Loaded Youtube Media: loadMEdia");
           break;
         case MEDIATYPES.SOUNDCLOUD:
           // TODO: Load Soundcloud
@@ -192,16 +249,37 @@ var MediaPlayer = React.createClass({
 
   render: function() {
     // Media player is loaded onto the media-player div
+    var videoPlaceholder = [];
+
+    if() {
+      videoPlaceholder.push(
+        <VideoPlaceholder />
+      );
+    };
+
+    else if() {
+      videoPlaceholder.push(
+        <VideoReady />
+      );
+    };
+
+    else if() {
+      videoPlaceholder.push(
+        <VideoLoading />
+      );
+    };
+
+    else if() {
+      videoPlaceholder.push(
+        <VideoSyncing />
+      );
+    };
+
     return (
       <div>
-        <div className="placeholder placeholder-video">
-          <div className="placeholder-content">
-            <i className="fa fa-moon-o placeholder-icon"></i><br/>
-            <span>You don't have any videos</span>
-          </div>
-        </div>
         <div className="player">
           <div className="player-video-embed">
+            {videoPlaceholder}
             <div id='media-player' className='js-plyr' data-type="youtube"></div>
             {
               // TODO: Get the Status bar working
