@@ -88,7 +88,7 @@ var VideoPlaceholder = React.createClass({
   }
 });
 
-/* Placeholder for when no media is loaded */
+/* Placeholder for when media is loaded into queue but not played */
 var VideoReady = React.createClass({
   render: function() {
     return (
@@ -135,7 +135,8 @@ var MediaPlayer = React.createClass({
   getInitialState: function() {
     return {
       mediaState: 'NONE',
-      mediaType: 'NONE'
+      mediaType: 'NONE',
+      localState: 'none'
     };
   },
 
@@ -156,9 +157,9 @@ var MediaPlayer = React.createClass({
   // EVENT HANDLER: Initializes the media with with the data sent from the server
   initializeMedia: function(mediaData) {
     console.log("Initializing Media");
-    
+
     this.setState({mediaType: mediaData.mediaType}, function() {
-      initializeYoutubeIFrame(mediaData);  
+      initializeYoutubeIFrame(mediaData);
       
       // TODO: Initialize Soundcloud
       // initializeSoundcloudPlayer(mediaData);  
@@ -206,7 +207,8 @@ var MediaPlayer = React.createClass({
       switch(this.state.mediaType) {
         case MEDIATYPES.YOUTUBE:
           youtubeLoadVideo(mediaData);
-          console.log("Loaded Youtube Media: loadMEdia");
+          this.setState({localState: 'active'});
+          console.log("Youtube Player successfuly loaded: loadMedia:");
           break;
         case MEDIATYPES.SOUNDCLOUD:
           // TODO: Load Soundcloud
@@ -229,6 +231,7 @@ var MediaPlayer = React.createClass({
   playMedia: function(mediaData) {
     this.setState({mediaState: MEDIAPLAYERSTATES.PLAYING}, function() {
       playMediaByMediaType(mediaData);
+      console.log('Media is Now Playing');
     });
   },
 
@@ -236,43 +239,51 @@ var MediaPlayer = React.createClass({
   pauseMedia: function(mediaData) {
     this.setState({mediaState: MEDIAPLAYERSTATES.PAUSED}, function() {
       pauseMediaByMediaType(mediaData);
+      console.log('Media is Now Paused');
     });
   },
 
   // EVENT HANDLER: When media player has ended
   changeMediaPlayerToNone: function() {
-    console.log("ENDING: Media player");
+    this.setState({localState: 'none'});
     this.setState({mediaState: MEDIAPLAYERSTATES.NONE}, function() {
       resetYoutubeObj();
-    })
+      console.log("ENDING: Media player");
+    });
   },
 
   render: function() {
     // Media player is loaded onto the media-player div
     var videoPlaceholder = [];
 
-    if() {
-      videoPlaceholder.push(
-        <VideoPlaceholder />
-      );
-    };
-
-    else if() {
-      videoPlaceholder.push(
-        <VideoReady />
-      );
-    };
-
-    else if() {
-      videoPlaceholder.push(
-        <VideoLoading />
-      );
-    };
-
-    else if() {
-      videoPlaceholder.push(
-        <VideoSyncing />
-      );
+    // Displays respective placeholder IF the local state is not 'active'
+    switch (this.state.localState) {
+      case 'active':
+        break;
+      case 'none':
+        videoPlaceholder.push(
+          <VideoPlaceholder key={'VideoPlaceholder'} />
+        );
+        break;
+      case 'ready':
+        videoPlaceholder.push(
+          <VideoReady key={'VideoReady'} />
+        );
+        break;
+      case 'loading':
+        videoPlaceholder.push(
+          <VideoLoading key={'VideoLoading'} />
+        );
+        break;
+      case 'syncing':
+        videoPlaceholder.push(
+          <VideoSyncing key={'VideoSyncing'} />
+        );
+        break;
+      default:
+        // ERROR
+        console.log("ERROR: No localState defined");
+        break;
     };
 
     return (
