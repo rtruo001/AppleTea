@@ -195,3 +195,11 @@ $('.onclick-edit').keyup(function(event){
     }
 });
 
+
+/* Focus on Search Bar After Tab Transition */
+$('.focus-search').click(function() {
+    setTimeout(function() {
+        $('#search-media-input').focus();
+    }, 200);
+});
+
