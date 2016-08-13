@@ -22,6 +22,14 @@
 var React = require('react');
 var StatusBar = require('./StatusBar');
 
+const MEDIAPLACEHOLDERSTATES = {
+  ACTIVE: 'ACTIVE',
+  NONE: 'NONE',
+  READY: 'READY',
+  LOADING: 'LOADING',
+  SYNCING: 'SYNCING'
+};
+
 /*  =============================================================================
     Function initializeYoutubeIFrame
 
@@ -81,7 +89,7 @@ var VideoPlaceholder = React.createClass({
       <div className="placeholder placeholder-video">
         <div className="placeholder-content">
           <i className="fa fa-moon-o placeholder-icon"></i><br/>
-          <span>You don't have any videos</span>
+          <span>You don&rsquo;t have any videos</span>
         </div>
       </div>
     );
@@ -136,7 +144,7 @@ var MediaPlayer = React.createClass({
     return {
       mediaState: 'NONE',
       mediaType: 'NONE',
-      localState: 'none'
+      localState: 'NONE'
     };
   },
 
@@ -207,7 +215,7 @@ var MediaPlayer = React.createClass({
       switch(this.state.mediaType) {
         case MEDIATYPES.YOUTUBE:
           youtubeLoadVideo(mediaData);
-          this.setState({localState: 'active'});
+          this.setState({localState: MEDIAPLACEHOLDERSTATES.ACTIVE});
           console.log("Youtube Player successfuly loaded: loadMedia:");
           break;
         case MEDIATYPES.SOUNDCLOUD:
@@ -245,7 +253,7 @@ var MediaPlayer = React.createClass({
 
   // EVENT HANDLER: When media player has ended
   changeMediaPlayerToNone: function() {
-    this.setState({localState: 'none'});
+    this.setState({localState: MEDIAPLACEHOLDERSTATES.NONE});
     this.setState({mediaState: MEDIAPLAYERSTATES.NONE}, function() {
       resetYoutubeObj();
       console.log("ENDING: Media player");
@@ -257,25 +265,26 @@ var MediaPlayer = React.createClass({
     var videoPlaceholder = [];
 
     // Displays respective placeholder IF the local state is not 'active'
+    // TODO: Consider using MEDIAPLAYERSTATES instead
     switch (this.state.localState) {
-      case 'active':
+      case MEDIAPLACEHOLDERSTATES.ACTIVE:
         break;
-      case 'none':
+      case MEDIAPLACEHOLDERSTATES.NONE:
         videoPlaceholder.push(
           <VideoPlaceholder key={'VideoPlaceholder'} />
         );
         break;
-      case 'ready':
+      case MEDIAPLACEHOLDERSTATES.READY:
         videoPlaceholder.push(
           <VideoReady key={'VideoReady'} />
         );
         break;
-      case 'loading':
+      case MEDIAPLACEHOLDERSTATES.LOADING:
         videoPlaceholder.push(
           <VideoLoading key={'VideoLoading'} />
         );
         break;
-      case 'syncing':
+      case MEDIAPLACEHOLDERSTATES.SYNCING:
         videoPlaceholder.push(
           <VideoSyncing key={'VideoSyncing'} />
         );
