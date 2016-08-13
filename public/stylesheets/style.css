@@ -240,6 +240,7 @@ body {
   background-color: #000;
   color: #fff;
   z-index: 50;
+  border-radius: 0px;
 }
 
 .placeholder-video .placeholder-icon {
@@ -1521,6 +1522,11 @@ a.icon-btn-red:active {color:#e64a60; text-decoration:none; outline:none;}
   float: none;
   width: 100%;
   height: auto;
+}
+
+.placeholder-video {
+  width: 100%;
+  height: 100%;
 }
 
 .chatbox-container {
