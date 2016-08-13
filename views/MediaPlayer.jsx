@@ -291,7 +291,7 @@ var MediaPlayer = React.createClass({
         break;
       default:
         // ERROR
-        console.log("ERROR: No localState defined");
+        console.log("ERROR: No MEDIAPLACEHOLDERSTATES defined");
         break;
     };
 
