@@ -1,0 +1,15 @@
+// Might not need a media entry DB at all
+
+{
+  "name": "Porter Robinson Full set",
+  "artist": "Porter Robinson",
+  "id": "someid",
+  "type": "Youtube"
+}
+
+{
+  "name": "Lost Boy",
+  "artist": "Foxen",
+  "id": "someid",
+  "type": "Soundcloud"
+}
