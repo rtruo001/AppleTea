@@ -5,7 +5,7 @@
 <html>
   <head>
   	<title>Apple Tea</title>
-    <link rel="shortcut icon" href="images/fav.png"/>
+    <!--<link rel="shortcut icon" href="images/fav.png"/>-->
 
 <!-- CSS -->
 
@@ -28,10 +28,10 @@
 
       <div class="header">
         <div class="header-content-container row">
-          <div class="col-md-6">
+          <div class="col-sm-6">
             <img class="header-logo" src="images/logo.png">
           </div>
-          <div class="col-md-6 header-profile-btn">
+          <div class="col-sm-6 header-profile-btn">
             <a href="javascript:void(0)"><img class="profile-pic" src="images/profile-pic.png"></a>
           </div>
         </div>
@@ -46,6 +46,12 @@
             <!-- <div data-type="youtube" data-video-id="HAIDqt2aUek"></div> -->
 
             <div class="player">
+<!--               <div class="placeholder placeholder-video">
+                <div class="placeholder-content">
+                  <i class="fa fa-moon-o placeholder-icon"></i><br/>
+                  <span>No Media Loaded</span>
+                </div>
+              </div> -->
               <div class="player-video-embed" style="cursor: pointer;">
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/PEmqJBcQ2lg" frameborder="0" allowfullscreen></iframe>
               </div>
@@ -89,6 +95,19 @@
 
           </div>
 
+<!-- Mobile Tab Navigation -->
+
+          <div class="mobile-tabbed-container">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#chat" id="mobile-tab-chat"><i class="fa fa-comments icon-padding"></i><div class="tab-text">Chat</div></a></li>
+              <li><a data-toggle="tab" href="#queue" id="mobile-tab-queue"><i class="fa fa-list-ul icon-padding"></i><div class="tab-text">Queue</div></a></li>
+              <li><a data-toggle="tab" href="#explore" id="mobile-tab-explore"><i class="fa fa-rocket icon-padding"></i><div class="tab-text">Explore</div></a></li>
+              <li><a data-toggle="tab" href="#myplaylists" id="mobile-tab-myplaylists"><i class="fa fa-book icon-padding"></i><div class="tab-text">My Playlists</div></a></li>
+              <li><a data-toggle="tab" href="#search" class='focus-search' id="mobile-tab-search"><i class="fa fa-search icon-padding"></i><div class="tab-text">Search</div></a></li>
+            </ul>
+          </div>
+
+
 <!-- Chatbox Header -->
 
           <div class="chatbox-container">
@@ -98,16 +117,12 @@
                 Vent Room
                 <a class="icon-btn-dark" href="javascript:void(0)"><i class="fa fa-edit" aria-hidden="true"></i></a>
               </div>
-              <div class="users-btn">
-                4
-                <i class="fa fa-users"></i>
-                <i class="fa fa-circle status status-online"></i>
-              </div>
+              <div class="users-btn">4<i class="fa fa-users users-btn-icon"></i><i class="fa fa-circle status status-online"></i></div>
               <div id="users-list-container" onmouseover="document.body.style.overflow='hidden';" onmouseout="document.body.style.overflow='auto';">
                 <div class="users-list-container">
                   <div class="users-list-header users-online-section">
                     Members
-                    <button type="button" class="btn btn-sm btn-red-hover users-list-edit-btn"><i class="fa fa-gear" id="users-list-gear-icon"></i></button>
+                    <button type="button" class="btn btn-sm btn-secondary users-list-edit-btn"><i class="fa fa-gear" id="users-list-gear-icon"></i></button>
                   </div>
                   <div class="users-list-scroll-container">
                     <ul class="users-list">
@@ -388,7 +403,7 @@
 
 <!-- Queue List Column -->
 
-          <div class="col-md-4 col-sm-6 queue-container">
+          <div class="col-md-4 col-sm-5 queue-container" id="queue">
 
             <div class="queue-header">
               <div class="queue-title-container">
@@ -403,6 +418,25 @@
                 <div class="queue-icon"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-edit" data-toggle="tooltip" title="Edit" aria-hidden="true"></i></a></div>
               </div>
             </div>
+
+            <!-- Placeholder for Empty Queue -->
+<!--             <div class="queue-body col-padding">
+              <div class="placeholder">
+                <div class="placeholder-content">
+                  <i class="fa fa-square-o placeholder-icon"></i><br/>
+                  <span>Your queue is empty</span>
+                </div>
+              </div>
+            </div> -->
+
+<!--             <div class="queue-body col-padding">
+              <div class="placeholder">
+                <div class="placeholder-content">
+                  <i class="fa fa-child placeholder-icon"></i><br/>
+                  <span>You finished your playlist!</span>
+                </div>
+              </div>
+            </div> -->
 
             <div class="queue-body col-padding">
 
@@ -531,15 +565,17 @@
 
 <!-- Tab Navigation Bar -->
 
-          <div class="col-md-8 col-sm-6 tabbed-container">
+          <div class="col-md-8 col-sm-7 tabbed-container">
           
             <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#explore">Explore </a></li>
-              <li><a data-toggle="tab" href="#myplaylists">My Playlists</a></li>
-              <li><a data-toggle="tab" href="#search">Search</a></li>
-              <li><a data-toggle="tab" href="#curator-page">Curator Page</a></li>
-              <li><a data-toggle="tab" href="#open-playlist">Open Playlist</a></li>
-              <li><a data-toggle="tab" href="#edit-playlist">Edit Playlist</a></li>
+              <li class="active"><a id="tab-explore" data-toggle="tab" href="#explore"><i class="fa fa-rocket icon-padding"></i><div class="tab-text">Explore</div></a></li>
+              <li><a id="tab-myplaylists" data-toggle="tab" href="#myplaylists"><i class="fa fa-book icon-padding"></i><div class="tab-text">My Playlists</div></a></li>
+              <li><a id="tab-search" data-toggle="tab" href="#search" class='focus-search'><i class="fa fa-search icon-padding"></i><div class="tab-text">Search</div></a></li>
+              <li><a data-toggle="tab" href="#curator-page"><div class="tab-text">C1</div></a></li>
+              <li><a data-toggle="tab" href="#open-playlist"><div class="tab-text">O1</div></a></li>
+              <li><a data-toggle="tab" href="#edit-playlist"><div class="tab-text">O2</div></a></li>
+              <li><a data-toggle="tab" href="#placeholder1"><div class="tab-text">P1</div></a></li>
+              <li><a data-toggle="tab" href="#placeholder2"><div class="tab-text">P2</div></a></li>
             </ul>
 
             <div class="tab-content">
@@ -555,7 +591,7 @@
                 <div class="explore-container">
                   <div class="row">
 
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -578,7 +614,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -601,7 +637,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -624,7 +660,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -647,7 +683,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -670,7 +706,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -693,7 +729,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -716,7 +752,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -739,7 +775,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -762,7 +798,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -785,7 +821,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -808,7 +844,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -860,7 +896,7 @@
                 <div class="myplaylists-container">
                   <div class="row">
 
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card user-playlist">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -886,7 +922,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card user-playlist">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -912,7 +948,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -935,7 +971,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -958,7 +994,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -981,7 +1017,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -1004,7 +1040,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -1065,7 +1101,7 @@
                 <div class="curator-page-container">
                   <div class="row">
 
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -1088,7 +1124,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -1111,7 +1147,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -1134,7 +1170,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -1157,7 +1193,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-padding">
+                    <div class="col-md-3 col-sm-4 col-padding">
                         <div class="playlist-card">
                           <div class="playlist-img-container">
                             <a href="javascript:void(0)">
@@ -1232,7 +1268,7 @@
 
                   <div class="row">
 
-                    <div class="col-md-6 col-padding">
+                    <div class="col-md-6 col-sm-12 col-padding">
                       <div class="playlist-media-card">
                         <img class="media-img" src="images/media-icon.png"/>
                         <div class="media-text-container">
@@ -1257,7 +1293,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6 col-padding">
+                    <div class="col-md-6 col-sm-12 col-padding">
                       <div class="playlist-media-card">
                         <img class="media-img" src="images/media-icon.png"/>
                         <div class="media-text-container">
@@ -1282,7 +1318,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6 col-padding">
+                    <div class="col-md-6 col-sm-12 col-padding">
                       <div class="playlist-media-card">
                         <img class="media-img" src="images/media-icon.png"/>
                         <div class="media-text-container">
@@ -1307,7 +1343,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6 col-padding">
+                    <div class="col-md-6 col-sm-12 col-padding">
                       <div class="playlist-media-card">
                         <img class="media-img" src="images/media-icon.png"/>
                         <div class="media-text-container">
@@ -1364,7 +1400,7 @@
                     <div class="private-public">
                       <div class="dropdown">
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fa fa-lock dropdown-icon"></i>
+                          <i class="fa fa-lock icon-padding"></i>
                           Private Playlist
                           <i class="fa fa-angle-down dropdown-arrow"></i>
                         </button>
@@ -1374,7 +1410,7 @@
                         </ul>
                       </div>
                     </div>
-                    <!--<div class="public-note"><i class="fa fa-globe dropdown-icon"></i>Public Playlist</div>-->
+                    <!--<div class="public-note"><i class="fa fa-globe icon-padding"></i>Public Playlist</div>-->
                     <button type="button" class="btn btn-trash trash-playlist-btn" data-toggle="modal" data-target="#trash-confirm"><i class="fa fa-trash"></i></button>
                   </div>
 
@@ -1426,7 +1462,7 @@
 
                   <div class="row">
 
-                    <div class="col-md-6 col-padding edit-playlist-card">
+                    <div class="col-md-6 col-sm-12 col-padding edit-playlist-card">
                       <div class="playlist-media-card media-card-added grabbable">
                         <div class="media-card-added-corner-container"><div class="media-card-added-corner"></div></div>
                         <a class="media-card-added-x icon-btn-white" href="javascript:void(0)">+</a>
@@ -1453,7 +1489,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6 col-padding edit-playlist-card">
+                    <div class="col-md-6 col-sm-12 col-padding edit-playlist-card">
                       <div class="playlist-media-card media-card-added grabbable">
                         <div class="media-card-added-corner-container"><div class="media-card-added-corner"></div></div>
                         <a class="media-card-added-x icon-btn-white" href="javascript:void(0)">+</a>
@@ -1480,7 +1516,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6 col-padding edit-playlist-card">
+                    <div class="col-md-6 col-sm-12 col-padding edit-playlist-card">
                       <div class="playlist-media-card media-card-added grabbable">
                         <div class="media-card-added-corner-container"><div class="media-card-added-corner"></div></div>
                         <a class="media-card-added-x icon-btn-white" href="javascript:void(0)">+</a>
@@ -1507,7 +1543,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6 col-padding edit-playlist-card">
+                    <div class="col-md-6 col-sm-12 col-padding edit-playlist-card">
                       <div class="playlist-media-card media-card-added grabbable">
                         <div class="media-card-added-corner-container"><div class="media-card-added-corner"></div></div>
                         <a class="media-card-added-x icon-btn-white" href="javascript:void(0)">+</a>
@@ -1547,10 +1583,10 @@
                 <div class="search-container">
                   <form class="search-input search-input-dropdown">
                     <div class="input-group">
-                      <input type="text" name="" placeholder="Search Youtube..."/>
+                      <input type="text" name="" placeholder="Search Youtube..." id='search-media-input'/>
                       <div class="input-group-btn">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fa fa-youtube-play dropdown-icon"></i>
+                          <i class="fa fa-youtube-play dropdown-icon icon-padding"></i>
                           Youtube
                           <i class="fa fa-angle-down dropdown-arrow"></i>
                         </button>
@@ -1727,6 +1763,55 @@
                 </nav>
               </div>
 
+<!-- Placeholder  My Playlist -->
+
+              <div id="placeholder1" class="tab-pane fade">
+                <div class="col-padding">
+                  <div class="placeholder">
+                    <div class="placeholder-content">
+                      <i class="fa fa-book placeholder-icon"></i><br/>
+                      <span>You have no saved playlists.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+<!-- Placeholder Search -->
+
+              <div id="placeholder2" class="tab-pane fade">
+
+                <div class="search-container">
+                  <form class="search-input search-input-dropdown">
+                    <div class="input-group">
+                      <input type="text" name="" placeholder="Search Youtube..."/>
+                      <div class="input-group-btn">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fa fa-youtube-play dropdown-icon icon-padding"></i>
+                          Youtube
+                          <i class="fa fa-angle-down dropdown-arrow"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                          <li><a href="javascript:void(0)"><i class="fa fa-youtube-play"></i>Youtube</a></li>
+                          <li><a href="javascript:void(0)"><i class="fa fa-vimeo"></i>Vimeo</a></li>
+                          <li><a href="javascript:void(0)"><i class="fa fa-soundcloud"></i>SoundCloud</a></li>
+                          <li><a href="javascript:void(0)"><i class="fa fa-spotify"></i>Spotify</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="col-padding">
+                  <div class="placeholder placeholder-search">
+                    <div class="placeholder-content">
+                      <i class="fa fa-search placeholder-icon"></i><br/>
+                      <span>No matching search results.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
             </div> <!-- end tabbed-content -->
           </div><!-- end tabbed-container -->
         </div><!-- end row -->
@@ -1745,7 +1830,7 @@
           </div>
           <div class="col-sm-5 col-xs-7">
             <p><b>Apple Tea</b> is one of many exciting projects we're working on. If you want to support our development and help keep Apple Tea servers running, you can send us a donation. We'll love you for it. <i class="fa fa-heart"></i></p>
-            <button type="button" class="btn btn-dark">Donate</button>
+            <button type="button" class="btn btn-teal-hover">Donate</button>
           </div>
         </div>
       </div>

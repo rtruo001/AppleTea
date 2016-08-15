@@ -98,12 +98,12 @@ var Room = React.createClass({
             <div className="row">
 
               {/* Queue */}
-              <div className="col-md-4 col-sm-6 queue-container" id="queue">
+              <div className="col-md-4 col-sm-5 queue-container" id="queue">
                 <Queue />
               </div>
 
               {/* Desktop Tab Navigation */}
-              <div className="col-md-8 col-sm-6 tabbed-container">
+              <div className="col-md-8 col-sm-7 tabbed-container">
                 <ul className="nav nav-tabs">
                   <li className="active">
                     <a data-toggle="tab" href="#explore" id="tab-explore">

@@ -5,10 +5,10 @@ var Header = React.createClass({
     return (
       <div className="header">
         <div className="header-content-container row">
-          <div className="col-md-6">
+          <div className="col-sm-6">
             <img className="header-logo" src="images/logo.png" />
           </div>
-          <div className="col-md-6 header-profile-btn">
+          <div className="col-sm-6 header-profile-btn">
             <a href="javascript:void(0)"><img className="profile-pic" src="images/profile-pic.png" /></a>
           </div>
         </div>
