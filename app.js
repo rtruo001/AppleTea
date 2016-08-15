@@ -14,6 +14,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// Authentication
+var passport = require('passport');
+
 // USE THIS ERRORHANDLER
 var errorHandler = require('errorhandler');
 
@@ -43,11 +46,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 var routes = require('./routes/index');
-var users = require('./routes/users');
+// var users = require('./routes/users');
+var login = require('./routes/login');
 
 // Use the routers
 app.use('/', routes);
-app.use('/users', users);
+// app.use('/users', users);
+app.use('/login', login(app, passport));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

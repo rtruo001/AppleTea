@@ -16,6 +16,28 @@ var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
+ * MongoDB
+ */
+
+var MongoClient = require('mongodb').MongoClient;
+var serverDB = null;
+
+MongoClient.connect('mongodb://localhost:27017/Appletea', function(err, db) {
+  if (err) {
+    throw err;
+  }
+
+  serverDB = db;
+
+  db.collection('Users').find().toArray(function(err, result) {
+    if (err) {
+      throw err;
+    }
+    console.log(result);
+  });
+});
+
+/**
  * Create HTTP server.
  */
 
@@ -81,9 +103,20 @@ io.on('connection', function(socket) {
 
   // When a message is sent, sends the username and their message to the client
   socket.on('From Client: Chat message', function(msg){
+
+    // RANDOMLY TESTING MONGODB HERE
+    serverDB.collection('Users').insert({
+      username: msg
+    }, function() {
+      serverDB.collection('Users').find().toArray(function(err, result) {
+        console.log(result);
+      });
+    });
+
+
     console.log(socket.username + ": "  + msg);
     io.emit('From Server: Chat message', {
-      username: socket.username,
+      "username": socket.username,
       message: msg
     });
   });
