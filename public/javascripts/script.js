@@ -42,6 +42,7 @@ $('.mod-toggle').click(function(){
 /* Chat Scrolled to Bottom on Window Load */
 $('.chat').scrollTop($('.chat')[0].scrollHeight);
 
+
 /* Tooltips */
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();
@@ -203,3 +204,67 @@ $('.focus-search').click(function() {
     }, 200);
 });
 
+
+/* Mobile Tab Navigation */
+
+// Event Handler: When window width changes, run WidthChange();
+if (matchMedia) {
+  var mq = window.matchMedia("(max-width: 768px)");
+  mq.addListener(WidthChange);
+  WidthChange(mq);
+};
+
+// If media query mobile, #chat active, else regular tabs active
+function WidthChange(mq) {
+  if (mq.matches) {
+    console.log('width change: chat active');
+    $('.chatbox-container').css('display','block');
+    $('.queue-container').css('display','none');
+    $('.tabbed-container').css('display','none');
+  }
+  else {
+    console.log('width change: reg tabs active');
+    $('.chatbox-container').css('display','block');
+    $('.queue-container').css('display','block');
+    $('.tabbed-container').css('display','block');
+  }
+};
+
+// Event Handler: When each MOBILE tab is clicked
+$('#mobile-tab-chat').click(function() {
+    console.log('display chat')
+    $('.chatbox-container').css('display','block');
+    $('.queue-container').css('display','none');
+    $('.tabbed-container').css('display','none');
+});
+
+$('#mobile-tab-queue').click(function() {
+    console.log('display queue')
+    $('.chatbox-container').css('display','none');
+    $('.queue-container').css('display','block');
+    $('.tabbed-container').css('display','none');
+});
+
+$('#mobile-tab-explore').click(function() {
+    console.log('display explore')
+    $('.chatbox-container').css('display','none');
+    $('.queue-container').css('display','none');
+    $('.tabbed-container').css('display','block');
+    document.getElementById('tab-explore').click();
+});
+
+$('#mobile-tab-myplaylists').click(function() {
+    console.log('display myplaylists')
+    $('.chatbox-container').css('display','none');
+    $('.queue-container').css('display','none');
+    $('.tabbed-container').css('display','block');
+    document.getElementById('tab-myplaylists').click();
+});
+
+$('#mobile-tab-search').click(function() {
+    console.log('display search')
+    $('.chatbox-container').css('display','none');
+    $('.queue-container').css('display','none');
+    $('.tabbed-container').css('display','block');
+    document.getElementById('tab-search').click();
+});

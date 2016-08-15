@@ -33,18 +33,59 @@ var Room = React.createClass({
     return(
       <div>
         <div className="content-container">
+
+          {/* Page Overlay // to freeze screen when modal/popup is active */}
           <div id="page-overlay"></div>
 
+          {/* Header */}
           <Header />
 
-        {/* Video and Chat Banner */}
+          {/* Video and Chat Banner */}
           <div className="banner-container">
             <div className="vid-chat-container">
 
+              {/* Video */}
               <div className="video-container">
                 <MediaPlayer />
               </div>
 
+              {/* Mobile Tab Navigation // replaces regular tabs in mobile */}
+              <div className="mobile-tabbed-container">
+                <ul className="nav nav-tabs">
+                  <li className="active">
+                    <a data-toggle="tab" href="#chat" id="mobile-tab-chat">
+                      <i className="fa fa-comments icon-padding"></i>
+                      <div className="tab-text">Chat</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a data-toggle="tab" href="#queue" id="mobile-tab-queue">
+                      <i className="fa fa-list-ul icon-padding"></i>
+                      <div className="tab-text">Queue</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a data-toggle="tab" href="#explore" id="mobile-tab-explore">
+                      <i className="fa fa-rocket icon-padding"></i>
+                      <div className="tab-text">Explore</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a data-toggle="tab" href="#myplaylists" id="mobile-tab-myplaylists">
+                      <i className="fa fa-book icon-padding"></i>
+                      <div className="tab-text">My Playlists</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a data-toggle="tab" href="#search" className='focus-search' id="mobile-tab-search">
+                      <i className="fa fa-search icon-padding"></i>
+                      <div className="tab-text">Search</div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+            {/* Chat */}
               <div className="chatbox-container">
                <Chatbox />
               </div>
@@ -52,29 +93,52 @@ var Room = React.createClass({
             </div>
           </div>
 
-          {/* Queue and Tabbed Contents */}
+          {/* Main Container // queue and tabbed containers*/}
           <div className="main-container">
             <div className="row">
-              <div className="col-md-4 col-sm-6 queue-container" id="queue">
+
+              {/* Queue */}
+              <div className="col-md-4 col-sm-5 queue-container" id="queue">
                 <Queue />
               </div>
 
-              <div className="col-md-8 col-sm-6 tabbed-container">
+              {/* Desktop Tab Navigation */}
+              <div className="col-md-8 col-sm-7 tabbed-container">
                 <ul className="nav nav-tabs">
-                  <li className="active"><a data-toggle="tab" href="#explore">Explore </a></li>
-                  <li><a data-toggle="tab" href="#myplaylists">Private Playlists</a></li>
-                  <li><a data-toggle="tab" href="#search" className='focus-search'>Search</a></li>
+                  <li className="active">
+                    <a data-toggle="tab" href="#explore" id="tab-explore">
+                      <i className="fa fa-rocket icon-padding"></i>
+                      <div className="tab-text">Explore</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a data-toggle="tab" href="#myplaylists" id="tab-myplaylists">
+                      <i className="fa fa-book icon-padding"></i>
+                      <div className="tab-text">Private Playlists</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a data-toggle="tab" href="#search" className='focus-search' id="tab-search">
+                      <i className="fa fa-search icon-padding"></i>
+                      <div className="tab-text">Search</div>
+                    </a>
+                  </li>
                 </ul>
 
+                {/* Desktop Tabbed Containers */}
                 <div className="tab-content">
+
+                  {/* Explore */}
                   <div id="explore" className="tab-pane fade in active">
                     <Explore />
                   </div>
 
+                  {/* My Playlists */}
                   <div id="myplaylists" className="tab-pane fade">
                     <PrivatePlaylists />
                   </div>
 
+                  {/* Search */}
                   <div id="search" className="tab-pane fade">
                     <Search />
                   </div>
@@ -84,9 +148,11 @@ var Room = React.createClass({
             </div>
           </div>
 
+          {/* Footer Push */}
           <div className="push"></div>
         </div>
 
+        {/* Footer */}
         <Footer />
         
       </div>
