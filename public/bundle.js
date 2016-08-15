@@ -4320,12 +4320,12 @@ var Header = React.createClass({
         { className: "header-content-container row" },
         React.createElement(
           "div",
-          { className: "col-md-6" },
+          { className: "col-sm-6" },
           React.createElement("img", { className: "header-logo", src: "images/logo.png" })
         ),
         React.createElement(
           "div",
-          { className: "col-md-6 header-profile-btn" },
+          { className: "col-sm-6 header-profile-btn" },
           React.createElement(
             "a",
             { href: "javascript:void(0)" },
@@ -4804,6 +4804,14 @@ module.exports = MediaEntry;
 var React = require('react');
 var StatusBar = require('./StatusBar');
 
+var MEDIAPLACEHOLDERSTATES = {
+  ACTIVE: 'ACTIVE',
+  NONE: 'NONE',
+  READY: 'READY',
+  LOADING: 'LOADING',
+  SYNCING: 'SYNCING'
+};
+
 /*  =============================================================================
     Function initializeYoutubeIFrame
 
@@ -4856,6 +4864,98 @@ function pauseMediaByMediaType(mediaData) {
   }
 }
 
+/* Placeholder for when no media is loaded */
+var VideoPlaceholder = React.createClass({
+  displayName: 'VideoPlaceholder',
+
+  render: function render() {
+    return React.createElement(
+      'div',
+      { className: 'placeholder placeholder-video' },
+      React.createElement(
+        'div',
+        { className: 'placeholder-content' },
+        React.createElement('i', { className: 'fa fa-moon-o placeholder-icon' }),
+        React.createElement('br', null),
+        React.createElement(
+          'span',
+          null,
+          'You don’t have any videos'
+        )
+      )
+    );
+  }
+});
+
+/* Placeholder for when media is loaded into queue but not played */
+var VideoReady = React.createClass({
+  displayName: 'VideoReady',
+
+  render: function render() {
+    return React.createElement(
+      'div',
+      { className: 'placeholder placeholder-video' },
+      React.createElement(
+        'div',
+        { className: 'placeholder-content' },
+        React.createElement('i', { className: 'fa fa-play placeholder-icon' }),
+        React.createElement('br', null),
+        React.createElement(
+          'span',
+          null,
+          'Play your queue'
+        )
+      )
+    );
+  }
+});
+
+/* Placeholder for when video is loading */
+var VideoLoading = React.createClass({
+  displayName: 'VideoLoading',
+
+  render: function render() {
+    return React.createElement(
+      'div',
+      { className: 'placeholder placeholder-video' },
+      React.createElement(
+        'div',
+        { className: 'placeholder-content' },
+        React.createElement('i', { className: 'fa fa-circle-o-notch fa-spin placeholder-icon' }),
+        React.createElement('br', null),
+        React.createElement(
+          'span',
+          null,
+          'Loading'
+        )
+      )
+    );
+  }
+});
+
+/* Placeholder for when video is syncing */
+var VideoSyncing = React.createClass({
+  displayName: 'VideoSyncing',
+
+  render: function render() {
+    return React.createElement(
+      'div',
+      { className: 'placeholder placeholder-video' },
+      React.createElement(
+        'div',
+        { className: 'placeholder-content' },
+        React.createElement('i', { className: 'fa fa-refresh fa-spin placeholder-icon' }),
+        React.createElement('br', null),
+        React.createElement(
+          'span',
+          null,
+          'Syncing'
+        )
+      )
+    );
+  }
+});
+
 /* Media player */
 var MediaPlayer = React.createClass({
   displayName: 'MediaPlayer',
@@ -4863,7 +4963,8 @@ var MediaPlayer = React.createClass({
   getInitialState: function getInitialState() {
     return {
       mediaState: 'NONE',
-      mediaType: 'NONE'
+      mediaType: 'NONE',
+      localState: 'NONE'
     };
   },
 
@@ -4934,6 +5035,8 @@ var MediaPlayer = React.createClass({
       switch (this.state.mediaType) {
         case MEDIATYPES.YOUTUBE:
           youtubeLoadVideo(mediaData);
+          this.setState({ localState: MEDIAPLACEHOLDERSTATES.ACTIVE });
+          console.log("Youtube Player successfuly loaded: loadMedia:");
           break;
         case MEDIATYPES.SOUNDCLOUD:
           // TODO: Load Soundcloud
@@ -4956,6 +5059,7 @@ var MediaPlayer = React.createClass({
   playMedia: function playMedia(mediaData) {
     this.setState({ mediaState: MEDIAPLAYERSTATES.PLAYING }, function () {
       playMediaByMediaType(mediaData);
+      console.log('Media is Now Playing');
     });
   },
 
@@ -4963,42 +5067,56 @@ var MediaPlayer = React.createClass({
   pauseMedia: function pauseMedia(mediaData) {
     this.setState({ mediaState: MEDIAPLAYERSTATES.PAUSED }, function () {
       pauseMediaByMediaType(mediaData);
+      console.log('Media is Now Paused');
     });
   },
 
   // EVENT HANDLER: When media player has ended
   changeMediaPlayerToNone: function changeMediaPlayerToNone() {
-    console.log("ENDING: Media player");
+    this.setState({ localState: MEDIAPLACEHOLDERSTATES.NONE });
     this.setState({ mediaState: MEDIAPLAYERSTATES.NONE }, function () {
       resetYoutubeObj();
+      console.log("ENDING: Media player");
     });
   },
 
   render: function render() {
+    // Media player is loaded onto the media-player div
+    var videoPlaceholder = [];
+
+    // Displays respective placeholder IF the local state is not 'active'
+    // TODO: Consider using MEDIAPLAYERSTATES instead
+    switch (this.state.localState) {
+      case MEDIAPLACEHOLDERSTATES.ACTIVE:
+        break;
+      case MEDIAPLACEHOLDERSTATES.NONE:
+        videoPlaceholder.push(React.createElement(VideoPlaceholder, { key: 'VideoPlaceholder' }));
+        break;
+      case MEDIAPLACEHOLDERSTATES.READY:
+        videoPlaceholder.push(React.createElement(VideoReady, { key: 'VideoReady' }));
+        break;
+      case MEDIAPLACEHOLDERSTATES.LOADING:
+        videoPlaceholder.push(React.createElement(VideoLoading, { key: 'VideoLoading' }));
+        break;
+      case MEDIAPLACEHOLDERSTATES.SYNCING:
+        videoPlaceholder.push(React.createElement(VideoSyncing, { key: 'VideoSyncing' }));
+        break;
+      default:
+        // ERROR
+        console.log("ERROR: No MEDIAPLACEHOLDERSTATES defined");
+        break;
+    };
+
     return React.createElement(
       'div',
       null,
-      React.createElement(
-        'div',
-        { className: 'placeholder placeholder-video' },
-        React.createElement(
-          'div',
-          { className: 'placeholder-content' },
-          React.createElement('i', { className: 'fa fa-moon-o placeholder-icon' }),
-          React.createElement('br', null),
-          React.createElement(
-            'span',
-            null,
-            'You don\'t have any videos'
-          )
-        )
-      ),
       React.createElement(
         'div',
         { className: 'player' },
         React.createElement(
           'div',
           { className: 'player-video-embed' },
+          videoPlaceholder,
           React.createElement('div', { id: 'media-player', className: 'js-plyr', 'data-type': 'youtube' })
         )
       )
@@ -5449,6 +5567,84 @@ var Room = React.createClass({
             ),
             React.createElement(
               'div',
+              { className: 'mobile-tabbed-container' },
+              React.createElement(
+                'ul',
+                { className: 'nav nav-tabs' },
+                React.createElement(
+                  'li',
+                  { className: 'active' },
+                  React.createElement(
+                    'a',
+                    { 'data-toggle': 'tab', href: '#chat', id: 'mobile-tab-chat' },
+                    React.createElement('i', { className: 'fa fa-comments icon-padding' }),
+                    React.createElement(
+                      'div',
+                      { className: 'tab-text' },
+                      'Chat'
+                    )
+                  )
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  React.createElement(
+                    'a',
+                    { 'data-toggle': 'tab', href: '#queue', id: 'mobile-tab-queue' },
+                    React.createElement('i', { className: 'fa fa-list-ul icon-padding' }),
+                    React.createElement(
+                      'div',
+                      { className: 'tab-text' },
+                      'Queue'
+                    )
+                  )
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  React.createElement(
+                    'a',
+                    { 'data-toggle': 'tab', href: '#explore', id: 'mobile-tab-explore' },
+                    React.createElement('i', { className: 'fa fa-rocket icon-padding' }),
+                    React.createElement(
+                      'div',
+                      { className: 'tab-text' },
+                      'Explore'
+                    )
+                  )
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  React.createElement(
+                    'a',
+                    { 'data-toggle': 'tab', href: '#myplaylists', id: 'mobile-tab-myplaylists' },
+                    React.createElement('i', { className: 'fa fa-book icon-padding' }),
+                    React.createElement(
+                      'div',
+                      { className: 'tab-text' },
+                      'My Playlists'
+                    )
+                  )
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  React.createElement(
+                    'a',
+                    { 'data-toggle': 'tab', href: '#search', className: 'focus-search', id: 'mobile-tab-search' },
+                    React.createElement('i', { className: 'fa fa-search icon-padding' }),
+                    React.createElement(
+                      'div',
+                      { className: 'tab-text' },
+                      'Search'
+                    )
+                  )
+                )
+              )
+            ),
+            React.createElement(
+              'div',
               { className: 'chatbox-container' },
               React.createElement(Chatbox, null)
             )
@@ -5462,12 +5658,12 @@ var Room = React.createClass({
             { className: 'row' },
             React.createElement(
               'div',
-              { className: 'col-md-4 col-sm-6 queue-container', id: 'queue' },
+              { className: 'col-md-4 col-sm-5 queue-container', id: 'queue' },
               React.createElement(Queue, null)
             ),
             React.createElement(
               'div',
-              { className: 'col-md-8 col-sm-6 tabbed-container' },
+              { className: 'col-md-8 col-sm-7 tabbed-container' },
               React.createElement(
                 'ul',
                 { className: 'nav nav-tabs' },
@@ -5476,8 +5672,13 @@ var Room = React.createClass({
                   { className: 'active' },
                   React.createElement(
                     'a',
-                    { 'data-toggle': 'tab', href: '#explore' },
-                    'Explore '
+                    { 'data-toggle': 'tab', href: '#explore', id: 'tab-explore' },
+                    React.createElement('i', { className: 'fa fa-rocket icon-padding' }),
+                    React.createElement(
+                      'div',
+                      { className: 'tab-text' },
+                      'Explore'
+                    )
                   )
                 ),
                 React.createElement(
@@ -5485,8 +5686,13 @@ var Room = React.createClass({
                   null,
                   React.createElement(
                     'a',
-                    { 'data-toggle': 'tab', href: '#myplaylists' },
-                    'Private Playlists'
+                    { 'data-toggle': 'tab', href: '#myplaylists', id: 'tab-myplaylists' },
+                    React.createElement('i', { className: 'fa fa-book icon-padding' }),
+                    React.createElement(
+                      'div',
+                      { className: 'tab-text' },
+                      'Private Playlists'
+                    )
                   )
                 ),
                 React.createElement(
@@ -5494,8 +5700,13 @@ var Room = React.createClass({
                   null,
                   React.createElement(
                     'a',
-                    { 'data-toggle': 'tab', href: '#search', className: 'focus-search' },
-                    'Search'
+                    { 'data-toggle': 'tab', href: '#search', className: 'focus-search', id: 'tab-search' },
+                    React.createElement('i', { className: 'fa fa-search icon-padding' }),
+                    React.createElement(
+                      'div',
+                      { className: 'tab-text' },
+                      'Search'
+                    )
                   )
                 )
               ),
