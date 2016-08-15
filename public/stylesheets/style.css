@@ -1357,7 +1357,7 @@ nav {
 
 .search-media-text-container {
   float: left;
-  width: 80%;
+  width: 60%;
   padding: 8px 0px 0px 14px;
 }
 
@@ -1378,8 +1378,8 @@ nav {
 
 .search-media-icon-container {
   position: absolute;
-  bottom: 29px;
-  right: 26px;
+  bottom: 18px;
+  right: 5px;
 }
 
 .search-media-icon {
@@ -1496,6 +1496,68 @@ a.icon-btn-red:active {color:#e64a60; text-decoration:none; outline:none;}
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px) {
+
+/* Header */
+.header-content-container {
+  width: 900px;
+}
+
+/* Video and Chat */
+.banner-container {
+  min-width: 960px;
+  height: 360px;
+}
+
+.vid-chat-container {
+  width: 960px;
+}
+
+.video-container {
+  width: 640px;
+}
+
+.placeholder-video {
+  width: 640px;
+  height: 360px;
+}
+
+.chat-container {
+  width: 320px;
+}
+
+.chat {
+  height: 240px;
+}
+
+/* Main Container */
+.main-container {
+  width: 960px;
+  max-width: 960px;
+}
+
+
+/* Playlists Medias */
+.playlist-media-card .media-img {
+  width: 25%;
+}
+
+.playlist-media-card .media-text-container {
+  width: 75%;
+}
+
+/* Search Medias */
+.search-media-card .search-media-img {
+  width: 25%;
+}
+
+/* Footer */
+.footer {
+  min-width: 960px;
+}
+
+.footer-content {
+  max-width: 960px;
+}
 
 }
 
