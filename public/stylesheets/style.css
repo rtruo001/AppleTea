@@ -39,6 +39,9 @@ body {
   color: #000;
 }
 
+.icon-padding {
+  padding-right: 6px;
+}
 
 /* Bootstrap Button Style Ovverid */
 
@@ -69,7 +72,7 @@ body {
 }
 
 .btn-secondary:hover {
-  background-color: #e6e6e6 !important;
+  background-color: #e5e5e5 !important;
 }
 
 .btn-secondary:active {
@@ -237,6 +240,7 @@ body {
   background-color: #000;
   color: #fff;
   z-index: 50;
+  border-radius: 0px;
 }
 
 .placeholder-video .placeholder-icon {
@@ -541,7 +545,7 @@ body {
 }
 
 .search-user .search-media-card:hover {
-  background-color: #e6e6e6;
+  background-color: #e5e5e5;
 }
 
 .search-user .search-media-img {
@@ -817,7 +821,7 @@ form {
 }
 
 .media-card:hover {
-  background-color: #e6e6e6;
+  background-color: #e5e5e5;
 }
 
 .media-card-added {
@@ -987,6 +991,10 @@ nav {
   border-right-width: 0px !important;
 }
 
+.tab-text {
+  display: inline-block;
+}
+
 .tab-content {
   margin-top: 8px;
 }
@@ -1027,10 +1035,6 @@ nav {
 
 .search-input-dropdown .dropdown-icon {
   color: #fff !important;
-}
-
-.dropdown-icon{
-  padding-right: 6px;
 }
 
 .dropdown-arrow {
@@ -1423,6 +1427,12 @@ nav {
 }
 
 
+/* Mobile Tabs */
+.mobile-tabbed-container {
+  display: none;
+}
+
+
 /* Font Awesome Social Media Icon Colors */
 
 .fa-youtube-play {color: #888; padding-right: 6px;}
@@ -1487,6 +1497,11 @@ a.icon-btn-red:active {color:#e64a60; text-decoration:none; outline:none;}
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px) {
 
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+
 /*Header*/
 .header-content-container {
   max-width: 100%;
@@ -1520,13 +1535,121 @@ a.icon-btn-red:active {color:#e64a60; text-decoration:none; outline:none;}
   height: auto;
 }
 
-.chatbox-container {
+.placeholder-video {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* Mobile Tabs */
+.mobile-tabbed-container {
+  display: block;
+  background-color: #fff;
+  padding-top: 10px;
+}
+
+.tabbed-container .nav-tabs{
   display: none;
 }
+
+.tab-content {
+  margin: 0px;
+}
+
+.queue-container {
+  padding: 0px 0px 15px 0px !important;
+}
+
+.queue-header {
+  padding: 0px 6px 0px 20px;
+  margin: 16px 0px 14px 0px;
+}
+
+.queue-body {
+  padding: 7px 22px !important;
+}
+
+.tabbed-container {
+  margin-top: 10px;
+  padding: 15px;
+  border-top: solid 1px #e5e5e5;
+}
+
+/* Chat */
+.chatbox-container {
+  float: none;
+  width: 100%;
+  height: 480px;
+  background-color: #fff;
+}
+
+.room-header {
+  background-color: #fff;
+  color: #eee;
+  border-bottom-style: solid;
+  border-bottom-color: #e5e5e5;
+  border-bottom-width: 1px; 
+}
+
+.room-header .room-name {
+  color: #000;
+}
+
+.room-header .edit-input {
+  background-color: #eee;
+}
+
+
+/* Room User's List */
+
+.users-btn {
+  color: #000;
+  background-color: #eee;
+}
+
+.users-btn:hover {
+  background-color: #e5e5e5;
+}
+
+.users-list-container {
+  border: solid 1px #e6e6e6;
+}
+
+.chat-notif {
+  color: #aaa;
+}
+
+.chat-msg .name {
+  color:#aaa;
+}
+
+.chat-msg .msg {
+  color:#000;
+  background-color: #eee;
+}
+
+.chat-input input {
+  color: #000;
+  background: #eee;
+}
+
 
 /*Main Container*/
 .main-container {
   width: 100%;
+}
+
+/* Navigation Tabs */
+.nav-tabs {
+  border-bottom-color: transparent !important;
+}
+
+.nav-tabs .active a {
+  border-bottom-color: transparent !important;
+}
+
+.tab-text {
+  display: none;
 }
 
 .search-media-icon-container {
@@ -1552,13 +1675,6 @@ a.icon-btn-red:active {color:#e64a60; text-decoration:none; outline:none;}
 .footer {
   min-width: 100%;
 }
-
-
-}
-
-/* Small Devices, Tablets */
-@media only screen and (max-width : 768px) {
-
 
 }
 
