@@ -16,6 +16,7 @@ var bodyParser = require('body-parser');
 
 // Authentication
 var passport = require('passport');
+var Strategy = require('passport-local').Strategy;
 
 // USE THIS ERRORHANDLER
 var errorHandler = require('errorhandler');
@@ -53,6 +54,7 @@ var login = require('./routes/login');
 app.use('/', routes);
 // app.use('/users', users);
 app.use('/login', login(app, passport));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
