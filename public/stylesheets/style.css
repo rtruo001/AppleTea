@@ -744,11 +744,12 @@ form {
 
 .media-card {
   position: relative;
+  display: inline-block;
+  float: left;
   background-color: #eee;
   width: 100%;
   margin-bottom: 12px;
   border-radius: 4px;
-  display: inline-block;
 
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none;   /* Chrome/Safari/Opera */
@@ -1338,16 +1339,18 @@ nav {
 /* Search Media Cards*/
 
 .search-card-padding {
-  padding: 6px 8px;
+  padding: 0px 8px;
 }
 
 .search-media-card {
   position: relative;
   display: inline-block;
+  float: right;
   background-color: #eee;
   width: 100%;
   border-radius: 4px;
   padding: 6px;
+  margin: 7px 0px;
 }
 
 .search-media-img {
