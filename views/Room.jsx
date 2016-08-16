@@ -23,7 +23,7 @@ var Chatbox = require('./Chatbox');
 var StatusBar = require('./StatusBar');
 var Queue = require('./Queue');
 var Explore = require('./Explore');
-var PrivatePlaylists = require('./PrivatePlaylists');
+var MyPlaylists = require('./MyPlaylists');
 var Search = require('./Search');
 var Footer = require('./Footer');
 
@@ -135,7 +135,7 @@ var Room = React.createClass({
 
                   {/* My Playlists */}
                   <div id="myplaylists" className="tab-pane fade">
-                    <PrivatePlaylists />
+                    <MyPlaylists />
                   </div>
 
                   {/* Search */}
