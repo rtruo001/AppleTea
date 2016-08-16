@@ -17,6 +17,8 @@ var bodyParser = require('body-parser');
 // Authentication
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
+var flash = require('connect-flash');
+var session = require('express-session');
 
 // USE THIS ERRORHANDLER
 var errorHandler = require('errorhandler');
@@ -45,6 +47,12 @@ app.use('/css', express.static(__dirname + '/public/stylesheets'));
 app.use('/js', express.static(__dirname + '/public/javascripts'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Passport
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
 // Routes
 var routes = require('./routes/index');
 // var users = require('./routes/users');
@@ -53,7 +61,8 @@ var login = require('./routes/login');
 // Use the routers
 app.use('/', routes);
 // app.use('/users', users);
-app.use('/login', login(app, passport));
+app.use('/login', login);
+
 
 
 // catch 404 and forward to error handler

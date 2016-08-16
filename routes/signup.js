@@ -2,12 +2,12 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
-/* GET home page. */
+/* GET signup page. */
 router.get('/', function(req, res, next) {
   // var reactHtml = React.renderToString(ReactApp({}));
   res.render('index', { 
-    message: req.flash('loginMessage') 
-  }); 
+    message: req.flash('signupMessage') 
+  });
 });
 
 // router.post('/', 
