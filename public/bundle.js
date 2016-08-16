@@ -5000,6 +5000,7 @@ var MediaPlayer = React.createClass({
   // EVENT HANDLER: Sends the state of the media players
   sendMediaPlayerStates: function sendMediaPlayerStates(mediaData) {
     console.log("sendMediaPlayerState");
+    this.setState({ localState: MEDIAPLACEHOLDERSTATES.ACTIVE });
     this.setState({ mediaState: mediaData.state }, function () {
       switch (this.state.mediaState) {
         case MEDIAPLAYERSTATES.PLAYING:
