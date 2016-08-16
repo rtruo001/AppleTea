@@ -4625,7 +4625,11 @@ var MediaEntry = React.createClass({
         return React.createElement(
           'div',
           { id: this.props.pos + queueMediaEntryId, className: queueMediaCardClassName },
-          React.createElement('div', { className: 'media-card-added-corner' }),
+          React.createElement(
+            'div',
+            { className: 'media-card-added-corner-container' },
+            React.createElement('div', { className: 'media-card-added-corner' })
+          ),
           React.createElement(
             'a',
             { className: 'media-card-added-plus icon-btn-white', href: 'javascript:void(0)', onClick: this.deleteMediaEntry },
@@ -5185,12 +5189,12 @@ var MyPlaylists = React.createClass({
 
     var playlistEntries = [];
 
-    // If no playlists, return a placeholder
+    // TODO: If no playlists, return a placeholder
     if (false) {
       playlistEntries.push(React.createElement(MyPlaylistPlaceholder, { key: 'MyPlaylistPlaceholder' }));
     }
 
-    // If there playlists, pushes every playlist
+    // If there are playlists, pushes every playlist
     else {
         playlistEntries.push(React.createElement(SearchMyPlaylist, { key: 'SearchMyPlaylist' }));
 
@@ -5201,7 +5205,8 @@ var MyPlaylists = React.createClass({
           curator: 'Gliu',
           size: '27',
           type: 'private',
-          likes: '0' }));
+          likes: '0',
+          liked: null }));
         for (var i = 0; i < 2; ++i) {
           playlistEntries.push(React.createElement(PlaylistEntry, {
             owner: true,
@@ -5209,7 +5214,8 @@ var MyPlaylists = React.createClass({
             curator: 'Gliu',
             size: '9',
             type: 'public',
-            likes: '10' }));
+            likes: '10',
+            liked: null }));
         }
         for (var i = 0; i < 5; ++i) {
           playlistEntries.push(React.createElement(PlaylistEntry, {
@@ -5218,7 +5224,8 @@ var MyPlaylists = React.createClass({
             curator: 'MeSoRanz',
             size: '103',
             type: 'public',
-            likes: '873' }));
+            likes: '873',
+            liked: true }));
         }
       }
 
@@ -5249,7 +5256,7 @@ var PlaylistIcon = React.createClass({
         React.createElement(
           "a",
           { className: "icon-btn like-btn", href: "javascript:void(0)" },
-          React.createElement("i", { className: "fa fa-heart", "aria-hidden": "true" })
+          React.createElement("i", { className: "fa fa-heart-o", "aria-hidden": "true" })
         )
       );
     } else if (this.props.owner == true && this.props.type == 'private') {
@@ -5274,9 +5281,8 @@ var PlaylistEntry = React.createClass({
 
   render: function render() {
 
+    // If owner, append user-playlist to classname
     var playlistCardClassName = "playlist-card";
-
-    // If owner, adds the user-playlist class if
     if (this.props.owner == true) {
       playlistCardClassName += " user-playlist";
     };
@@ -5336,7 +5342,7 @@ var PlaylistEntry = React.createClass({
         React.createElement(
           "div",
           { className: "playlist-icon-container" },
-          React.createElement(PlaylistIcon, { owner: this.props.owner, type: this.props.type })
+          React.createElement(PlaylistIcon, { owner: this.props.owner, type: this.props.type, liked: this.props.liked })
         )
       )
     );
