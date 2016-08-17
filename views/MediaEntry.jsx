@@ -241,7 +241,7 @@ var MediaEntry = React.createClass({
         // Every other media entry in the queue
         return (
           <div id={this.props.pos + queueMediaEntryId} className={queueMediaCardClassName}>
-            <div className="media-card-added-corner"></div>
+            <div className="media-card-added-corner-container"><div className="media-card-added-corner"></div></div>
             <a className="media-card-added-plus icon-btn-white" href="javascript:void(0)" onClick={this.deleteMediaEntry}>+</a>
             <Thumbnail thumbnail={this.props.thumbnail} categoryType={this.props.categoryType} />
             <div className="number">{this.props.pos + 1}</div>

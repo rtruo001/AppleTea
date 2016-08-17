@@ -740,15 +740,17 @@ form {
 
 .queue-body {
   margin-top: 8px;
+  overflow: auto;
 }
 
 .media-card {
   position: relative;
+  display: inline-block;
+  float: left;
   background-color: #eee;
   width: 100%;
   margin-bottom: 12px;
   border-radius: 4px;
-  display: inline-block;
 
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none;   /* Chrome/Safari/Opera */
@@ -1195,50 +1197,50 @@ nav {
 .open-playlist-container {
 }
 
-.open-playlist-header {
-  padding: 16px 7px 0px 7px;
+.tab-page-header {
+  padding: 16px 7px 10px 7px;
   width: 100%;
-  height: 80px;
+  overflow: auto;
 }
 
-.open-playlist-text-container {
+.tab-page-text-container {
   float: left;
 }
 
-.open-playlist-back-btn {
+.tab-page-back-btn {
   display: inline-block;
   vertical-align: top;
   padding: 8px 8px 0px 0px;
 }
 
-.open-playlist-title {
+.tab-page-title {
   display: inline-block;
   font-size: 20px;
   margin-right: 3px;
 }
 
-.open-playlist-curator {
+.tab-page-curator {
   margin-top: 2px;
   margin-left: 26px;
   color: #666;
   font-size: 13px;
 }
 
-.open-playlist-right-container {
+.tab-page-right-container {
   float: right;
 }
 
-.open-playlist-icon-container {
+.tab-page-icon-container {
   margin-bottom: 4px;
 }
 
-.open-playlist-likes {
+.tab-page-likes {
   margin-top: 9px;
   margin-right: 4px;
   text-align: right;
 }
 
-.open-playlist-likes-text {
+.tab-page-likes-text {
   display: inline-block;
   font-size: 12px;
   color: #888;
@@ -1280,7 +1282,7 @@ nav {
   right: 22px;
 }
 
-.edit-playlist-container .open-playlist-title .edit-input {
+.edit-playlist-container .tab-page-title .edit-input {
   background-color: #eee;
   border: none;
   border-radius: 5px;
@@ -1321,7 +1323,6 @@ nav {
 /* Curator Page */
 
 .curator-header {
-  height: 60px;
 }
 
 .curator-header .profile-pic {
@@ -1329,25 +1330,27 @@ nav {
   margin: 0px 4px 6px 0px
 }
 
-.curator-header .open-playlist-text-container {
+.curator-header .tab-page-text-container {
   vertical-align: middle;
-  margin-bottom: 14px;
 }
 
 
 /* Search Media Cards*/
 
 .search-card-padding {
-  padding: 6px 8px;
+  padding: 0px 8px;
+  overflow: auto;
 }
 
 .search-media-card {
   position: relative;
   display: inline-block;
+  float: right;
   background-color: #eee;
   width: 100%;
   border-radius: 4px;
   padding: 6px;
+  margin: 7px 0px;
 }
 
 .search-media-img {
