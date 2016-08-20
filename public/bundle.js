@@ -59,7 +59,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = emptyObject;
 }).call(this,require('_process'))
-},{"_process":45}],3:[function(require,module,exports){
+},{"_process":47}],3:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -111,7 +111,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 
 module.exports = invariant;
 }).call(this,require('_process'))
-},{"_process":45}],4:[function(require,module,exports){
+},{"_process":47}],4:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -161,7 +161,7 @@ var keyMirror = function keyMirror(obj) {
 
 module.exports = keyMirror;
 }).call(this,require('_process'))
-},{"./invariant":3,"_process":45}],5:[function(require,module,exports){
+},{"./invariant":3,"_process":47}],5:[function(require,module,exports){
 "use strict";
 
 /**
@@ -306,7 +306,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = warning;
 }).call(this,require('_process'))
-},{"./emptyFunction":1,"_process":45}],8:[function(require,module,exports){
+},{"./emptyFunction":1,"_process":47}],8:[function(require,module,exports){
 'use strict';
 /* eslint-disable no-unused-vars */
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -575,7 +575,7 @@ var PooledClass = {
 
 module.exports = PooledClass;
 }).call(this,require('_process'))
-},{"./reactProdInvariant":29,"_process":45,"fbjs/lib/invariant":3}],11:[function(require,module,exports){
+},{"./reactProdInvariant":31,"_process":47,"fbjs/lib/invariant":3}],11:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-present, Facebook, Inc.
@@ -594,6 +594,7 @@ var _assign = require('object-assign');
 
 var ReactChildren = require('./ReactChildren');
 var ReactComponent = require('./ReactComponent');
+var ReactPureComponent = require('./ReactPureComponent');
 var ReactClass = require('./ReactClass');
 var ReactDOMFactories = require('./ReactDOMFactories');
 var ReactElement = require('./ReactElement');
@@ -638,6 +639,7 @@ var React = {
   },
 
   Component: ReactComponent,
+  PureComponent: ReactPureComponent,
 
   createElement: createElement,
   cloneElement: cloneElement,
@@ -665,7 +667,7 @@ var React = {
 
 module.exports = React;
 }).call(this,require('_process'))
-},{"./ReactChildren":12,"./ReactClass":13,"./ReactComponent":14,"./ReactDOMFactories":17,"./ReactElement":18,"./ReactElementValidator":19,"./ReactPropTypes":23,"./ReactVersion":24,"./onlyChild":28,"_process":45,"fbjs/lib/warning":7,"object-assign":8}],12:[function(require,module,exports){
+},{"./ReactChildren":12,"./ReactClass":13,"./ReactComponent":14,"./ReactDOMFactories":17,"./ReactElement":18,"./ReactElementValidator":19,"./ReactPropTypes":23,"./ReactPureComponent":25,"./ReactVersion":26,"./onlyChild":30,"_process":47,"fbjs/lib/warning":7,"object-assign":8}],12:[function(require,module,exports){
 /**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -857,7 +859,7 @@ var ReactChildren = {
 };
 
 module.exports = ReactChildren;
-},{"./PooledClass":10,"./ReactElement":18,"./traverseAllChildren":30,"fbjs/lib/emptyFunction":1}],13:[function(require,module,exports){
+},{"./PooledClass":10,"./ReactElement":18,"./traverseAllChildren":32,"fbjs/lib/emptyFunction":1}],13:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-present, Facebook, Inc.
@@ -1246,6 +1248,13 @@ function validateMethodOverride(isAlreadyDefined, name) {
  */
 function mixSpecIntoComponent(Constructor, spec) {
   if (!spec) {
+    if (process.env.NODE_ENV !== 'production') {
+      var typeofSpec = typeof spec;
+      var isMixinValid = typeofSpec === 'object' && spec !== null;
+
+      process.env.NODE_ENV !== 'production' ? warning(isMixinValid, '%s: You\'re attempting to include a mixin that is either null ' + 'or not an object. Check the mixins included by the component, ' + 'as well as any mixins they include themselves. ' + 'Expected object but got %s.', Constructor.displayName || 'ReactClass', spec === null ? null : typeofSpec) : void 0;
+    }
+
     return;
   }
 
@@ -1585,7 +1594,7 @@ var ReactClass = {
 
 module.exports = ReactClass;
 }).call(this,require('_process'))
-},{"./ReactComponent":14,"./ReactElement":18,"./ReactNoopUpdateQueue":20,"./ReactPropTypeLocationNames":21,"./ReactPropTypeLocations":22,"./reactProdInvariant":29,"_process":45,"fbjs/lib/emptyObject":2,"fbjs/lib/invariant":3,"fbjs/lib/keyMirror":4,"fbjs/lib/keyOf":5,"fbjs/lib/warning":7,"object-assign":8}],14:[function(require,module,exports){
+},{"./ReactComponent":14,"./ReactElement":18,"./ReactNoopUpdateQueue":20,"./ReactPropTypeLocationNames":21,"./ReactPropTypeLocations":22,"./reactProdInvariant":31,"_process":47,"fbjs/lib/emptyObject":2,"fbjs/lib/invariant":3,"fbjs/lib/keyMirror":4,"fbjs/lib/keyOf":5,"fbjs/lib/warning":7,"object-assign":8}],14:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-present, Facebook, Inc.
@@ -1706,7 +1715,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = ReactComponent;
 }).call(this,require('_process'))
-},{"./ReactNoopUpdateQueue":20,"./canDefineProperty":25,"./reactProdInvariant":29,"_process":45,"fbjs/lib/emptyObject":2,"fbjs/lib/invariant":3,"fbjs/lib/warning":7}],15:[function(require,module,exports){
+},{"./ReactNoopUpdateQueue":20,"./canDefineProperty":27,"./reactProdInvariant":31,"_process":47,"fbjs/lib/emptyObject":2,"fbjs/lib/invariant":3,"fbjs/lib/warning":7}],15:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2016-present, Facebook, Inc.
@@ -1927,7 +1936,7 @@ var ReactComponentTreeDevtool = {
 
 module.exports = ReactComponentTreeDevtool;
 }).call(this,require('_process'))
-},{"./ReactCurrentOwner":16,"./reactProdInvariant":29,"_process":45,"fbjs/lib/invariant":3,"fbjs/lib/warning":7}],16:[function(require,module,exports){
+},{"./ReactCurrentOwner":16,"./reactProdInvariant":31,"_process":47,"fbjs/lib/invariant":3,"fbjs/lib/warning":7}],16:[function(require,module,exports){
 /**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -2138,7 +2147,7 @@ var ReactDOMFactories = mapObject({
 
 module.exports = ReactDOMFactories;
 }).call(this,require('_process'))
-},{"./ReactElement":18,"./ReactElementValidator":19,"_process":45,"fbjs/lib/mapObject":6}],18:[function(require,module,exports){
+},{"./ReactElement":18,"./ReactElementValidator":19,"_process":47,"fbjs/lib/mapObject":6}],18:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-present, Facebook, Inc.
@@ -2239,6 +2248,7 @@ var ReactElement = function (type, key, ref, self, source, owner, props) {
     // This can be replaced with a WeakMap once they are implemented in
     // commonly used development environments.
     element._store = {};
+    var shadowChildren = Array.isArray(props.children) ? props.children.slice(0) : props.children;
 
     // To make comparing ReactElements easier for testing purposes, we make
     // the validation flag non-enumerable (where possible, which should
@@ -2258,6 +2268,12 @@ var ReactElement = function (type, key, ref, self, source, owner, props) {
         writable: false,
         value: self
       });
+      Object.defineProperty(element, '_shadowChildren', {
+        configurable: false,
+        enumerable: false,
+        writable: false,
+        value: shadowChildren
+      });
       // Two elements created in two different places should be considered
       // equal for testing purposes and therefore we hide it from enumeration.
       Object.defineProperty(element, '_source', {
@@ -2269,6 +2285,7 @@ var ReactElement = function (type, key, ref, self, source, owner, props) {
     } else {
       element._store.validated = false;
       element._self = self;
+      element._shadowChildren = shadowChildren;
       element._source = source;
     }
     if (Object.freeze) {
@@ -2493,7 +2510,7 @@ ReactElement.REACT_ELEMENT_TYPE = REACT_ELEMENT_TYPE;
 
 module.exports = ReactElement;
 }).call(this,require('_process'))
-},{"./ReactCurrentOwner":16,"./canDefineProperty":25,"_process":45,"fbjs/lib/warning":7,"object-assign":8}],19:[function(require,module,exports){
+},{"./ReactCurrentOwner":16,"./canDefineProperty":27,"_process":47,"fbjs/lib/warning":7,"object-assign":8}],19:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-present, Facebook, Inc.
@@ -2722,7 +2739,7 @@ var ReactElementValidator = {
 
 module.exports = ReactElementValidator;
 }).call(this,require('_process'))
-},{"./ReactComponentTreeDevtool":15,"./ReactCurrentOwner":16,"./ReactElement":18,"./ReactPropTypeLocations":22,"./canDefineProperty":25,"./checkReactTypeSpec":26,"./getIteratorFn":27,"_process":45,"fbjs/lib/warning":7}],20:[function(require,module,exports){
+},{"./ReactComponentTreeDevtool":15,"./ReactCurrentOwner":16,"./ReactElement":18,"./ReactPropTypeLocations":22,"./canDefineProperty":27,"./checkReactTypeSpec":28,"./getIteratorFn":29,"_process":47,"fbjs/lib/warning":7}],20:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2015-present, Facebook, Inc.
@@ -2821,7 +2838,7 @@ var ReactNoopUpdateQueue = {
 
 module.exports = ReactNoopUpdateQueue;
 }).call(this,require('_process'))
-},{"_process":45,"fbjs/lib/warning":7}],21:[function(require,module,exports){
+},{"_process":47,"fbjs/lib/warning":7}],21:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-present, Facebook, Inc.
@@ -2848,7 +2865,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = ReactPropTypeLocationNames;
 }).call(this,require('_process'))
-},{"_process":45}],22:[function(require,module,exports){
+},{"_process":47}],22:[function(require,module,exports){
 /**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -2872,6 +2889,7 @@ var ReactPropTypeLocations = keyMirror({
 
 module.exports = ReactPropTypeLocations;
 },{"fbjs/lib/keyMirror":4}],23:[function(require,module,exports){
+(function (process){
 /**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -2887,9 +2905,11 @@ module.exports = ReactPropTypeLocations;
 
 var ReactElement = require('./ReactElement');
 var ReactPropTypeLocationNames = require('./ReactPropTypeLocationNames');
+var ReactPropTypesSecret = require('./ReactPropTypesSecret');
 
 var emptyFunction = require('fbjs/lib/emptyFunction');
 var getIteratorFn = require('./getIteratorFn');
+var warning = require('fbjs/lib/warning');
 
 /**
  * Collection of methods that allow declaration and validation of props that are
@@ -2979,9 +2999,21 @@ function is(x, y) {
 /*eslint-enable no-self-compare*/
 
 function createChainableTypeChecker(validate) {
-  function checkType(isRequired, props, propName, componentName, location, propFullName) {
+  if (process.env.NODE_ENV !== 'production') {
+    var manualPropTypeCallCache = {};
+  }
+  function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
     componentName = componentName || ANONYMOUS;
     propFullName = propFullName || propName;
+    if (process.env.NODE_ENV !== 'production') {
+      if (secret !== ReactPropTypesSecret && typeof console !== 'undefined') {
+        var cacheKey = componentName + ':' + propName;
+        if (!manualPropTypeCallCache[cacheKey]) {
+          process.env.NODE_ENV !== 'production' ? warning(false, 'You are manually calling a React.PropTypes validation ' + 'function for the `%s` prop on `%s`. This is deprecated ' + 'and will not work in the next major version. You may be ' + 'seeing this warning due to a third-party PropTypes library. ' + 'See https://fb.me/react-warning-dont-call-proptypes for details.', propFullName, componentName) : void 0;
+          manualPropTypeCallCache[cacheKey] = true;
+        }
+      }
+    }
     if (props[propName] == null) {
       var locationName = ReactPropTypeLocationNames[location];
       if (isRequired) {
@@ -3000,7 +3032,7 @@ function createChainableTypeChecker(validate) {
 }
 
 function createPrimitiveTypeChecker(expectedType) {
-  function validate(props, propName, componentName, location, propFullName) {
+  function validate(props, propName, componentName, location, propFullName, secret) {
     var propValue = props[propName];
     var propType = getPropType(propValue);
     if (propType !== expectedType) {
@@ -3033,7 +3065,7 @@ function createArrayOfTypeChecker(typeChecker) {
       return new Error('Invalid ' + locationName + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
     }
     for (var i = 0; i < propValue.length; i++) {
-      var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']');
+      var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret);
       if (error instanceof Error) {
         return error;
       }
@@ -3045,9 +3077,11 @@ function createArrayOfTypeChecker(typeChecker) {
 
 function createElementTypeChecker() {
   function validate(props, propName, componentName, location, propFullName) {
-    if (!ReactElement.isValidElement(props[propName])) {
+    var propValue = props[propName];
+    if (!ReactElement.isValidElement(propValue)) {
       var locationName = ReactPropTypeLocationNames[location];
-      return new Error('Invalid ' + locationName + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`, expected a single ReactElement.'));
+      var propType = getPropType(propValue);
+      return new Error('Invalid ' + locationName + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.'));
     }
     return null;
   }
@@ -3069,9 +3103,8 @@ function createInstanceTypeChecker(expectedClass) {
 
 function createEnumTypeChecker(expectedValues) {
   if (!Array.isArray(expectedValues)) {
-    return createChainableTypeChecker(function () {
-      return new Error('Invalid argument supplied to oneOf, expected an instance of array.');
-    });
+    process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOf, expected an instance of array.') : void 0;
+    return emptyFunction.thatReturnsNull;
   }
 
   function validate(props, propName, componentName, location, propFullName) {
@@ -3102,7 +3135,7 @@ function createObjectOfTypeChecker(typeChecker) {
     }
     for (var key in propValue) {
       if (propValue.hasOwnProperty(key)) {
-        var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key);
+        var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
         if (error instanceof Error) {
           return error;
         }
@@ -3115,15 +3148,14 @@ function createObjectOfTypeChecker(typeChecker) {
 
 function createUnionTypeChecker(arrayOfTypeCheckers) {
   if (!Array.isArray(arrayOfTypeCheckers)) {
-    return createChainableTypeChecker(function () {
-      return new Error('Invalid argument supplied to oneOfType, expected an instance of array.');
-    });
+    process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
+    return emptyFunction.thatReturnsNull;
   }
 
   function validate(props, propName, componentName, location, propFullName) {
     for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
       var checker = arrayOfTypeCheckers[i];
-      if (checker(props, propName, componentName, location, propFullName) == null) {
+      if (checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret) == null) {
         return null;
       }
     }
@@ -3158,7 +3190,7 @@ function createShapeTypeChecker(shapeTypes) {
       if (!checker) {
         continue;
       }
-      var error = checker(propValue, key, componentName, location, propFullName + '.' + key);
+      var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
       if (error) {
         return error;
       }
@@ -3275,7 +3307,68 @@ function getClassName(propValue) {
 }
 
 module.exports = ReactPropTypes;
-},{"./ReactElement":18,"./ReactPropTypeLocationNames":21,"./getIteratorFn":27,"fbjs/lib/emptyFunction":1}],24:[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./ReactElement":18,"./ReactPropTypeLocationNames":21,"./ReactPropTypesSecret":24,"./getIteratorFn":29,"_process":47,"fbjs/lib/emptyFunction":1,"fbjs/lib/warning":7}],24:[function(require,module,exports){
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @providesModule ReactPropTypesSecret
+ */
+
+'use strict';
+
+var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+
+module.exports = ReactPropTypesSecret;
+},{}],25:[function(require,module,exports){
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @providesModule ReactPureComponent
+ */
+
+'use strict';
+
+var _assign = require('object-assign');
+
+var ReactComponent = require('./ReactComponent');
+var ReactNoopUpdateQueue = require('./ReactNoopUpdateQueue');
+
+var emptyObject = require('fbjs/lib/emptyObject');
+
+/**
+ * Base class helpers for the updating state of a component.
+ */
+function ReactPureComponent(props, context, updater) {
+  // Duplicated from ReactComponent.
+  this.props = props;
+  this.context = context;
+  this.refs = emptyObject;
+  // We initialize the default updater but the real one gets injected by the
+  // renderer.
+  this.updater = updater || ReactNoopUpdateQueue;
+}
+
+function ComponentDummy() {}
+ComponentDummy.prototype = ReactComponent.prototype;
+ReactPureComponent.prototype = new ComponentDummy();
+ReactPureComponent.prototype.constructor = ReactPureComponent;
+// Avoid an extra prototype jump for these methods.
+_assign(ReactPureComponent.prototype, ReactComponent.prototype);
+ReactPureComponent.prototype.isPureReactComponent = true;
+
+module.exports = ReactPureComponent;
+},{"./ReactComponent":14,"./ReactNoopUpdateQueue":20,"fbjs/lib/emptyObject":2,"object-assign":8}],26:[function(require,module,exports){
 /**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -3289,8 +3382,8 @@ module.exports = ReactPropTypes;
 
 'use strict';
 
-module.exports = '15.2.1';
-},{}],25:[function(require,module,exports){
+module.exports = '15.3.0';
+},{}],27:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-present, Facebook, Inc.
@@ -3317,7 +3410,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = canDefineProperty;
 }).call(this,require('_process'))
-},{"_process":45}],26:[function(require,module,exports){
+},{"_process":47}],28:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-present, Facebook, Inc.
@@ -3335,9 +3428,21 @@ module.exports = canDefineProperty;
 var _prodInvariant = require('./reactProdInvariant');
 
 var ReactPropTypeLocationNames = require('./ReactPropTypeLocationNames');
+var ReactPropTypesSecret = require('./ReactPropTypesSecret');
 
 var invariant = require('fbjs/lib/invariant');
 var warning = require('fbjs/lib/warning');
+
+var ReactComponentTreeDevtool;
+
+if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'test') {
+  // Temporary hack.
+  // Inline requires don't work well with Jest:
+  // https://github.com/facebook/react/issues/7240
+  // Remove the inline requires when we don't need them anymore:
+  // https://github.com/facebook/react/pull/7178
+  ReactComponentTreeDevtool = require('./ReactComponentTreeDevtool');
+}
 
 var loggedTypeFailures = {};
 
@@ -3364,7 +3469,7 @@ function checkReactTypeSpec(typeSpecs, values, location, componentName, element,
         // This is intentionally an invariant that gets caught. It's the same
         // behavior as without this statement except with a better message.
         !(typeof typeSpecs[typeSpecName] === 'function') ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s: %s type `%s` is invalid; it must be a function, usually from React.PropTypes.', componentName || 'React class', ReactPropTypeLocationNames[location], typeSpecName) : _prodInvariant('84', componentName || 'React class', ReactPropTypeLocationNames[location], typeSpecName) : void 0;
-        error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location);
+        error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
       } catch (ex) {
         error = ex;
       }
@@ -3377,7 +3482,9 @@ function checkReactTypeSpec(typeSpecs, values, location, componentName, element,
         var componentStackInfo = '';
 
         if (process.env.NODE_ENV !== 'production') {
-          var ReactComponentTreeDevtool = require('./ReactComponentTreeDevtool');
+          if (!ReactComponentTreeDevtool) {
+            ReactComponentTreeDevtool = require('./ReactComponentTreeDevtool');
+          }
           if (debugID !== null) {
             componentStackInfo = ReactComponentTreeDevtool.getStackAddendumByID(debugID);
           } else if (element !== null) {
@@ -3393,7 +3500,7 @@ function checkReactTypeSpec(typeSpecs, values, location, componentName, element,
 
 module.exports = checkReactTypeSpec;
 }).call(this,require('_process'))
-},{"./ReactComponentTreeDevtool":15,"./ReactPropTypeLocationNames":21,"./reactProdInvariant":29,"_process":45,"fbjs/lib/invariant":3,"fbjs/lib/warning":7}],27:[function(require,module,exports){
+},{"./ReactComponentTreeDevtool":15,"./ReactPropTypeLocationNames":21,"./ReactPropTypesSecret":24,"./reactProdInvariant":31,"_process":47,"fbjs/lib/invariant":3,"fbjs/lib/warning":7}],29:[function(require,module,exports){
 /**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -3435,7 +3542,7 @@ function getIteratorFn(maybeIterable) {
 }
 
 module.exports = getIteratorFn;
-},{}],28:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-present, Facebook, Inc.
@@ -3476,7 +3583,7 @@ function onlyChild(children) {
 
 module.exports = onlyChild;
 }).call(this,require('_process'))
-},{"./ReactElement":18,"./reactProdInvariant":29,"_process":45,"fbjs/lib/invariant":3}],29:[function(require,module,exports){
+},{"./ReactElement":18,"./reactProdInvariant":31,"_process":47,"fbjs/lib/invariant":3}],31:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -3516,7 +3623,7 @@ function reactProdInvariant(code) {
 }
 
 module.exports = reactProdInvariant;
-},{}],30:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-present, Facebook, Inc.
@@ -3618,7 +3725,14 @@ function traverseAllChildrenImpl(children, nameSoFar, callback, traverseContext)
         }
       } else {
         if (process.env.NODE_ENV !== 'production') {
-          process.env.NODE_ENV !== 'production' ? warning(didWarnAboutMaps, 'Using Maps as children is not yet fully supported. It is an ' + 'experimental feature that might be removed. Convert it to a ' + 'sequence / iterable of keyed ReactElements instead.') : void 0;
+          var mapsAsChildrenAddendum = '';
+          if (ReactCurrentOwner.current) {
+            var mapsAsChildrenOwnerName = ReactCurrentOwner.current.getName();
+            if (mapsAsChildrenOwnerName) {
+              mapsAsChildrenAddendum = ' Check the render method of `' + mapsAsChildrenOwnerName + '`.';
+            }
+          }
+          process.env.NODE_ENV !== 'production' ? warning(didWarnAboutMaps, 'Using Maps as children is not yet fully supported. It is an ' + 'experimental feature that might be removed. Convert it to a ' + 'sequence / iterable of keyed ReactElements instead.%s', mapsAsChildrenAddendum) : void 0;
           didWarnAboutMaps = true;
         }
         // Iterator will provide entry [k,v] tuples rather than values.
@@ -3679,12 +3793,12 @@ function traverseAllChildren(children, callback, traverseContext) {
 
 module.exports = traverseAllChildren;
 }).call(this,require('_process'))
-},{"./KeyEscapeUtils":9,"./ReactCurrentOwner":16,"./ReactElement":18,"./getIteratorFn":27,"./reactProdInvariant":29,"_process":45,"fbjs/lib/invariant":3,"fbjs/lib/warning":7}],31:[function(require,module,exports){
+},{"./KeyEscapeUtils":9,"./ReactCurrentOwner":16,"./ReactElement":18,"./getIteratorFn":29,"./reactProdInvariant":31,"_process":47,"fbjs/lib/invariant":3,"fbjs/lib/warning":7}],33:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/React');
 
-},{"./lib/React":11}],32:[function(require,module,exports){
+},{"./lib/React":11}],34:[function(require,module,exports){
 'use strict';
 
 // Converts all the components in this file into Javascript
@@ -3711,10 +3825,237 @@ module.exports = require('./lib/React');
 var RoomComponent = require('./../views/Room.jsx');
 ReactDOM.render(React.createElement(RoomComponent, null), document.getElementById('room'));
 
-},{"./../views/Room.jsx":42}],33:[function(require,module,exports){
+},{"./../views/Room.jsx":44}],35:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
+
+var UserListEntry = React.createClass({
+  displayName: "UserListEntry",
+
+  getInitialState: function getInitialState() {
+    return {
+      online: this.props.online,
+      moderator: this.props.moderator,
+      syncing: this.props.syncing
+    };
+  },
+  render: function render() {
+    var name = this.props.userName;
+    var online = this.state.online;
+    var moderator = this.state.moderator;
+
+    return React.createElement(
+      "div",
+      null,
+      React.createElement(
+        "li",
+        null,
+        function () {
+          if (online) return React.createElement("i", { className: "fa fa-circle status status-online" });else return React.createElement("i", { className: "fa fa-circle status status-offline" });
+        }(),
+        React.createElement(
+          "a",
+          { className: "user-name", href: "javascript:void(0)" },
+          name
+        ),
+        React.createElement(
+          "div",
+          { className: "users-list-edit" },
+          React.createElement(
+            "a",
+            { className: "icon-btn", href: "javascript:void(0)" },
+            React.createElement("i", { className: "fa fa-star fa-fw mod-toggle" })
+          ),
+          React.createElement(
+            "a",
+            { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
+            React.createElement("i", { className: "fa fa-remove fa-fw" })
+          )
+        ),
+        React.createElement(
+          "div",
+          { className: "users-list-icons" },
+          React.createElement("i", { className: "fa fa-refresh fa-spin fa-fw", "data-toggle": "tooltip", title: "Syncing" }),
+          React.createElement("i", { className: "fa fa-star fa-fw", "data-toggle": "tooltip", title: "Moderator" })
+        )
+      )
+    );
+  }
+});
+
+var UserList = React.createClass({
+  displayName: "UserList",
+
+  render: function render() {
+
+    var onlineUsers = ["Gerard Liu", "Randy Truong", "Kevin Chiao", "Harrison Ford"];
+
+    var offlineUsers = ["Minnal Kunnan", "Jason Maryne", "Eric Dieu", "Kevin Ton", "Kris Luong", "Franky Nguyen", "Adrian Mandee", "Jay Yee", "George Huang", "Jelly Kid", "Finn Human"];
+
+    var onlineUserEntries = [];
+    var offlineUserEntries = [];
+
+    for (var i = 0; i < onlineUsers.length; i++) {
+      onlineUserEntries.push(React.createElement(UserListEntry, { userName: onlineUsers[i], online: true }));
+    }
+    for (var i = 0; i < offlineUsers.length; i++) {
+      offlineUserEntries.push(React.createElement(UserListEntry, { userName: offlineUsers[i], online: false }));
+    }
+
+    return React.createElement(
+      "div",
+      null,
+      React.createElement(
+        "div",
+        { id: "users-list-container" },
+        React.createElement(
+          "div",
+          { className: "users-list-container" },
+          React.createElement(
+            "div",
+            { className: "users-list-header users-online-section" },
+            "Members",
+            React.createElement(
+              "button",
+              { type: "button", className: "btn btn-sm btn-secondary users-list-edit-btn" },
+              React.createElement("i", { className: "fa fa-gear", id: "users-list-gear-icon" })
+            )
+          ),
+          React.createElement(
+            "div",
+            { className: "users-list-scroll-container" },
+            React.createElement(
+              "ul",
+              { className: "users-list" },
+              onlineUserEntries
+            ),
+            React.createElement(
+              "ul",
+              { className: "users-list users-list-section users-offline-section" },
+              offlineUserEntries
+            )
+          ),
+          React.createElement(
+            "div",
+            { className: "users-list users-list-section users-list-add" },
+            React.createElement(
+              "button",
+              { type: "button", className: "btn btn-sm btn-secondary", "data-toggle": "modal", "data-target": "#add-user" },
+              React.createElement("i", { className: "fa fa-plus fa-fw" }),
+              "Add People"
+            )
+          )
+        )
+      )
+    );
+  }
+});
+
+var ChatHeader = React.createClass({
+  displayName: "ChatHeader",
+
+  render: function render() {
+    return React.createElement(
+      "div",
+      { className: "room-header" },
+      React.createElement(
+        "div",
+        { className: "room-name onclick-edit" },
+        "Vent Room",
+        React.createElement(
+          "a",
+          { className: "icon-btn-dark", href: "javascript:void(0)" },
+          React.createElement("i", { className: "fa fa-edit", "aria-hidden": "true" })
+        )
+      ),
+      React.createElement(
+        "div",
+        { className: "users-btn" },
+        "4",
+        React.createElement("i", { className: "fa fa-users users-btn-icon" }),
+        React.createElement("i", { className: "fa fa-circle status status-online" })
+      ),
+      React.createElement(UserList, null)
+    );
+  }
+});
+
+var ChatDisplay = React.createClass({
+  displayName: "ChatDisplay",
+
+  userHasJoinedListener: function userHasJoinedListener() {
+    // When user has joined, sends the username and outputs it on the box
+    socket.on("From Server: User joined", function (user) {
+      $('.chat').append('<div class="chat-notif">' + user.username + " has joined the chat." + '</div>');
+    });
+  },
+  userHasDisconnectedListener: function userHasDisconnectedListener() {
+    // When an actual user exits the page/chat
+    socket.on('From Server: User disconnected', function (user) {
+      $('.chat').append('<div class="chat-notif">' + user.username + " has left the chat." + '</div>');
+    });
+  },
+  newMessageListener: function newMessageListener() {
+    // Server emits Chat message
+    socket.on('From Server: Chat message', function (msg) {
+      if (username === msg.username) {
+        $('.chat').append('<div class="chat-msg-user">' + '<div class="msg">' + msg.message + '</div>');
+      } else {
+        $('.chat').append('<div class="chat-msg">' + '<div class="name">' + msg.username + '</div>' + '<div class="msg">' + msg.message + '</div>' + '<img class="profile-pic" src="images/profile-pic.png"/>');
+      }
+    });
+  },
+  setupListeners: function setupListeners() {
+    this.userHasJoinedListener();
+    this.userHasDisconnectedListener();
+    this.newMessageListener();
+  },
+  componentDidMount: function componentDidMount() {
+    this.setupListeners();
+  },
+  render: function render() {
+    return React.createElement("div", { className: "chat" });
+  }
+});
+
+var ChatInput = React.createClass({
+  displayName: "ChatInput",
+
+  ifUsernameExists: function ifUsernameExists() {
+    if (!username || 0 === username.length) {
+      return false;
+    }
+    return true;
+  },
+  sendMessage: function sendMessage(e) {
+    console.log(e);
+    e.preventDefault();
+    if (!this.ifUsernameExists()) {
+      if ($('.logged-out-message').length <= 0) {
+        $('#chat-box').append($('<div class="logged-out-message">').text("Please login"));
+      }
+      return;
+    }
+
+    // TODO Do message input string checks
+    // No empty string, no white spaces, Valid characters a-z, A-Z, 0-9
+    // Client emits to server with Chat Message
+    socket.emit('From Client: Chat message', $('#m').val());
+    $('#m').val('');
+  },
+  render: function render() {
+    return React.createElement(
+      "div",
+      { className: "chat-input-container" },
+      React.createElement(
+        "form",
+        { className: "chat-input", id: "chat-form", action: "", onSubmit: this.sendMessage },
+        React.createElement("input", { id: "m", autoComplete: "off", type: "text", className: "chat-textbox", name: "", placeholder: "Type a message..." })
+      )
+    );
+  }
+});
 
 /* Chatbox */
 var Chatbox = React.createClass({
@@ -3724,465 +4065,9 @@ var Chatbox = React.createClass({
     return React.createElement(
       "div",
       null,
-      React.createElement(
-        "div",
-        { className: "room-header" },
-        React.createElement(
-          "div",
-          { className: "room-name onclick-edit" },
-          "Vent Room",
-          React.createElement(
-            "a",
-            { className: "icon-btn-dark", href: "javascript:void(0)" },
-            React.createElement("i", { className: "fa fa-edit", "aria-hidden": "true" })
-          )
-        ),
-        React.createElement(
-          "div",
-          { className: "users-btn" },
-          "4",
-          React.createElement("i", { className: "fa fa-users users-btn-icon" }),
-          React.createElement("i", { className: "fa fa-circle status status-online" })
-        ),
-        React.createElement(
-          "div",
-          { id: "users-list-container" },
-          React.createElement(
-            "div",
-            { className: "users-list-container" },
-            React.createElement(
-              "div",
-              { className: "users-list-header users-online-section" },
-              "Members",
-              React.createElement(
-                "button",
-                { type: "button", className: "btn btn-sm btn-secondary users-list-edit-btn" },
-                React.createElement("i", { className: "fa fa-gear", id: "users-list-gear-icon" })
-              )
-            ),
-            React.createElement(
-              "div",
-              { className: "users-list-scroll-container" },
-              React.createElement(
-                "ul",
-                { className: "users-list" },
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-online" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name", href: "javascript:void(0)" },
-                    "Gerard Liu"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-icons" },
-                    React.createElement("i", { className: "fa fa-refresh fa-spin fa-fw", "data-toggle": "tooltip", title: "Syncing" }),
-                    React.createElement("i", { className: "fa fa-star fa-fw", "data-toggle": "tooltip", title: "Moderator" })
-                  )
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-online" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name", href: "javascript:void(0)" },
-                    "Randy Truong"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-icons" },
-                    React.createElement("i", { className: "fa fa-star fa-fw", "data-toggle": "tooltip", title: "Moderator" })
-                  )
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-online" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name", href: "javascript:void(0)" },
-                    "Kevin Chiao"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-icons" },
-                    React.createElement("i", { className: "fa fa-refresh fa-spin fa-fw", "data-toggle": "tooltip", title: "Syncing" })
-                  )
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-online" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name", href: "javascript:void(0)" },
-                    "Harrison Ford"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                )
-              ),
-              React.createElement(
-                "ul",
-                { className: "users-list users-list-section users-offline-section" },
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-offline" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Minnal Kunnan"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-online" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Jason Maryne"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-online" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Eric Dieu"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-offline" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Kevin Ton"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-offline" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Kris Luong"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-offline" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Franky Nguyen"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-online" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Adrian Mandee"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-offline" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Jay Yee"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-offline" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "George Huang"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-offline" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Jelly Kid"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-offline" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Finn Human"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                )
-              )
-            ),
-            React.createElement(
-              "div",
-              { className: "users-list users-list-section users-list-add" },
-              React.createElement(
-                "button",
-                { type: "button", className: "btn btn-sm btn-secondary", "data-toggle": "modal", "data-target": "#add-user" },
-                React.createElement("i", { className: "fa fa-plus fa-fw" }),
-                "Add People"
-              )
-            )
-          )
-        )
-      ),
-      React.createElement("div", { className: "chat" }),
-      React.createElement(
-        "div",
-        { className: "chat-input-container" },
-        React.createElement(
-          "form",
-          { className: "chat-input", id: "chat-form", action: "" },
-          React.createElement("input", { id: "m", autoComplete: "off", type: "text", className: "chat-textbox", name: "", placeholder: "Type a message..." })
-        )
-      ),
+      React.createElement(ChatHeader, null),
+      React.createElement(ChatDisplay, null),
+      React.createElement(ChatInput, null),
       React.createElement(
         "div",
         { className: "modal fade", id: "enter-name", tabIndex: "-1", role: "dialog", "aria-labelledby": "myModalLabel" },
@@ -4210,7 +4095,7 @@ var Chatbox = React.createClass({
 
 module.exports = Chatbox;
 
-},{"react":31}],34:[function(require,module,exports){
+},{"react":33}],36:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -4248,7 +4133,7 @@ var Explore = React.createClass({
 
 module.exports = Explore;
 
-},{"react":31}],35:[function(require,module,exports){
+},{"react":33}],37:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -4303,7 +4188,7 @@ var Footer = React.createClass({
 
 module.exports = Footer;
 
-},{"react":31}],36:[function(require,module,exports){
+},{"react":33}],38:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -4339,7 +4224,7 @@ var Header = React.createClass({
 
 module.exports = Header;
 
-},{"react":31}],37:[function(require,module,exports){
+},{"react":33}],39:[function(require,module,exports){
 'use strict';
 
 /*  =============================================================================
@@ -4781,7 +4666,7 @@ var MediaEntry = React.createClass({
 
 module.exports = MediaEntry;
 
-},{"react":31}],38:[function(require,module,exports){
+},{"react":33}],40:[function(require,module,exports){
 'use strict';
 
 /*  =============================================================================
@@ -5131,7 +5016,7 @@ var MediaPlayer = React.createClass({
 
 module.exports = MediaPlayer;
 
-},{"./StatusBar":44,"react":31}],39:[function(require,module,exports){
+},{"./StatusBar":46,"react":33}],41:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -5239,7 +5124,7 @@ var MyPlaylists = React.createClass({
 
 module.exports = MyPlaylists;
 
-},{"./PlaylistEntry":40,"react":31}],40:[function(require,module,exports){
+},{"./PlaylistEntry":42,"react":33}],42:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -5351,7 +5236,7 @@ var PlaylistEntry = React.createClass({
 
 module.exports = PlaylistEntry;
 
-},{"react":31}],41:[function(require,module,exports){
+},{"react":33}],43:[function(require,module,exports){
 'use strict';
 
 /*  =============================================================================
@@ -5696,7 +5581,7 @@ var Queue = React.createClass({
 
 module.exports = Queue;
 
-},{"./MediaEntry":37,"react":31}],42:[function(require,module,exports){
+},{"./MediaEntry":39,"react":33}],44:[function(require,module,exports){
 'use strict';
 
 /*  =============================================================================
@@ -5928,7 +5813,7 @@ var Room = React.createClass({
 
 module.exports = Room;
 
-},{"./Chatbox":33,"./Explore":34,"./Footer":35,"./Header":36,"./MediaPlayer":38,"./MyPlaylists":39,"./Queue":41,"./Search":43,"./StatusBar":44,"react":31}],43:[function(require,module,exports){
+},{"./Chatbox":35,"./Explore":36,"./Footer":37,"./Header":38,"./MediaPlayer":40,"./MyPlaylists":41,"./Queue":43,"./Search":45,"./StatusBar":46,"react":33}],45:[function(require,module,exports){
 'use strict';
 
 /*  =============================================================================
@@ -6277,7 +6162,7 @@ var Search = React.createClass({
 
 module.exports = Search;
 
-},{"./MediaEntry":37,"react":31}],44:[function(require,module,exports){
+},{"./MediaEntry":39,"react":33}],46:[function(require,module,exports){
 'use strict';
 
 /*  =============================================================================
@@ -6391,7 +6276,7 @@ var StatusBar = React.createClass({
 
 module.exports = StatusBar;
 
-},{"react":31}],45:[function(require,module,exports){
+},{"react":33}],47:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -6421,17 +6306,45 @@ var cachedClearTimeout;
 } ())
 function runTimeout(fun) {
     if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
         return setTimeout(fun, 0);
-    } else {
-        return cachedSetTimeout.call(null, fun, 0);
     }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
 }
 function runClearTimeout(marker) {
     if (cachedClearTimeout === clearTimeout) {
-        clearTimeout(marker);
-    } else {
-        cachedClearTimeout.call(null, marker);
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
     }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
 }
 var queue = [];
 var draining = false;
@@ -6525,4 +6438,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[32]);
+},{}]},{},[34]);
