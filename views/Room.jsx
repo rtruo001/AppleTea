@@ -42,7 +42,7 @@ var Room = React.createClass({
 
           {/* Video and Chat Banner */}
           <div className="banner-container">
-            <div className="vid-chat-container">
+            <div className="banner-content-container">
 
               {/* Video */}
               <div className="video-container">
@@ -51,7 +51,7 @@ var Room = React.createClass({
 
               {/* Mobile Tab Navigation // replaces regular tabs in mobile */}
               <div className="mobile-tabbed-container">
-                <ul className="nav nav-tabs">
+                <ul className="nav nav-tabs nav-centered">
                   <li className="active">
                     <a data-toggle="tab" href="#chat" id="mobile-tab-chat">
                       <i className="fa fa-comments icon-padding"></i>
@@ -86,9 +86,9 @@ var Room = React.createClass({
               </div>
 
             {/* Chat */}
-              <div className="chatbox-container">
-               <Chatbox />
-              </div>
+            <div className="chatbox-container">
+             <Chatbox />
+            </div>
 
             </div>
           </div>
@@ -104,7 +104,7 @@ var Room = React.createClass({
 
               {/* Desktop Tab Navigation */}
               <div className="col-md-8 col-sm-7 tabbed-container">
-                <ul className="nav nav-tabs">
+                <ul className="nav nav-tabs nav-tabs-mobile-collapse">
                   <li className="active">
                     <a data-toggle="tab" href="#explore" id="tab-explore">
                       <i className="fa fa-rocket icon-padding"></i>
@@ -114,7 +114,7 @@ var Room = React.createClass({
                   <li>
                     <a data-toggle="tab" href="#myplaylists" id="tab-myplaylists">
                       <i className="fa fa-book icon-padding"></i>
-                      <div className="tab-text">Private Playlists</div>
+                      <div className="tab-text">My Playlists</div>
                     </a>
                   </li>
                   <li>

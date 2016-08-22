@@ -5746,7 +5746,7 @@ var Room = React.createClass({
           { className: 'banner-container' },
           React.createElement(
             'div',
-            { className: 'vid-chat-container' },
+            { className: 'banner-content-container' },
             React.createElement(
               'div',
               { className: 'video-container' },
@@ -5757,7 +5757,7 @@ var Room = React.createClass({
               { className: 'mobile-tabbed-container' },
               React.createElement(
                 'ul',
-                { className: 'nav nav-tabs' },
+                { className: 'nav nav-tabs nav-centered' },
                 React.createElement(
                   'li',
                   { className: 'active' },
@@ -5853,7 +5853,7 @@ var Room = React.createClass({
               { className: 'col-md-8 col-sm-7 tabbed-container' },
               React.createElement(
                 'ul',
-                { className: 'nav nav-tabs' },
+                { className: 'nav nav-tabs nav-tabs-mobile-collapse' },
                 React.createElement(
                   'li',
                   { className: 'active' },
@@ -5878,7 +5878,7 @@ var Room = React.createClass({
                     React.createElement(
                       'div',
                       { className: 'tab-text' },
-                      'Private Playlists'
+                      'My Playlists'
                     )
                   )
                 ),

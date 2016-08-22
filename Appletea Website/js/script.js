@@ -27,7 +27,7 @@ $('.mod-toggle').click(function(){
 
 
 /* Chat Scrolled to Bottom on Window Load */
-$('.chat').scrollTop($('.chat')[0].scrollHeight);
+// $('.chat').scrollTop($('.chat')[0].scrollHeight);
 
 
 /* Tooltips */
@@ -192,6 +192,21 @@ $('.focus-search').click(function() {
 });
 
 
+/* Toggle lock/globe icon on toggle slider */
+$('#create-room-toggle').change(function(){
+    if (this.checked) {
+        console.log('this is checked');
+        $('#create-room-toggle-icon').removeClass('fa-globe');
+        $('#create-room-toggle-icon').addClass('fa-lock');
+    }
+    else {
+        console.log('this is NOT checked');
+        $('#create-room-toggle-icon').removeClass('fa-lock');
+        $('#create-room-toggle-icon').addClass('fa-globe');
+    };
+});
+
+
 /* Mobile Tab Navigation */
 
 // Event Handler: When window width changes, run WidthChange();
@@ -207,13 +222,13 @@ function WidthChange(mq) {
     console.log('width change: chat active');
     $('.chatbox-container').css('display','block');
     $('.queue-container').css('display','none');
-    $('.tabbed-container').css('display','none');
+    $('.tabbed-container-mobile-collapse').css('display','none');
   }
   else {
     console.log('width change: reg tabs active');
     $('.chatbox-container').css('display','block');
     $('.queue-container').css('display','block');
-    $('.tabbed-container').css('display','block');
+    $('.tabbed-container-mobile-collapse').css('display','block');
   }
 };
 
@@ -222,21 +237,21 @@ $('#mobile-tab-chat').click(function() {
     console.log('display chat')
     $('.chatbox-container').css('display','block');
     $('.queue-container').css('display','none');
-    $('.tabbed-container').css('display','none');
+    $('.tabbed-container-mobile-collapse').css('display','none');
 });
 
 $('#mobile-tab-queue').click(function() {
     console.log('display queue')
     $('.chatbox-container').css('display','none');
     $('.queue-container').css('display','block');
-    $('.tabbed-container').css('display','none');
+    $('.tabbed-container-mobile-collapse').css('display','none');
 });
 
 $('#mobile-tab-explore').click(function() {
     console.log('display explore')
     $('.chatbox-container').css('display','none');
     $('.queue-container').css('display','none');
-    $('.tabbed-container').css('display','block');
+    $('.tabbed-container-mobile-collapse').css('display','block');
     document.getElementById('tab-explore').click();
 });
 
@@ -244,7 +259,7 @@ $('#mobile-tab-myplaylists').click(function() {
     console.log('display myplaylists')
     $('.chatbox-container').css('display','none');
     $('.queue-container').css('display','none');
-    $('.tabbed-container').css('display','block');
+    $('.tabbed-container-mobile-collapse').css('display','block');
     document.getElementById('tab-myplaylists').click();
 });
 
@@ -252,6 +267,6 @@ $('#mobile-tab-search').click(function() {
     console.log('display search')
     $('.chatbox-container').css('display','none');
     $('.queue-container').css('display','none');
-    $('.tabbed-container').css('display','block');
+    $('.tabbed-container-mobile-collapse').css('display','block');
     document.getElementById('tab-search').click();
 });
