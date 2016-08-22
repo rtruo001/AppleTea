@@ -32,6 +32,7 @@ var Index = React.createClass({
           <link rel="stylesheet" href="/css/bootstrap.min.css"/>
           <link rel="stylesheet" href="/css/plyr.css"/>
           <link rel="stylesheet" href="/css/font-awesome.min.css"/>
+          <link rel="stylesheet" href="css/toggle-slider.css" />
 
           <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.js"></script>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.js"></script>
@@ -45,7 +46,7 @@ var Index = React.createClass({
             <Room />
           </div>
 
-          {/* Testing for Home 
+          {/* Testing for Home
           <div>
             <Home />
           </div> */}
