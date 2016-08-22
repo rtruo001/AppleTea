@@ -1583,28 +1583,9 @@ form {
   opacity: .1;
 }
 
-/*.room-card-empty .room-overlay-fill {
-  background-color: #ddd;
-  opacity: 1;
+.room-card-empty {
+  padding-bottom: 56% !important;
 }
-
-.room-card-empty .room-title {
-  color: #000;
-  text-shadow: none;
-}
-
-.room-card-empty .room-users {
-  background-color: #ccc;
-}
-
-.room-card-empty:hover .room-overlay-fill {
-  background-color: #fff;
-  opacity: 1;
-}
-
-.room-card-empty:hover .room-users {
-  background-color: #eee;
-}*/
 
 .room-card-empty .room-overlay-fill {
   background-color: #ddd;

@@ -5878,7 +5878,7 @@ var Room = React.createClass({
                     React.createElement(
                       'div',
                       { className: 'tab-text' },
-                      'Private Playlists'
+                      'My Playlists'
                     )
                   )
                 ),

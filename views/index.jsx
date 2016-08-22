@@ -16,7 +16,8 @@
     ========================================================================== */
 var React = require('react');
 
-// Room component
+// Home and Room component
+var Home = require('./Home');
 var Room = require('./Room');
 
 // TODO: The scripts for the React librarys are through cdns, want to change this in order for them to be locally stored into our
@@ -39,9 +40,15 @@ var Index = React.createClass({
 
         <body>
 
+          {/* Room Page */}
           <div id="room">
             <Room />
           </div>
+
+          {/* Testing for Home 
+          <div>
+            <Home />
+          </div> */}
 
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
           <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

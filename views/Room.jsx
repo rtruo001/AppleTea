@@ -86,9 +86,9 @@ var Room = React.createClass({
               </div>
 
             {/* Chat */}
-              <div className="chatbox-container">
-               <Chatbox />
-              </div>
+            <div className="chatbox-container">
+             <Chatbox />
+            </div>
 
             </div>
           </div>
@@ -114,7 +114,7 @@ var Room = React.createClass({
                   <li>
                     <a data-toggle="tab" href="#myplaylists" id="tab-myplaylists">
                       <i className="fa fa-book icon-padding"></i>
-                      <div className="tab-text">Private Playlists</div>
+                      <div className="tab-text">My Playlists</div>
                     </a>
                   </li>
                   <li>
