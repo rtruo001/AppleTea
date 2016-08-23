@@ -103,7 +103,7 @@ var Room = React.createClass({
               </div>
 
               {/* Desktop Tab Navigation */}
-              <div className="col-md-8 col-sm-7 tabbed-container">
+              <div className="col-md-8 col-sm-7 tabbed-container tabbed-container-mobile-collapse">
                 <ul className="nav nav-tabs nav-tabs-mobile-collapse">
                   <li className="active">
                     <a data-toggle="tab" href="#explore" id="tab-explore">

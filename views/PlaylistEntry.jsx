@@ -45,8 +45,10 @@ var PlaylistEntry = React.createClass({
             <div className="playlist-img-container">
               <a href="javascript:void(0)">
                 <div className="playlist-overlay">
-                  <div className="playlist-play-icon"><i className="fa fa-play" aria-hidden="true"></i></div>
-                  PLAY ALL
+                  <div className="playlist-overlay-content">
+                    <div className="playlist-play-icon"><i className="fa fa-play" aria-hidden="true"></i></div>
+                    PLAY ALL
+                  </div>
                 </div>
               </a>
               <img className="playlist-img" src="images/media-icon.png" />
