@@ -3981,30 +3981,125 @@ var ChatHeader = React.createClass({
   }
 });
 
+var ChatMessage = React.createClass({
+  displayName: "ChatMessage",
+
+  getInitialState: function getInitialState() {
+    return {
+      owner: this.props.owner,
+      message: this.props.message,
+      username: this.props.username
+    };
+  },
+  render: function render() {
+    var _this = this;
+
+    return React.createElement(
+      "div",
+      null,
+      function () {
+        if (_this.state.owner) {
+          return React.createElement(
+            "div",
+            { className: "chat-msg-user" },
+            React.createElement(
+              "div",
+              { className: "msg" },
+              _this.state.message
+            )
+          );
+        } else {
+          return React.createElement(
+            "div",
+            { className: "chat-msg" },
+            React.createElement(
+              "div",
+              { className: "name" },
+              _this.state.username
+            ),
+            React.createElement(
+              "div",
+              { className: "msg" },
+              _this.state.message
+            ),
+            React.createElement("img", { className: "profile-pic", src: "images/profile-pic.png" })
+          );
+        }
+      }()
+    );
+  }
+});
+
+var ChatUserActivityMessage = React.createClass({
+  displayName: "ChatUserActivityMessage",
+
+  render: function render() {
+    var _this2 = this;
+
+    return React.createElement(
+      "div",
+      null,
+      function () {
+        switch (_this2.props.activity) {
+          case "joined":
+            return React.createElement(
+              "div",
+              { className: "chat-notif" },
+              _this2.props.username,
+              " has joined the chat."
+            );
+            break;
+          case "disconnected":
+            return React.createElement(
+              "div",
+              { className: "chat-notif" },
+              _this2.props.username,
+              " has left the chat."
+            );
+            break;
+        }
+      }()
+    );
+  }
+});
+
 var ChatDisplay = React.createClass({
   displayName: "ChatDisplay",
 
+  getInitialState: function getInitialState() {
+    return {
+      messages: []
+    };
+  },
   userHasJoinedListener: function userHasJoinedListener() {
     // When user has joined, sends the username and outputs it on the box
     socket.on("From Server: User joined", function (user) {
-      $('.chat').append('<div class="chat-notif">' + user.username + " has joined the chat." + '</div>');
-    });
+      var messages = this.state.messages;
+      messages.push(React.createElement(ChatUserActivityMessage, { username: user.username, activity: "joined" }));
+      this.setState({
+        messages: messages
+      });
+    }.bind(this));
   },
   userHasDisconnectedListener: function userHasDisconnectedListener() {
     // When an actual user exits the page/chat
     socket.on('From Server: User disconnected', function (user) {
-      $('.chat').append('<div class="chat-notif">' + user.username + " has left the chat." + '</div>');
-    });
+      var messages = this.state.messages;
+      messages.push(React.createElement(ChatUserActivityMessage, { username: user.username, activity: "disconnected" }));
+      this.setState({
+        messages: messages
+      });
+    }.bind(this));
   },
   newMessageListener: function newMessageListener() {
-    // Server emits Chat message
     socket.on('From Server: Chat message', function (msg) {
-      if (username === msg.username) {
-        $('.chat').append('<div class="chat-msg-user">' + '<div class="msg">' + msg.message + '</div>');
-      } else {
-        $('.chat').append('<div class="chat-msg">' + '<div class="name">' + msg.username + '</div>' + '<div class="msg">' + msg.message + '</div>' + '<img class="profile-pic" src="images/profile-pic.png"/>');
-      }
-    });
+      var isOwner = this.props.username === msg.username;
+      var messages = this.state.messages;
+      messages.push(React.createElement(ChatMessage, { username: msg.username, owner: isOwner, message: msg.message }));
+      this.setState({
+        messages: messages
+      });
+    }.bind(this));
   },
   setupListeners: function setupListeners() {
     this.userHasJoinedListener();
@@ -4015,7 +4110,11 @@ var ChatDisplay = React.createClass({
     this.setupListeners();
   },
   render: function render() {
-    return React.createElement("div", { className: "chat" });
+    return React.createElement(
+      "div",
+      { className: "chat" },
+      this.state.messages
+    );
   }
 });
 
@@ -4023,20 +4122,13 @@ var ChatInput = React.createClass({
   displayName: "ChatInput",
 
   ifUsernameExists: function ifUsernameExists() {
-    if (!username || 0 === username.length) {
+    if (!this.props.username || 0 === this.state.username.length) {
       return false;
     }
     return true;
   },
   sendMessage: function sendMessage(e) {
-    console.log(e);
     e.preventDefault();
-    if (!this.ifUsernameExists()) {
-      if ($('.logged-out-message').length <= 0) {
-        $('#chat-box').append($('<div class="logged-out-message">').text("Please login"));
-      }
-      return;
-    }
 
     // TODO Do message input string checks
     // No empty string, no white spaces, Valid characters a-z, A-Z, 0-9
@@ -4057,38 +4149,80 @@ var ChatInput = React.createClass({
   }
 });
 
+var GuestUserForm = React.createClass({
+  displayName: "GuestUserForm",
+
+  getInitialState: function getInitialState() {
+    return {
+      username: ""
+    };
+  },
+  updateUsername: function updateUsername(e) {
+    this.setState({
+      username: e.target.value
+    });
+  },
+  submitUsername: function submitUsername(e) {
+    e.preventDefault();
+    this.props.setUsernameCallback(this.state.username);
+
+    // TODO Do username input string checks
+    // No empty string, no white spaces, Valid characters a-z, A-Z, 0-9
+    // Client emits to server with Add user
+    socket.emit('From Client: Add user', this.state.username);
+  },
+  render: function render() {
+    return React.createElement(
+      "div",
+      { className: "modal fade", id: "enter-name", tabIndex: "-1", role: "dialog", "aria-labelledby": "myModalLabel" },
+      React.createElement(
+        "div",
+        { className: "modal-dialog modal-sm", role: "document" },
+        React.createElement(
+          "div",
+          { className: "modal-content" },
+          React.createElement(
+            "div",
+            { className: "modal-body" },
+            React.createElement(
+              "form",
+              { className: "search-input", id: "username-form", action: "", onSubmit: this.submitUsername },
+              React.createElement("input", { value: this.state.username, onChange: this.updateUsername, autoComplete: "off", type: "text", className: "chat-textbox", name: "", placeholder: "Enter Your Name", autoFocus: true })
+            )
+          )
+        )
+      )
+    );
+  }
+});
+
 /* Chatbox */
 var Chatbox = React.createClass({
   displayName: "Chatbox",
 
+  getInitialState: function getInitialState() {
+    return {
+      username: ""
+    };
+  },
+  setUsername: function setUsername(username) {
+    console.log("ASDFAFSFSD");
+    console.log(username);
+    this.setState({
+      username: username
+    });
+  },
+  componentWillUpdate: function componentWillUpdate() {
+    console.log("componentWillUpdate");
+  },
   render: function render() {
     return React.createElement(
       "div",
       null,
       React.createElement(ChatHeader, null),
-      React.createElement(ChatDisplay, null),
-      React.createElement(ChatInput, null),
-      React.createElement(
-        "div",
-        { className: "modal fade", id: "enter-name", tabIndex: "-1", role: "dialog", "aria-labelledby": "myModalLabel" },
-        React.createElement(
-          "div",
-          { className: "modal-dialog modal-sm", role: "document" },
-          React.createElement(
-            "div",
-            { className: "modal-content" },
-            React.createElement(
-              "div",
-              { className: "modal-body" },
-              React.createElement(
-                "form",
-                { className: "search-input", id: "username-form", action: "" },
-                React.createElement("input", { id: "u", autoComplete: "off", type: "text", className: "chat-textbox", name: "", placeholder: "Enter Your Name" })
-              )
-            )
-          )
-        )
-      )
+      React.createElement(ChatDisplay, { username: this.state.username }),
+      React.createElement(ChatInput, { username: this.state.username }),
+      React.createElement(GuestUserForm, { setUsernameCallback: this.setUsername })
     );
   }
 });

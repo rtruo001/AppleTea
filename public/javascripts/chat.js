@@ -13,8 +13,8 @@
 
     userName - The name of the current Username.
     ========================================================================== */
-var connected = false;
-var username = "";
+// var connected = false;
+// var username = "";
 
 /*  =============================================================================
     Function: ifUsernameExists
@@ -38,9 +38,9 @@ var username = "";
     @return true   - When users exists
     @return false  - When users are empty or does not exist
     ========================================================================== */
-function setUsername(newUsername) {
-  username = newUsername;
-}
+// function setUsername(newUsername) {
+//   username = newUsername;
+// }
 
 /*  =============================================================================
     Function: displayMessage
@@ -70,24 +70,24 @@ function setUsername(newUsername) {
     @param    none
     @return   none
     ========================================================================== */
-function submitUsername() {
-  if (connected) {
-    console.log("Already have username");
-    return;
-  }
-
-  connected = true;
-  inputSubmitted = $('#u').val()
-  $('#user-submit-form').val('');
-  setUsername(inputSubmitted);
-
-  // TODO Do username input string checks
-  // No empty string, no white spaces, Valid characters a-z, A-Z, 0-9
-  // Client emits to server with Add user
-  socket.emit('From Client: Add user', $('#u').val());
-  $('#u').val('');
-  $('.logged-out-message').remove()
-}
+// function submitUsername() {
+//   if (connected) {
+//     console.log("Already have username");
+//     return;
+//   }
+//
+//   connected = true;
+//   inputSubmitted = $('#u').val()
+//   $('#user-submit-form').val('');
+//   setUsername(inputSubmitted);
+//
+//   // TODO Do username input string checks
+//   // No empty string, no white spaces, Valid characters a-z, A-Z, 0-9
+//   // Client emits to server with Add user
+//   socket.emit('From Client: Add user', $('#u').val());
+//   $('#u').val('');
+//   $('.logged-out-message').remove()
+// }
 
 /*  =============================================================================
     Website Event Handlers
@@ -101,12 +101,12 @@ function submitUsername() {
 //   });
 // });
 
-$('#username-form').submit(function(e){
-  e.preventDefault();
-  $.ajax({
-      success: submitUsername()
-  });
-});
+// $('#username-form').submit(function(e){
+//   e.preventDefault();
+//   $.ajax({
+//       success: submitUsername()
+//   });
+// });
 
 /*  =============================================================================
     Server emits to Client Socket Event Handlers
