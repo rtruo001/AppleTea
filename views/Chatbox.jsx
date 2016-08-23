@@ -298,7 +298,7 @@ var Chatbox = React.createClass({
     this.setState({
       username: username
     });
-  }
+  },
   render: function() {
     return (
       <div>

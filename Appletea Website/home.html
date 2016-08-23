@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/plyr.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/toggle-slider.css">
 
   </head>
 
@@ -37,545 +38,323 @@
         </div>
       </div>
 
-      <div class="banner-container">
-        <div class="vid-chat-container">
+      <div class="banner-container rooms-banner">
+        <div class="banner-content-container">
 
-<!-- Video -->
+<!-- Room Tabs -->
 
-          <div class="video-container">
-            <!-- <div data-type="youtube" data-video-id="HAIDqt2aUek"></div> -->
-
-            <div class="player">
-<!--               <div class="placeholder placeholder-video">
-                <div class="placeholder-content">
-                  <i class="fa fa-moon-o placeholder-icon"></i><br/>
-                  <span>No Media Loaded</span>
-                </div>
-              </div> -->
-              <div class="player-video-embed" style="cursor: pointer;">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/PEmqJBcQ2lg" frameborder="0" allowfullscreen></iframe>
-              </div>
-            </div>
-
-            <!-- <div class="plyr plyr--youtube plyr--video plyr--fullscreen-enabled plyr--stopped">
-              <div class="plyr__video-wrapper plyr__video-embed" style="cursor: pointer;">
-                <iframe id="youtube-14" frameborder="0" allowfullscreen="1" title="Player for Porter Robinson - Sad Machine (Lyric Video)" width="640" height="360" src="https://www.youtube.com/embed/HAIDqt2aUek?autoplay=0&amp;controls=0&amp;rel=0&amp;showinfo=0&amp;iv_load_policy=3&amp;cc_load_policy=0&amp;cc_lang_pref=en&amp;wmode=transparent&amp;modestbranding=1&amp;disablekb=1&amp;origin=*&amp;enablejsapi=1&amp;widgetid=1"></iframe>
-              </div>
-
-              <button type="button" class="plyr__play-large">
-                <i class="fa fa-play"></i>
-              </button>
-
-              <div class="plyr__controls">
-                <button type="button">
-                  <i class="fa fa-play"></i>
-                </button>
-                <button type="button" data-plyr="pause">
-                  <i class="fa fa-pause"></i>
-                </button>
-                <span class="plyr__progress">
-                  <input id="seek7140" class="plyr__progress--seek" type="range" min="0" max="100" step="0.1" value="20" data-plyr="seek">
-                  <progress class="plyr__progress--played" max="100" value="20" role="presentation"></progress>
-                  <progress class="plyr__progress--buffer" max="100" value="80"><span>0</span>% buffered</progress>
-                </span>
-                <button type="button" data-plyr="mute" aria-pressed="false">
-                  <div class="icon--muted"><i class="fa fa-volume-off"></i></div>
-                  <i class="fa fa-volume-up"></i>
-                </button>
-                <span class="plyr__volume">
-                  <input id="volume7140" class="plyr__volume--input" type="range" min="0" max="10" value="5" data-plyr="volume">
-                  <progress class="plyr__volume--display" max="10" value="5.2" role="presentation"></progress>
-                </span>
-                <button type="button" data-plyr="fullscreen" aria-pressed="false">
-                  <div class="icon--exit-fullscreen"><i class="fa fa-compress"></i></div>
-                  <i class="fa fa-expand"></i>
-                </button>
-              </div>
-            </div> -->
-
-          </div>
-
-<!-- Mobile Tab Navigation -->
-
-          <div class="mobile-tabbed-container">
-            <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#chat" id="mobile-tab-chat"><i class="fa fa-comments icon-padding"></i><div class="tab-text">Chat</div></a></li>
-              <li><a data-toggle="tab" href="#queue" id="mobile-tab-queue"><i class="fa fa-list-ul icon-padding"></i><div class="tab-text">Queue</div></a></li>
-              <li><a data-toggle="tab" href="#explore" id="mobile-tab-explore"><i class="fa fa-rocket icon-padding"></i><div class="tab-text">Explore</div></a></li>
-              <li><a data-toggle="tab" href="#myplaylists" id="mobile-tab-myplaylists"><i class="fa fa-book icon-padding"></i><div class="tab-text">My Playlists</div></a></li>
-              <li><a data-toggle="tab" href="#search" class='focus-search' id="mobile-tab-search"><i class="fa fa-search icon-padding"></i><div class="tab-text">Search</div></a></li>
+          <div class="col-sm-offset-1 col-sm-10 tabbed-container">
+          
+            <ul class="nav nav-tabs nav-centered nav-dark">
+              <li class="active"><a id="tab-publicrooms" data-toggle="tab" href="#publicrooms"><i class="fa fa-globe icon-padding"></i>Public Rooms</a></li>
+              <li><a id="tab-myrooms" data-toggle="tab" href="#myrooms"><i class="fa fa-home icon-padding"></i>My Rooms</a></li>
+              <li><a id="tab-myrooms" data-toggle="tab" href="#myrooms-placeholder">P1</a></li>
             </ul>
-          </div>
 
+            <div class="tab-content">
 
-<!-- Chatbox Header -->
+<!-- Public Rooms Tab -->
 
-          <div class="chatbox-container">
-
-            <div class="room-header">
-              <div class="room-name onclick-edit">
-                Vent Room
-                <a class="icon-btn-dark" href="javascript:void(0)"><i class="fa fa-edit" aria-hidden="true"></i></a>
-              </div>
-              <div class="users-btn">4<i class="fa fa-users users-btn-icon"></i><i class="fa fa-circle status status-online"></i></div>
-              <div id="users-list-container" onmouseover="document.body.style.overflow='hidden';" onmouseout="document.body.style.overflow='auto';">
-                <div class="users-list-container">
-                  <div class="users-list-header users-online-section">
-                    Members
-                    <button type="button" class="btn btn-sm btn-secondary users-list-edit-btn"><i class="fa fa-gear" id="users-list-gear-icon"></i></button>
-                  </div>
-                  <div class="users-list-scroll-container">
-                    <ul class="users-list">
-                      <li>
-                        <i class="fa fa-circle status status-online"></i><a class="user-name" href="javascript:void(0)">Gerard Liu</a>
-                        <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"><i class="fa fa-refresh fa-spin fa-fw" data-toggle="tooltip" title="Syncing"></i><i class="fa fa-star fa-fw" data-toggle="tooltip" title="Moderator"></i></div>
-                      </li>
-                      <li>
-                        <i class="fa fa-circle status status-online"></i><a class="user-name" href="javascript:void(0)">Randy Truong</a>
-                        <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"><i class="fa fa-star fa-fw" data-toggle="tooltip" title="Moderator"></i></div>
-                      </li>
-                      <li>
-                        <i class="fa fa-circle status status-online"></i><a class="user-name" href="javascript:void(0)">Kevin Chiao</a>
-                        <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star-o fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"><i class="fa fa-refresh fa-spin fa-fw" data-toggle="tooltip" title="Syncing"></i></div>
-                      </li>
-                      <li>
-                        <i class="fa fa-circle status status-online"></i><a class="user-name" href="javascript:void(0)">Harrison Ford</a>
-                        <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star-o fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"></div>
-                      </li>
-                    </ul>
-                    <ul class="users-list users-list-section users-offline-section">
-                      <li>
-                        <i class="fa fa-circle status status-offline"></i><a class="user-name offline" href="javascript:void(0)">Minnal Kunnan</a>
-                        <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"></div>
-                      </li>
-                      <li>
-                        <i class="fa fa-circle status status-online"></i><a class="user-name offline" href="javascript:void(0)">Jason Maryne</a>
-                        <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star-o fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"></div>
-                      </li>
-                      <li>
-                        <i class="fa fa-circle status status-online"></i><a class="user-name offline" href="javascript:void(0)">Eric Dieu</a>
-                        <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star-o fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"></div>
-                      </li>
-                      <li>
-                        <i class="fa fa-circle status status-offline"></i><a class="user-name offline" href="javascript:void(0)">Kevin Ton</a>
-                        <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star-o fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"></div>
-                      </li>
-                      <li>
-                        <i class="fa fa-circle status status-offline"></i><a class="user-name offline" href="javascript:void(0)">Kris Luong</a>
-                        <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star-o fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"></div>
-                      </li>
-                      <li>
-                        <i class="fa fa-circle status status-offline"></i><a class="user-name offline" href="javascript:void(0)">Franky Nguyen</a>
-                        <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star-o fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"></div>
-                      </li>
-                      <li>
-                        <i class="fa fa-circle status status-online"></i><a class="user-name offline" href="javascript:void(0)">Adrian Mandee</a>
-                        <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star-o fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"></div>
-                      </li>
-                      <li>
-                        <i class="fa fa-circle status status-offline"></i><a class="user-name offline" href="javascript:void(0)">Jay Yee</a>
-                        <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star-o fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"></div>
-                      </li>
-                      <li>
-                        <i class="fa fa-circle status status-offline"></i><a class="user-name offline" href="javascript:void(0)">George Huang</a>
-                        <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star-o fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"></div>
-                      </li>
-                      <li>
-                        <i class="fa fa-circle status status-offline"></i><a class="user-name offline" href="javascript:void(0)">Jelly Kid</a>
-                        <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star-o fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"></div>
-                      </li>
-                      <li>
-                        <i class="fa fa-circle status status-offline"></i><a class="user-name offline" href="javascript:void(0)">Finn Human</a>
-                        <div class="users-list-edit"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-star-o fa-fw mod-toggle"></i></a><a class="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i class="fa fa-remove fa-fw"></i></a></div>
-                        <div class="users-list-icons"></div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="users-list users-list-section users-list-add"><button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#add-user"><i class="fa fa-plus fa-fw"></i> Add People</button></div>
+              <div id="publicrooms" class="tab-pane fade in active">
+                <div class="search-container">
+                  <form class="search-input search-input-dark">
+                    <input type="text" placeholder="Search Public Rooms..."/>
+                  </form>
                 </div>
-              </div>
-            </div>
+                <div class="publicrooms-container">
+                  <div class="row">
 
-            <div class="modal fade" id="kick-confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-              <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                  <div class="modal-body">
-                    Are you sure you want to remove Gerard from VentRoom?
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-red" data-dismiss="modal">Remove</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+                    <div class="col-sm-3 col-padding">
+                      <a href="room.html">
+                        <div class="room-card">
+                          <div class="room-overlay"><div class="room-overlay-fill"></div></div>
+                          <img class="room-img" src="images/media-icon.png"/>
+                          <div class="room-text-container">
+                            <div class="room-title ellipses">The Vent Room</div>
+                            <div class="room-pill">
+                              <div class="room-users">1,432,765<i class="fa fa-users users-btn-icon"></i><i class="fa fa-circle status status-online"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col-sm-3 col-padding">
+                      <a href="room.html">
+                        <div class="room-card">
+                          <div class="room-overlay"><div class="room-overlay-fill"></div></div>
+                          <img class="room-img" src="images/media-icon.png"/>
+                          <div class="room-text-container">
+                            <div class="room-title ellipses">Appletea Work Room</div>
+                            <div class="room-pill">
+                              <div class="room-users">2,264<i class="fa fa-users users-btn-icon"></i><i class="fa fa-circle status status-online"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col-sm-3 col-padding">
+                      <a href="room.html">
+                        <div class="room-card">
+                          <div class="room-overlay"><div class="room-overlay-fill"></div></div>
+                          <img class="room-img" src="images/media-icon.png"/>
+                          <div class="room-text-container">
+                            <div class="room-title ellipses">California Club</div>
+                            <div class="room-pill">
+                              <div class="room-users">863,943<i class="fa fa-users users-btn-icon"></i><i class="fa fa-circle status status-online"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col-sm-3 col-padding">
+                      <a href="room.html">
+                        <div class="room-card">
+                          <div class="room-overlay"><div class="room-overlay-fill"></div></div>
+                          <img class="room-img" src="images/media-icon.png"/>
+                          <div class="room-text-container">
+                            <div class="room-title ellipses">The best room ever created</div>
+                            <div class="room-pill">
+                              <div class="room-users">97,103<i class="fa fa-users users-btn-icon"></i><i class="fa fa-circle status status-online"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col-sm-3 col-padding">
+                      <a href="room.html">
+                        <div class="room-card">
+                          <div class="room-overlay"><div class="room-overlay-fill"></div></div>
+                          <img class="room-img" src="images/media-icon.png"/>
+                          <div class="room-text-container">
+                            <div class="room-title ellipses">Satan's Circle (come come)</div>
+                            <div class="room-pill">
+                              <div class="room-users">6,250<i class="fa fa-users users-btn-icon"></i><i class="fa fa-circle status status-online"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col-sm-3 col-padding">
+                      <a href="room.html">
+                        <div class="room-card">
+                          <div class="room-overlay"><div class="room-overlay-fill"></div></div>
+                          <img class="room-img" src="images/media-icon.png"/>
+                          <div class="room-text-container">
+                            <div class="room-title ellipses">The best room ever created</div>
+                            <div class="room-pill">
+                              <div class="room-users">2,403<i class="fa fa-users users-btn-icon"></i><i class="fa fa-circle status status-online"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col-sm-3 col-padding">
+                      <a href="room.html">
+                        <div class="room-card">
+                          <div class="room-overlay"><div class="room-overlay-fill"></div></div>
+                          <img class="room-img" src="images/media-icon.png"/>
+                          <div class="room-text-container">
+                            <div class="room-title ellipses">California Club</div>
+                            <div class="room-pill">
+                              <div class="room-users">42,023<i class="fa fa-users users-btn-icon"></i><i class="fa fa-circle status status-online"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col-sm-3 col-padding">
+                      <a href="room.html">
+                        <div class="room-card">
+                          <div class="room-overlay"><div class="room-overlay-fill"></div></div>
+                          <img class="room-img" src="images/media-icon.png"/>
+                          <div class="room-text-container">
+                            <div class="room-title ellipses">Satan's Circle (come come)</div>
+                            <div class="room-pill">
+                              <div class="room-users">4,250<i class="fa fa-users users-btn-icon"></i><i class="fa fa-circle status status-online"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
 
-            <div class="modal fade" id="add-user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-              <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                  <div class="modal-body search-user-header">
-                    <div class="search-container">
-                      <form class="search-input" id="search-user-input">
-                        <input type="text" placeholder="Search Users..."/>
-                      </form>
-                    </div>
-                  </div>
+                    <nav aria-label="page navigation">
+                      <ul class="pagination pagination-dark pagination-thin">
+                        <li class="disabled"><a href="javascript:void(0)" aria-label="Previous"><i class="fa fa-angle-left"></i></a></li>
+                        <li class="active"><a href="javascript:void(0)">1</a></li>
+                        <li><a href="javascript:void(0)">2</a></li>
+                        <li><a href="javascript:void(0)">3</a></li>
+                        <li><a href="javascript:void(0)" aria-label="Next"><i class="fa fa-angle-right"></i></a></li>
+                      </ul>
+                    </nav>
 
-                  <div id="search-user-list" onmouseover="document.body.style.overflow='hidden';" onmouseout="document.body.style.overflow='auto';">
-                    <div class="search-card-padding">
-                      <a class="search-user" href="javascript:void(0)">
-                        <div class="search-media-card">
-                          <img class="search-media-img profile-pic" src="images/profile-pic.png">
-                          <div class="search-media-text-container">
-                            <div class="search-media-title ellipses">Krid</div>
-                            <div class="search-media-artist">Kristopher Luong</div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="search-card-padding">
-                      <a class="search-user" href="javascript:void(0)">
-                        <div class="search-media-card">
-                          <img class="search-media-img profile-pic" src="images/profile-pic.png">
-                          <div class="search-media-text-container">
-                            <div class="search-media-title ellipses">Gliustick</div>
-                            <div class="search-media-artist">Gerard Liu</div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="search-card-padding">
-                      <a class="search-user" href="javascript:void(0)">
-                        <div class="search-media-card">
-                          <img class="search-media-img profile-pic" src="images/profile-pic.png">
-                          <div class="search-media-text-container">
-                            <div class="search-media-title ellipses">Trash Can Ranz</div>
-                            <div class="search-media-artist">Randy Truong</div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="search-card-padding">
-                      <a class="search-user" href="javascript:void(0)">
-                        <div class="search-media-card">
-                          <img class="search-media-img profile-pic" src="images/profile-pic.png">
-                          <div class="search-media-text-container">
-                            <div class="search-media-title ellipses">Minz</div>
-                            <div class="search-media-artist">Minnal</div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="search-card-padding">
-                      <a class="search-user" href="javascript:void(0)">
-                        <div class="search-media-card">
-                          <img class="search-media-img profile-pic" src="images/profile-pic.png">
-                          <div class="search-media-text-container">
-                            <div class="search-media-title ellipses">ED</div>
-                            <div class="search-media-artist">Eric Dieu</div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="search-card-padding">
-                      <a class="search-user" href="javascript:void(0)">
-                        <div class="search-media-card">
-                          <img class="search-media-img profile-pic" src="images/profile-pic.png">
-                          <div class="search-media-text-container">
-                            <div class="search-media-title ellipses">Kton</div>
-                            <div class="search-media-artist">Kevin Ton</div>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
                   </div>
                 </div>
               </div>
-            </div>
 
-<!-- Chatbox Chat -->
+<!-- My Rooms Tab -->
 
-            <!-- <div class="chat-load">
-              <div class="chat-load-icon-container"><div class="chat-load-icon"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></div></div>
-            </div> -->
+              <div id="myrooms" class="tab-pane fade">
+                <div class="myrooms-container">
+                  <div class="rooms-section">
+                    <button class="btn btn-dark" data-toggle="modal" data-target="#create-room"><i class="fa fa-plus icon-padding"></i>Create New Room</button>
+                  </div>
+                  <div class="row">
 
-            <div class="chat" onmouseover="document.body.style.overflow='hidden';" onmouseout="document.body.style.overflow='auto';">
-              <div class="chat-load-icon"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></div>
-              <div class="chat-msg">
-                <div class="name">Ranz</div>
-                <div class="msg">sup</div>
-                <img class="profile-pic" src="images/profile-pic.png"/>
-              </div>
-              <div class="chat-notif">4:20PM</div>
-              <div class="chat-msg">
-                <div class="name">Minz</div>
-                <div class="msg">yo</div>
-                <img class="profile-pic" src="images/profile-pic.png"/>
-              </div>
-              <div class="chat-msg">
-                <div class="name">Ranz</div>
-                <div class="msg">this is pretty sick</div>
-                <img class="profile-pic" src="images/profile-pic.png"/>
-              </div>
-              <div class="chat-notif">Gliu joined the room</div>
-              <div class="chat-msg-user">
-                <div class="msg">sup sup gliu in the haus</div>
-              </div>
-              <div class="chat-msg">
-                <div class="name">Minz</div>
-                <div class="msg">yeeet boi</div>
-                <div class="msg">hi</div>
-                <div class="msg">this is a consecutive message from one user that tests the max width of each chat message.</div>
-                <img class="profile-pic" src="images/profile-pic.png"/>
-              </div>
-              <div class="chat-notif">6:60PM</div>
-              <div class="chat-msg">
-                <div class="name">Minz</div>
-                <div class="msg">this is a consecutive message from one user that tests the max width of each chat message.</div>
-                <img class="profile-pic" src="images/profile-pic.png"/>
-              </div>
-              <div class="chat-msg-user">
-                <div class="msg">testing</div>
-                <div class="msg">this also tests the boundaries of a chat box, except from the user perspective. lorem ipsum lorem yeet.</div>
-              </div>
-              <div class="chat-msg">
-                <div class="name">Ranz</div>
-                <div class="msg">sup</div>
-                <img class="profile-pic" src="images/profile-pic.png"/>
-              </div>
-              <div class="chat-msg">
-                <div class="name">Minz</div>
-                <div class="msg">yo</div>
-                <img class="profile-pic" src="images/profile-pic.png"/>
-              </div>
-              <div class="chat-msg">
-                <div class="name">Ranz</div>
-                <div class="msg">this is pretty sick</div>
-                <img class="profile-pic" src="images/profile-pic.png"/>
-              </div>
-              <div class="chat-notif">Kchiao was added to the VentRoom</div>
-              <div class="chat-notif">Randy left the room</div>
-              <div class="chat-notif">Randy joined the room</div>
-              <div class="chat-msg-user">
-                <div class="msg">sup sup gliu in the haus</div>
-              </div>
-              <div class="chat-msg">
-                <div class="name">Minz</div>
-                <div class="msg">yeeet boi</div>
-                <img class="profile-pic" src="images/profile-pic.png"/>
-              </div>
-              <div class="chat-msg-user">
-                <div class="msg">this also tests the boundaries of a chat box, except from the user perspective. lorem ipsum lorem yeet.</div>
-              </div>
-            </div>
+                    <div class="col-sm-3 col-padding">
+                      <a href="room.html">
+                        <div class="room-card">
+                          <div class="room-overlay"><div class="room-overlay-fill"></div></div>
+                          <img class="room-img" src="images/media-icon.png"/>
+                          <div class="room-text-container">
+                            <div class="room-title ellipses">The Vent Room</div>
+                            <div class="room-pill">
+                              <div class="room-users">12<i class="fa fa-users users-btn-icon"></i><i class="fa fa-circle status status-online"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col-sm-3 col-padding">
+                      <a href="room.html">
+                        <div class="room-card">
+                          <div class="room-overlay"><div class="room-overlay-fill"></div></div>
+                          <img class="room-img" src="images/media-icon.png"/>
+                          <div class="room-text-container">
+                            <div class="room-title ellipses">Appletea Work Room</div>
+                            <div class="room-pill">
+                              <div class="room-users">2<i class="fa fa-user users-btn-icon"></i><i class="fa fa-circle status status-online"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col-sm-3 col-padding">
+                      <a href="room.html">
+                        <div class="room-card room-card-empty">
+                          <div class="room-overlay"><div class="room-overlay-fill"></div></div>
+                          <div class="room-text-container">
+                            <div class="room-title ellipses">California Club</div>
+                            <div class="room-pill">
+                              <div class="room-users">0<i class="fa fa-user users-btn-icon"></i><i class="fa fa-circle status"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col-sm-3 col-padding">
+                      <a href="room.html">
+                        <div class="room-card room-card-empty">
+                          <div class="room-overlay"><div class="room-overlay-fill"></div></div>
+                          <div class="room-text-container">
+                            <div class="room-title ellipses">The best room ever created</div>
+                            <div class="room-pill">
+                              <div class="room-users">0<i class="fa fa-user users-btn-icon"></i><i class="fa fa-circle status"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="col-sm-3 col-padding">
+                      <a href="room.html">
+                        <div class="room-card room-card-empty">
+                          <div class="room-overlay"><div class="room-overlay-fill"></div></div>
+                          <div class="room-text-container">
+                            <div class="room-title ellipses">Satan's Circle (come come)</div>
+                            <div class="room-pill">
+                              <div class="room-users">0<i class="fa fa-user users-btn-icon"></i><i class="fa fa-circle status"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
 
-            <div class="chat-input-container">
-              <form class="chat-input">
-                <input type="text" name="" placeholder="Type a message..."/>
-              </form>
-            </div>
-          </div>
+                  </div>
+                </div>
+              </div>
 
-        </div><!-- end vid-chat-container -->
+<!-- Rooms Placeholder Tab -->
+
+              <div id="myrooms-placeholder" class="tab-pane">
+                <div class="myrooms-container">
+                  <div class="rooms-section">
+                    <button class="btn btn-dark" data-toggle="modal" data-target="#create-room"><i class="fa fa-plus icon-padding"></i>Create New Room</button>
+                  </div>
+                  <div class="row">
+
+                    <div class="col-padding">
+                      <div class="placeholder placeholder-rooms">
+                        <div class="placeholder-content">
+                          <i class="fa fa-home placeholder-icon"></i><br/>
+                          <span>You have no rooms</span>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+<!-- Create Room Modal -->
+
+              <div class="modal fade" id="create-room" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-sm" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      Create a New Room
+                    </div>
+                    <div class="modal-body">
+                      <div class="search-container">
+                        <form class="search-input" id="create-room-input">
+                          <input class="input-padding" type="text" placeholder="Room Name"/>
+                          <div class="modal-label">Is this a private room?</div>
+                          <div class="toggle-slider-section">
+                            <label class="switch"><input type="checkbox" id="create-room-toggle" checked><div class="slider"></div></label>
+                            <i class="fa fa-lock" id="create-room-toggle-icon"></i>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">Create Room</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div> <!-- end tab-content -->
+          </div> <!-- end tabbed-container -->
+
+        </div><!-- end banner-content-container -->
       </div><!-- end banner-container -->
 
       <div class="main-container">
         <div class="row">
 
-<!-- Queue List Column -->
+<!-- Message -->
 
-          <div class="col-md-4 col-sm-5 queue-container" id="queue">
-
-            <div class="queue-header">
-              <div class="queue-title-container">
-                <div class="queue-title">Chill Ass Music</div>
-                <div class="pill" data-toggle="tooltip" title="Items in Playlist">27</div>
-                <div class="pill pill-blue" data-toggle="tooltip" title="Items Added">+2</div>
-              </div>
-              <div class="queue-icon-container">
-                <div class="queue-icon"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-square-o" data-toggle="tooltip" title="Clear" aria-hidden="true"></i></a></div>
-                <div class="queue-icon"><a class="icon-btn like-btn" href="javascript:void(0)"><i class="fa fa-heart-o" data-toggle="tooltip" title="Like Playlist" aria-hclassden="true"></i></a></div>
-                <div class="queue-icon shfl-btn"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-random" data-toggle="tooltip" title="Shuffle" aria-hidden="true"></i></a></div>
-                <div class="queue-icon"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-edit" data-toggle="tooltip" title="Edit" aria-hidden="true"></i></a></div>
+          <div class="col-padding">
+            <div class="placeholder placeholder-message">
+              <div class="placeholder-content">
+                <i class="fa fa-chevron-up placeholder-icon"></i><br/>
+                <span>You must enter a room to play a playlist</span>
               </div>
             </div>
-
-            <!-- Placeholder for Empty Queue -->
-<!--             <div class="queue-body col-padding">
-              <div class="placeholder">
-                <div class="placeholder-content">
-                  <i class="fa fa-square-o placeholder-icon"></i><br/>
-                  <span>Your queue is empty</span>
-                </div>
-              </div>
-            </div> -->
-
-<!--             <div class="queue-body col-padding">
-              <div class="placeholder">
-                <div class="placeholder-content">
-                  <i class="fa fa-child placeholder-icon"></i><br/>
-                  <span>You finished your playlist!</span>
-                </div>
-              </div>
-            </div> -->
-
-            <div class="queue-body col-padding">
-
-              <div class="media-card media-card-added grabbable">
-                <div class="media-card-added-corner-container"><div class="media-card-added-corner"></div></div>
-                <a class="media-card-added-plus icon-btn-white" href="javascript:void(0)">+</a>
-                <img class="media-img" src="images/media-icon.png"/>
-                <div class="media-next">PLAYING NEXT:</div>
-                <div class="number">1.</div>
-                <div class="media-text-container">
-                  <div class="media-title ellipses">Flume - Say It feat. Tove Lo</div>
-                  <div class="media-artist">FlumeAUS</div>
-                  <div class="media-type"><i class="fa fa-youtube-play"></i></div>
-                  <div class="media-icon-container">
-                    <div class="media-icon"></div>
-                    <a class="icon-btn-blue-lite" href="javascript:void(0)"><div class="media-icon"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></div></a>
-                  </div>
-                </div>
-              </div>
-              <div class="media-card media-card-added grabbable">
-                <div class="media-card-added-corner-container"><div class="media-card-added-corner"></div></div>
-                <a class="media-card-added-plus icon-btn-white" href="javascript:void(0)">+</a>
-                <img class="media-img" src="images/media-icon.png"/>
-                <div class="number">2.</div>
-                <div class="media-text-container">
-                  <div class="media-title ellipses">Flume - Say It feat. Tove Lo Tove Lo Tove Lo feat. Tove Lo</div>
-                  <div class="media-artist">FlumeAUS</div>
-                  <div class="media-type"><i class="fa fa-vimeo"></i></div>
-                  <div class="media-icon-container">
-                    <a class="icon-btn-blue-lite" href="javascript:void(0)"><div class="media-icon"><i class="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></div></a>
-                    <a class="icon-btn-blue-lite" href="javascript:void(0)"><div class="media-icon"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
-                  </div>
-                </div>
-              </div>
-              <div class="media-card grabbable">
-                <img class="media-img" src="images/media-icon.png"/>
-                <div class="number">3.</div>
-                <div class="media-text-container">
-                  <div class="media-title ellipses">Flume - Say It feat. Tove Lo Tove Lo Tove Lo feat. Tove Lo</div>
-                  <div class="media-artist">FlumeAUS</div>
-                  <div class="media-type"><i class="fa fa-youtube-play"></i></div>
-                  <div class="media-icon-container">
-                    <div class="media-icon"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></a></div>
-                    <div class="media-icon"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
-                  </div>
-                </div>
-              </div>
-              <div class="media-card grabbable">
-                <img class="media-img" src="images/media-icon.png"/>
-                <div class="number">4.</div>
-                <div class="media-text-container">
-                  <div class="media-title ellipses">Flume - Say It feat. Tove Lo</div>
-                  <div class="media-artist">FlumeAUS</div>
-                  <div class="media-type"><i class="fa fa-vimeo"></i></div>
-                  <div class="media-icon-container">
-                    <div class="media-icon"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></a></div>
-                    <div class="media-icon"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
-                  </div>
-                </div>
-              </div>
-              <div class="media-card grabbable">
-                <img class="media-img" src="images/media-icon.png"/>
-                <div class="number">5.</div>
-                <div class="media-text-container">
-                  <div class="media-title ellipses">Flume - Say It feat. Tove Lo</div>
-                  <div class="media-artist">FlumeAUS</div>
-                  <div class="media-type"><i class="fa fa-youtube-play"></i></div>
-                  <div class="media-icon-container">
-                    <div class="media-icon"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></a></div>
-                    <div class="media-icon"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
-                  </div>
-                </div>
-              </div>
-              <div class="media-card grabbable">
-                <img class="media-img" src="images/media-icon.png"/>
-                <div class="number">6.</div>
-                <div class="media-text-container">
-                  <div class="media-title ellipses">Flume - Say It feat. Tove Lo</div>
-                  <div class="media-artist">FlumeAUS</div>
-                  <div class="media-type"><i class="fa fa-youtube-play"></i></div>
-                  <div class="media-icon-container">
-                    <div class="media-icon"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></a></div>
-                    <div class="media-icon"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
-                  </div>
-                </div>
-              </div>
-              <div class="media-card grabbable">
-                <img class="media-img" src="images/media-icon.png"/>
-                <div class="number">7.</div>
-                <div class="media-text-container">
-                  <div class="media-title ellipses">Flume - Say It feat. Tove Lo</div>
-                  <div class="media-artist">FlumeAUS</div>
-                  <div class="media-type"><i class="fa fa-soundcloud"></i></div>
-                  <div class="media-icon-container">
-                    <div class="media-icon"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></a></div>
-                    <div class="media-icon"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
-                  </div>
-                </div>
-              </div>
-              <div class="media-card grabbable">
-                <img class="media-img" src="images/media-icon.png"/>
-                <div class="number">8.</div>
-                <div class="media-text-container">
-                  <div class="media-title ellipses">Flume - Say It feat. Tove Lo</div>
-                  <div class="media-artist">FlumeAUS</div>
-                  <div class="media-type"><i class="fa fa-soundcloud"></i></div>
-                  <div class="media-icon-container">
-                    <div class="media-icon"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></a></div>
-                    <div class="media-icon"><a class="icon-btn" href="javascript:void(0)"><i class="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></a></div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            <nav aria-label="page navigation">
-              <ul class="pagination">
-                <li class="disabled"><a href="javascript:void(0)" aria-label="Previous"><i class="fa fa-angle-left"></i></a></li>
-                <li class="active"><a href="javascript:void(0)">1</a></li>
-                <li><a href="javascript:void(0)">2</a></li>
-                <li><a href="javascript:void(0)">3</a></li>
-                <li><a href="javascript:void(0)" aria-label="Next"><i class="fa fa-angle-right"></i></a></li>
-              </ul>
-            </nav>
           </div>
 
 <!-- Tab Navigation Bar -->
 
-          <div class="col-md-8 col-sm-7 tabbed-container">
+          <div class="col-sm-offset-1 col-sm-10 tabbed-container">
           
-            <ul class="nav nav-tabs">
-              <li class="active"><a id="tab-explore" data-toggle="tab" href="#explore"><i class="fa fa-rocket icon-padding"></i><div class="tab-text">Explore</div></a></li>
-              <li><a id="tab-myplaylists" data-toggle="tab" href="#myplaylists"><i class="fa fa-book icon-padding"></i><div class="tab-text">My Playlists</div></a></li>
-              <li><a id="tab-search" data-toggle="tab" href="#search" class='focus-search'><i class="fa fa-search icon-padding"></i><div class="tab-text">Search</div></a></li>
+            <ul class="nav nav-tabs nav-centered">
+              <li class="active"><a id="tab-explore" data-toggle="tab" href="#explore"><i class="fa fa-rocket icon-padding"></i>Explore</a></li>
+              <li><a id="tab-myplaylists" data-toggle="tab" href="#myplaylists"><i class="fa fa-book icon-padding"></i>My Playlists</a></li>
+<!--               <li><a id="tab-search" data-toggle="tab" href="#search" class='focus-search'><i class="fa fa-search icon-padding"></i><div class="tab-text">Search</div></a></li>
               <li><a data-toggle="tab" href="#curator-page"><div class="tab-text">C1</div></a></li>
               <li><a data-toggle="tab" href="#open-playlist"><div class="tab-text">O1</div></a></li>
               <li><a data-toggle="tab" href="#edit-playlist"><div class="tab-text">O2</div></a></li>
               <li><a data-toggle="tab" href="#placeholder1"><div class="tab-text">P1</div></a></li>
-              <li><a data-toggle="tab" href="#placeholder2"><div class="tab-text">P2</div></a></li>
+              <li><a data-toggle="tab" href="#placeholder2"><div class="tab-text">P2</div></a></li> -->
             </ul>
 
             <div class="tab-content">
