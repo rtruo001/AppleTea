@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('../app').app;
 var debug = require('debug')('AppleTea:server');
 var http = require('http');
 
@@ -19,23 +19,7 @@ app.set('port', port);
  * MongoDB
  */
 
-var MongoClient = require('mongodb').MongoClient;
-var serverDB = null;
-
-MongoClient.connect('mongodb://localhost:27017/Appletea', function(err, db) {
-  if (err) {
-    throw err;
-  }
-
-  serverDB = db;
-
-  db.collection('Users').find().toArray(function(err, result) {
-    if (err) {
-      throw err;
-    }
-    console.log(result);
-  });
-});
+// var db = require('./database');
 
 /**
  * Create HTTP server.
@@ -105,14 +89,13 @@ io.on('connection', function(socket) {
   socket.on('From Client: Chat message', function(msg){
 
     // RANDOMLY TESTING MONGODB HERE
-    serverDB.collection('Users').insert({
+    db.get().collection('Users').insert({
       username: msg
     }, function() {
-      serverDB.collection('Users').find().toArray(function(err, result) {
+      db.get().collection('Users').find().toArray(function(err, result) {
         console.log(result);
       });
     });
-
 
     console.log(socket.username + ": "  + msg);
     io.emit('From Server: Chat message', {
@@ -354,8 +337,19 @@ io.on('connection', function(socket) {
 });
 
 /**
- * Listen on provided port, on all network interfaces.
+ * Listen on provided port, on all network interfaces. Also connects to the MongoDB server
  */
+
+// db.connect('mongodb://localhost:27017/Appletea', function(err) {
+//   if (err) {
+//     console.log('Unable to connect to Mongo.')
+//     process.exit(1)
+//   } else {
+//     server.listen(port);
+//     server.on('error', onError);
+//     server.on('listening', onListening);
+//   }
+// })
 
 server.listen(port);
 server.on('error', onError);

@@ -20,4 +20,9 @@
 // ReactDOM.render(<IndexComponent />, document.getElementById('index'));
 
 var RoomComponent = require('./../views/Room.jsx');
+// var LoginComponent = require('./../views/Login.jsx');
+// var SignupComponent = require('./../views/Signup.jsx');
+
 ReactDOM.render(<RoomComponent />, document.getElementById('room'));
+// ReactDOM.render(<RoomComponent />, document.getElementById('login'));
+// ReactDOM.render(<RoomComponent />, document.getElementById('signup'));

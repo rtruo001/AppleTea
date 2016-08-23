@@ -22,7 +22,9 @@ var PrivatePlaylists = React.createClass({
         */}
 
         {/* TODO: Private playlists */}
-        <div className="private-container"></div>
+        <div className="private-container">
+
+        </div>
       </div>
     );
   }

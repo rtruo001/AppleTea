@@ -5,10 +5,17 @@ var passport = require('passport');
 /* GET signup page. */
 router.get('/', function(req, res, next) {
   // var reactHtml = React.renderToString(ReactApp({}));
-  res.render('index', { 
-    message: req.flash('signupMessage') 
+  res.render('Signup', { 
+    message: 'signupMessage'
   });
 });
+
+router.post('/',
+  passport.authenticate('local-signup', { 
+    successRedirect: '/',
+    failureRedirect: '/signup'
+  })
+);
 
 // router.post('/', 
 //   passport.authenticate('local', {

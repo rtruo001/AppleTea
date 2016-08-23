@@ -13,12 +13,14 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var assert = require('assert');
 
 // Authentication
 var passport = require('passport');
-var Strategy = require('passport-local').Strategy;
-var flash = require('connect-flash');
 var session = require('express-session');
+// var MongoDBStore = require('connect-mongodb-session')(session);
+
+var LocalStrategy = require('passport-local').Strategy;
 
 // USE THIS ERRORHANDLER
 var errorHandler = require('errorhandler');
@@ -26,6 +28,13 @@ var errorHandler = require('errorhandler');
 // Potentially used to render through the client side with the server side code.
 // var browserify = require('browserify');
 // var literalify = require('literalify');
+
+// MongoDB
+var mongoose = require('mongoose');
+// var db = require('./bin/database');
+
+// configuration ===============================================================
+mongoose.connect('mongodb://localhost:27017/Appletea'); // connect to our database
 
 var app = express();
 
@@ -48,21 +57,82 @@ app.use('/js', express.static(__dirname + '/public/javascripts'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Passport
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+// var store = new MongoDBStore({
+//   uri: 'mongodb://localhost:27017/Appletea',
+//   collection: 'Sessions'
+// });
+
+// // Catch errors
+// store.on('error', function(error) {
+//   assert.ifError(error);
+//   assert.ok(false);
+// });
+
+// passport.use(new LocalStrategy(function(username, password, done) {
+//   db.get().collection("Users").findOne({ "username" : username }, function (err, user) {
+//     console.log(user);
+//     if (err) { 
+//       return done(err); 
+//     }
+//     if (!user || user.length <= 0) {
+//       console.log("Incorrect username");
+//       return done(null, false, { message: 'Incorrect username.' });
+//     }
+//     if (password != user.password) {
+//       console.log("Incorrect password");
+//       return done(null, false, { message: 'Incorrect password.' });
+//     }
+//     return done(null, user);
+//   });
+// }));
+
+// passport.serializeUser(function(user, cb) {
+//   console.log("Serializing");
+//   cb(null, user.username);
+// });
+
+// passport.deserializeUser(function(username, cb) {
+//   console.log("Deserializing");
+//   db.get().collection("Users").findOne({"username" : username}, function (err, user) {
+//     console.log(user);
+//     if (err) { return cb(err); }
+//     cb(null, user);
+//   });
+// });
+
+// session secret
+// app.use(session({ 
+//   store: store,
+//   secret: 'Secret',
+//   resave: false,
+//   saveUninitialized: false
+// })); 
+
+// Passport
+require('./config/passport')(passport);
+
+app.use(session({ 
+  secret: 'Secret',
+  resave: false,
+  saveUninitialized: false
+})); 
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
+// persistent login sessions
+app.use(passport.session()); 
 
 // Routes
 var routes = require('./routes/index');
 // var users = require('./routes/users');
 var login = require('./routes/login');
+var signup = require('./routes/signup');
+var logout = require('./routes/logout');
 
 // Use the routers
 app.use('/', routes);
 // app.use('/users', users);
 app.use('/login', login);
-
+app.use('/signup', signup);
+app.use('/logout', logout);
 
 
 // catch 404 and forward to error handler
@@ -98,4 +168,14 @@ app.use(function(err, req, res, next) {
   });
 });
 
-module.exports = app;
+console.log("App.js ending");
+
+// module.exports = {
+//   app: app,
+//   db: db
+// };
+
+module.exports = {
+  app: app
+};
+
