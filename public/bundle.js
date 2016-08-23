@@ -5854,7 +5854,7 @@ var Room = React.createClass({
             ),
             React.createElement(
               'div',
-              { className: 'col-md-8 col-sm-7 tabbed-container' },
+              { className: 'col-md-8 col-sm-7 tabbed-container tabbed-container-mobile-collapse' },
               React.createElement(
                 'ul',
                 { className: 'nav nav-tabs nav-tabs-mobile-collapse' },
