@@ -59,7 +59,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = emptyObject;
 }).call(this,require('_process'))
-},{"_process":44}],3:[function(require,module,exports){
+},{"_process":45}],3:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -111,7 +111,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 
 module.exports = invariant;
 }).call(this,require('_process'))
-},{"_process":44}],4:[function(require,module,exports){
+},{"_process":45}],4:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -161,7 +161,7 @@ var keyMirror = function keyMirror(obj) {
 
 module.exports = keyMirror;
 }).call(this,require('_process'))
-},{"./invariant":3,"_process":44}],5:[function(require,module,exports){
+},{"./invariant":3,"_process":45}],5:[function(require,module,exports){
 "use strict";
 
 /**
@@ -306,7 +306,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = warning;
 }).call(this,require('_process'))
-},{"./emptyFunction":1,"_process":44}],8:[function(require,module,exports){
+},{"./emptyFunction":1,"_process":45}],8:[function(require,module,exports){
 'use strict';
 /* eslint-disable no-unused-vars */
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -575,7 +575,7 @@ var PooledClass = {
 
 module.exports = PooledClass;
 }).call(this,require('_process'))
-},{"./reactProdInvariant":29,"_process":44,"fbjs/lib/invariant":3}],11:[function(require,module,exports){
+},{"./reactProdInvariant":29,"_process":45,"fbjs/lib/invariant":3}],11:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-present, Facebook, Inc.
@@ -665,7 +665,7 @@ var React = {
 
 module.exports = React;
 }).call(this,require('_process'))
-},{"./ReactChildren":12,"./ReactClass":13,"./ReactComponent":14,"./ReactDOMFactories":17,"./ReactElement":18,"./ReactElementValidator":19,"./ReactPropTypes":23,"./ReactVersion":24,"./onlyChild":28,"_process":44,"fbjs/lib/warning":7,"object-assign":8}],12:[function(require,module,exports){
+},{"./ReactChildren":12,"./ReactClass":13,"./ReactComponent":14,"./ReactDOMFactories":17,"./ReactElement":18,"./ReactElementValidator":19,"./ReactPropTypes":23,"./ReactVersion":24,"./onlyChild":28,"_process":45,"fbjs/lib/warning":7,"object-assign":8}],12:[function(require,module,exports){
 /**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -1585,7 +1585,7 @@ var ReactClass = {
 
 module.exports = ReactClass;
 }).call(this,require('_process'))
-},{"./ReactComponent":14,"./ReactElement":18,"./ReactNoopUpdateQueue":20,"./ReactPropTypeLocationNames":21,"./ReactPropTypeLocations":22,"./reactProdInvariant":29,"_process":44,"fbjs/lib/emptyObject":2,"fbjs/lib/invariant":3,"fbjs/lib/keyMirror":4,"fbjs/lib/keyOf":5,"fbjs/lib/warning":7,"object-assign":8}],14:[function(require,module,exports){
+},{"./ReactComponent":14,"./ReactElement":18,"./ReactNoopUpdateQueue":20,"./ReactPropTypeLocationNames":21,"./ReactPropTypeLocations":22,"./reactProdInvariant":29,"_process":45,"fbjs/lib/emptyObject":2,"fbjs/lib/invariant":3,"fbjs/lib/keyMirror":4,"fbjs/lib/keyOf":5,"fbjs/lib/warning":7,"object-assign":8}],14:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-present, Facebook, Inc.
@@ -1706,7 +1706,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = ReactComponent;
 }).call(this,require('_process'))
-},{"./ReactNoopUpdateQueue":20,"./canDefineProperty":25,"./reactProdInvariant":29,"_process":44,"fbjs/lib/emptyObject":2,"fbjs/lib/invariant":3,"fbjs/lib/warning":7}],15:[function(require,module,exports){
+},{"./ReactNoopUpdateQueue":20,"./canDefineProperty":25,"./reactProdInvariant":29,"_process":45,"fbjs/lib/emptyObject":2,"fbjs/lib/invariant":3,"fbjs/lib/warning":7}],15:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2016-present, Facebook, Inc.
@@ -1927,7 +1927,7 @@ var ReactComponentTreeDevtool = {
 
 module.exports = ReactComponentTreeDevtool;
 }).call(this,require('_process'))
-},{"./ReactCurrentOwner":16,"./reactProdInvariant":29,"_process":44,"fbjs/lib/invariant":3,"fbjs/lib/warning":7}],16:[function(require,module,exports){
+},{"./ReactCurrentOwner":16,"./reactProdInvariant":29,"_process":45,"fbjs/lib/invariant":3,"fbjs/lib/warning":7}],16:[function(require,module,exports){
 /**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -2138,7 +2138,7 @@ var ReactDOMFactories = mapObject({
 
 module.exports = ReactDOMFactories;
 }).call(this,require('_process'))
-},{"./ReactElement":18,"./ReactElementValidator":19,"_process":44,"fbjs/lib/mapObject":6}],18:[function(require,module,exports){
+},{"./ReactElement":18,"./ReactElementValidator":19,"_process":45,"fbjs/lib/mapObject":6}],18:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-present, Facebook, Inc.
@@ -2493,7 +2493,7 @@ ReactElement.REACT_ELEMENT_TYPE = REACT_ELEMENT_TYPE;
 
 module.exports = ReactElement;
 }).call(this,require('_process'))
-},{"./ReactCurrentOwner":16,"./canDefineProperty":25,"_process":44,"fbjs/lib/warning":7,"object-assign":8}],19:[function(require,module,exports){
+},{"./ReactCurrentOwner":16,"./canDefineProperty":25,"_process":45,"fbjs/lib/warning":7,"object-assign":8}],19:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-present, Facebook, Inc.
@@ -2722,7 +2722,7 @@ var ReactElementValidator = {
 
 module.exports = ReactElementValidator;
 }).call(this,require('_process'))
-},{"./ReactComponentTreeDevtool":15,"./ReactCurrentOwner":16,"./ReactElement":18,"./ReactPropTypeLocations":22,"./canDefineProperty":25,"./checkReactTypeSpec":26,"./getIteratorFn":27,"_process":44,"fbjs/lib/warning":7}],20:[function(require,module,exports){
+},{"./ReactComponentTreeDevtool":15,"./ReactCurrentOwner":16,"./ReactElement":18,"./ReactPropTypeLocations":22,"./canDefineProperty":25,"./checkReactTypeSpec":26,"./getIteratorFn":27,"_process":45,"fbjs/lib/warning":7}],20:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2015-present, Facebook, Inc.
@@ -2821,7 +2821,7 @@ var ReactNoopUpdateQueue = {
 
 module.exports = ReactNoopUpdateQueue;
 }).call(this,require('_process'))
-},{"_process":44,"fbjs/lib/warning":7}],21:[function(require,module,exports){
+},{"_process":45,"fbjs/lib/warning":7}],21:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-present, Facebook, Inc.
@@ -2848,7 +2848,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = ReactPropTypeLocationNames;
 }).call(this,require('_process'))
-},{"_process":44}],22:[function(require,module,exports){
+},{"_process":45}],22:[function(require,module,exports){
 /**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -3317,7 +3317,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = canDefineProperty;
 }).call(this,require('_process'))
-},{"_process":44}],26:[function(require,module,exports){
+},{"_process":45}],26:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-present, Facebook, Inc.
@@ -3393,7 +3393,7 @@ function checkReactTypeSpec(typeSpecs, values, location, componentName, element,
 
 module.exports = checkReactTypeSpec;
 }).call(this,require('_process'))
-},{"./ReactComponentTreeDevtool":15,"./ReactPropTypeLocationNames":21,"./reactProdInvariant":29,"_process":44,"fbjs/lib/invariant":3,"fbjs/lib/warning":7}],27:[function(require,module,exports){
+},{"./ReactComponentTreeDevtool":15,"./ReactPropTypeLocationNames":21,"./reactProdInvariant":29,"_process":45,"fbjs/lib/invariant":3,"fbjs/lib/warning":7}],27:[function(require,module,exports){
 /**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -3476,7 +3476,7 @@ function onlyChild(children) {
 
 module.exports = onlyChild;
 }).call(this,require('_process'))
-},{"./ReactElement":18,"./reactProdInvariant":29,"_process":44,"fbjs/lib/invariant":3}],29:[function(require,module,exports){
+},{"./ReactElement":18,"./reactProdInvariant":29,"_process":45,"fbjs/lib/invariant":3}],29:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -3679,7 +3679,7 @@ function traverseAllChildren(children, callback, traverseContext) {
 
 module.exports = traverseAllChildren;
 }).call(this,require('_process'))
-},{"./KeyEscapeUtils":9,"./ReactCurrentOwner":16,"./ReactElement":18,"./getIteratorFn":27,"./reactProdInvariant":29,"_process":44,"fbjs/lib/invariant":3,"fbjs/lib/warning":7}],31:[function(require,module,exports){
+},{"./KeyEscapeUtils":9,"./ReactCurrentOwner":16,"./ReactElement":18,"./getIteratorFn":27,"./reactProdInvariant":29,"_process":45,"fbjs/lib/invariant":3,"fbjs/lib/warning":7}],31:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/React');
@@ -3726,7 +3726,7 @@ ReactDOM.render(React.createElement(RoomComponent, null), document.getElementByI
 // ReactDOM.render(<RoomComponent />, document.getElementById('login'));
 // ReactDOM.render(<RoomComponent />, document.getElementById('signup'));
 
-},{"./../views/Room.jsx":41}],33:[function(require,module,exports){
+},{"./../views/Room.jsx":42}],33:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -4335,12 +4335,12 @@ var Header = React.createClass({
         { className: "header-content-container row" },
         React.createElement(
           "div",
-          { className: "col-md-6" },
+          { className: "col-sm-6" },
           React.createElement("img", { className: "header-logo", src: "images/logo.png" })
         ),
         React.createElement(
           "div",
-          { className: "col-md-6 header-profile-btn" },
+          { className: "col-sm-6 header-profile-btn" },
           React.createElement(
             "a",
             { href: "javascript:void(0)" },
@@ -4640,7 +4640,11 @@ var MediaEntry = React.createClass({
         return React.createElement(
           'div',
           { id: this.props.pos + queueMediaEntryId, className: queueMediaCardClassName },
-          React.createElement('div', { className: 'media-card-added-corner' }),
+          React.createElement(
+            'div',
+            { className: 'media-card-added-corner-container' },
+            React.createElement('div', { className: 'media-card-added-corner' })
+          ),
           React.createElement(
             'a',
             { className: 'media-card-added-plus icon-btn-white', href: 'javascript:void(0)', onClick: this.deleteMediaEntry },
@@ -5015,6 +5019,7 @@ var MediaPlayer = React.createClass({
   // EVENT HANDLER: Sends the state of the media players
   sendMediaPlayerStates: function sendMediaPlayerStates(mediaData) {
     console.log("sendMediaPlayerState");
+    this.setState({ localState: MEDIAPLACEHOLDERSTATES.ACTIVE });
     this.setState({ mediaState: mediaData.state }, function () {
       switch (this.state.mediaState) {
         case MEDIAPLAYERSTATES.PLAYING:
@@ -5141,45 +5146,231 @@ var MediaPlayer = React.createClass({
 
 module.exports = MediaPlayer;
 
-},{"./StatusBar":43,"react":31}],39:[function(require,module,exports){
-"use strict";
+},{"./StatusBar":44,"react":31}],39:[function(require,module,exports){
+'use strict';
 
 var React = require('react');
+var PlaylistEntry = require('./PlaylistEntry');
 
-var PrivatePlaylists = React.createClass({
-  displayName: "PrivatePlaylists",
+// Placeholder if there are no playlists created or liked
+var MyPlaylistPlaceholder = React.createClass({
+  displayName: 'MyPlaylistPlaceholder',
 
   render: function render() {
     return React.createElement(
-      "div",
-      null,
+      'div',
+      { className: 'col-padding' },
       React.createElement(
-        "div",
-        { className: "col-padding" },
+        'div',
+        { className: 'placeholder' },
         React.createElement(
-          "div",
-          { className: "placeholder" },
+          'div',
+          { className: 'placeholder-content' },
+          React.createElement('i', { className: 'fa fa-book placeholder-icon' }),
+          React.createElement('br', null),
           React.createElement(
-            "div",
-            { className: "placeholder-content" },
-            React.createElement("i", { className: "fa fa-book placeholder-icon" }),
-            React.createElement("br", null),
-            React.createElement(
-              "span",
-              null,
-              "You have no saved playlists"
-            )
+            'span',
+            null,
+            'You have no saved playlists'
           )
         )
-      ),
-      React.createElement("div", { className: "private-container" })
+      )
     );
   }
 });
 
-module.exports = PrivatePlaylists;
+// Search Bar to search My Playlists
+var SearchMyPlaylist = React.createClass({
+  displayName: 'SearchMyPlaylist',
 
-},{"react":31}],40:[function(require,module,exports){
+  render: function render() {
+    return React.createElement(
+      'div',
+      { className: 'search-container' },
+      React.createElement(
+        'form',
+        { className: 'search-input' },
+        React.createElement('input', { type: 'text', className: 'chat-textbox', name: '', placeholder: 'Search Private Playlists...' })
+      )
+    );
+  }
+});
+
+// MAIN COMPONENT: My Playlist Tab
+var MyPlaylists = React.createClass({
+  displayName: 'MyPlaylists',
+
+  render: function render() {
+
+    var playlistEntries = [];
+
+    // TODO: If no playlists, return a placeholder
+    if (false) {
+      playlistEntries.push(React.createElement(MyPlaylistPlaceholder, { key: 'MyPlaylistPlaceholder' }));
+    }
+
+    // If there are playlists, pushes every playlist
+    else {
+        playlistEntries.push(React.createElement(SearchMyPlaylist, { key: 'SearchMyPlaylist' }));
+
+        // DEMO PLAYLIST DATA
+        playlistEntries.push(React.createElement(PlaylistEntry, {
+          owner: true,
+          title: 'Saturday Morning Cartoons',
+          curator: 'Gliu',
+          size: '27',
+          type: 'private',
+          likes: '0',
+          liked: null }));
+        for (var i = 0; i < 2; ++i) {
+          playlistEntries.push(React.createElement(PlaylistEntry, {
+            owner: true,
+            title: 'Chill Music Videos',
+            curator: 'Gliu',
+            size: '9',
+            type: 'public',
+            likes: '10',
+            liked: null }));
+        }
+        for (var i = 0; i < 5; ++i) {
+          playlistEntries.push(React.createElement(PlaylistEntry, {
+            owner: false,
+            title: 'Trippy Stuff',
+            curator: 'MeSoRanz',
+            size: '103',
+            type: 'public',
+            likes: '873',
+            liked: true }));
+        }
+      }
+
+    return React.createElement(
+      'div',
+      null,
+      playlistEntries
+    );
+  }
+});
+
+module.exports = MyPlaylists;
+
+},{"./PlaylistEntry":40,"react":31}],40:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+
+// Icon displayed depends on whether playlist is public, private, or not owner
+var PlaylistIcon = React.createClass({
+  displayName: "PlaylistIcon",
+
+  render: function render() {
+    if (this.props.owner == false) {
+      return React.createElement(
+        "div",
+        { className: "playlist-icon" },
+        React.createElement(
+          "a",
+          { className: "icon-btn like-btn", href: "javascript:void(0)" },
+          React.createElement("i", { className: "fa fa-heart-o", "aria-hidden": "true" })
+        )
+      );
+    } else if (this.props.owner == true && this.props.type == 'private') {
+      return React.createElement(
+        "div",
+        { className: "playlist-icon" },
+        React.createElement("i", { className: "fa fa-lock", "aria-hidden": "true" })
+      );
+    } else {
+      return React.createElement(
+        "div",
+        { className: "playlist-icon" },
+        React.createElement("i", { className: "fa fa-globe", "aria-hidden": "true" })
+      );
+    };
+  }
+});
+
+// MAIN COMPONENT: Each individual playlist card
+var PlaylistEntry = React.createClass({
+  displayName: "PlaylistEntry",
+
+  render: function render() {
+
+    // If owner, append user-playlist to classname
+    var playlistCardClassName = "playlist-card";
+    if (this.props.owner == true) {
+      playlistCardClassName += " user-playlist";
+    };
+
+    return React.createElement(
+      "div",
+      { className: "col-md-3 col-sm-4 col-padding" },
+      React.createElement(
+        "div",
+        { className: playlistCardClassName },
+        React.createElement(
+          "div",
+          { className: "playlist-img-container" },
+          React.createElement(
+            "a",
+            { href: "javascript:void(0)" },
+            React.createElement(
+              "div",
+              { className: "playlist-overlay" },
+              React.createElement(
+                "div",
+                { className: "playlist-overlay-content" },
+                React.createElement(
+                  "div",
+                  { className: "playlist-play-icon" },
+                  React.createElement("i", { className: "fa fa-play", "aria-hidden": "true" })
+                ),
+                "PLAY ALL"
+              )
+            )
+          ),
+          React.createElement("img", { className: "playlist-img", src: "images/media-icon.png" })
+        ),
+        React.createElement(
+          "div",
+          { className: "playlist-text-container" },
+          React.createElement(
+            "div",
+            { className: "playlist-title" },
+            React.createElement(
+              "a",
+              { className: "playlist-link playlist-title-text ellipses", "data-toggle": "tab", href: "#open-playlist" },
+              this.props.title
+            ),
+            React.createElement(
+              "div",
+              { className: "pill", "data-toggle": "tooltip", title: "Items in Playlist" },
+              this.props.size
+            )
+          ),
+          React.createElement(
+            "div",
+            { className: "playlist-curator" },
+            React.createElement(
+              "a",
+              { className: "curator-link", "data-toggle": "tab", href: "#curator-page" },
+              this.props.curator
+            )
+          )
+        ),
+        React.createElement(
+          "div",
+          { className: "playlist-icon-container" },
+          React.createElement(PlaylistIcon, { owner: this.props.owner, type: this.props.type, liked: this.props.liked })
+        )
+      )
+    );
+  }
+});
+
+module.exports = PlaylistEntry;
+
+},{"react":31}],41:[function(require,module,exports){
 'use strict';
 
 /*  =============================================================================
@@ -5524,7 +5715,7 @@ var Queue = React.createClass({
 
 module.exports = Queue;
 
-},{"./MediaEntry":37,"react":31}],41:[function(require,module,exports){
+},{"./MediaEntry":37,"react":31}],42:[function(require,module,exports){
 'use strict';
 
 /*  =============================================================================
@@ -5552,7 +5743,7 @@ var Chatbox = require('./Chatbox');
 var StatusBar = require('./StatusBar');
 var Queue = require('./Queue');
 var Explore = require('./Explore');
-var PrivatePlaylists = require('./PrivatePlaylists');
+var MyPlaylists = require('./MyPlaylists');
 var Search = require('./Search');
 var Footer = require('./Footer');
 
@@ -5574,11 +5765,89 @@ var Room = React.createClass({
           { className: 'banner-container' },
           React.createElement(
             'div',
-            { className: 'vid-chat-container' },
+            { className: 'banner-content-container' },
             React.createElement(
               'div',
               { className: 'video-container' },
               React.createElement(MediaPlayer, null)
+            ),
+            React.createElement(
+              'div',
+              { className: 'mobile-tabbed-container' },
+              React.createElement(
+                'ul',
+                { className: 'nav nav-tabs nav-centered' },
+                React.createElement(
+                  'li',
+                  { className: 'active' },
+                  React.createElement(
+                    'a',
+                    { 'data-toggle': 'tab', href: '#chat', id: 'mobile-tab-chat' },
+                    React.createElement('i', { className: 'fa fa-comments icon-padding' }),
+                    React.createElement(
+                      'div',
+                      { className: 'tab-text' },
+                      'Chat'
+                    )
+                  )
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  React.createElement(
+                    'a',
+                    { 'data-toggle': 'tab', href: '#queue', id: 'mobile-tab-queue' },
+                    React.createElement('i', { className: 'fa fa-list-ul icon-padding' }),
+                    React.createElement(
+                      'div',
+                      { className: 'tab-text' },
+                      'Queue'
+                    )
+                  )
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  React.createElement(
+                    'a',
+                    { 'data-toggle': 'tab', href: '#explore', id: 'mobile-tab-explore' },
+                    React.createElement('i', { className: 'fa fa-rocket icon-padding' }),
+                    React.createElement(
+                      'div',
+                      { className: 'tab-text' },
+                      'Explore'
+                    )
+                  )
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  React.createElement(
+                    'a',
+                    { 'data-toggle': 'tab', href: '#myplaylists', id: 'mobile-tab-myplaylists' },
+                    React.createElement('i', { className: 'fa fa-book icon-padding' }),
+                    React.createElement(
+                      'div',
+                      { className: 'tab-text' },
+                      'My Playlists'
+                    )
+                  )
+                ),
+                React.createElement(
+                  'li',
+                  null,
+                  React.createElement(
+                    'a',
+                    { 'data-toggle': 'tab', href: '#search', className: 'focus-search', id: 'mobile-tab-search' },
+                    React.createElement('i', { className: 'fa fa-search icon-padding' }),
+                    React.createElement(
+                      'div',
+                      { className: 'tab-text' },
+                      'Search'
+                    )
+                  )
+                )
+              )
             ),
             React.createElement(
               'div',
@@ -5595,22 +5864,27 @@ var Room = React.createClass({
             { className: 'row' },
             React.createElement(
               'div',
-              { className: 'col-md-4 col-sm-6 queue-container', id: 'queue' },
+              { className: 'col-md-4 col-sm-5 queue-container', id: 'queue' },
               React.createElement(Queue, null)
             ),
             React.createElement(
               'div',
-              { className: 'col-md-8 col-sm-6 tabbed-container' },
+              { className: 'col-md-8 col-sm-7 tabbed-container tabbed-container-mobile-collapse' },
               React.createElement(
                 'ul',
-                { className: 'nav nav-tabs' },
+                { className: 'nav nav-tabs nav-tabs-mobile-collapse' },
                 React.createElement(
                   'li',
                   { className: 'active' },
                   React.createElement(
                     'a',
-                    { 'data-toggle': 'tab', href: '#explore' },
-                    'Explore '
+                    { 'data-toggle': 'tab', href: '#explore', id: 'tab-explore' },
+                    React.createElement('i', { className: 'fa fa-rocket icon-padding' }),
+                    React.createElement(
+                      'div',
+                      { className: 'tab-text' },
+                      'Explore'
+                    )
                   )
                 ),
                 React.createElement(
@@ -5618,8 +5892,13 @@ var Room = React.createClass({
                   null,
                   React.createElement(
                     'a',
-                    { 'data-toggle': 'tab', href: '#myplaylists' },
-                    'Private Playlists'
+                    { 'data-toggle': 'tab', href: '#myplaylists', id: 'tab-myplaylists' },
+                    React.createElement('i', { className: 'fa fa-book icon-padding' }),
+                    React.createElement(
+                      'div',
+                      { className: 'tab-text' },
+                      'My Playlists'
+                    )
                   )
                 ),
                 React.createElement(
@@ -5627,8 +5906,13 @@ var Room = React.createClass({
                   null,
                   React.createElement(
                     'a',
-                    { 'data-toggle': 'tab', href: '#search', className: 'focus-search' },
-                    'Search'
+                    { 'data-toggle': 'tab', href: '#search', className: 'focus-search', id: 'tab-search' },
+                    React.createElement('i', { className: 'fa fa-search icon-padding' }),
+                    React.createElement(
+                      'div',
+                      { className: 'tab-text' },
+                      'Search'
+                    )
                   )
                 )
               ),
@@ -5643,7 +5927,7 @@ var Room = React.createClass({
                 React.createElement(
                   'div',
                   { id: 'myplaylists', className: 'tab-pane fade' },
-                  React.createElement(PrivatePlaylists, null)
+                  React.createElement(MyPlaylists, null)
                 ),
                 React.createElement(
                   'div',
@@ -5663,7 +5947,7 @@ var Room = React.createClass({
 
 module.exports = Room;
 
-},{"./Chatbox":33,"./Explore":34,"./Footer":35,"./Header":36,"./MediaPlayer":38,"./PrivatePlaylists":39,"./Queue":40,"./Search":42,"./StatusBar":43,"react":31}],42:[function(require,module,exports){
+},{"./Chatbox":33,"./Explore":34,"./Footer":35,"./Header":36,"./MediaPlayer":38,"./MyPlaylists":39,"./Queue":41,"./Search":43,"./StatusBar":44,"react":31}],43:[function(require,module,exports){
 'use strict';
 
 /*  =============================================================================
@@ -6012,7 +6296,7 @@ var Search = React.createClass({
 
 module.exports = Search;
 
-},{"./MediaEntry":37,"react":31}],43:[function(require,module,exports){
+},{"./MediaEntry":37,"react":31}],44:[function(require,module,exports){
 'use strict';
 
 /*  =============================================================================
@@ -6126,7 +6410,7 @@ var StatusBar = React.createClass({
 
 module.exports = StatusBar;
 
-},{"react":31}],44:[function(require,module,exports){
+},{"react":31}],45:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 

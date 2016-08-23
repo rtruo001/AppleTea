@@ -27,7 +27,8 @@ $('.mod-toggle').click(function(){
 
 
 /* Chat Scrolled to Bottom on Window Load */
-$('.chat').scrollTop($('.chat')[0].scrollHeight);
+// $('.chat').scrollTop($('.chat')[0].scrollHeight);
+
 
 /* Tooltips */
 $(function () {
@@ -46,7 +47,8 @@ $('#page-overlay').click(function(){
 /* Users List Toggle and Options Toggle */
 function showOptions() {
     $('.users-list-edit-btn').addClass('active');
-    $('.users-list-edit-btn').toggleClass('btn-red-hover btn-red');
+    $('.users-list-edit-btn').removeClass('btn-secondary');
+    $('.users-list-edit-btn').addClass('btn-red');
     $('#users-list-gear-icon').addClass('fa-spin');
     $('.users-list-icons').css('display','none');
     $('.users-list-edit').css('display','block');
@@ -56,7 +58,8 @@ function showOptions() {
 
 function hideOptions() {
     $('.users-list-edit-btn').removeClass('active');
-    $('.users-list-edit-btn').toggleClass('btn-red btn-red-hover');
+    $('.users-list-edit-btn').removeClass('btn-red');
+    $('.users-list-edit-btn').addClass('btn-secondary');
     $('#users-list-gear-icon').removeClass('fa-spin');
     $('.users-list-icons').css('display','block');
     $('.users-list-edit').css('display','none');
@@ -181,3 +184,89 @@ $('.onclick-edit').keyup(function(event){
 });
 
 
+/* Focus on Search Bar After Tab Transition */
+$('.focus-search').click(function() {
+    setTimeout(function() {
+        $('#search-media-input').focus();
+    }, 200);
+});
+
+
+/* Toggle lock/globe icon on toggle slider */
+$('#create-room-toggle').change(function(){
+    if (this.checked) {
+        console.log('this is checked');
+        $('#create-room-toggle-icon').removeClass('fa-globe');
+        $('#create-room-toggle-icon').addClass('fa-lock');
+    }
+    else {
+        console.log('this is NOT checked');
+        $('#create-room-toggle-icon').removeClass('fa-lock');
+        $('#create-room-toggle-icon').addClass('fa-globe');
+    };
+});
+
+
+/* Mobile Tab Navigation */
+
+// Event Handler: When window width changes, run WidthChange();
+if (matchMedia) {
+  var mq = window.matchMedia("(max-width: 768px)");
+  mq.addListener(WidthChange);
+  WidthChange(mq);
+};
+
+// If media query mobile, #chat active, else regular tabs active
+function WidthChange(mq) {
+  if (mq.matches) {
+    console.log('width change: chat active');
+    $('.chatbox-container').css('display','block');
+    $('.queue-container').css('display','none');
+    $('.tabbed-container-mobile-collapse').css('display','none');
+  }
+  else {
+    console.log('width change: reg tabs active');
+    $('.chatbox-container').css('display','block');
+    $('.queue-container').css('display','block');
+    $('.tabbed-container-mobile-collapse').css('display','block');
+  }
+};
+
+// Event Handler: When each MOBILE tab is clicked
+$('#mobile-tab-chat').click(function() {
+    console.log('display chat')
+    $('.chatbox-container').css('display','block');
+    $('.queue-container').css('display','none');
+    $('.tabbed-container-mobile-collapse').css('display','none');
+});
+
+$('#mobile-tab-queue').click(function() {
+    console.log('display queue')
+    $('.chatbox-container').css('display','none');
+    $('.queue-container').css('display','block');
+    $('.tabbed-container-mobile-collapse').css('display','none');
+});
+
+$('#mobile-tab-explore').click(function() {
+    console.log('display explore')
+    $('.chatbox-container').css('display','none');
+    $('.queue-container').css('display','none');
+    $('.tabbed-container-mobile-collapse').css('display','block');
+    document.getElementById('tab-explore').click();
+});
+
+$('#mobile-tab-myplaylists').click(function() {
+    console.log('display myplaylists')
+    $('.chatbox-container').css('display','none');
+    $('.queue-container').css('display','none');
+    $('.tabbed-container-mobile-collapse').css('display','block');
+    document.getElementById('tab-myplaylists').click();
+});
+
+$('#mobile-tab-search').click(function() {
+    console.log('display search')
+    $('.chatbox-container').css('display','none');
+    $('.queue-container').css('display','none');
+    $('.tabbed-container-mobile-collapse').css('display','block');
+    document.getElementById('tab-search').click();
+});
