@@ -81,19 +81,9 @@ io.on('connection', function(socket) {
 
   // When a message is sent, sends the username and their message to the client
   socket.on('From Client: Chat message', function(msg){
-
-    // RANDOMLY TESTING MONGODB HERE
-    db.get().collection('Users').insert({
-      username: msg
-    }, function() {
-      db.get().collection('Users').find().toArray(function(err, result) {
-        console.log(result);
-      });
-    });
-
     console.log(socket.username + ": "  + msg);
     io.emit('From Server: Chat message', {
-      "username": socket.username,
+      username: socket.username,
       message: msg
     });
   });
