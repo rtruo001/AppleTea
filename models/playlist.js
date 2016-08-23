@@ -1,6 +1,14 @@
+/*  =============================================================================
+    Copyright © 
+    ========================================================================== */
+
+/*  =============================================================================
+    MODEL: playlist.js
+
+    Playlist schema for Mongoose. Ensures the playlist data fits this schema.
+    ========================================================================== */
 var mongoose = require('mongoose');
 
-// define the schema for our user model
 var playlistSchema = mongoose.Schema({
   playlist: {
     name              : String,
@@ -15,7 +23,5 @@ var playlistSchema = mongoose.Schema({
   }
 });
 
-// create the model for users and expose it to our app
-// NOTE: Apparently the string doesn't detect any caps.
+// NOTE: Apparently the string doesn't detect any capital letters.
 module.exports = mongoose.model('playlists', playlistSchema);
-

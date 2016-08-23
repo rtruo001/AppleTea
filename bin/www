@@ -16,12 +16,6 @@ var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
- * MongoDB
- */
-
-// var db = require('./database');
-
-/**
  * Create HTTP server.
  */
 
@@ -337,19 +331,8 @@ io.on('connection', function(socket) {
 });
 
 /**
- * Listen on provided port, on all network interfaces. Also connects to the MongoDB server
+ * Listen on provided port, on all network interfaces.
  */
-
-// db.connect('mongodb://localhost:27017/Appletea', function(err) {
-//   if (err) {
-//     console.log('Unable to connect to Mongo.')
-//     process.exit(1)
-//   } else {
-//     server.listen(port);
-//     server.on('error', onError);
-//     server.on('listening', onListening);
-//   }
-// })
 
 server.listen(port);
 server.on('error', onError);

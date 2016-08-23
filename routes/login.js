@@ -1,28 +1,29 @@
+/*  =============================================================================
+    Copyright © 
+    ========================================================================== */
+
+/*  =============================================================================
+    ROUTE: login.js
+
+    For URL path: '/login'
+    ========================================================================== */
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
-/* GET home page. */
+/* GET login page. */
 router.get('/', function(req, res, next) {
-  // var reactHtml = React.renderToString(ReactApp({}));
   res.render('Login', { 
     titie: 'AppleTea'
   }); 
 });
 
+/* POST For when the form is submitted. */
 router.post('/',
   passport.authenticate('local-login', { 
     successRedirect: '/',
     failureRedirect: '/login'
   })
 );
-
-// router.post('/', 
-//   passport.authenticate('local', {
-//     successRedirect: '/',
-//     failureRedirect: '/login',
-//     failureFlash: true
-//   })
-// );
 
 module.exports = router;

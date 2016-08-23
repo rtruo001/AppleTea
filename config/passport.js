@@ -1,3 +1,17 @@
+/*  =============================================================================
+    Copyright © 
+    ========================================================================== */
+
+/*  =============================================================================
+    CONFIG: passport.js
+
+    Handles passport as an object that can be used throughout the project.
+    Passport aids in authentication and authorization.
+
+    Huge thanks to Chris Sevilleja.
+    Tutorial: https://scotch.io/tutorials/easy-node-authentication-setup-and-local
+    Reference code: https://github.com/scotch-io/easy-node-authentication/blob/master/config/passport.js
+    ========================================================================== */
 var LocalStrategy = require('passport-local').Strategy;
 
 // load up the user model

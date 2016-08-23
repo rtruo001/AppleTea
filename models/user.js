@@ -1,7 +1,16 @@
+/*  =============================================================================
+    Copyright © 
+    ========================================================================== */
+
+/*  =============================================================================
+    MODEL: user.js
+
+    User schema for Mongoose.
+    Bcrypts is used for encryption since passwords should NEVER be stored
+    ========================================================================== */
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 
-// define the schema for our user model
 var userSchema = mongoose.Schema({
   local: {
     username     : String,
@@ -27,16 +36,15 @@ var userSchema = mongoose.Schema({
   }
 });
 
-// generating a hash
+// Generates a hash
 userSchema.methods.generateHash = function(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
-// checking if password is valid
+// Checks to see if the password is valid
 userSchema.methods.validPassword = function(password) {
   return bcrypt.compareSync(password, this.local.password);
 };
 
-// create the model for users and expose it to our app
 // NOTE: Apparently the string doesn't detect any caps.
 module.exports = mongoose.model('users', userSchema);

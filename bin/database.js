@@ -8,37 +8,39 @@
     Module to use mongodb, the db variable is saved throughout the project by using
     the get() function.
     ========================================================================== */
-var MongoClient = require('mongodb').MongoClient;
 
-var state = {
-  db: null
-};
+// FILE IS CURRENTLY NOT USED
+// var MongoClient = require('mongodb').MongoClient;
 
-exports.connect = function(url, callback) {
-  if (state.db) {
-    return callback();
-  }
+// var state = {
+//   db: null
+// };
 
-  MongoClient.connect(url, function(err, db) {
-    if (err) {
-      return callback(err);
-    }
-    state.db = db;
-    callback();
-  });
-}
+// exports.connect = function(url, callback) {
+//   if (state.db) {
+//     return callback();
+//   }
 
-exports.get = function() {
-  return state.db;
-}
+//   MongoClient.connect(url, function(err, db) {
+//     if (err) {
+//       return callback(err);
+//     }
+//     state.db = db;
+//     callback();
+//   });
+// }
 
-exports.close = function(callback) {
-  if (state.db) {
-    state.db.close(function(err, result) {
-      state.db = null;
-      state.mode = null;
-      callback(err);
-    })
-  }w
-}
+// exports.get = function() {
+//   return state.db;
+// }
+
+// exports.close = function(callback) {
+//   if (state.db) {
+//     state.db.close(function(err, result) {
+//       state.db = null;
+//       state.mode = null;
+//       callback(err);
+//     })
+//   }w
+// }
 
