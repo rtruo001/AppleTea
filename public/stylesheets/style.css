@@ -1156,31 +1156,37 @@ form {
   margin-bottom: 6px;
 }
 
-.playlist-play-icon{
-  font-size: 24px;
-  padding-bottom: 8px;
+.playlist-img {
+  width: 100%;
+  border-radius: 2px;
 }
 
 .playlist-overlay {
-  position: absolute;
   display: none;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  color: #fff;
-  margin-bottom: 6px;
+}
+
+.playlist-overlay-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
 
   font-size: 10px;
   font-weight: 400;
   letter-spacing: 1;
   text-align: center;
-  padding-top: 20px;
+  color: #fff;
 }
 
-.playlist-img {
-  width: 100%;
-  border-radius: 2px;
+.playlist-play-icon{
+  font-size: 24px;
+  padding-bottom: 8px;
 }
 
 .playlist-text-container {

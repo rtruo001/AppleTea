@@ -5304,10 +5304,14 @@ var PlaylistEntry = React.createClass({
               { className: "playlist-overlay" },
               React.createElement(
                 "div",
-                { className: "playlist-play-icon" },
-                React.createElement("i", { className: "fa fa-play", "aria-hidden": "true" })
-              ),
-              "PLAY ALL"
+                { className: "playlist-overlay-content" },
+                React.createElement(
+                  "div",
+                  { className: "playlist-play-icon" },
+                  React.createElement("i", { className: "fa fa-play", "aria-hidden": "true" })
+                ),
+                "PLAY ALL"
+              )
             )
           ),
           React.createElement("img", { className: "playlist-img", src: "images/media-icon.png" })
