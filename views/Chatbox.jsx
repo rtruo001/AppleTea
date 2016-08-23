@@ -295,15 +295,10 @@ var Chatbox = React.createClass({
     }
   },
   setUsername: function(username) {
-    console.log("ASDFAFSFSD")
-    console.log(username)
     this.setState({
       username: username
     });
-  },
-  componentWillUpdate: function() {
-    console.log("componentWillUpdate")
-  },
+  }
   render: function() {
     return (
       <div>
