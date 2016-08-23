@@ -1,13 +1,23 @@
-// Converts all the components in this file into Javascript
-// All the .jsx files are given in views directory
-// Browserify allows require to be used on the Client Side
+/*  =============================================================================
+    Copyright © 
+    ========================================================================== */
 
-// Current Command to bundle all the components into bundle.js:
-// browserify ./public/main.js -o ./public/bundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx
+/*  =============================================================================
+    main.js
 
-// Put this at the bottom of the HTML file. At the beginning of all the scripts
-// <script src="/bundle.js"></script>
+    Converts all the components in this file into Javascript
+    All the .jsx files are given in views directory
+    
+    Browserify/Watchify allows the 'require' function to be used on the Client Side.
+    
+    Current Command to bundle all the components into bundle.js:
+    watchify ./public/main.js -o ./public/bundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx -v
+    Can also use this command, but will only be called once:
+    browserify ./public/main.js -o ./public/bundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx
 
+    Put this at the bottom of the HTML file. At the beginning of all the scripts in index.jsx
+    <script src="/bundle.js"></script>
+    ========================================================================== */
 // var MediaPlayerComponent = require('./../views/MediaPlayer.jsx');
 // var SearchComponent = require('./../views/Search.jsx');
 // var QueueComponent = require('./../views/Queue.jsx');
@@ -20,4 +30,9 @@
 // ReactDOM.render(<IndexComponent />, document.getElementById('index'));
 
 var RoomComponent = require('./../views/Room.jsx');
+// var LoginComponent = require('./../views/Login.jsx');
+// var SignupComponent = require('./../views/Signup.jsx');
+
 ReactDOM.render(<RoomComponent />, document.getElementById('room'));
+// ReactDOM.render(<RoomComponent />, document.getElementById('login'));
+// ReactDOM.render(<RoomComponent />, document.getElementById('signup'));

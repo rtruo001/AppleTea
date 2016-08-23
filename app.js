@@ -13,6 +13,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var assert = require('assert');
+
+// Authentication
+var passport = require('passport');
+var session = require('express-session');
+var LocalStrategy = require('passport-local').Strategy;
 
 // USE THIS ERRORHANDLER
 var errorHandler = require('errorhandler');
@@ -20,6 +26,12 @@ var errorHandler = require('errorhandler');
 // Potentially used to render through the client side with the server side code.
 // var browserify = require('browserify');
 // var literalify = require('literalify');
+
+// MongoDB
+var mongoose = require('mongoose');
+
+// configuration ===============================================================
+mongoose.connect('mongodb://localhost:27017/Appletea'); // connect to our database
 
 var app = express();
 
@@ -41,13 +53,27 @@ app.use('/css', express.static(__dirname + '/public/stylesheets'));
 app.use('/js', express.static(__dirname + '/public/javascripts'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Passport and session
+require('./config/passport')(passport);
+app.use(session({ 
+  secret: 'Secret',
+  resave: false,
+  saveUninitialized: false
+})); 
+app.use(passport.initialize());
+app.use(passport.session()); 
+
 // Routes
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var login = require('./routes/login');
+var signup = require('./routes/signup');
+var logout = require('./routes/logout');
 
 // Use the routers
 app.use('/', routes);
-app.use('/users', users);
+app.use('/login', login);
+app.use('/signup', signup);
+app.use('/logout', logout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -82,4 +108,14 @@ app.use(function(err, req, res, next) {
   });
 });
 
-module.exports = app;
+console.log("App.js ending");
+
+// module.exports = {
+//   app: app,
+//   db: db
+// };
+
+module.exports = {
+  app: app
+};
+

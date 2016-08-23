@@ -40,7 +40,7 @@ var Index = React.createClass({
         <body>
 
           <div id="room">
-            <Room />
+            <Room title={this.props.title} data={this.props.data} />
           </div>
 
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>

@@ -37,7 +37,7 @@ var Room = React.createClass({
 
           <Header />
 
-        {/* Video and Chat Banner */}
+          {/* Video and Chat Banner */}
           <div className="banner-container">
             <div className="vid-chat-container">
 
