@@ -29,10 +29,15 @@
 // var IndexComponent = require('./../views/index.jsx');
 // ReactDOM.render(<IndexComponent />, document.getElementById('index'));
 
+
+// var myPlaylistData = require('./../config/database/myPlaylists.js'); 
 var RoomComponent = require('./../views/Room.jsx');
 // var LoginComponent = require('./../views/Login.jsx');
 // var SignupComponent = require('./../views/Signup.jsx');
 
-ReactDOM.render(<RoomComponent />, document.getElementById('room'));
+socket.emit("From Server: Receive MongoDB data", 0, function(roomData) {
+  ReactDOM.render(<RoomComponent explore={roomData.explore} myPlaylists={roomData.myPlaylists} />, document.getElementById('room'));    
+})
+// ReactDOM.render(<RoomComponent />, document.getElementById('room'));
 // ReactDOM.render(<RoomComponent />, document.getElementById('login'));
 // ReactDOM.render(<RoomComponent />, document.getElementById('signup'));

@@ -3718,11 +3718,16 @@ module.exports = require('./lib/React');
 // var IndexComponent = require('./../views/index.jsx');
 // ReactDOM.render(<IndexComponent />, document.getElementById('index'));
 
+
+// var myPlaylistData = require('./../config/database/myPlaylists.js'); 
 var RoomComponent = require('./../views/Room.jsx');
 // var LoginComponent = require('./../views/Login.jsx');
 // var SignupComponent = require('./../views/Signup.jsx');
 
-ReactDOM.render(React.createElement(RoomComponent, null), document.getElementById('room'));
+socket.emit("From Server: Receive MongoDB data", 0, function (roomData) {
+    ReactDOM.render(React.createElement(RoomComponent, { explore: roomData.explore, myPlaylists: roomData.myPlaylists }), document.getElementById('room'));
+});
+// ReactDOM.render(<RoomComponent />, document.getElementById('room'));
 // ReactDOM.render(<RoomComponent />, document.getElementById('login'));
 // ReactDOM.render(<RoomComponent />, document.getElementById('signup'));
 
@@ -4228,6 +4233,21 @@ module.exports = Chatbox;
 },{"react":31}],34:[function(require,module,exports){
 "use strict";
 
+/*  =============================================================================
+    Copyright © 
+    ========================================================================== */
+
+/*  =============================================================================
+    VIEW: Explore.jsx
+
+    Showcases different public playlists that are currently trending
+    ========================================================================== */
+
+/*  =============================================================================
+    Components
+
+    Explore - The Explore tab
+    ========================================================================== */
 var React = require('react');
 
 var Explore = React.createClass({
@@ -5149,6 +5169,24 @@ module.exports = MediaPlayer;
 },{"./StatusBar":44,"react":31}],39:[function(require,module,exports){
 'use strict';
 
+/*  =============================================================================
+    Copyright © 
+    ========================================================================== */
+
+/*  =============================================================================
+    VIEW: MyPlaylists.jsx
+
+    Contains all of the current user's private and public playlists. Also contains 
+    all the playlists that the user liked.
+    ========================================================================== */
+
+/*  =============================================================================
+    @Components:    MyPlaylistPlaceholder
+                    SearchMyPlaylist
+                    MyPlaylists
+
+    @Exports:       MyPlaylists
+    ========================================================================== */
 var React = require('react');
 var PlaylistEntry = require('./PlaylistEntry');
 
@@ -5201,20 +5239,41 @@ var MyPlaylists = React.createClass({
   displayName: 'MyPlaylists',
 
   render: function render() {
-
     var playlistEntries = [];
+    console.log(this.props.myPlaylists);
 
-    // TODO: If no playlists, return a placeholder
-    if (false) {
-      playlistEntries.push(React.createElement(MyPlaylistPlaceholder, { key: 'MyPlaylistPlaceholder' }));
+    // If there are no playlists, the placeholder is displayed
+    if (this.props.myPlaylists === undefined || this.props.myPlaylists === null || this.props.myPlaylists.length <= 0) {
+      return React.createElement(
+        'div',
+        null,
+        React.createElement(MyPlaylistPlaceholder, null)
+      );
     }
 
-    // If there are playlists, pushes every playlist
+    // If there are playlists, pushes every playlist into the tab
     else {
         playlistEntries.push(React.createElement(SearchMyPlaylist, { key: 'SearchMyPlaylist' }));
 
+        var playlistEntry;
+        for (var i = 0; i < this.props.myPlaylists.length; ++i) {
+          playlistEntry = this.props.myPlaylists[i];
+          playlistEntries.push(
+          // TODO: owner, liked
+          React.createElement(PlaylistEntry, {
+            key: playlistEntry._id,
+            owner: true,
+            title: playlistEntry.name,
+            curator: playlistEntry.owner,
+            size: playlistEntry.mediaEntries.length,
+            type: playlistEntry.isPublic,
+            likes: playlistEntry.likes,
+            liked: null }));
+        }
+
         // DEMO PLAYLIST DATA
         playlistEntries.push(React.createElement(PlaylistEntry, {
+          key: 0,
           owner: true,
           title: 'Saturday Morning Cartoons',
           curator: 'Gliu',
@@ -5222,8 +5281,9 @@ var MyPlaylists = React.createClass({
           type: 'private',
           likes: '0',
           liked: null }));
-        for (var i = 0; i < 2; ++i) {
+        for (var i = 10; i < 15; ++i) {
           playlistEntries.push(React.createElement(PlaylistEntry, {
+            key: i,
             owner: true,
             title: 'Chill Music Videos',
             curator: 'Gliu',
@@ -5232,8 +5292,9 @@ var MyPlaylists = React.createClass({
             likes: '10',
             liked: null }));
         }
-        for (var i = 0; i < 5; ++i) {
+        for (var i = 15; i < 20; ++i) {
           playlistEntries.push(React.createElement(PlaylistEntry, {
+            key: i,
             owner: false,
             title: 'Trippy Stuff',
             curator: 'MeSoRanz',
@@ -5257,6 +5318,22 @@ module.exports = MyPlaylists;
 },{"./PlaylistEntry":40,"react":31}],40:[function(require,module,exports){
 "use strict";
 
+/*  =============================================================================
+    Copyright © 
+    ========================================================================== */
+
+/*  =============================================================================
+    VIEW: PlaylistEntry.jsx
+
+    The individual entry of a playlist
+    ========================================================================== */
+
+/*  =============================================================================
+    @Components:    PlaylistIcon
+                    PlaylistEntry
+
+    @Exports:       PlaylistEntry
+    ========================================================================== */
 var React = require('react');
 
 // Icon displayed depends on whether playlist is public, private, or not owner
@@ -5274,7 +5351,7 @@ var PlaylistIcon = React.createClass({
           React.createElement("i", { className: "fa fa-heart-o", "aria-hidden": "true" })
         )
       );
-    } else if (this.props.owner == true && this.props.type == 'private') {
+    } else if (this.props.owner == true && this.props.type == false) {
       return React.createElement(
         "div",
         { className: "playlist-icon" },
@@ -5294,8 +5371,19 @@ var PlaylistIcon = React.createClass({
 var PlaylistEntry = React.createClass({
   displayName: "PlaylistEntry",
 
-  render: function render() {
+  playPlaylist: function playPlaylist() {
+    console.log("Playing playlist: " + this.props.title + " by " + this.props.curator);
+  },
 
+  goToPlaylistPage: function goToPlaylistPage() {
+    console.log("Going to playlist page: " + this.props.title);
+  },
+
+  goToCuratorPage: function goToCuratorPage() {
+    console.log("Going to curator page: " + this.props.curator);
+  },
+
+  render: function render() {
     // If owner, append user-playlist to classname
     var playlistCardClassName = "playlist-card";
     if (this.props.owner == true) {
@@ -5313,7 +5401,7 @@ var PlaylistEntry = React.createClass({
           { className: "playlist-img-container" },
           React.createElement(
             "a",
-            { href: "javascript:void(0)" },
+            { href: "javascript:void(0)", onClick: this.playPlaylist },
             React.createElement(
               "div",
               { className: "playlist-overlay" },
@@ -5339,7 +5427,7 @@ var PlaylistEntry = React.createClass({
             { className: "playlist-title" },
             React.createElement(
               "a",
-              { className: "playlist-link playlist-title-text ellipses", "data-toggle": "tab", href: "#open-playlist" },
+              { className: "playlist-link playlist-title-text ellipses", "data-toggle": "tab", href: "#open-playlist", onClick: this.goToPlaylistPage },
               this.props.title
             ),
             React.createElement(
@@ -5353,7 +5441,7 @@ var PlaylistEntry = React.createClass({
             { className: "playlist-curator" },
             React.createElement(
               "a",
-              { className: "curator-link", "data-toggle": "tab", href: "#curator-page" },
+              { className: "curator-link", "data-toggle": "tab", href: "#curator-page", onClick: this.goToCuratorPage },
               this.props.curator
             )
           )
@@ -5922,12 +6010,12 @@ var Room = React.createClass({
                 React.createElement(
                   'div',
                   { id: 'explore', className: 'tab-pane fade in active' },
-                  React.createElement(Explore, null)
+                  React.createElement(Explore, { explore: this.props.explore })
                 ),
                 React.createElement(
                   'div',
                   { id: 'myplaylists', className: 'tab-pane fade' },
-                  React.createElement(MyPlaylists, null)
+                  React.createElement(MyPlaylists, { myPlaylists: this.props.myPlaylists })
                 ),
                 React.createElement(
                   'div',

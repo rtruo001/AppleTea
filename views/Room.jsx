@@ -130,12 +130,12 @@ var Room = React.createClass({
 
                   {/* Explore */}
                   <div id="explore" className="tab-pane fade in active">
-                    <Explore />
+                    <Explore explore={this.props.explore} />
                   </div>
 
                   {/* My Playlists */}
                   <div id="myplaylists" className="tab-pane fade">
-                    <MyPlaylists />
+                    <MyPlaylists myPlaylists={this.props.myPlaylists} />
                   </div>
 
                   {/* Search */}

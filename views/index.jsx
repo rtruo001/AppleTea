@@ -43,7 +43,7 @@ var Index = React.createClass({
 
           {/* Room Page */}
           <div id="room">
-            <Room title={this.props.title} data={this.props.data} />
+            <Room title={this.props.title} user={this.props.user} explore={this.props.explore} myPlaylists={this.props.myPlaylists} />
           </div>
 
           {/* Testing for Home

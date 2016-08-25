@@ -1,3 +1,21 @@
+/*  =============================================================================
+    Copyright © 
+    ========================================================================== */
+
+/*  =============================================================================
+    VIEW: MyPlaylists.jsx
+
+    Contains all of the current user's private and public playlists. Also contains 
+    all the playlists that the user liked.
+    ========================================================================== */
+
+/*  =============================================================================
+    @Components:    MyPlaylistPlaceholder
+                    SearchMyPlaylist
+                    MyPlaylists
+
+    @Exports:       MyPlaylists
+    ========================================================================== */
 var React = require('react');
 var PlaylistEntry = require('./PlaylistEntry');
 
@@ -33,25 +51,45 @@ var SearchMyPlaylist = React.createClass({
 // MAIN COMPONENT: My Playlist Tab
 var MyPlaylists = React.createClass({
   render: function() {
-
     var playlistEntries = [];
+    console.log(this.props.myPlaylists);
 
-    // TODO: If no playlists, return a placeholder
-    if (false) {
-      playlistEntries.push(
-        <MyPlaylistPlaceholder key={'MyPlaylistPlaceholder'} />
-      )
+    // If there are no playlists, the placeholder is displayed
+    if (this.props.myPlaylists === undefined || this.props.myPlaylists === null || this.props.myPlaylists.length <= 0) {
+      return (
+        <div>
+          <MyPlaylistPlaceholder />
+        </div>
+      );
     }
 
-    // If there are playlists, pushes every playlist
+    // If there are playlists, pushes every playlist into the tab
     else {
       playlistEntries.push(
         <SearchMyPlaylist key={'SearchMyPlaylist'} />
       )
 
+      var playlistEntry;
+      for (var i = 0; i < this.props.myPlaylists.length; ++i) {
+        playlistEntry = this.props.myPlaylists[i];
+        playlistEntries.push (
+          // TODO: owner, liked
+          <PlaylistEntry
+            key={playlistEntry._id}
+            owner={true}
+            title={playlistEntry.name}
+            curator={playlistEntry.owner}
+            size={playlistEntry.mediaEntries.length}
+            type={playlistEntry.isPublic}
+            likes={playlistEntry.likes}
+            liked={null} />
+        );
+      }
+
       // DEMO PLAYLIST DATA
       playlistEntries.push (
         <PlaylistEntry 
+          key={0}
           owner={true}
           title={'Saturday Morning Cartoons'}
           curator={'Gliu'}
@@ -60,9 +98,10 @@ var MyPlaylists = React.createClass({
           likes={'0'}
           liked={null} />
       );
-      for (var i = 0; i < 2; ++i) {
+      for (var i = 10; i < 15; ++i) {
         playlistEntries.push (
           <PlaylistEntry 
+            key={i}
             owner={true}
             title={'Chill Music Videos'}
             curator={'Gliu'}
@@ -72,9 +111,10 @@ var MyPlaylists = React.createClass({
             liked={null} />
         );
       }
-      for (var i = 0; i < 5; ++i) {
+      for (var i = 15; i < 20; ++i) {
         playlistEntries.push (
           <PlaylistEntry 
+            key={i}
             owner={false}
             title={'Trippy Stuff'}
             curator={'MeSoRanz'}

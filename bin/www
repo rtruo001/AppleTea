@@ -59,10 +59,24 @@ var queueList = [];
 var queueListHashSet = {};
 
 var io = require('socket.io')(server);
+var configExploreDB = require('../config/database/explore')
+var configMyPlaylistsDB = require('../config/database/myPlaylists')
 
 io.on('connection', function(socket) {
   console.log("IO connected");
   ++numUsersConnected;
+
+  /*  =============================================================================
+      Client Initialization Data transfers
+      ========================================================================== */
+    // Sends the data to the Client for Client side rendering
+    socket.on("From Server: Receive MongoDB data", function(nothing, callback) {
+      var roomData = {
+        explore: configExploreDB.get(),
+        myPlaylists: configMyPlaylistsDB.get() 
+      }
+      callback(roomData);    
+    });
 
   /*  =============================================================================
       Chat

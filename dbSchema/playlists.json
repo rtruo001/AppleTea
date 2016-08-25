@@ -9,11 +9,11 @@
     "likes": "10",
     "mediaEntries": [
       { 
-        "type": "Youtube",
+        "mediaType": "Youtube",
         "id": "DvZq-Zk5zEY"
       },
       {
-        "type": "Youtube",
+        "mediaType": "Youtube",
         "id": "_w5jPT8LMF0"
       }
     ]
@@ -27,11 +27,11 @@
     "likes": "0",
     "mediaEntries": [
       { 
-        "type": "Youtube",
+        "mediaType": "Youtube",
         "id": "YoutubeId"
       },
       {
-        "type": "Soundcloud",
+        "mediaType": "Soundcloud",
         "id": "SoundcloudId"
       }
     ]
@@ -45,15 +45,15 @@
     "likes": "5",
     "mediaEntries": [
       { 
-        "type": "Youtube",
+        "mediaType": "Youtube",
         "id": "YoutubeId"
       },
       {
-        "type": "Soundcloud",
+        "mediaType": "Soundcloud",
         "id": "SoundcloudId"
       },
       {
-        "type": "Vimeo",
+        "mediaType": "Vimeo",
         "id": "VimeoId"
       }
     ]

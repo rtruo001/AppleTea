@@ -13,6 +13,10 @@ var router = express.Router();
 // Playlist Schema
 var Playlist = require('../models/playlist');
 
+// Storing data to Server for client to render with the data after mounting
+var configExploreDB = require('../config/database/explore');
+var configMyPlaylistsDB = require('../config/database/myPlaylists');
+
 /*  =============================================================================
     Function loadExplore
 
@@ -20,7 +24,7 @@ var Playlist = require('../models/playlist');
     playlists for the Explore tab. Uses the Mongoose playlist model.
     ========================================================================== */
 function loadExplore(req, res, next) {
-  console.log('Middleware: loadExplore');
+  console.log('Middleware: loadExplore ==============================');
 
   // Finds all public playlists in the database
   Playlist.find({ 'isPublic' : true }, function(err, playlists) {
@@ -30,6 +34,7 @@ function loadExplore(req, res, next) {
     else if (playlists.length > 0 && playlists != null && playlists != undefined) {
       console.log(playlists);
       req.explore = playlists; 
+      configMyPlaylistsDB.set(playlists);
     }
     else {
       console.log("Explore: No public playlists");
@@ -45,7 +50,7 @@ function loadExplore(req, res, next) {
     logged in or not.
     ========================================================================== */
 function isLoggedIn(req, res, next) {
-  console.log('Middleware: isLoggedIn');
+  console.log('Middleware: isLoggedIn ===============================');
 
   // if user is authenticated in the session, carry on 
   if (req.isAuthenticated())
@@ -55,16 +60,52 @@ function isLoggedIn(req, res, next) {
   res.redirect('/login');
 }
 
-/* GET home page. */
-router.get('/', [loadExplore, isLoggedIn], function(req, res, next) {
+/*  =============================================================================
+    Function loadMyPlaylists
+
+    The third middleware called after isLoggedIn. Loads all of the user's playlists
+    into the My Playlist tab.
+    ========================================================================== */
+function loadMyPlaylists(req, res, next) {
+  console.log('Middleware: loadMyPlaylists ==========================');
+
+  // Finds all public playlists in the database
+  Playlist.find({ 'owner' : req.user.local.username }, function(err, playlists) {
+    if (err) {
+      console.log('ERROR: Problem in loading playlists for My Playlists');
+    }
+    else if (playlists.length > 0 && playlists != null && playlists != undefined) {
+      console.log(playlists);
+      req.myPlaylists = playlists; 
+      configMyPlaylistsDB.set(playlists);
+    }
+    else {
+      console.log("My Playlist: No playlists");
+    }
+    return next();
+  });
+}
+
+/*  =============================================================================
+    GET request
+
+    Renders the index page with the given data from mongoose
+    ========================================================================== */
+router.get('/', [loadExplore, isLoggedIn, loadMyPlaylists], function(req, res, next) {
   console.log('Routing: /');
+  console.log('USER ==========================================');
   console.log(req.user);
+  console.log('EXPLORE =======================================');
   console.log(req.explore);
+  console.log('MY PLAYLIST ===================================');
+  console.log(req.myPlaylists);
+  console.log('===============================================');
 
   res.render('Index', { 
     title: 'AppleTea',
-    data: req.user,
-    explore: req.explore
+    user: req.user,
+    explore: req.explore,
+    myPlaylists: req.myPlaylists
   });
 });
 
