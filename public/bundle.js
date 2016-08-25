@@ -4308,10 +4308,248 @@ module.exports = Footer;
 
 var React = require('react');
 
+/* User Profile Picture Icon */
+var HeaderProfileIcon = React.createClass({
+  displayName: "HeaderProfileIcon",
+
+  render: function render() {
+    return React.createElement(
+      "div",
+      null,
+      React.createElement(
+        "a",
+        { href: "javascript:void(0)" },
+        React.createElement("img", { className: "profile-pic", src: "images/profile-pic.png" })
+      )
+    );
+  }
+});
+
+/* Sign Up and Sign In Buttons */
+var SignUpSignInButtons = React.createClass({
+  displayName: "SignUpSignInButtons",
+
+  render: function render() {
+    return React.createElement(
+      "div",
+      { className: "header-btn-group" },
+      React.createElement(
+        "button",
+        { className: "btn btn-primary btn-margin", "data-toggle": "modal", "data-target": "#signup" },
+        "Sign Up"
+      ),
+      React.createElement(SignUpModal, null),
+      React.createElement(
+        "button",
+        { className: "btn btn-secondary btn-margin dropdown-toggle", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
+        "Sign In"
+      ),
+      React.createElement(SignInDropdown, null)
+    );
+  }
+});
+
+/* Sign Up Modal Popup */
+var SignUpModal = React.createClass({
+  displayName: "SignUpModal",
+
+  render: function render() {
+    return React.createElement(
+      "div",
+      { className: "modal fade", id: "signup", tabindex: "-1", role: "dialog", "aria-labelledby": "myModalLabel" },
+      React.createElement(
+        "div",
+        { className: "modal-dialog modal-sm", role: "document" },
+        React.createElement(
+          "div",
+          { className: "modal-content" },
+          React.createElement(
+            "div",
+            { className: "modal-body" },
+            React.createElement(
+              "div",
+              { className: "row row-sm" },
+              React.createElement(
+                "div",
+                { className: "col-xs-12 col-padding-sm" },
+                React.createElement(
+                  "button",
+                  { className: "btn btn-facebook btn-full-width", "data-dismiss": "modal" },
+                  React.createElement("i", { className: "fa fa-facebook icon-padding icon-position-left" }),
+                  "Sign In with Facebook"
+                )
+              ),
+              React.createElement(
+                "div",
+                { className: "col-xs-12 col-padding-sm" },
+                React.createElement(
+                  "button",
+                  { className: "btn btn-twitter btn-full-width", "data-dismiss": "modal" },
+                  React.createElement("i", { className: "fa fa-twitter icon-padding icon-position-left" }),
+                  "Sign In with Twitter"
+                )
+              ),
+              React.createElement(
+                "div",
+                { className: "col-xs-12 col-padding-sm" },
+                React.createElement(
+                  "button",
+                  { className: "btn btn-google btn-full-width", "data-dismiss": "modal" },
+                  React.createElement("i", { className: "fa fa-google-plus icon-padding icon-position-left" }),
+                  "Sign in with Google"
+                )
+              )
+            )
+          ),
+          React.createElement(
+            "div",
+            { className: "modal-body section-border signup-form-container" },
+            React.createElement(
+              "div",
+              { className: "or-divider" },
+              React.createElement(
+                "span",
+                null,
+                "OR SIGN UP"
+              )
+            ),
+            React.createElement(
+              "div",
+              { className: "search-container" },
+              React.createElement(
+                "form",
+                { className: "search-input", id: "create-room-input" },
+                React.createElement(
+                  "div",
+                  { className: "row row-sm" },
+                  React.createElement(
+                    "div",
+                    { className: "col-sm-6 col-padding-sm" },
+                    React.createElement("input", { type: "text", placeholder: "First Name" })
+                  ),
+                  React.createElement(
+                    "div",
+                    { className: "col-sm-6 col-padding-sm" },
+                    React.createElement("input", { type: "text", placeholder: "Last Name" })
+                  ),
+                  React.createElement(
+                    "div",
+                    { className: "col-sm-12 col-padding-sm" },
+                    React.createElement("input", { type: "text", placeholder: "Email" })
+                  ),
+                  React.createElement(
+                    "div",
+                    { className: "col-sm-12 col-padding-sm" },
+                    React.createElement("input", { type: "password", placeholder: "Password" })
+                  ),
+                  React.createElement(
+                    "div",
+                    { className: "col-sm-12 col-padding-sm" },
+                    React.createElement(
+                      "button",
+                      { type: "button", className: "btn btn-primary btn-full-width", "data-dismiss": "modal" },
+                      "Sign Up"
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    );
+  }
+});
+
+/* Sign In Dropdown */
+var SignInDropdown = React.createClass({
+  displayName: "SignInDropdown",
+
+  render: function render() {
+    return React.createElement(
+      "ul",
+      { className: "dropdown-menu dropdown-menu-right signin-container", id: "signin-form" },
+      React.createElement(
+        "div",
+        { className: "signin-content" },
+        React.createElement(
+          "form",
+          { className: "search-input search-input-sm" },
+          React.createElement("input", { type: "text", className: "input-padding-sm", placeholder: "Email" }),
+          React.createElement("input", { type: "password", className: "input-padding-sm", placeholder: "Password" }),
+          React.createElement(
+            "button",
+            { className: "btn btn-primary btn-full-width" },
+            "Sign In"
+          )
+        ),
+        React.createElement(
+          "a",
+          { className: "forgot-pw link-grey-lite", href: "javascript:void(0)" },
+          "Forgot password?"
+        )
+      ),
+      React.createElement(
+        "div",
+        { className: "signin-content section-border signin-icons-container" },
+        React.createElement(
+          "div",
+          { className: "or-divider" },
+          React.createElement(
+            "span",
+            null,
+            "OR SIGN IN WITH"
+          )
+        ),
+        React.createElement(
+          "div",
+          { className: "row row-xs" },
+          React.createElement(
+            "div",
+            { className: "col-xs-4 col-padding-xs" },
+            React.createElement(
+              "button",
+              { className: "btn btn-facebook btn-full-width" },
+              React.createElement("i", { className: "fa fa-facebook" })
+            )
+          ),
+          React.createElement(
+            "div",
+            { className: "col-xs-4 col-padding-xs" },
+            React.createElement(
+              "button",
+              { className: "btn btn-twitter btn-full-width" },
+              React.createElement("i", { className: "fa fa-twitter" })
+            )
+          ),
+          React.createElement(
+            "div",
+            { className: "col-xs-4 col-padding-xs" },
+            React.createElement(
+              "button",
+              { className: "btn btn-google btn-full-width" },
+              React.createElement("i", { className: "fa fa-google-plus" })
+            )
+          )
+        )
+      )
+    );
+  }
+});
+
 var Header = React.createClass({
   displayName: "Header",
 
   render: function render() {
+    var headerIcons = [];
+
+    {/* TODO: If users are logged in, switch icons */}
+    if (false) {
+      headerIcons.push(React.createElement(HeaderProfileIcon, { key: 'HeaderProfileIcon' }));
+    } else {
+      headerIcons.push(React.createElement(SignUpSignInButtons, { key: 'SignUpSignInButtons' }));
+    };
+
     return React.createElement(
       "div",
       { className: "header" },
@@ -4325,11 +4563,11 @@ var Header = React.createClass({
         ),
         React.createElement(
           "div",
-          { className: "col-sm-6 header-profile-btn" },
+          { className: "col-sm-6 header-section" },
           React.createElement(
-            "a",
-            { href: "javascript:void(0)" },
-            React.createElement("img", { className: "profile-pic", src: "images/profile-pic.png" })
+            "div",
+            { className: "header-icon-container" },
+            headerIcons
           )
         )
       )
