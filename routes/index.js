@@ -10,6 +10,8 @@
 var express = require('express');
 var router = express.Router();
 
+var React = require('react');
+
 // Playlist Schema
 var Playlist = require('../models/playlist');
 
@@ -27,6 +29,7 @@ function loadExplore(req, res, next) {
   console.log('Middleware: loadExplore ==============================');
 
   // Finds all public playlists in the database
+  // TODO: implement indexing
   Playlist.find({ 'isPublic' : true }, function(err, playlists) {
     if (err) {
       console.log('ERROR: Problem in loading playlists for the Explore');
@@ -34,7 +37,7 @@ function loadExplore(req, res, next) {
     else if (playlists.length > 0 && playlists != null && playlists != undefined) {
       console.log(playlists);
       req.explore = playlists; 
-      configMyPlaylistsDB.set(playlists);
+      configExploreDB.set(playlists);
     }
     else {
       console.log("Explore: No public playlists");
@@ -53,11 +56,11 @@ function isLoggedIn(req, res, next) {
   console.log('Middleware: isLoggedIn ===============================');
 
   // if user is authenticated in the session, carry on 
-  if (req.isAuthenticated())
+  // if (req.isAuthenticated())
     return next();
 
   // if they aren't redirect them to the home page
-  res.redirect('/login');
+  // res.redirect('/login');
 }
 
 /*  =============================================================================
@@ -69,7 +72,13 @@ function isLoggedIn(req, res, next) {
 function loadMyPlaylists(req, res, next) {
   console.log('Middleware: loadMyPlaylists ==========================');
 
+  if (req.user === undefined || req.user === null) {
+    req.user = "NO USER";
+    return next();
+  }
+
   // Finds all public playlists in the database
+  // TODO: implement indexing
   Playlist.find({ 'owner' : req.user.local.username }, function(err, playlists) {
     if (err) {
       console.log('ERROR: Problem in loading playlists for My Playlists');
@@ -101,11 +110,19 @@ router.get('/', [loadExplore, isLoggedIn, loadMyPlaylists], function(req, res, n
   console.log(req.myPlaylists);
   console.log('===============================================');
 
+  // IMPORTANT TODO
+  // TODO prevents XSS attacks
+  // TODO: Remove stringify and instead do safestringify in index.jsx
   res.render('Index', { 
-    title: 'AppleTea',
+    title: 'Appletea',
     user: req.user,
     explore: req.explore,
-    myPlaylists: req.myPlaylists
+    myPlaylists: req.myPlaylists,
+    propsStr: JSON.stringify({ 
+      user: req.user,
+      explore: req.explore,
+      myPlaylists: req.myPlaylists
+    })
   });
 });
 
