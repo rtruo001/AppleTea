@@ -41,9 +41,13 @@ var RoomComponent = require('./../views/Room.jsx');
 //   socket.emit("From Server: Receive MongoDB data", 0, function(roomData) {
     // ReactDOM.render(<RoomComponent explore={roomData.explore} myPlaylists={roomData.myPlaylists} />, document.getElementById('room'));  
 //   }
+
+// Reads the html of the room-props script, which was injected data from the server side
 var propStr = document.getElementById("room-props").innerHTML;
+console.log("Props sent from Server in String form");
 console.log(propStr);
 let props = JSON.parse(propStr);
+console.log("Props converted into JSON:");
 console.log(props);
 ReactDOM.render(<RoomComponent explore={props.explore} myPlaylists={props.myPlaylists} />, document.getElementById('room'));  
 

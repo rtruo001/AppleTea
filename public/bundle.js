@@ -3685,7 +3685,7 @@ module.exports = traverseAllChildren;
 module.exports = require('./lib/React');
 
 },{"./lib/React":11}],32:[function(require,module,exports){
-'use strict';
+"use strict";
 
 /*  =============================================================================
     Copyright © 
@@ -3730,9 +3730,13 @@ var RoomComponent = require('./../views/Room.jsx');
 //   socket.emit("From Server: Receive MongoDB data", 0, function(roomData) {
 // ReactDOM.render(<RoomComponent explore={roomData.explore} myPlaylists={roomData.myPlaylists} />, document.getElementById('room'));  
 //   }
+
+// Reads the html of the room-props script, which was injected data from the server side
 var propStr = document.getElementById("room-props").innerHTML;
+console.log("Props sent from Server in String form");
 console.log(propStr);
 var props = JSON.parse(propStr);
+console.log("Props converted into JSON:");
 console.log(props);
 ReactDOM.render(React.createElement(RoomComponent, { explore: props.explore, myPlaylists: props.myPlaylists }), document.getElementById('room'));
 
