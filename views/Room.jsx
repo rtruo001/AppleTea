@@ -154,7 +154,6 @@ var Room = React.createClass({
 
         {/* Footer */}
         <Footer />
-        
       </div>
     );
   }

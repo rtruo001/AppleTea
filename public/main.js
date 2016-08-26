@@ -35,9 +35,15 @@ var RoomComponent = require('./../views/Room.jsx');
 // var LoginComponent = require('./../views/Login.jsx');
 // var SignupComponent = require('./../views/Signup.jsx');
 
-socket.emit("From Server: Receive MongoDB data", 0, function(roomData) {
-  ReactDOM.render(<RoomComponent explore={roomData.explore} myPlaylists={roomData.myPlaylists} />, document.getElementById('room'));    
-})
-// ReactDOM.render(<RoomComponent />, document.getElementById('room'));
 // ReactDOM.render(<RoomComponent />, document.getElementById('login'));
 // ReactDOM.render(<RoomComponent />, document.getElementById('signup'));
+
+//   socket.emit("From Server: Receive MongoDB data", 0, function(roomData) {
+    // ReactDOM.render(<RoomComponent explore={roomData.explore} myPlaylists={roomData.myPlaylists} />, document.getElementById('room'));  
+//   }
+var propStr = document.getElementById("room-props").innerHTML;
+console.log(propStr);
+let props = JSON.parse(propStr);
+console.log(props);
+ReactDOM.render(<RoomComponent explore={props.explore} myPlaylists={props.myPlaylists} />, document.getElementById('room'));  
+

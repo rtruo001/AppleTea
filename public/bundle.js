@@ -3724,12 +3724,17 @@ var RoomComponent = require('./../views/Room.jsx');
 // var LoginComponent = require('./../views/Login.jsx');
 // var SignupComponent = require('./../views/Signup.jsx');
 
-socket.emit("From Server: Receive MongoDB data", 0, function (roomData) {
-    ReactDOM.render(React.createElement(RoomComponent, { explore: roomData.explore, myPlaylists: roomData.myPlaylists }), document.getElementById('room'));
-});
-// ReactDOM.render(<RoomComponent />, document.getElementById('room'));
 // ReactDOM.render(<RoomComponent />, document.getElementById('login'));
 // ReactDOM.render(<RoomComponent />, document.getElementById('signup'));
+
+//   socket.emit("From Server: Receive MongoDB data", 0, function(roomData) {
+// ReactDOM.render(<RoomComponent explore={roomData.explore} myPlaylists={roomData.myPlaylists} />, document.getElementById('room'));  
+//   }
+var propStr = document.getElementById("room-props").innerHTML;
+console.log(propStr);
+var props = JSON.parse(propStr);
+console.log(props);
+ReactDOM.render(React.createElement(RoomComponent, { explore: props.explore, myPlaylists: props.myPlaylists }), document.getElementById('room'));
 
 },{"./../views/Room.jsx":42}],33:[function(require,module,exports){
 "use strict";
@@ -4391,7 +4396,7 @@ var SignUpModal = React.createClass({
   render: function render() {
     return React.createElement(
       "div",
-      { className: "modal fade", id: "signup", tabindex: "-1", role: "dialog", "aria-labelledby": "myModalLabel" },
+      { className: "modal fade", id: "signup", tabIndex: "-1", role: "dialog", "aria-labelledby": "myModalLabel" },
       React.createElement(
         "div",
         { className: "modal-dialog modal-sm", role: "document" },

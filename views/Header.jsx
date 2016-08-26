@@ -35,7 +35,7 @@ var SignUpSignInButtons = React.createClass({
 var SignUpModal = React.createClass({
   render: function() {
     return (
-      <div className="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div className="modal fade" id="signup" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div className="modal-dialog modal-sm" role="document">
           <div className="modal-content">
             <div className="modal-body">
