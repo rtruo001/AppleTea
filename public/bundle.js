@@ -9,7 +9,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- *
+ * 
  */
 
 function makeEmptyFunction(arg) {
@@ -401,7 +401,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
  * of patent rights can be found in the PATENTS file in the same directory.
  *
  * @providesModule KeyEscapeUtils
- *
+ * 
  */
 
 'use strict';
@@ -3510,7 +3510,7 @@ module.exports = checkReactTypeSpec;
  * of patent rights can be found in the PATENTS file in the same directory.
  *
  * @providesModule getIteratorFn
- *
+ * 
  */
 
 'use strict';
@@ -3593,7 +3593,7 @@ module.exports = onlyChild;
  * of patent rights can be found in the PATENTS file in the same directory.
  *
  * @providesModule reactProdInvariant
- *
+ * 
  */
 'use strict';
 
@@ -4121,11 +4121,26 @@ var ChatDisplay = React.createClass({
 var ChatInput = React.createClass({
   displayName: "ChatInput",
 
+  getInitialState: function getInitialState() {
+    return {
+      message: ""
+    };
+  },
   ifUsernameExists: function ifUsernameExists() {
     if (!this.props.username || 0 === this.state.username.length) {
       return false;
     }
     return true;
+  },
+  updateMessage: function updateMessage(e) {
+    this.setState({
+      message: e.target.value
+    });
+  },
+  clearMessage: function clearMessage() {
+    this.setState({
+      message: ""
+    });
   },
   sendMessage: function sendMessage(e) {
     e.preventDefault();
@@ -4133,8 +4148,8 @@ var ChatInput = React.createClass({
     // TODO Do message input string checks
     // No empty string, no white spaces, Valid characters a-z, A-Z, 0-9
     // Client emits to server with Chat Message
-    socket.emit('From Client: Chat message', $('#m').val());
-    $('#m').val('');
+    socket.emit('From Client: Chat message', this.state.message);
+    this.clearMessage();
   },
   render: function render() {
     return React.createElement(
@@ -4143,7 +4158,7 @@ var ChatInput = React.createClass({
       React.createElement(
         "form",
         { className: "chat-input", id: "chat-form", action: "", onSubmit: this.sendMessage },
-        React.createElement("input", { id: "m", autoComplete: "off", type: "text", className: "chat-textbox", name: "", placeholder: "Type a message..." })
+        React.createElement("input", { id: "m", value: this.state.message, onChange: this.updateMessage, autoComplete: "off", type: "text", className: "chat-textbox", name: "", placeholder: "Type a message..." })
       )
     );
   }
@@ -4595,7 +4610,7 @@ module.exports = Header;
 'use strict';
 
 /*  =============================================================================
-    Copyright ©
+    Copyright © 
     ========================================================================== */
 
 /*  =============================================================================
@@ -5037,7 +5052,7 @@ module.exports = MediaEntry;
 'use strict';
 
 /*  =============================================================================
-    Copyright ©
+    Copyright © 
     ========================================================================== */
 
 /*  =============================================================================
@@ -5049,7 +5064,7 @@ module.exports = MediaEntry;
 /*  =============================================================================
     Main Component MediaPlayer
 
-    @Component:
+    @Component: 
       StatusBar -
 
       MediaPlayer - The entire media player containing subcomponents of the play,
@@ -5246,10 +5261,10 @@ var MediaPlayer = React.createClass({
       initializeYoutubeIFrame(mediaData);
 
       // TODO: Initialize Soundcloud
-      // initializeSoundcloudPlayer(mediaData);
+      // initializeSoundcloudPlayer(mediaData);  
 
       // TODO: Initialize Vimeo
-      // initializeVimeoPlayer(mediaData);
+      // initializeVimeoPlayer(mediaData);  
     });
   },
 
@@ -5611,7 +5626,7 @@ module.exports = PlaylistEntry;
 'use strict';
 
 /*  =============================================================================
-    Copyright ©
+    Copyright © 
     ========================================================================== */
 
 /*  =============================================================================
@@ -5956,7 +5971,7 @@ module.exports = Queue;
 'use strict';
 
 /*  =============================================================================
-    Copyright ©
+    Copyright © 
     ========================================================================== */
 
 /*  =============================================================================
@@ -6188,7 +6203,7 @@ module.exports = Room;
 'use strict';
 
 /*  =============================================================================
-    Copyright ©
+    Copyright © 
     ========================================================================== */
 
 /*  =============================================================================
@@ -6537,7 +6552,7 @@ module.exports = Search;
 'use strict';
 
 /*  =============================================================================
-    Copyright ©
+    Copyright © 
     ========================================================================== */
 
 /*  =============================================================================

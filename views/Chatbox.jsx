@@ -224,11 +224,26 @@ var ChatDisplay = React.createClass({
 });
 
 var ChatInput = React.createClass({
+  getInitialState: function() {
+    return {
+      message: ""
+    }
+  },
   ifUsernameExists: function() {
     if (!this.props.username || (0 === this.state.username.length)) {
       return false;
     }
     return true;
+  },
+  updateMessage: function(e) {
+    this.setState({
+      message: e.target.value
+    });
+  },
+  clearMessage: function() {
+    this.setState({
+      message: ""
+    })
   },
   sendMessage: function(e) {
     e.preventDefault();
@@ -236,14 +251,14 @@ var ChatInput = React.createClass({
     // TODO Do message input string checks
     // No empty string, no white spaces, Valid characters a-z, A-Z, 0-9
     // Client emits to server with Chat Message
-    socket.emit('From Client: Chat message', $('#m').val());
-    $('#m').val('');
+    socket.emit('From Client: Chat message', this.state.message);
+    this.clearMessage();
   },
   render: function() {
     return (
       <div className="chat-input-container">
         <form className="chat-input" id='chat-form' action="" onSubmit={this.sendMessage}>
-          <input id="m" autoComplete="off" type="text" className="chat-textbox" name="" placeholder="Type a message..." />
+          <input id="m" value={this.state.message} onChange={this.updateMessage} autoComplete="off" type="text" className="chat-textbox" name="" placeholder="Type a message..." />
         </form>
       </div>
     );
