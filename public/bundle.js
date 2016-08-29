@@ -4071,43 +4071,32 @@ var ChatDisplay = React.createClass({
       messages: []
     };
   },
-  userHasJoinedListener: function userHasJoinedListener() {
-    // When user has joined, sends the username and outputs it on the box
-    socket.on("From Server: User joined", function (user) {
-      var messages = this.state.messages;
-      messages.push(React.createElement(ChatUserActivityMessage, { username: user.username, activity: "joined" }));
-      this.setState({
-        messages: messages
-      });
-    }.bind(this));
+  userHasJoined: function userHasJoined(user) {
+    var messages = this.state.messages;
+    messages.push(React.createElement(ChatUserActivityMessage, { username: user.username, activity: "joined" }));
+    this.setState({
+      messages: messages
+    });
   },
-  userHasDisconnectedListener: function userHasDisconnectedListener() {
-    // When an actual user exits the page/chat
-    socket.on('From Server: User disconnected', function (user) {
-      var messages = this.state.messages;
-      messages.push(React.createElement(ChatUserActivityMessage, { username: user.username, activity: "disconnected" }));
-      this.setState({
-        messages: messages
-      });
-    }.bind(this));
+  userHasDisconnected: function userHasDisconnected(user) {
+    var messages = this.state.messages;
+    messages.push(React.createElement(ChatUserActivityMessage, { username: user.username, activity: "disconnected" }));
+    this.setState({
+      messages: messages
+    });
   },
-  newMessageListener: function newMessageListener() {
-    socket.on('From Server: Chat message', function (msg) {
-      var isOwner = this.props.username === msg.username;
-      var messages = this.state.messages;
-      messages.push(React.createElement(ChatMessage, { username: msg.username, owner: isOwner, message: msg.message }));
-      this.setState({
-        messages: messages
-      });
-    }.bind(this));
-  },
-  setupListeners: function setupListeners() {
-    this.userHasJoinedListener();
-    this.userHasDisconnectedListener();
-    this.newMessageListener();
+  newMessage: function newMessage(msg) {
+    var isOwner = this.props.username === msg.username;
+    var messages = this.state.messages;
+    messages.push(React.createElement(ChatMessage, { username: msg.username, owner: isOwner, message: msg.message }));
+    this.setState({
+      messages: messages
+    });
   },
   componentDidMount: function componentDidMount() {
-    this.setupListeners();
+    socket.on("From Server: User joined", this.userHasJoined);
+    socket.on('From Server: User disconnected', this.userHasDisconnected);
+    socket.on('From Server: Chat message', this.newMessage);
   },
   render: function render() {
     return React.createElement(
