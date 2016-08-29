@@ -56,10 +56,11 @@ function isLoggedIn(req, res, next) {
   console.log('Middleware: isLoggedIn ===============================');
 
   // if user is authenticated in the session, carry on 
-  // if (req.isAuthenticated())
+  if (req.isAuthenticated())
     return next();
 
   // if they aren't redirect them to the home page
+  return next();
   // res.redirect('/login');
 }
 
@@ -72,14 +73,18 @@ function isLoggedIn(req, res, next) {
 function loadMyPlaylists(req, res, next) {
   console.log('Middleware: loadMyPlaylists ==========================');
 
+  if (req.newUser === undefined || req.newUser === null) {
+    req.newUser = "NEW USER BITCH";
+  }
+
   if (req.user === undefined || req.user === null) {
-    req.user = "NO USER";
+    req.user = undefined;
     return next();
   }
 
   // Finds all public playlists in the database
   // TODO: implement indexing
-  Playlist.find({ 'owner' : req.user.local.username }, function(err, playlists) {
+  Playlist.find({ 'owner' : req.user.email}, function(err, playlists) {
     if (err) {
       console.log('ERROR: Problem in loading playlists for My Playlists');
     }
@@ -110,16 +115,23 @@ router.get('/', [loadExplore, isLoggedIn, loadMyPlaylists], function(req, res, n
   console.log(req.myPlaylists);
   console.log('===============================================');
 
+  var userData = req.user;
+  if (userData !== undefined && userData !== null) {
+    console.log("hide password");
+    userData.local.password = undefined;  
+     console.log(req.user);
+
+  }
+  
   // IMPORTANT TODO
   // TODO prevents XSS attacks
   // TODO: Remove stringify and instead do safestringify in index.jsx
   res.render('Index', { 
-    title: 'Appletea',
-    user: req.user,
+    user: userData,
     explore: req.explore,
     myPlaylists: req.myPlaylists,
     propsStr: JSON.stringify({ 
-      user: req.user,
+      user: userData,
       explore: req.explore,
       myPlaylists: req.myPlaylists
     })

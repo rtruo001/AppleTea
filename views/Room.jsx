@@ -38,7 +38,7 @@ var Room = React.createClass({
           <div id="page-overlay"></div>
 
           {/* Header */}
-          <Header />
+          <Header user={this.props.user} />
 
           {/* Video and Chat Banner */}
           <div className="banner-container">

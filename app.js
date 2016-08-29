@@ -65,13 +65,13 @@ app.use(passport.session());
 
 // Routes
 var routes = require('./routes/index');
-var login = require('./routes/login');
+var signin = require('./routes/signin');
 var signup = require('./routes/signup');
 var logout = require('./routes/logout');
 
 // Use the routers
 app.use('/', routes);
-app.use('/login', login);
+app.use('/signin', signin);
 app.use('/signup', signup);
 app.use('/logout', logout);
 

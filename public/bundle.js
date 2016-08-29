@@ -3738,7 +3738,7 @@ console.log(propStr);
 var props = JSON.parse(propStr);
 console.log("Props converted into JSON:");
 console.log(props);
-ReactDOM.render(React.createElement(RoomComponent, { explore: props.explore, myPlaylists: props.myPlaylists }), document.getElementById('room'));
+ReactDOM.render(React.createElement(RoomComponent, { user: props.user, explore: props.explore, myPlaylists: props.myPlaylists }), document.getElementById('room'));
 
 },{"./../views/Room.jsx":42}],33:[function(require,module,exports){
 "use strict";
@@ -4397,6 +4397,11 @@ var SignUpSignInButtons = React.createClass({
 var SignUpModal = React.createClass({
   displayName: "SignUpModal",
 
+  // TODO: Implement onSubmit (Check if valid inputs if valid email)
+  onSubmit: function onSubmit(e) {
+    console.log("Submitting sign up");
+  },
+
   render: function render() {
     return React.createElement(
       "div",
@@ -4462,39 +4467,15 @@ var SignUpModal = React.createClass({
               { className: "search-container" },
               React.createElement(
                 "form",
-                { className: "search-input", id: "create-room-input" },
+                { className: "search-input search-input-sm", action: "/signup", method: "post", onSubmit: this.onSubmit },
+                React.createElement("input", { type: "text", id: "sign-up-first-name", className: "input-padding-sm", placeholder: "First Name", name: "firstName" }),
+                React.createElement("input", { type: "text", id: "sign-up-last-name", className: "input-padding-sm", placeholder: "Last Name", name: "lastName" }),
+                React.createElement("input", { type: "text", className: "input-padding-sm", placeholder: "Email", name: "email" }),
+                React.createElement("input", { type: "password", className: "input-padding-sm", placeholder: "Password", name: "password" }),
                 React.createElement(
-                  "div",
-                  { className: "row row-sm" },
-                  React.createElement(
-                    "div",
-                    { className: "col-sm-6 col-padding-sm" },
-                    React.createElement("input", { type: "text", placeholder: "First Name" })
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "col-sm-6 col-padding-sm" },
-                    React.createElement("input", { type: "text", placeholder: "Last Name" })
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "col-sm-12 col-padding-sm" },
-                    React.createElement("input", { type: "text", placeholder: "Email" })
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "col-sm-12 col-padding-sm" },
-                    React.createElement("input", { type: "password", placeholder: "Password" })
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "col-sm-12 col-padding-sm" },
-                    React.createElement(
-                      "button",
-                      { type: "button", className: "btn btn-primary btn-full-width", "data-dismiss": "modal" },
-                      "Sign Up"
-                    )
-                  )
+                  "button",
+                  { className: "btn btn-primary btn-full-width", type: "submit" },
+                  "Sign Up"
                 )
               )
             )
@@ -4509,6 +4490,11 @@ var SignUpModal = React.createClass({
 var SignInDropdown = React.createClass({
   displayName: "SignInDropdown",
 
+  // TODO: Implement onSubmit (Check if valid inputs if valid email)
+  onSubmit: function onSubmit() {
+    console.log("Submitting sign up");
+  },
+
   render: function render() {
     return React.createElement(
       "ul",
@@ -4518,12 +4504,12 @@ var SignInDropdown = React.createClass({
         { className: "signin-content" },
         React.createElement(
           "form",
-          { className: "search-input search-input-sm" },
-          React.createElement("input", { type: "text", className: "input-padding-sm", placeholder: "Email" }),
-          React.createElement("input", { type: "password", className: "input-padding-sm", placeholder: "Password" }),
+          { className: "search-input search-input-sm", action: "/signin", method: "post", onSubmit: this.onSubmit },
+          React.createElement("input", { type: "text", className: "input-padding-sm", placeholder: "Email", name: "email" }),
+          React.createElement("input", { type: "password", className: "input-padding-sm", placeholder: "Password", name: "password" }),
           React.createElement(
             "button",
-            { className: "btn btn-primary btn-full-width" },
+            { className: "btn btn-primary btn-full-width", type: "submit" },
             "Sign In"
           )
         ),
@@ -4587,8 +4573,9 @@ var Header = React.createClass({
   render: function render() {
     var headerIcons = [];
 
-    {/* TODO: If users are logged in, switch icons */}
-    if (false) {
+    // TODO: If users are logged in, switch icons
+    // if (this.props.user === undefined || this.props.user === null) {
+    if (this.props.user !== undefined && this.props.user !== null) {
       headerIcons.push(React.createElement(HeaderProfileIcon, { key: 'HeaderProfileIcon' }));
     } else {
       headerIcons.push(React.createElement(SignUpSignInButtons, { key: 'SignUpSignInButtons' }));
@@ -6094,7 +6081,7 @@ var Room = React.createClass({
         'div',
         { className: 'content-container' },
         React.createElement('div', { id: 'page-overlay' }),
-        React.createElement(Header, null),
+        React.createElement(Header, { user: this.props.user }),
         React.createElement(
           'div',
           { className: 'banner-container' },
