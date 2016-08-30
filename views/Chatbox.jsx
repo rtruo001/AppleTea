@@ -174,6 +174,10 @@ var ChatDisplay = React.createClass({
       messages: []
     }
   },
+  autoscroll: true,
+  scrollToBottom: function() {
+    this.chat.scrollTop = this.chat.scrollHeight;
+  },
   userHasJoined: function(user) {
       var messages = this.state.messages
       messages.push(<ChatUserActivityMessage username={user.username} activity={"joined"} />)
@@ -200,10 +204,26 @@ var ChatDisplay = React.createClass({
     socket.on("From Server: User joined", this.userHasJoined);
     socket.on('From Server: User disconnected', this.userHasDisconnected);
     socket.on('From Server: Chat message', this.newMessage);
+
+    this.scrollToBottom();
+  },
+  componentWillUpdate: function() {
+    var isAtRecentMessages = this.chat.scrollTop == (this.chat.scrollHeight - this.chat.clientHeight)
+    if(isAtRecentMessages) {
+      this.autoscroll = true;
+    }
+    else {
+      this.autoscroll = false;
+    }
+  },
+  componentDidUpdate: function() {
+    if(this.autoscroll) {
+      this.scrollToBottom();
+    }
   },
   render: function() {
     return (
-      <div className="chat">
+      <div className="chat" ref={(ref) => this.chat = ref}>
         {
           this.state.messages
         }
