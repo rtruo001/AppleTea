@@ -49,6 +49,8 @@ var PlaylistIcon = React.createClass({
 var PlaylistEntry = React.createClass({
   playPlaylist: function() {
     console.log("Playing playlist: " + this.props.title + " by " + this.props.curator);
+
+    socket.emit('From Client: Update queue with new queue', this.props.mediaEntries);
   },
 
   goToPlaylistPage: function() {

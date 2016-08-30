@@ -62,6 +62,9 @@ var io = require('socket.io')(server);
 var configExploreDB = require('../config/database/explore')
 var configMyPlaylistsDB = require('../config/database/myPlaylists')
 
+// Playlist Schema
+var Playlist = require('../models/playlist');
+
 io.on('connection', function(socket) {
   console.log("IO connected");
   ++numUsersConnected;
@@ -111,7 +114,7 @@ io.on('connection', function(socket) {
       console.log("Currently nothing is playing from any clients");
       socket.emit('From Server: Initialize media player', {
         mediaType: playerMediaType,
-        videoId: null,
+        mediaId: null,
         title: null,
         state: mediaCurrentState,
         elapsedTime: 0,
@@ -126,12 +129,12 @@ io.on('connection', function(socket) {
 
   socket.on('From Client: Initialize media player', function(data) {
     playerMediaType = data.mediaType;
-    playerMediaVideoID = data.videoId;
+    playerMediaVideoID = data.mediaId;
     playerMediaTitle = data.title;
 
     socket.emit('From Server: Initialize media player', {
       mediaType: playerMediaType,
-      videoId: playerMediaVideoID,
+      mediaId: playerMediaVideoID,
       title: playerMediaTitle,
       state: mediaCurrentState,
       elapsedTime: mediaElapsedTime,
@@ -143,7 +146,7 @@ io.on('connection', function(socket) {
     mediaElapsedTime = clientData.clientCurrentTime;
     io.to(clientData.clientId).emit('From Server: Initialize media player', {
       mediaType: playerMediaType,
-      videoId: playerMediaVideoID,
+      mediaId: playerMediaVideoID,
       title: playerMediaTitle,
       state: mediaCurrentState,
       elapsedTime: mediaElapsedTime,
@@ -154,7 +157,7 @@ io.on('connection', function(socket) {
   socket.on('From Client: Get media player states', function(data) {
     socket.emit('From Server: Send media player states', {
       mediaType: playerMediaType,
-      videoId: playerMediaVideoID,
+      mediaId: playerMediaVideoID,
       title: playerMediaTitle,
       state: mediaCurrentState,
       elapsedTime: mediaElapsedTime,
@@ -169,7 +172,7 @@ io.on('connection', function(socket) {
     mediaCurrentState = MEDIAPLAYERSTATES.PLAYING;
     socket.broadcast.emit('From Server: Play media', {
       mediaType: playerMediaType,
-      videoId: playerMediaVideoID,
+      mediaId: playerMediaVideoID,
       title: playerMediaTitle,
       state: mediaCurrentState,
       elapsedTime: mediaElapsedTime,
@@ -184,7 +187,7 @@ io.on('connection', function(socket) {
     mediaCurrentState = MEDIAPLAYERSTATES.PAUSED
     socket.broadcast.emit('From Server: Pause media', {
       mediaType: playerMediaType,
-      videoId: playerMediaVideoID,
+      mediaId: playerMediaVideoID,
       title: playerMediaTitle,
       state: mediaCurrentState,
       elapsedTime: mediaElapsedTime,
@@ -194,14 +197,14 @@ io.on('connection', function(socket) {
 
   socket.on('From Client: Play new media entry', function(mediaData) {
     playerMediaType = mediaData.mediaType;
-    playerMediaVideoID = mediaData.videoId;
+    playerMediaVideoID = mediaData.mediaId;
     playerMediaTitle = mediaData.title;
     mediaCurrentState = MEDIAPLAYERSTATES.PLAYING;
     mediaElapsedTime = 0;
 
     io.emit("From Server: Load media entry", {
       mediaType: playerMediaType,
-      videoId: playerMediaVideoID,
+      mediaId: playerMediaVideoID,
       title: playerMediaTitle,
       state: mediaCurrentState,
       elapsedTime: mediaElapsedTime,
@@ -224,7 +227,7 @@ io.on('connection', function(socket) {
     }
     var playNextMediaData = queueList[0];
     playerMediaType = playNextMediaData.mediaType;
-    playerMediaVideoID = playNextMediaData.videoId;
+    playerMediaVideoID = playNextMediaData.mediaId;
     playerMediaTitle = playNextMediaData.title;
     mediaCurrentState = MEDIAPLAYERSTATES.PLAYING;
     mediaElapsedTime = 0;
@@ -239,7 +242,7 @@ io.on('connection', function(socket) {
     // Loads the play next media entry on the queue onto the Media Player
     io.emit("From Server: Load media entry", {
       mediaType: playerMediaType,
-      videoId: playerMediaVideoID,
+      mediaId: playerMediaVideoID,
       title: playerMediaTitle,
       state: mediaCurrentState,
       elapsedTime: mediaElapsedTime,
@@ -260,7 +263,7 @@ io.on('connection', function(socket) {
     if (queueList.length <= 0 && playerMediaType == MEDIAPLAYERTYPES.NONE) {
       console.log(queueEntry);
       playerMediaType = queueEntry.mediaType;
-      playerMediaVideoID = queueEntry.videoId;
+      playerMediaVideoID = queueEntry.mediaId;
       playerMediaTitle = queueEntry.title;
       mediaCurrentState = MEDIAPLAYERSTATES.PLAYING;
       mediaElapsedTime = 0;
@@ -270,11 +273,11 @@ io.on('connection', function(socket) {
     }
 
     // If there is a duplicate media, do not add to the queue list
-    if (queueListHashSet[queueEntry.videoId]) {
+    if (queueListHashSet[queueEntry.mediaId]) {
       return;
     }
     // Adds media to the queue list
-    queueListHashSet[queueEntry.videoId] = true;
+    queueListHashSet[queueEntry.mediaId] = true;
     queueList = queueList.concat(queueEntry);
 
     // Sends to all clients to push media into queue
@@ -298,7 +301,7 @@ io.on('connection', function(socket) {
 
   socket.on('From Client: Delete media entry from queue', function(queueEntry) {
     console.log('Deleting media entry from Queue: ' + queueEntry.posInQueue);
-    delete queueListHashSet[queueEntry.videoId];
+    delete queueListHashSet[queueEntry.mediaId];
     queueList.splice(queueEntry.posInQueue, 1);
     io.emit('From Server: Update queue with new queue', queueList);
   });
@@ -309,6 +312,60 @@ io.on('connection', function(socket) {
     queueList.splice(queueEntry.posInQueue, 1);
     queueList.unshift(mediaEntry);
     io.emit('From Server: Update queue with new queue', queueList);
+  });
+
+  socket.on('From Client: Update queue with new queue', function(newQueueList) {
+    console.log('Update to new queue');
+    console.log(newQueueList);
+    queueList = newQueueList;
+    io.emit('From Server: Update queue with new queue', queueList);
+  });
+
+  socket.on('From Client: Add all queue entries to playlist', function(data) {
+    var newPlaylist = new Playlist();
+
+    newPlaylist.name = data.name;
+    newPlaylist.owner = data.owner;
+    newPlaylist.playlistId = 1;
+    newPlaylist.isPublic = data.isPublic;
+    newPlaylist.likes = 0;
+
+    var queueEntry;
+    for (var i = 0; i < data.queueList.length; ++i) {
+      queueEntry = data.queueList[i];
+      newPlaylist.mediaEntries[i] = {
+        artist: queueEntry.artist,
+        mediaId: queueEntry.mediaId,
+        mediaType: queueEntry.mediaType,
+        thumbnail: queueEntry.thumbnail,
+        title: queueEntry.title
+      }; 
+    }
+
+    newPlaylist.save(function(err) {
+      if (err) {
+        throw err;
+      }
+      console.log("===================================");
+      console.log("Added Queue to a new playlist");
+      console.log(newPlaylist);
+    });
+
+    // Playlist.save({})
+    // Playlist.find({ 'isPublic' : true }, function(err, playlists) {
+    //   if (err) {
+    //     console.log('ERROR: Problem in loading playlists for the Explore');
+    //   }
+    //   else if (playlists.length > 0 && playlists != null && playlists != undefined) {
+    //     console.log(playlists);
+    //     req.explore = playlists; 
+    //     configExploreDB.set(playlists);
+    //   }
+    //   else {
+    //     console.log("Explore: No public playlists");
+    //   }
+    //   return next();
+    // });
   });
 
   /*  =============================================================================

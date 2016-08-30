@@ -4773,7 +4773,7 @@ var MediaEntry = React.createClass({
   // EVENT HANDLER: When the add to queue button is clicked, adds the media to the queue.
   addToQueue: function addToQueue() {
     var mediaEntry = {
-      videoId: this.props.videoId,
+      mediaId: this.props.mediaId,
       mediaType: this.props.mediaType,
       thumbnail: this.props.thumbnail,
       title: this.props.title,
@@ -4786,7 +4786,7 @@ var MediaEntry = React.createClass({
   // EVENT HANDLER: When the play button is clicked, plays the media entry onto the media player
   playMediaEntry: function playMediaEntry() {
     var mediaEntry = {
-      videoId: this.props.videoId,
+      mediaId: this.props.mediaId,
       mediaType: this.props.mediaType,
       thumbnail: this.props.thumbnail,
       title: this.props.title,
@@ -4800,7 +4800,7 @@ var MediaEntry = React.createClass({
   deleteMediaEntry: function deleteMediaEntry() {
     console.log("Delete Media Entry from Queue");
     var mediaEntry = {
-      videoId: this.props.videoId,
+      mediaId: this.props.mediaId,
       mediaType: this.props.mediaType,
       thumbnail: this.props.thumbnail,
       title: this.props.title,
@@ -4814,7 +4814,7 @@ var MediaEntry = React.createClass({
   // EVENT HANDLER: Moves media entry to the front of the queue as a play next media
   moveToFrontOfTheQueue: function moveToFrontOfTheQueue() {
     var mediaEntry = {
-      videoId: this.props.videoId,
+      mediaId: this.props.mediaId,
       mediaType: this.props.mediaType,
       thumbnail: this.props.thumbnail,
       title: this.props.title,
@@ -5502,40 +5502,8 @@ var MyPlaylists = React.createClass({
             size: playlistEntry.mediaEntries.length,
             type: playlistEntry.isPublic,
             likes: playlistEntry.likes,
-            liked: null }));
-        }
-
-        // DEMO PLAYLIST DATA
-        playlistEntries.push(React.createElement(PlaylistEntry, {
-          key: 0,
-          owner: true,
-          title: 'Saturday Morning Cartoons',
-          curator: 'Gliu',
-          size: '27',
-          type: 'private',
-          likes: '0',
-          liked: null }));
-        for (var i = 10; i < 15; ++i) {
-          playlistEntries.push(React.createElement(PlaylistEntry, {
-            key: i,
-            owner: true,
-            title: 'Chill Music Videos',
-            curator: 'Gliu',
-            size: '9',
-            type: 'public',
-            likes: '10',
-            liked: null }));
-        }
-        for (var i = 15; i < 20; ++i) {
-          playlistEntries.push(React.createElement(PlaylistEntry, {
-            key: i,
-            owner: false,
-            title: 'Trippy Stuff',
-            curator: 'MeSoRanz',
-            size: '103',
-            type: 'public',
-            likes: '873',
-            liked: true }));
+            liked: null,
+            mediaEntries: playlistEntry.mediaEntries }));
         }
       }
 
@@ -5607,6 +5575,8 @@ var PlaylistEntry = React.createClass({
 
   playPlaylist: function playPlaylist() {
     console.log("Playing playlist: " + this.props.title + " by " + this.props.curator);
+
+    socket.emit('From Client: Update queue with new queue', this.props.mediaEntries);
   },
 
   goToPlaylistPage: function goToPlaylistPage() {
@@ -5773,13 +5743,15 @@ var AddedMediaLength = React.createClass({
 var EditButton = React.createClass({
   displayName: 'EditButton',
 
+  addToPlaylist: function addToPlaylist() {},
+
   render: function render() {
     return React.createElement(
       'div',
       { className: 'queue-icon' },
       React.createElement(
         'a',
-        { className: 'icon-btn', href: 'javascript:void(0)' },
+        { className: 'icon-btn', href: 'javascript:void(0)', onClick: this.props.onClick },
         React.createElement('i', { className: 'fa fa-edit', 'data-toggle': 'tooltip', title: 'Edit', 'aria-hidden': 'true' })
       )
     );
@@ -5908,8 +5880,27 @@ var Queue = React.createClass({
   // EVENT HANDLER: Updates the queue with the server's queue
   updateQueueWithNewQueue: function updateQueueWithNewQueue(newQueueList) {
     this.setState({ queueList: newQueueList }, function () {
-      console.log("Finished updating queue");
+      reinitializeDraggable(function () {
+        console.log("Draggable reinitialized with Queue changes : updateQueueWithNewQueue");
+        $('.media-card').arrangeable();
+      });
     });
+  },
+
+  addToPlaylist: function addToPlaylist() {
+    console.log("Queue.jsx: addToPlaylist");
+    console.log(this.state.queueList);
+    // Do not add an emepty queue to a playlist
+    if (this.state.queueList.length <= 0) {
+      return;
+    }
+    var data = {
+      name: 'Chill ass music',
+      owner: 'Truong_R@yahoo.com',
+      isPublic: true,
+      queueList: this.state.queueList
+    };
+    socket.emit('From Client: Add all queue entries to playlist', data);
   },
 
   render: function render() {
@@ -5939,9 +5930,9 @@ var Queue = React.createClass({
           queueEntry = this.state.queueList[i];
 
           queueEntries.push(React.createElement(MediaEntry, {
-            key: queueEntry.videoId,
+            key: queueEntry.mediaId,
             pos: i,
-            videoId: queueEntry.videoId,
+            mediaId: queueEntry.mediaId,
             categoryType: 'QUEUE',
             mediaType: 'YOUTUBE',
             thumbnail: queueEntry.thumbnail,
@@ -5970,7 +5961,7 @@ var Queue = React.createClass({
           React.createElement(SquareButton, null),
           React.createElement(LikeButton, null),
           React.createElement(ShuffleButton, null),
-          React.createElement(EditButton, null)
+          React.createElement(EditButton, { onClick: this.addToPlaylist })
         )
       ),
       React.createElement(
@@ -6473,7 +6464,7 @@ var Search = React.createClass({
               searchEntries.push(React.createElement(MediaEntry, {
                 key: jsonItem.id.videoId,
                 pos: i,
-                videoId: jsonItem.id.videoId,
+                mediaId: jsonItem.id.videoId,
                 categoryType: 'SEARCH',
                 mediaType: 'YOUTUBE',
                 thumbnail: jsonItem.snippet.thumbnails.medium.url,

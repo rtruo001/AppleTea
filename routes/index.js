@@ -84,7 +84,7 @@ function loadMyPlaylists(req, res, next) {
 
   // Finds all public playlists in the database
   // TODO: implement indexing
-  Playlist.find({ 'owner' : req.user.email}, function(err, playlists) {
+  Playlist.find({ 'owner' : req.user.local.email}, function(err, playlists) {
     if (err) {
       console.log('ERROR: Problem in loading playlists for My Playlists');
     }

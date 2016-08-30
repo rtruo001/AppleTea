@@ -17,8 +17,11 @@ var playlistSchema = mongoose.Schema(
     isPublic          : Boolean,
     likes             : Number,
     mediaEntries: [{
+      artist          : String,
+      mediaId         : String,
       mediaType       : String,
-      id              : String
+      thumbnail       : String,
+      title           : String
     }]
   }
 );

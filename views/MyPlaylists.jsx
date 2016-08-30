@@ -82,46 +82,8 @@ var MyPlaylists = React.createClass({
             size={playlistEntry.mediaEntries.length}
             type={playlistEntry.isPublic}
             likes={playlistEntry.likes}
-            liked={null} />
-        );
-      }
-
-      // DEMO PLAYLIST DATA
-      playlistEntries.push (
-        <PlaylistEntry 
-          key={0}
-          owner={true}
-          title={'Saturday Morning Cartoons'}
-          curator={'Gliu'}
-          size={'27'}
-          type={'private'}
-          likes={'0'}
-          liked={null} />
-      );
-      for (var i = 10; i < 15; ++i) {
-        playlistEntries.push (
-          <PlaylistEntry 
-            key={i}
-            owner={true}
-            title={'Chill Music Videos'}
-            curator={'Gliu'}
-            size={'9'}
-            type={'public'}
-            likes={'10'}
-            liked={null} />
-        );
-      }
-      for (var i = 15; i < 20; ++i) {
-        playlistEntries.push (
-          <PlaylistEntry 
-            key={i}
-            owner={false}
-            title={'Trippy Stuff'}
-            curator={'MeSoRanz'}
-            size={'103'}
-            type={'public'}
-            likes={'873'}
-            liked={true} />
+            liked={null} 
+            mediaEntries={playlistEntry.mediaEntries} />
         );
       }
     }

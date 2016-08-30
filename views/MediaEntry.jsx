@@ -148,7 +148,7 @@ var MediaEntry = React.createClass({
   // EVENT HANDLER: When the add to queue button is clicked, adds the media to the queue.
   addToQueue: function() {
     var mediaEntry = {
-      videoId: this.props.videoId,
+      mediaId: this.props.mediaId,
       mediaType: this.props.mediaType,
       thumbnail: this.props.thumbnail,
       title: this.props.title,
@@ -161,7 +161,7 @@ var MediaEntry = React.createClass({
   // EVENT HANDLER: When the play button is clicked, plays the media entry onto the media player
   playMediaEntry: function() {
     var mediaEntry = {
-      videoId: this.props.videoId,
+      mediaId: this.props.mediaId,
       mediaType: this.props.mediaType,
       thumbnail: this.props.thumbnail,
       title: this.props.title,
@@ -175,7 +175,7 @@ var MediaEntry = React.createClass({
   deleteMediaEntry: function() {
     console.log("Delete Media Entry from Queue");
     var mediaEntry = {
-      videoId: this.props.videoId,
+      mediaId: this.props.mediaId,
       mediaType: this.props.mediaType,
       thumbnail: this.props.thumbnail,
       title: this.props.title,
@@ -189,7 +189,7 @@ var MediaEntry = React.createClass({
   // EVENT HANDLER: Moves media entry to the front of the queue as a play next media
   moveToFrontOfTheQueue: function() {
     var mediaEntry = {
-      videoId: this.props.videoId,
+      mediaId: this.props.mediaId,
       mediaType: this.props.mediaType,
       thumbnail: this.props.thumbnail,
       title: this.props.title,

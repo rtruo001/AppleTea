@@ -61,9 +61,13 @@ var AddedMediaLength = React.createClass({
 });
 
 var EditButton = React.createClass({
+  addToPlaylist: function() {
+
+  },
+
   render: function() {
     return (
-      <div className="queue-icon"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-edit" data-toggle="tooltip" title="Edit" aria-hidden="true"></i></a></div>  
+      <div className="queue-icon"><a className="icon-btn" href="javascript:void(0)" onClick={this.props.onClick}><i className="fa fa-edit" data-toggle="tooltip" title="Edit" aria-hidden="true"></i></a></div>  
     );
   }
 });
@@ -157,8 +161,27 @@ var Queue = React.createClass({
   // EVENT HANDLER: Updates the queue with the server's queue
   updateQueueWithNewQueue: function(newQueueList) {
     this.setState({queueList: newQueueList}, function() {
-      console.log("Finished updating queue");
+      reinitializeDraggable(function() {
+        console.log("Draggable reinitialized with Queue changes : updateQueueWithNewQueue");
+        $('.media-card').arrangeable();  
+      });
     });
+  },
+
+  addToPlaylist: function() {
+    console.log("Queue.jsx: addToPlaylist");
+    console.log(this.state.queueList);
+    // Do not add an emepty queue to a playlist
+    if (this.state.queueList.length <= 0) {
+      return;
+    }
+    var data = {
+      name: 'Chill ass music',
+      owner: 'Truong_R@yahoo.com',
+      isPublic: true,
+      queueList: this.state.queueList
+    }
+    socket.emit('From Client: Add all queue entries to playlist', data);
   },
 
   render: function() {
@@ -191,9 +214,9 @@ var Queue = React.createClass({
 
         queueEntries.push (
           <MediaEntry 
-            key={queueEntry.videoId} 
+            key={queueEntry.mediaId} 
             pos={i} 
-            videoId={queueEntry.videoId} 
+            mediaId={queueEntry.mediaId} 
             categoryType={'QUEUE'}
             mediaType={'YOUTUBE'}
             thumbnail={queueEntry.thumbnail} 
@@ -218,7 +241,7 @@ var Queue = React.createClass({
             <SquareButton />
             <LikeButton />
             <ShuffleButton />
-            <EditButton />
+            <EditButton onClick={this.addToPlaylist} />
           </div>
         </div>
 
