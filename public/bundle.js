@@ -3745,494 +3745,421 @@ ReactDOM.render(React.createElement(RoomComponent, { user: props.user, explore: 
 
 var React = require('react');
 
-/* Chatbox */
-var Chatbox = React.createClass({
-  displayName: "Chatbox",
+var UserListEntry = React.createClass({
+  displayName: "UserListEntry",
+
+  getInitialState: function getInitialState() {
+    return {
+      online: this.props.online,
+      moderator: this.props.moderator,
+      syncing: this.props.syncing
+    };
+  },
+  render: function render() {
+    var name = this.props.userName;
+    var online = this.state.online;
+    var moderator = this.state.moderator;
+
+    return React.createElement(
+      "div",
+      null,
+      React.createElement(
+        "li",
+        null,
+        function () {
+          if (online) return React.createElement("i", { className: "fa fa-circle status status-online" });else return React.createElement("i", { className: "fa fa-circle status status-offline" });
+        }(),
+        React.createElement(
+          "a",
+          { className: "user-name", href: "javascript:void(0)" },
+          name
+        ),
+        React.createElement(
+          "div",
+          { className: "users-list-edit" },
+          React.createElement(
+            "a",
+            { className: "icon-btn", href: "javascript:void(0)" },
+            React.createElement("i", { className: "fa fa-star fa-fw mod-toggle" })
+          ),
+          React.createElement(
+            "a",
+            { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
+            React.createElement("i", { className: "fa fa-remove fa-fw" })
+          )
+        ),
+        React.createElement(
+          "div",
+          { className: "users-list-icons" },
+          React.createElement("i", { className: "fa fa-refresh fa-spin fa-fw", "data-toggle": "tooltip", title: "Syncing" }),
+          React.createElement("i", { className: "fa fa-star fa-fw", "data-toggle": "tooltip", title: "Moderator" })
+        )
+      )
+    );
+  }
+});
+
+var UserList = React.createClass({
+  displayName: "UserList",
 
   render: function render() {
+
+    var onlineUsers = ["Gerard Liu", "Randy Truong", "Kevin Chiao", "Harrison Ford"];
+
+    var offlineUsers = ["Minnal Kunnan", "Jason Maryne", "Eric Dieu", "Kevin Ton", "Kris Luong", "Franky Nguyen", "Adrian Mandee", "Jay Yee", "George Huang", "Jelly Kid", "Finn Human"];
+
+    var onlineUserEntries = [];
+    var offlineUserEntries = [];
+
+    for (var i = 0; i < onlineUsers.length; i++) {
+      onlineUserEntries.push(React.createElement(UserListEntry, { userName: onlineUsers[i], online: true }));
+    }
+    for (var i = 0; i < offlineUsers.length; i++) {
+      offlineUserEntries.push(React.createElement(UserListEntry, { userName: offlineUsers[i], online: false }));
+    }
+
     return React.createElement(
       "div",
       null,
       React.createElement(
         "div",
-        { className: "room-header" },
+        { id: "users-list-container" },
         React.createElement(
           "div",
-          { className: "room-name onclick-edit" },
-          "Vent Room",
-          React.createElement(
-            "a",
-            { className: "icon-btn-dark", href: "javascript:void(0)" },
-            React.createElement("i", { className: "fa fa-edit", "aria-hidden": "true" })
-          )
-        ),
-        React.createElement(
-          "div",
-          { className: "users-btn" },
-          "4",
-          React.createElement("i", { className: "fa fa-users users-btn-icon" }),
-          React.createElement("i", { className: "fa fa-circle status status-online" })
-        ),
-        React.createElement(
-          "div",
-          { id: "users-list-container" },
+          { className: "users-list-container" },
           React.createElement(
             "div",
-            { className: "users-list-container" },
+            { className: "users-list-header users-online-section" },
+            "Members",
             React.createElement(
-              "div",
-              { className: "users-list-header users-online-section" },
-              "Members",
-              React.createElement(
-                "button",
-                { type: "button", className: "btn btn-sm btn-secondary users-list-edit-btn" },
-                React.createElement("i", { className: "fa fa-gear", id: "users-list-gear-icon" })
-              )
-            ),
-            React.createElement(
-              "div",
-              { className: "users-list-scroll-container" },
-              React.createElement(
-                "ul",
-                { className: "users-list" },
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-online" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name", href: "javascript:void(0)" },
-                    "Gerard Liu"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-icons" },
-                    React.createElement("i", { className: "fa fa-refresh fa-spin fa-fw", "data-toggle": "tooltip", title: "Syncing" }),
-                    React.createElement("i", { className: "fa fa-star fa-fw", "data-toggle": "tooltip", title: "Moderator" })
-                  )
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-online" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name", href: "javascript:void(0)" },
-                    "Randy Truong"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-icons" },
-                    React.createElement("i", { className: "fa fa-star fa-fw", "data-toggle": "tooltip", title: "Moderator" })
-                  )
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-online" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name", href: "javascript:void(0)" },
-                    "Kevin Chiao"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-icons" },
-                    React.createElement("i", { className: "fa fa-refresh fa-spin fa-fw", "data-toggle": "tooltip", title: "Syncing" })
-                  )
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-online" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name", href: "javascript:void(0)" },
-                    "Harrison Ford"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                )
-              ),
-              React.createElement(
-                "ul",
-                { className: "users-list users-list-section users-offline-section" },
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-offline" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Minnal Kunnan"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-online" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Jason Maryne"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-online" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Eric Dieu"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-offline" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Kevin Ton"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-offline" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Kris Luong"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-offline" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Franky Nguyen"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-online" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Adrian Mandee"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-offline" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Jay Yee"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-offline" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "George Huang"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-offline" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Jelly Kid"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                ),
-                React.createElement(
-                  "li",
-                  null,
-                  React.createElement("i", { className: "fa fa-circle status status-offline" }),
-                  React.createElement(
-                    "a",
-                    { className: "user-name offline", href: "javascript:void(0)" },
-                    "Finn Human"
-                  ),
-                  React.createElement(
-                    "div",
-                    { className: "users-list-edit" },
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-star-o fa-fw mod-toggle" })
-                    ),
-                    React.createElement(
-                      "a",
-                      { className: "icon-btn", "data-toggle": "modal", "data-target": "#kick-confirm", href: "javascript:void(0)" },
-                      React.createElement("i", { className: "fa fa-remove fa-fw" })
-                    )
-                  ),
-                  React.createElement("div", { className: "users-list-icons" })
-                )
-              )
-            ),
-            React.createElement(
-              "div",
-              { className: "users-list users-list-section users-list-add" },
-              React.createElement(
-                "button",
-                { type: "button", className: "btn btn-sm btn-secondary", "data-toggle": "modal", "data-target": "#add-user" },
-                React.createElement("i", { className: "fa fa-plus fa-fw" }),
-                "Add People"
-              )
+              "button",
+              { type: "button", className: "btn btn-sm btn-secondary users-list-edit-btn" },
+              React.createElement("i", { className: "fa fa-gear", id: "users-list-gear-icon" })
             )
-          )
-        )
-      ),
-      React.createElement("div", { className: "chat" }),
-      React.createElement(
-        "div",
-        { className: "chat-input-container" },
-        React.createElement(
-          "form",
-          { className: "chat-input", id: "chat-form", action: "" },
-          React.createElement("input", { id: "m", autoComplete: "off", type: "text", className: "chat-textbox", name: "", placeholder: "Type a message..." })
-        )
-      ),
-      React.createElement(
-        "div",
-        { className: "modal fade", id: "enter-name", tabIndex: "-1", role: "dialog", "aria-labelledby": "myModalLabel" },
-        React.createElement(
-          "div",
-          { className: "modal-dialog modal-sm", role: "document" },
+          ),
           React.createElement(
             "div",
-            { className: "modal-content" },
+            { className: "users-list-scroll-container" },
             React.createElement(
-              "div",
-              { className: "modal-body" },
-              React.createElement(
-                "form",
-                { className: "search-input", id: "username-form", action: "" },
-                React.createElement("input", { id: "u", autoComplete: "off", type: "text", className: "chat-textbox", name: "", placeholder: "Enter Your Name" })
-              )
+              "ul",
+              { className: "users-list" },
+              onlineUserEntries
+            ),
+            React.createElement(
+              "ul",
+              { className: "users-list users-list-section users-offline-section" },
+              offlineUserEntries
+            )
+          ),
+          React.createElement(
+            "div",
+            { className: "users-list users-list-section users-list-add" },
+            React.createElement(
+              "button",
+              { type: "button", className: "btn btn-sm btn-secondary", "data-toggle": "modal", "data-target": "#add-user" },
+              React.createElement("i", { className: "fa fa-plus fa-fw" }),
+              "Add People"
             )
           )
         )
       )
+    );
+  }
+});
+
+var ChatHeader = React.createClass({
+  displayName: "ChatHeader",
+
+  render: function render() {
+    return React.createElement(
+      "div",
+      { className: "room-header" },
+      React.createElement(
+        "div",
+        { className: "room-name onclick-edit" },
+        "Vent Room",
+        React.createElement(
+          "a",
+          { className: "icon-btn-dark", href: "javascript:void(0)" },
+          React.createElement("i", { className: "fa fa-edit", "aria-hidden": "true" })
+        )
+      ),
+      React.createElement(
+        "div",
+        { className: "users-btn" },
+        "4",
+        React.createElement("i", { className: "fa fa-users users-btn-icon" }),
+        React.createElement("i", { className: "fa fa-circle status status-online" })
+      ),
+      React.createElement(UserList, null)
+    );
+  }
+});
+
+var ChatMessage = React.createClass({
+  displayName: "ChatMessage",
+
+  getInitialState: function getInitialState() {
+    return {
+      owner: this.props.owner,
+      message: this.props.message,
+      username: this.props.username
+    };
+  },
+  render: function render() {
+    var _this = this;
+
+    return React.createElement(
+      "div",
+      null,
+      function () {
+        if (_this.state.owner) {
+          return React.createElement(
+            "div",
+            { className: "chat-msg-user" },
+            React.createElement(
+              "div",
+              { className: "msg" },
+              _this.state.message
+            )
+          );
+        } else {
+          return React.createElement(
+            "div",
+            { className: "chat-msg" },
+            React.createElement(
+              "div",
+              { className: "name" },
+              _this.state.username
+            ),
+            React.createElement(
+              "div",
+              { className: "msg" },
+              _this.state.message
+            ),
+            React.createElement("img", { className: "profile-pic", src: "images/profile-pic.png" })
+          );
+        }
+      }()
+    );
+  }
+});
+
+var ChatUserActivityMessage = React.createClass({
+  displayName: "ChatUserActivityMessage",
+
+  render: function render() {
+    var _this2 = this;
+
+    return React.createElement(
+      "div",
+      null,
+      function () {
+        switch (_this2.props.activity) {
+          case "joined":
+            return React.createElement(
+              "div",
+              { className: "chat-notif" },
+              _this2.props.username,
+              " has joined the chat."
+            );
+            break;
+          case "disconnected":
+            return React.createElement(
+              "div",
+              { className: "chat-notif" },
+              _this2.props.username,
+              " has left the chat."
+            );
+            break;
+        }
+      }()
+    );
+  }
+});
+
+var ChatDisplay = React.createClass({
+  displayName: "ChatDisplay",
+
+  getInitialState: function getInitialState() {
+    return {
+      messages: []
+    };
+  },
+  autoscroll: true,
+  scrollToBottom: function scrollToBottom() {
+    this.chat.scrollTop = this.chat.scrollHeight;
+  },
+  userHasJoined: function userHasJoined(user) {
+    var messages = this.state.messages;
+    messages.push(React.createElement(ChatUserActivityMessage, { username: user.username, activity: "joined" }));
+    this.setState({
+      messages: messages
+    });
+  },
+  userHasDisconnected: function userHasDisconnected(user) {
+    var messages = this.state.messages;
+    messages.push(React.createElement(ChatUserActivityMessage, { username: user.username, activity: "disconnected" }));
+    this.setState({
+      messages: messages
+    });
+  },
+  newMessage: function newMessage(msg) {
+    var isOwner = this.props.username === msg.username;
+    var messages = this.state.messages;
+    messages.push(React.createElement(ChatMessage, { username: msg.username, owner: isOwner, message: msg.message }));
+    this.setState({
+      messages: messages
+    });
+  },
+  componentDidMount: function componentDidMount() {
+    socket.on("From Server: User joined", this.userHasJoined);
+    socket.on('From Server: User disconnected', this.userHasDisconnected);
+    socket.on('From Server: Chat message', this.newMessage);
+
+    this.scrollToBottom();
+  },
+  componentWillUpdate: function componentWillUpdate() {
+    var isAtRecentMessages = this.chat.scrollTop == this.chat.scrollHeight - this.chat.clientHeight;
+    if (isAtRecentMessages) {
+      this.autoscroll = true;
+    } else {
+      this.autoscroll = false;
+    }
+  },
+  componentDidUpdate: function componentDidUpdate() {
+    if (this.autoscroll) {
+      this.scrollToBottom();
+    }
+  },
+  render: function render() {
+    var _this3 = this;
+
+    return React.createElement(
+      "div",
+      { className: "chat", ref: function ref(_ref) {
+          return _this3.chat = _ref;
+        } },
+      this.state.messages
+    );
+  }
+});
+
+var ChatInput = React.createClass({
+  displayName: "ChatInput",
+
+  getInitialState: function getInitialState() {
+    return {
+      message: ""
+    };
+  },
+  ifUsernameExists: function ifUsernameExists() {
+    if (!this.props.username || 0 === this.state.username.length) {
+      return false;
+    }
+    return true;
+  },
+  updateMessage: function updateMessage(e) {
+    this.setState({
+      message: e.target.value
+    });
+  },
+  clearMessage: function clearMessage() {
+    this.setState({
+      message: ""
+    });
+  },
+  sendMessage: function sendMessage(e) {
+    e.preventDefault();
+
+    // TODO Do message input string checks
+    // No empty string, no white spaces, Valid characters a-z, A-Z, 0-9
+    // Client emits to server with Chat Message
+    socket.emit('From Client: Chat message', this.state.message);
+    this.clearMessage();
+  },
+  render: function render() {
+    return React.createElement(
+      "div",
+      { className: "chat-input-container" },
+      React.createElement(
+        "form",
+        { className: "chat-input", id: "chat-form", action: "", onSubmit: this.sendMessage },
+        React.createElement("input", { id: "m", value: this.state.message, onChange: this.updateMessage, autoComplete: "off", type: "text", className: "chat-textbox", name: "", placeholder: "Type a message..." })
+      )
+    );
+  }
+});
+
+var GuestUserForm = React.createClass({
+  displayName: "GuestUserForm",
+
+  getInitialState: function getInitialState() {
+    return {
+      username: ""
+    };
+  },
+  updateUsername: function updateUsername(e) {
+    this.setState({
+      username: e.target.value
+    });
+  },
+  submitUsername: function submitUsername(e) {
+    e.preventDefault();
+    this.props.setUsernameCallback(this.state.username);
+
+    // TODO Do username input string checks
+    // No empty string, no white spaces, Valid characters a-z, A-Z, 0-9
+    // Client emits to server with Add user
+    socket.emit('From Client: Add user', this.state.username);
+  },
+  render: function render() {
+    return React.createElement(
+      "div",
+      { className: "modal fade", id: "enter-name", tabIndex: "-1", role: "dialog", "aria-labelledby": "myModalLabel" },
+      React.createElement(
+        "div",
+        { className: "modal-dialog modal-sm", role: "document" },
+        React.createElement(
+          "div",
+          { className: "modal-content" },
+          React.createElement(
+            "div",
+            { className: "modal-body" },
+            React.createElement(
+              "form",
+              { className: "search-input", id: "username-form", action: "", onSubmit: this.submitUsername },
+              React.createElement("input", { value: this.state.username, onChange: this.updateUsername, autoComplete: "off", type: "text", className: "chat-textbox", name: "", placeholder: "Enter Your Name", autoFocus: true })
+            )
+          )
+        )
+      )
+    );
+  }
+});
+
+/* Chatbox */
+var Chatbox = React.createClass({
+  displayName: "Chatbox",
+
+  getInitialState: function getInitialState() {
+    return {
+      username: ""
+    };
+  },
+  setUsername: function setUsername(username) {
+    this.setState({
+      username: username
+    });
+  },
+  render: function render() {
+    return React.createElement(
+      "div",
+      null,
+      React.createElement(ChatHeader, null),
+      React.createElement(ChatDisplay, { username: this.state.username }),
+      React.createElement(ChatInput, { username: this.state.username }),
+      React.createElement(GuestUserForm, { setUsernameCallback: this.setUsername })
     );
   }
 });
