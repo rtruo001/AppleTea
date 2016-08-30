@@ -260,17 +260,17 @@ io.on('connection', function(socket) {
 
   socket.on('From Client: Push into queue', function(queueEntry) {
     // When add to queue button is pressed when there is nothing in the queue, doesn't add media to queue but instead plays it on the media player
-    if (queueList.length <= 0 && playerMediaType == MEDIAPLAYERTYPES.NONE) {
-      console.log(queueEntry);
-      playerMediaType = queueEntry.mediaType;
-      playerMediaVideoID = queueEntry.mediaId;
-      playerMediaTitle = queueEntry.title;
-      mediaCurrentState = MEDIAPLAYERSTATES.PLAYING;
-      mediaElapsedTime = 0;
+    // if (queueList.length <= 0 && playerMediaType == MEDIAPLAYERTYPES.NONE) {
+    //   console.log(queueEntry);
+    //   playerMediaType = queueEntry.mediaType;
+    //   playerMediaVideoID = queueEntry.mediaId;
+    //   playerMediaTitle = queueEntry.title;
+    //   mediaCurrentState = MEDIAPLAYERSTATES.PLAYING;
+    //   mediaElapsedTime = 0;
 
-      io.emit('From Server: Load media entry', queueEntry);
-      return;
-    }
+    //   io.emit('From Server: Load media entry', queueEntry);
+    //   return;
+    // }
 
     // If there is a duplicate media, do not add to the queue list
     if (queueListHashSet[queueEntry.mediaId]) {
@@ -299,6 +299,28 @@ io.on('connection', function(socket) {
     io.emit('From Server: Update queue with new queue', newQueueList);
   });
 
+  socket.on('From Client: Play new media entry from queue', function(queueEntry) {
+    playerMediaType = queueEntry.mediaType;
+    playerMediaVideoID = queueEntry.mediaId;
+    playerMediaTitle = queueEntry.title;
+    mediaCurrentState = MEDIAPLAYERSTATES.PLAYING;
+    mediaElapsedTime = 0;
+
+    io.emit("From Server: Load media entry", {
+      mediaType: playerMediaType,
+      mediaId: playerMediaVideoID,
+      title: playerMediaTitle,
+      state: mediaCurrentState,
+      elapsedTime: mediaElapsedTime,
+      ifAlreadySentFromClient: false
+    });
+
+    // Deletes the queue entry after playing
+    delete queueListHashSet[queueEntry.mediaId];
+    queueList.splice(queueEntry.posInQueue, 1);
+    io.emit('From Server: Update queue with new queue', queueList);
+  });   
+
   socket.on('From Client: Delete media entry from queue', function(queueEntry) {
     console.log('Deleting media entry from Queue: ' + queueEntry.posInQueue);
     delete queueListHashSet[queueEntry.mediaId];
@@ -314,7 +336,13 @@ io.on('connection', function(socket) {
     io.emit('From Server: Update queue with new queue', queueList);
   });
 
-  socket.on('From Client: Update queue with new queue', function(newQueueList) {
+  socket.on('From Client: Update queue with new list', function(newQueueList) {
+    // Resets the list to check for duplicates for the queue
+    queueListHashSet = {};
+    for (var i = 0; i < newQueueList.length; ++i) {
+      queueListHashSet[newQueueList[i].mediaId] = true;  
+    }
+
     console.log('Update to new queue');
     console.log(newQueueList);
     queueList = newQueueList;
@@ -329,18 +357,19 @@ io.on('connection', function(socket) {
     newPlaylist.playlistId = 1;
     newPlaylist.isPublic = data.isPublic;
     newPlaylist.likes = 0;
+    newPlaylist.mediaEntries = queueList;
 
-    var queueEntry;
-    for (var i = 0; i < data.queueList.length; ++i) {
-      queueEntry = data.queueList[i];
-      newPlaylist.mediaEntries[i] = {
-        artist: queueEntry.artist,
-        mediaId: queueEntry.mediaId,
-        mediaType: queueEntry.mediaType,
-        thumbnail: queueEntry.thumbnail,
-        title: queueEntry.title
-      }; 
-    }
+    // var queueEntry;
+    // for (var i = 0; i < data.queueList.length; ++i) {
+    //   queueEntry = data.queueList[i];
+    //   newPlaylist.mediaEntries[i] = {
+    //     artist: queueEntry.artist,
+    //     mediaId: queueEntry.mediaId,
+    //     mediaType: queueEntry.mediaType,
+    //     thumbnail: queueEntry.thumbnail,
+    //     title: queueEntry.title
+    //   }; 
+    // }
 
     newPlaylist.save(function(err) {
       if (err) {
@@ -349,6 +378,7 @@ io.on('connection', function(socket) {
       console.log("===================================");
       console.log("Added Queue to a new playlist");
       console.log(newPlaylist);
+      socket.emit("From Server: Update MyPlaylist with new playlists", newPlaylist);
     });
 
     // Playlist.save({})

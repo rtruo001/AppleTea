@@ -47,16 +47,20 @@ var PlaylistIcon = React.createClass({
 
 // MAIN COMPONENT: Each individual playlist card
 var PlaylistEntry = React.createClass({
+
+  // EVENT HANDLER: Adds the playlist into the queue
   playPlaylist: function() {
     console.log("Playing playlist: " + this.props.title + " by " + this.props.curator);
 
-    socket.emit('From Client: Update queue with new queue', this.props.mediaEntries);
+    socket.emit('From Client: Update queue with new list', this.props.mediaEntries);
   },
 
+  // EVENT HANDLER: Opens the playlist's page
   goToPlaylistPage: function() {
     console.log("Going to playlist page: " + this.props.title);
   },
 
+  // EVENT HANDLER: Opens the curator's page
   goToCuratorPage: function() {
     console.log("Going to curator page: " + this.props.curator);
   },
@@ -80,7 +84,7 @@ var PlaylistEntry = React.createClass({
                   </div>
                 </div>
               </a>
-              <img className="playlist-img" src="images/media-icon.png" />
+              <img className="playlist-img" src={this.props.thumbnail} />
             </div>
             <div className="playlist-text-container">
               <div className="playlist-title">

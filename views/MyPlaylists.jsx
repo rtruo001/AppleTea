@@ -50,12 +50,28 @@ var SearchMyPlaylist = React.createClass({
 
 // MAIN COMPONENT: My Playlist Tab
 var MyPlaylists = React.createClass({
+  getInitialState: function() {
+    return {
+      allPlaylistEntries: this.props.myPlaylists 
+    };
+  },
+
+  componentDidMount: function() {
+    socket.on("From Server: Update MyPlaylist with new playlists" ,this.updateAllPlaylistEntries);
+  },
+
+  // EVENT HANDLER: Update the playlist entry
+  updateAllPlaylistEntries: function(newPlaylist) {
+    var playlistsWithNewEntry = this.state.allPlaylistEntries.concat(newPlaylist);
+    this.setState({allPlaylistEntries : playlistsWithNewEntry});
+  },
+
   render: function() {
     var playlistEntries = [];
-    console.log(this.props.myPlaylists);
+    console.log(this.state.allPlaylistEntries);
 
     // If there are no playlists, the placeholder is displayed
-    if (this.props.myPlaylists === undefined || this.props.myPlaylists === null || this.props.myPlaylists.length <= 0) {
+    if (this.state.allPlaylistEntries === undefined || this.state.allPlaylistEntries === null || this.state.allPlaylistEntries.length <= 0) {
       return (
         <div>
           <MyPlaylistPlaceholder />
@@ -70,14 +86,15 @@ var MyPlaylists = React.createClass({
       )
 
       var playlistEntry;
-      for (var i = 0; i < this.props.myPlaylists.length; ++i) {
-        playlistEntry = this.props.myPlaylists[i];
+      for (var i = 0; i < this.state.allPlaylistEntries.length; ++i) {
+        playlistEntry = this.state.allPlaylistEntries[i];
         playlistEntries.push (
           // TODO: owner, liked
           <PlaylistEntry
             key={playlistEntry._id}
             owner={true}
             title={playlistEntry.name}
+            thumbnail={playlistEntry.mediaEntries[0].thumbnail}
             curator={playlistEntry.owner}
             size={playlistEntry.mediaEntries.length}
             type={playlistEntry.isPublic}

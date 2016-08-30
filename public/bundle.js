@@ -4785,15 +4785,28 @@ var MediaEntry = React.createClass({
 
   // EVENT HANDLER: When the play button is clicked, plays the media entry onto the media player
   playMediaEntry: function playMediaEntry() {
-    var mediaEntry = {
-      mediaId: this.props.mediaId,
-      mediaType: this.props.mediaType,
-      thumbnail: this.props.thumbnail,
-      title: this.props.title,
-      artist: this.props.artist,
-      ifMediaCardAdded: true
-    };
-    socket.emit('From Client: Play new media entry', mediaEntry);
+    if (this.props.categoryType == CATEGORYOFMEDIA.SEARCH) {
+      var mediaEntry = {
+        mediaId: this.props.mediaId,
+        mediaType: this.props.mediaType,
+        thumbnail: this.props.thumbnail,
+        title: this.props.title,
+        artist: this.props.artist,
+        ifMediaCardAdded: true
+      };
+      socket.emit('From Client: Play new media entry', mediaEntry);
+    } else if (this.props.categoryType == CATEGORYOFMEDIA.QUEUE) {
+      var queueEntry = {
+        mediaId: this.props.mediaId,
+        mediaType: this.props.mediaType,
+        thumbnail: this.props.thumbnail,
+        title: this.props.title,
+        artist: this.props.artist,
+        ifMediaCardAdded: true,
+        posInQueue: this.props.pos
+      };
+      socket.emit('From Client: Play new media entry from queue', queueEntry);
+    }
   },
 
   // EVENT HANDLER: When the delete button is clicked, removes the media entry from queue
@@ -5472,12 +5485,28 @@ var SearchMyPlaylist = React.createClass({
 var MyPlaylists = React.createClass({
   displayName: 'MyPlaylists',
 
+  getInitialState: function getInitialState() {
+    return {
+      allPlaylistEntries: this.props.myPlaylists
+    };
+  },
+
+  componentDidMount: function componentDidMount() {
+    socket.on("From Server: Update MyPlaylist with new playlists", this.updateAllPlaylistEntries);
+  },
+
+  // EVENT HANDLER: Update the playlist entry
+  updateAllPlaylistEntries: function updateAllPlaylistEntries(newPlaylist) {
+    var playlistsWithNewEntry = this.state.allPlaylistEntries.concat(newPlaylist);
+    this.setState({ allPlaylistEntries: playlistsWithNewEntry });
+  },
+
   render: function render() {
     var playlistEntries = [];
-    console.log(this.props.myPlaylists);
+    console.log(this.state.allPlaylistEntries);
 
     // If there are no playlists, the placeholder is displayed
-    if (this.props.myPlaylists === undefined || this.props.myPlaylists === null || this.props.myPlaylists.length <= 0) {
+    if (this.state.allPlaylistEntries === undefined || this.state.allPlaylistEntries === null || this.state.allPlaylistEntries.length <= 0) {
       return React.createElement(
         'div',
         null,
@@ -5490,14 +5519,15 @@ var MyPlaylists = React.createClass({
         playlistEntries.push(React.createElement(SearchMyPlaylist, { key: 'SearchMyPlaylist' }));
 
         var playlistEntry;
-        for (var i = 0; i < this.props.myPlaylists.length; ++i) {
-          playlistEntry = this.props.myPlaylists[i];
+        for (var i = 0; i < this.state.allPlaylistEntries.length; ++i) {
+          playlistEntry = this.state.allPlaylistEntries[i];
           playlistEntries.push(
           // TODO: owner, liked
           React.createElement(PlaylistEntry, {
             key: playlistEntry._id,
             owner: true,
             title: playlistEntry.name,
+            thumbnail: playlistEntry.mediaEntries[0].thumbnail,
             curator: playlistEntry.owner,
             size: playlistEntry.mediaEntries.length,
             type: playlistEntry.isPublic,
@@ -5573,16 +5603,20 @@ var PlaylistIcon = React.createClass({
 var PlaylistEntry = React.createClass({
   displayName: "PlaylistEntry",
 
+
+  // EVENT HANDLER: Adds the playlist into the queue
   playPlaylist: function playPlaylist() {
     console.log("Playing playlist: " + this.props.title + " by " + this.props.curator);
 
-    socket.emit('From Client: Update queue with new queue', this.props.mediaEntries);
+    socket.emit('From Client: Update queue with new list', this.props.mediaEntries);
   },
 
+  // EVENT HANDLER: Opens the playlist's page
   goToPlaylistPage: function goToPlaylistPage() {
     console.log("Going to playlist page: " + this.props.title);
   },
 
+  // EVENT HANDLER: Opens the curator's page
   goToCuratorPage: function goToCuratorPage() {
     console.log("Going to curator page: " + this.props.curator);
   },
@@ -5621,7 +5655,7 @@ var PlaylistEntry = React.createClass({
               )
             )
           ),
-          React.createElement("img", { className: "playlist-img", src: "images/media-icon.png" })
+          React.createElement("img", { className: "playlist-img", src: this.props.thumbnail })
         ),
         React.createElement(
           "div",
@@ -5681,7 +5715,7 @@ module.exports = PlaylistEntry;
                   AddedMediaLength
                   ShuffleButton
                   LikeButton
-                  SquareButton
+                  ClearButton
                   QueuePlaceHolder
                   Queue
 
@@ -5790,8 +5824,8 @@ var LikeButton = React.createClass({
   }
 });
 
-var SquareButton = React.createClass({
-  displayName: 'SquareButton',
+var ClearButton = React.createClass({
+  displayName: 'ClearButton',
 
   render: function render() {
     return React.createElement(
@@ -5799,7 +5833,7 @@ var SquareButton = React.createClass({
       { className: 'queue-icon' },
       React.createElement(
         'a',
-        { className: 'icon-btn', href: 'javascript:void(0)' },
+        { className: 'icon-btn', href: 'javascript:void(0)', onClick: this.props.onClick },
         React.createElement('i', { className: 'fa fa-square-o', 'data-toggle': 'tooltip', title: 'Clear', 'aria-hidden': 'true' })
       )
     );
@@ -5887,6 +5921,7 @@ var Queue = React.createClass({
     });
   },
 
+  // EVENT HANDLER: Updates the my playlist tab with a new playlist entry
   addToPlaylist: function addToPlaylist() {
     console.log("Queue.jsx: addToPlaylist");
     console.log(this.state.queueList);
@@ -5903,6 +5938,12 @@ var Queue = React.createClass({
     socket.emit('From Client: Add all queue entries to playlist', data);
   },
 
+  // EVENT HANDLER: Clears the entire queue
+  clearQueue: function clearQueue() {
+    console.log("Clearing the queue");
+    socket.emit('From Client: Update queue with new list', []);
+  },
+
   render: function render() {
     // Prepares each media entry. Whenever a media is added, populates the queue list with the new media entry
     var queueEntries = [];
@@ -5913,16 +5954,6 @@ var Queue = React.createClass({
     if (this.state.queueList.length <= 0) {
       queueEntries.push(React.createElement(QueuePlaceHolder, { key: 'QueuePlaceHolder' }));
     }
-
-    /* TODO: When list is empty AFTER FINISHING A PLAYLIST, display this placeholder instead
-      <div className="placeholder">
-        <div className="placeholder-content">
-          <i className="fa fa-child placeholder-icon"></i><br/>
-          <span>You finished your playlist!</span>
-        </div>
-      </div>
-    </div>
-    */
 
     // If there are media entries, pushes every media entry the queueEntries instead
     else {
@@ -5958,7 +5989,7 @@ var Queue = React.createClass({
         React.createElement(
           'div',
           { className: 'queue-icon-container' },
-          React.createElement(SquareButton, null),
+          React.createElement(ClearButton, { onClick: this.clearQueue }),
           React.createElement(LikeButton, null),
           React.createElement(ShuffleButton, null),
           React.createElement(EditButton, { onClick: this.addToPlaylist })

@@ -160,15 +160,29 @@ var MediaEntry = React.createClass({
 
   // EVENT HANDLER: When the play button is clicked, plays the media entry onto the media player
   playMediaEntry: function() {
-    var mediaEntry = {
-      mediaId: this.props.mediaId,
-      mediaType: this.props.mediaType,
-      thumbnail: this.props.thumbnail,
-      title: this.props.title,
-      artist: this.props.artist,
-      ifMediaCardAdded: true
+    if (this.props.categoryType == CATEGORYOFMEDIA.SEARCH) {
+      var mediaEntry = {
+        mediaId: this.props.mediaId,
+        mediaType: this.props.mediaType,
+        thumbnail: this.props.thumbnail,
+        title: this.props.title,
+        artist: this.props.artist,
+        ifMediaCardAdded: true
+      }
+      socket.emit('From Client: Play new media entry', mediaEntry);  
     }
-    socket.emit('From Client: Play new media entry', mediaEntry);
+    else if (this.props.categoryType == CATEGORYOFMEDIA.QUEUE) {
+      var queueEntry = {
+        mediaId: this.props.mediaId,
+        mediaType: this.props.mediaType,
+        thumbnail: this.props.thumbnail,
+        title: this.props.title,
+        artist: this.props.artist,
+        ifMediaCardAdded: true,
+        posInQueue: this.props.pos
+      }
+      socket.emit('From Client: Play new media entry from queue', queueEntry);   
+    }
   },
 
   // EVENT HANDLER: When the delete button is clicked, removes the media entry from queue

@@ -14,7 +14,7 @@
                   AddedMediaLength
                   ShuffleButton
                   LikeButton
-                  SquareButton
+                  ClearButton
                   QueuePlaceHolder
                   Queue
 
@@ -88,10 +88,10 @@ var LikeButton = React.createClass({
   }
 });
 
-var SquareButton = React.createClass({
+var ClearButton = React.createClass({
   render: function() {
     return (
-      <div className="queue-icon"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-square-o" data-toggle="tooltip" title="Clear" aria-hidden="true"></i></a></div>  
+      <div className="queue-icon"><a className="icon-btn" href="javascript:void(0)" onClick={this.props.onClick}><i className="fa fa-square-o" data-toggle="tooltip" title="Clear" aria-hidden="true"></i></a></div>  
     );
   }
 });
@@ -168,6 +168,7 @@ var Queue = React.createClass({
     });
   },
 
+  // EVENT HANDLER: Updates the my playlist tab with a new playlist entry
   addToPlaylist: function() {
     console.log("Queue.jsx: addToPlaylist");
     console.log(this.state.queueList);
@@ -184,6 +185,12 @@ var Queue = React.createClass({
     socket.emit('From Client: Add all queue entries to playlist', data);
   },
 
+  // EVENT HANDLER: Clears the entire queue
+  clearQueue: function() {
+    console.log("Clearing the queue");
+    socket.emit('From Client: Update queue with new list', []);
+  },
+
   render: function() {
     // Prepares each media entry. Whenever a media is added, populates the queue list with the new media entry
     var queueEntries = [];
@@ -196,16 +203,6 @@ var Queue = React.createClass({
         <QueuePlaceHolder key={'QueuePlaceHolder'} />
       )
     }
-
-    /* TODO: When list is empty AFTER FINISHING A PLAYLIST, display this placeholder instead
-      <div className="placeholder">
-        <div className="placeholder-content">
-          <i className="fa fa-child placeholder-icon"></i><br/>
-          <span>You finished your playlist!</span>
-        </div>
-      </div>
-    </div>
-    */
 
     // If there are media entries, pushes every media entry the queueEntries instead
     else {
@@ -238,7 +235,7 @@ var Queue = React.createClass({
           </div>
 
           <div className="queue-icon-container">
-            <SquareButton />
+            <ClearButton onClick={this.clearQueue} />
             <LikeButton />
             <ShuffleButton />
             <EditButton onClick={this.addToPlaylist} />
