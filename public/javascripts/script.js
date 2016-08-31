@@ -17,14 +17,14 @@ $('#m').click(function(){
 
 
 /* Manual Bootstrap Dropdown Toggle */
-$('.dropdown-toggle').click(function() {
-    if (!$(this).parent().hasClass('open')) {
-        $(this).parent().addClass('open');
-    }
-    else {
-        $(this).parent().removeClass('open');
-    };
-});
+// $('.dropdown-toggle').click(function() {
+//     if (!$(this).parent().hasClass('open')) {
+//         $(this).parent().addClass('open');
+//     }
+//     else {
+//         $(this).parent().removeClass('open');
+//     };
+// });
 
 
 /* Drag Arrange for Queue*/
