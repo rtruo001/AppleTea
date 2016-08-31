@@ -1,3 +1,5 @@
+// FILE CURRENTLY NOT USED
+
 /*  =============================================================================
     Copyright © 
     ========================================================================== */
@@ -10,20 +12,20 @@
     do client side rendering.
     ========================================================================== */
 
-var exploreData = {
-  db: null
-}
+// var exploreData = {
+//   db: null
+// }
 
-// Setter function 
-exports.set = function(dbData) {
-  console.log('Setting client Explore data');
-  console.log(dbData);
-  exploreData.db = dbData;
-}
+// // Setter function 
+// exports.set = function(dbData) {
+//   console.log('Setting client Explore data');
+//   console.log(dbData);
+//   exploreData.db = dbData;
+// }
 
-// Getter function
-exports.get = function() {
-  console.log('Getting client Explore data');
-  console.log(exploreData.db);
-  return exploreData.db;
-}
+// // Getter function
+// exports.get = function() {
+//   console.log('Getting client Explore data');
+//   console.log(exploreData.db);
+//   return exploreData.db;
+// }

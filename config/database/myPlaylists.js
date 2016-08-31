@@ -1,3 +1,5 @@
+// FILE CURRENTLY NOT USED
+
 /*  =============================================================================
     Copyright © 
     ========================================================================== */
@@ -10,20 +12,20 @@
     do client side rendering.
     ========================================================================== */
 
-var myPlaylistData = {
-  db: null
-}
+// var myPlaylistData = {
+//   db: null
+// }
 
-// Setter function 
-exports.set = function(dbData) {
-  console.log('Setting client My Playlists data');
-  console.log(dbData);
-  myPlaylistData.db = dbData;
-}
+// // Setter function 
+// exports.set = function(dbData) {
+//   console.log('Setting client My Playlists data');
+//   console.log(dbData);
+//   myPlaylistData.db = dbData;
+// }
 
-// Getter function
-exports.get = function() {
-  console.log('Getting client My Playlists data');
-  console.log(myPlaylistData.db);
-  return myPlaylistData.db;
-}
+// // Getter function
+// exports.get = function() {
+//   console.log('Getting client My Playlists data');
+//   console.log(myPlaylistData.db);
+//   return myPlaylistData.db;
+// }

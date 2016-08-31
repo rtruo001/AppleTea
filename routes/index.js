@@ -15,10 +15,6 @@ var React = require('react');
 // Playlist Schema
 var Playlist = require('../models/playlist');
 
-// Storing data to Server for client to render with the data after mounting
-var configExploreDB = require('../config/database/explore');
-var configMyPlaylistsDB = require('../config/database/myPlaylists');
-
 /*  =============================================================================
     Function loadExplore
 
@@ -37,7 +33,6 @@ function loadExplore(req, res, next) {
     else if (playlists.length > 0 && playlists != null && playlists != undefined) {
       console.log(playlists);
       req.explore = playlists; 
-      configExploreDB.set(playlists);
     }
     else {
       console.log("Explore: No public playlists");
@@ -91,7 +86,6 @@ function loadMyPlaylists(req, res, next) {
     else if (playlists.length > 0 && playlists != null && playlists != undefined) {
       console.log(playlists);
       req.myPlaylists = playlists; 
-      configMyPlaylistsDB.set(playlists);
     }
     else {
       console.log("My Playlist: No playlists");
