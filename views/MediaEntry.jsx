@@ -200,6 +200,12 @@ var MediaEntry = React.createClass({
     socket.emit('From Client: Move media entry to front of queue', mediaEntry);
   },
 
+  componentDidMount() {
+    $(this.icon1).tooltip();
+    $(this.icon2).tooltip();
+    $(this.icon3).tooltip();
+  },
+
   render: function() {
     var categoryDivName;
     var categoryClassName;
@@ -275,10 +281,10 @@ var MediaEntry = React.createClass({
 
               {/* TODO make tooltips work and make dropdown work */}
               <div className="search-media-icon-container">
-                <div className="search-media-icon" data-toggle="tooltip" title="Add to Queue"><a id={"media-entry-button-" + this.props.pos} className="icon-btn" href="javascript:void(0)" onClick={this.addToQueue}><i className="fa fa-plus fa-lg"></i></a></div>
-                <div className="search-media-icon"><a className="icon-btn" href="javascript:void(0)" onClick={this.playMediaEntry}><i className="fa fa-play" data-toggle="tooltip" title="Play Now"></i></a></div>
+                <div className="search-media-icon"><a id={"media-entry-button-" + this.props.pos} className="icon-btn" href="javascript:void(0)" onClick={this.addToQueue}><i className="fa fa-plus fa-lg" ref={(ref) => this.icon1 = ref} data-toggle="tooltip" title="Add to Queue"></i></a></div>
+                <div className="search-media-icon"><a className="icon-btn" href="javascript:void(0)" onClick={this.playMediaEntry}><i className="fa fa-play" ref={(ref) => this.icon2 = ref} data-toggle="tooltip" title="Play Now"></i></a></div>
                 <div className="search-media-icon">
-                  <a className="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void(0)"><i className="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+                  <a className="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void(0)"><i className="fa fa-list-ul" ref={(ref) => this.icon3 = ref} data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
                     <ul className="dropdown-menu dropdown-menu-right">
                       <li className="dropdown-header">Add To</li>
                       <li><a href="javascript:void(0)">Chill Ass Music</a></li>

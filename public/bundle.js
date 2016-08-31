@@ -3877,6 +3877,12 @@ var ChatMessage = React.createClass({
       username: this.props.username
     };
   },
+
+  componentDidMount: function componentDidMount() {
+    $(this.msg).tooltip();
+  },
+
+
   render: function render() {
     var _this = this;
 
@@ -3890,7 +3896,9 @@ var ChatMessage = React.createClass({
             { className: "chat-msg-user" },
             React.createElement(
               "div",
-              { className: "msg" },
+              { className: "msg", ref: function ref(_ref) {
+                  return _this.msg = _ref;
+                }, "data-toggle": "tooltip", "data-placement": "left", title: "4:20pm" },
               _this.state.message
             )
           );
@@ -3905,7 +3913,9 @@ var ChatMessage = React.createClass({
             ),
             React.createElement(
               "div",
-              { className: "msg" },
+              { className: "msg", ref: function ref(_ref2) {
+                  return _this.msg = _ref2;
+                }, "data-toggle": "tooltip", "data-placement": "right", title: "4:20pm" },
               _this.state.message
             ),
             React.createElement("img", { className: "profile-pic", src: "images/profile-pic.png" })
@@ -4008,8 +4018,8 @@ var ChatDisplay = React.createClass({
 
     return React.createElement(
       "div",
-      { className: "chat", ref: function ref(_ref) {
-          return _this3.chat = _ref;
+      { className: "chat", ref: function ref(_ref3) {
+          return _this3.chat = _ref3;
         } },
       this.state.messages
     );
@@ -4721,7 +4731,16 @@ var MediaEntry = React.createClass({
     socket.emit('From Client: Move media entry to front of queue', mediaEntry);
   },
 
+  componentDidMount: function componentDidMount() {
+    $(this.icon1).tooltip();
+    $(this.icon2).tooltip();
+    $(this.icon3).tooltip();
+  },
+
+
   render: function render() {
+    var _this = this;
+
     var categoryDivName;
     var categoryClassName;
 
@@ -4860,11 +4879,13 @@ var MediaEntry = React.createClass({
               { className: 'search-media-icon-container' },
               React.createElement(
                 'div',
-                { className: 'search-media-icon', 'data-toggle': 'tooltip', title: 'Add to Queue' },
+                { className: 'search-media-icon' },
                 React.createElement(
                   'a',
                   { id: "media-entry-button-" + this.props.pos, className: 'icon-btn', href: 'javascript:void(0)', onClick: this.addToQueue },
-                  React.createElement('i', { className: 'fa fa-plus fa-lg' })
+                  React.createElement('i', { className: 'fa fa-plus fa-lg', ref: function ref(_ref) {
+                      return _this.icon1 = _ref;
+                    }, 'data-toggle': 'tooltip', title: 'Add to Queue' })
                 )
               ),
               React.createElement(
@@ -4873,7 +4894,9 @@ var MediaEntry = React.createClass({
                 React.createElement(
                   'a',
                   { className: 'icon-btn', href: 'javascript:void(0)', onClick: this.playMediaEntry },
-                  React.createElement('i', { className: 'fa fa-play', 'data-toggle': 'tooltip', title: 'Play Now' })
+                  React.createElement('i', { className: 'fa fa-play', ref: function ref(_ref2) {
+                      return _this.icon2 = _ref2;
+                    }, 'data-toggle': 'tooltip', title: 'Play Now' })
                 )
               ),
               React.createElement(
@@ -4882,7 +4905,9 @@ var MediaEntry = React.createClass({
                 React.createElement(
                   'a',
                   { className: 'icon-btn dropdown-toggle', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false', href: 'javascript:void(0)' },
-                  React.createElement('i', { className: 'fa fa-list-ul', 'data-toggle': 'tooltip', title: 'Add to Playlist', 'aria-hidden': 'true' })
+                  React.createElement('i', { className: 'fa fa-list-ul', ref: function ref(_ref3) {
+                      return _this.icon3 = _ref3;
+                    }, 'data-toggle': 'tooltip', title: 'Add to Playlist', 'aria-hidden': 'true' })
                 ),
                 React.createElement(
                   'ul',

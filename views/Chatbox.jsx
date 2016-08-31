@@ -118,6 +118,11 @@ var ChatMessage = React.createClass({
       username: this.props.username
     }
   },
+
+  componentDidMount() {
+    $(this.msg).tooltip();
+  },
+
   render: function() {
     return (
       <div>
@@ -126,7 +131,8 @@ var ChatMessage = React.createClass({
             if(this.state.owner) {
               return (
                 <div className="chat-msg-user">
-                  <div className="msg">{this.state.message}</div>
+                  {/* TODO: timestamp must be implemented into title */}
+                  <div className="msg" ref={(ref) => this.msg = ref} data-toggle="tooltip" data-placement="left" title="4:20pm">{this.state.message}</div>
                 </div>
               );
             }
@@ -134,7 +140,8 @@ var ChatMessage = React.createClass({
               return (
                 <div className="chat-msg">
                   <div className="name">{this.state.username}</div>
-                  <div className="msg">{this.state.message}</div>
+                  {/* TODO: timestamp must be implemented into title */}
+                  <div className="msg" ref={(ref) => this.msg = ref} data-toggle="tooltip" data-placement="right" title="4:20pm">{this.state.message}</div>
                   <img className="profile-pic" src="images/profile-pic.png"/>
                 </div>
               )
