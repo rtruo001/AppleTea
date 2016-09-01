@@ -48,6 +48,17 @@ var SearchMyPlaylist = React.createClass({
   }
 });
 
+// Create New Playlist Button
+var NewPlaylistButton = React.createClass({
+  render: function() {
+    return (
+      <div className="search-container btn-align-right">
+        <button className="btn btn-primary" data-toggle="modal" data-target="#create-playlist"><i className="fa fa-plus icon-padding"></i>Create New Playlist</button>
+      </div>
+    );
+  }
+});
+
 // MAIN COMPONENT: My Playlist Tab
 var MyPlaylists = React.createClass({
   getInitialState: function() {
@@ -113,6 +124,7 @@ var MyPlaylists = React.createClass({
 
     return (
       <div>
+        <NewPlaylistButton />
         {playlistEntries}
       </div>
     );

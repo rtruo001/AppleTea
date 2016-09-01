@@ -171,6 +171,8 @@ var PlaylistDropdown = React.createClass({
       <ul className="dropdown-menu dropdown-menu-right">
         <li className="dropdown-header">Add To</li>
         {playlistEntries}
+        <li role="separator" className="divider"></li>
+        <li><a data-toggle="modal" data-target="#create-playlist" href="javascript:void(0)">Add to New Playlist</a></li>
       </ul>
     );
   }

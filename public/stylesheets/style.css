@@ -138,6 +138,10 @@ a.link-grey-lite:active {color: #4bb9c3; text-decoration: underline; outline:non
   text-align: left !important;
 }
 
+.btn-align-right {
+  text-align: right;
+}
+
 .btn-margin {
   margin: 0px 3px;
 }

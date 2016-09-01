@@ -24,6 +24,7 @@ var StatusBar = require('./StatusBar');
 var Queue = require('./Queue');
 var Explore = require('./Explore');
 var MyPlaylists = require('./MyPlaylists');
+var ModalCreatePlaylist = require('./ModalCreatePlaylist');
 var Search = require('./Search');
 var Footer = require('./Footer');
 
@@ -142,6 +143,9 @@ var Room = React.createClass({
                   <div id="search" className="tab-pane fade">
                     <Search myPlaylists={this.props.myPlaylists} />
                   </div>
+
+                  <ModalCreatePlaylist />
+
                 </div>
               </div>
 
