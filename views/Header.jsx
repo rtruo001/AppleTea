@@ -5,9 +5,18 @@ var HeaderProfileIcon = React.createClass({
   render: function() {
     return (
       <div>
-        <a href="javascript:void(0)">
+        <a className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void(0)">
           <img className="profile-pic" src="images/profile-pic.png" />
         </a>
+        <ul className="dropdown-menu dropdown-menu-right">
+          <li className="dropdown-header">Gerard Liu (Gliu)</li>
+          <li><a href="javascript:void(0)">Profile</a></li>
+          <li><a href="javascript:void(0)">My Rooms</a></li>
+          <li><a href="javascript:void(0)">My Playlists</a></li>
+          <li><a href="javascript:void(0)">Account Settings</a></li>
+          <li role="separator" className="divider"></li>
+          <li><a href="javascript:void(0)">Sign Out</a></li>
+        </ul>
       </div>
     );
   }
