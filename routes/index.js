@@ -68,10 +68,6 @@ function isLoggedIn(req, res, next) {
 function loadMyPlaylists(req, res, next) {
   console.log('Middleware: loadMyPlaylists ==========================');
 
-  if (req.newUser === undefined || req.newUser === null) {
-    req.newUser = "NEW USER BITCH";
-  }
-
   if (req.user === undefined || req.user === null) {
     req.user = undefined;
     return next();
@@ -113,8 +109,7 @@ router.get('/', [loadExplore, isLoggedIn, loadMyPlaylists], function(req, res, n
   if (userData !== undefined && userData !== null) {
     console.log("hide password");
     userData.local.password = undefined;  
-     console.log(req.user);
-
+    console.log(req.user);
   }
   
   // IMPORTANT TODO

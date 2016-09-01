@@ -99,7 +99,7 @@ var Room = React.createClass({
 
               {/* Queue */}
               <div className="col-md-4 col-sm-5 queue-container" id="queue">
-                <Queue />
+                <Queue user={this.props.user} />
               </div>
 
               {/* Desktop Tab Navigation */}
@@ -140,7 +140,7 @@ var Room = React.createClass({
 
                   {/* Search */}
                   <div id="search" className="tab-pane fade">
-                    <Search />
+                    <Search myPlaylists={this.props.myPlaylists} />
                   </div>
                 </div>
               </div>

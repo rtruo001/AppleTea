@@ -62,7 +62,13 @@ var MyPlaylists = React.createClass({
 
   // EVENT HANDLER: Update the playlist entry
   updateAllPlaylistEntries: function(newPlaylist) {
-    var playlistsWithNewEntry = this.state.allPlaylistEntries.concat(newPlaylist);
+    var playlistsWithNewEntry;
+    if (this.state.allPlaylistEntries === undefined || this.state.allPlaylistEntries === null) {
+      playlistsWithNewEntry = newPlaylist;    
+    }
+    else {
+      playlistsWithNewEntry = this.state.allPlaylistEntries.concat(newPlaylist);
+    }
     this.setState({allPlaylistEntries : playlistsWithNewEntry});
   },
 

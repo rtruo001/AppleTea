@@ -143,6 +143,39 @@ var Duration = React.createClass({
   }
 });
 
+
+var PlaylistEntry = React.createClass({
+  render: function() {
+    return(
+      <li><a href="javascript:void(0)">{this.props.name}</a></li>      
+    )
+  }
+});
+
+var PlaylistDropdown = React.createClass({
+  render: function() {
+    var playlistEntries = [];
+
+    if (this.props.myPlaylists === undefined || this.props.myPlaylists === null) {
+      return(<div></div>);
+    }
+
+    // Sets the playlist dropdowns
+    for (var i = 0; i < this.props.myPlaylists.length; ++i) {
+      playlistEntries.push(
+        <PlaylistEntry name={this.props.myPlaylists[i].name + i} />
+      );
+    }
+      
+    return (
+      <ul className="dropdown-menu dropdown-menu-right">
+        <li className="dropdown-header">Add To</li>
+        {playlistEntries}
+      </ul>
+    );
+  }
+});
+
 // MAIN COMPONENT: Each individual media entry in the list
 var MediaEntry = React.createClass({
   // EVENT HANDLER: When the add to queue button is clicked, adds the media to the queue.
@@ -275,6 +308,19 @@ var MediaEntry = React.createClass({
 
       // Media Entry in the Search component, also has a button that adds the media entry into the queue
       case CATEGORYOFMEDIA.SEARCH:
+        var dropdown = [];
+        if (this.props.myPlaylists === undefined || this.props.myPlaylists === null) {
+          dropdown = [];
+        }
+        else {
+          dropdown.push(
+            <div className="search-media-icon">
+              <a className="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void(0)"><i className="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+              <PlaylistDropdown myPlaylists={this.props.myPlaylists} />
+            </div>
+          );
+        }
+
         var searchMediaEntryId = "-search-media-entry-id";
         return (
           <div id={this.props.pos + searchMediaEntryId} className={"search-card-padding"}>
@@ -291,16 +337,7 @@ var MediaEntry = React.createClass({
               <div className="search-media-icon-container">
                 <div className="search-media-icon" data-toggle="tooltip" title="Add to Queue"><a id={"media-entry-button-" + this.props.pos} className="icon-btn" href="javascript:void(0)" onClick={this.addToQueue}><i className="fa fa-plus fa-lg"></i></a></div>
                 <div className="search-media-icon"><a className="icon-btn" href="javascript:void(0)" onClick={this.playMediaEntry}><i className="fa fa-play" data-toggle="tooltip" title="Play Now"></i></a></div>
-                <div className="search-media-icon">
-                  <a className="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void(0)"><i className="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
-                    <ul className="dropdown-menu dropdown-menu-right">
-                      <li className="dropdown-header">Add To</li>
-                      <li><a href="javascript:void(0)">Chill Ass Music</a></li>
-                      <li><a href="javascript:void(0)">Comp Sci Lectures</a></li>
-                      <li><a href="javascript:void(0)">The Trippiest Videos</a></li>
-                      <li><a href="javascript:void(0)">Sick Music Videos</a></li>
-                    </ul>
-                </div>
+                {dropdown}
               </div>
             </div>
           </div>

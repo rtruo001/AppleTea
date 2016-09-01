@@ -25,6 +25,8 @@ const MEDIAPLAYERTYPES = {
   VIMEO: 'VIMEO'
 };
 
+var Playlist = require("../models/playlist");
+
 // Users
 var numUsersConnected = 0;
 var numUsersSignedInConnected = 0

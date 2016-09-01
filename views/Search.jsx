@@ -177,7 +177,8 @@ var Search = React.createClass({
             thumbnail={jsonItem.snippet.thumbnails.medium.url} 
             title={jsonItem.snippet.title}
             artist={jsonItem.snippet.channelTitle} 
-            ifMediaCardAdded={false} /> 
+            ifMediaCardAdded={false} 
+            myPlaylists={this.props.myPlaylists} /> 
         );
       }
     }

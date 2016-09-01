@@ -176,9 +176,10 @@ var Queue = React.createClass({
     if (this.state.queueList.length <= 0) {
       return;
     }
+    // TODO: Have data come in from the edit playlist
     var data = {
       name: 'Chill ass music',
-      owner: 'Truong_R@yahoo.com',
+      owner: this.props.user.local.email,
       isPublic: true,
       queueList: this.state.queueList
     }
