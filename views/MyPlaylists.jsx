@@ -41,42 +41,6 @@ var NewPlaylistButton = React.createClass({
   }
 });
 
-// Create New Playlist Modal Popup
-var NewPlaylistModal = React.createClass({
-  render: function() {
-    return (
-      <div className="modal fade" id="create-playlist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div className="modal-dialog modal-sm" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              Create a New Playlist
-            </div>
-            <div className="modal-body">
-              <div className="search-container">
-                <form className="search-input" id="create-playlist-input">
-                  <input className="input-padding" type="text" placeholder="Playlist Name"/>
-                  <div className="modal-label">Is this a private playlist?</div>
-                  <div className="toggle-slider-section">
-                    <label className="switch">
-                      <input type="checkbox" id="create-room-toggle" checked />
-                      <div className="slider"></div>
-                    </label>
-                    <i className="fa fa-lock" id="create-room-toggle-icon"></i>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <button type="button" className="btn btn-primary" data-dismiss="modal">Create Playlist</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-});
-
 // MAIN COMPONENT: My Playlist Tab
 var MyPlaylists = React.createClass({
   render: function() {
@@ -136,7 +100,6 @@ var MyPlaylists = React.createClass({
     return (
       <div>
         <NewPlaylistButton />
-        <NewPlaylistModal />
         {playlistEntries}
       </div>
     );

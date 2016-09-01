@@ -286,7 +286,6 @@ var MediaEntry = React.createClass({
                       <li><a href="javascript:void(0)">The Trippiest Videos</a></li>
                       <li><a href="javascript:void(0)">Sick Music Videos</a></li>
                       <li role="separator" className="divider"></li>
-                      {/* TODO: connect this modal to the modal Component 'NewPlaylistModal' in MyPlaylist */}
                       <li><a data-toggle="modal" data-target="#create-playlist" href="javascript:void(0)">Add to New Playlist</a></li>
                     </ul>
                 </div>
