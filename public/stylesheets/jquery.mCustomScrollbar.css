@@ -1023,15 +1023,17 @@ yx-axis
 	.mCS-minimal.mCSB_scrollTools_horizontal .mCSB_dragger, 
 	.mCS-minimal-dark.mCSB_scrollTools_horizontal .mCSB_dragger{ width: 50px; }
 	
+	/* EDIT [gliu]: transparent by default, activated on hover in style.css */
 	.mCS-minimal.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
-		background-color: #fff; background-color: rgba(255,255,255,0.2);
-		filter: "alpha(opacity=20)"; -ms-filter: "alpha(opacity=20)"; 
+		background-color: #fff; background-color: rgba(255,255,255,0);
+		filter: "alpha(opacity=0)"; -ms-filter: "alpha(opacity=0)"; 
 	}
 	
+	/* EDIT [gliu]: transparent by default, activated on hover in style.css */
 	.mCS-minimal.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
 	.mCS-minimal.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar{
-		background-color: #fff; background-color: rgba(255,255,255,0.5);
-		filter: "alpha(opacity=50)"; -ms-filter: "alpha(opacity=50)"; 
+		background-color: #fff; background-color: rgba(255,255,255,0);
+		filter: "alpha(opacity=0)"; -ms-filter: "alpha(opacity=0)"; 
 	}
 	
 	
