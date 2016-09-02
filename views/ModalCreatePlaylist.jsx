@@ -4,7 +4,7 @@ var React = require('react');
 var ModalCreatePlaylist = React.createClass({
   render: function() {
     return (
-      <div className="modal fade" id="create-playlist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div className="modal fade" id="create-playlist" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div className="modal-dialog modal-sm" role="document">
           <div className="modal-content">
             <div className="modal-header">
