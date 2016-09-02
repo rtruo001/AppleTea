@@ -141,7 +141,7 @@ var Room = React.createClass({
 
                   {/* Search */}
                   <div id="search" className="tab-pane fade">
-                    <Search myPlaylists={this.props.myPlaylists} />
+                    <Search user={this.props.user} myPlaylists={this.props.myPlaylists} />
                   </div>
 
                   <ModalCreatePlaylist />

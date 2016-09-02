@@ -178,6 +178,7 @@ var Search = React.createClass({
             title={jsonItem.snippet.title}
             artist={jsonItem.snippet.channelTitle} 
             ifMediaCardAdded={false} 
+            user={this.props.user}
             myPlaylists={this.props.myPlaylists} /> 
         );
       }

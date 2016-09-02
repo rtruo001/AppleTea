@@ -62,9 +62,16 @@ var NewPlaylistButton = React.createClass({
 // MAIN COMPONENT: My Playlist Tab
 var MyPlaylists = React.createClass({
   getInitialState: function() {
-    return {
-      allPlaylistEntries: this.props.myPlaylists 
-    };
+    if (this.props.myPlaylists  === undefined || this.props.myPlaylists === null) {
+      return {
+        allPlaylistEntries: []
+      };
+    }
+    else {
+      return {
+        allPlaylistEntries: this.props.myPlaylists
+      };  
+    }
   },
 
   componentDidMount: function() {
@@ -73,19 +80,13 @@ var MyPlaylists = React.createClass({
 
   // EVENT HANDLER: Update the playlist entry
   updateAllPlaylistEntries: function(newPlaylist) {
-    var playlistsWithNewEntry;
-    if (this.state.allPlaylistEntries === undefined || this.state.allPlaylistEntries === null) {
-      playlistsWithNewEntry = newPlaylist;    
-    }
-    else {
-      playlistsWithNewEntry = this.state.allPlaylistEntries.concat(newPlaylist);
-    }
-    this.setState({allPlaylistEntries : playlistsWithNewEntry});
+    console.log("Update with new playlist entry")
+    var playlistsWithNewEntry = this.state.allPlaylistEntries.concat(newPlaylist);
+    this.setState({allPlaylistEntries : playlistsWithNewEntry}); 
   },
 
   render: function() {
     var playlistEntries = [];
-    console.log(this.state.allPlaylistEntries);
 
     // If there are no playlists, the placeholder is displayed
     if (this.state.allPlaylistEntries === undefined || this.state.allPlaylistEntries === null || this.state.allPlaylistEntries.length <= 0) {
@@ -101,7 +102,6 @@ var MyPlaylists = React.createClass({
       playlistEntries.push(
         <SearchMyPlaylist key={'SearchMyPlaylist'} />
       )
-
       var playlistEntry;
       for (var i = 0; i < this.state.allPlaylistEntries.length; ++i) {
         playlistEntry = this.state.allPlaylistEntries[i];
