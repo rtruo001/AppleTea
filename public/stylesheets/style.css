@@ -921,6 +921,11 @@ nav {
   margin-right: -50%;
 }
 
+
+.chat::-webkit-scrollbar { 
+    display: none;
+}
+
 .chat {
   position: relative;
   padding: 10px 20px 0px 50px;

@@ -33,6 +33,7 @@ var Index = React.createClass({
           <link rel="stylesheet" href="/css/plyr.css"/>
           <link rel="stylesheet" href="/css/font-awesome.min.css"/>
           <link rel="stylesheet" href="css/toggle-slider.css" />
+          <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css" />
 
           <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.js"></script>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.js"></script>
@@ -81,6 +82,7 @@ var Index = React.createClass({
           }
 
           <script src="js/drag-arrange.js"></script>
+          <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
           {/*<script src="js/drag-arrange.min.js"></script>*/}
           <script src="js/script.js"></script>
 

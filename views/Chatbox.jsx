@@ -231,9 +231,11 @@ var ChatDisplay = React.createClass({
   render: function() {
     return (
       <div className="chat" ref={(ref) => this.chat = ref}>
-        {
-          this.state.messages
-        }
+        <div>
+          {
+            this.state.messages
+          }
+        </div>
       </div>
     );
   }
