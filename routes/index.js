@@ -15,10 +15,6 @@ var React = require('react');
 // Playlist Schema
 var Playlist = require('../models/playlist');
 
-// Storing data to Server for client to render with the data after mounting
-var configExploreDB = require('../config/database/explore');
-var configMyPlaylistsDB = require('../config/database/myPlaylists');
-
 /*  =============================================================================
     Function loadExplore
 
@@ -37,7 +33,6 @@ function loadExplore(req, res, next) {
     else if (playlists.length > 0 && playlists != null && playlists != undefined) {
       console.log(playlists);
       req.explore = playlists; 
-      configExploreDB.set(playlists);
     }
     else {
       console.log("Explore: No public playlists");
@@ -73,10 +68,6 @@ function isLoggedIn(req, res, next) {
 function loadMyPlaylists(req, res, next) {
   console.log('Middleware: loadMyPlaylists ==========================');
 
-  if (req.newUser === undefined || req.newUser === null) {
-    req.newUser = "NEW USER BITCH";
-  }
-
   if (req.user === undefined || req.user === null) {
     req.user = undefined;
     return next();
@@ -84,14 +75,13 @@ function loadMyPlaylists(req, res, next) {
 
   // Finds all public playlists in the database
   // TODO: implement indexing
-  Playlist.find({ 'owner' : req.user.email}, function(err, playlists) {
+  Playlist.find({ 'owner' : req.user.local.email}, function(err, playlists) {
     if (err) {
       console.log('ERROR: Problem in loading playlists for My Playlists');
     }
     else if (playlists.length > 0 && playlists != null && playlists != undefined) {
       console.log(playlists);
       req.myPlaylists = playlists; 
-      configMyPlaylistsDB.set(playlists);
     }
     else {
       console.log("My Playlist: No playlists");
@@ -119,8 +109,7 @@ router.get('/', [loadExplore, isLoggedIn, loadMyPlaylists], function(req, res, n
   if (userData !== undefined && userData !== null) {
     console.log("hide password");
     userData.local.password = undefined;  
-     console.log(req.user);
-
+    console.log(req.user);
   }
   
   // IMPORTANT TODO

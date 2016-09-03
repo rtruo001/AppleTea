@@ -75,11 +75,8 @@ var Index = React.createClass({
           <script src="../socket.io/socket.io.js"></script>
           <script src="/js/socket.js"></script>
 
-          {/* Browserify bundle */} 
-          <script src="/bundle.js"></script>
-
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-          <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+          {/* <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> */}
+          {/* <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> */}
           <script src="js/jquery.min.js"></script>
           <script src="js/bootstrap.min.js"></script>
 
@@ -88,6 +85,9 @@ var Index = React.createClass({
           
           <script src="/js/chat.js"></script>
           <script src="/js/youtube.js"></script>
+
+          {/* Browserify bundle */} 
+          <script src="/bundle.js"></script>
 
           {/* Need to minifiy drag-arrange file */}
           <script src="js/drag-arrange.js"></script>

@@ -48,14 +48,48 @@ var SearchMyPlaylist = React.createClass({
   }
 });
 
+// Create New Playlist Button
+var NewPlaylistButton = React.createClass({
+  render: function() {
+    return (
+      <div className="search-container btn-align-right">
+        <button className="btn btn-primary" data-toggle="modal" data-target="#create-playlist"><i className="fa fa-plus icon-padding"></i>Create New Playlist</button>
+      </div>
+    );
+  }
+});
+
 // MAIN COMPONENT: My Playlist Tab
 var MyPlaylists = React.createClass({
+  getInitialState: function() {
+    if (this.props.myPlaylists  === undefined || this.props.myPlaylists === null) {
+      return {
+        allPlaylistEntries: []
+      };
+    }
+    else {
+      return {
+        allPlaylistEntries: this.props.myPlaylists
+      };  
+    }
+  },
+
+  componentDidMount: function() {
+    socket.on("From Server: Update MyPlaylist with new playlists" ,this.updateAllPlaylistEntries);
+  },
+
+  // EVENT HANDLER: Update the playlist entry
+  updateAllPlaylistEntries: function(newPlaylist) {
+    console.log("Update with new playlist entry")
+    var playlistsWithNewEntry = this.state.allPlaylistEntries.concat(newPlaylist);
+    this.setState({allPlaylistEntries : playlistsWithNewEntry}); 
+  },
+
   render: function() {
     var playlistEntries = [];
-    console.log(this.props.myPlaylists);
 
     // If there are no playlists, the placeholder is displayed
-    if (this.props.myPlaylists === undefined || this.props.myPlaylists === null || this.props.myPlaylists.length <= 0) {
+    if (this.state.allPlaylistEntries === undefined || this.state.allPlaylistEntries === null || this.state.allPlaylistEntries.length <= 0) {
       return (
         <div>
           <MyPlaylistPlaceholder />
@@ -68,66 +102,29 @@ var MyPlaylists = React.createClass({
       playlistEntries.push(
         <SearchMyPlaylist key={'SearchMyPlaylist'} />
       )
-
       var playlistEntry;
-      for (var i = 0; i < this.props.myPlaylists.length; ++i) {
-        playlistEntry = this.props.myPlaylists[i];
+      for (var i = 0; i < this.state.allPlaylistEntries.length; ++i) {
+        playlistEntry = this.state.allPlaylistEntries[i];
         playlistEntries.push (
           // TODO: owner, liked
           <PlaylistEntry
             key={playlistEntry._id}
             owner={true}
             title={playlistEntry.name}
+            thumbnail={playlistEntry.mediaEntries[0].thumbnail}
             curator={playlistEntry.owner}
             size={playlistEntry.mediaEntries.length}
             type={playlistEntry.isPublic}
             likes={playlistEntry.likes}
-            liked={null} />
-        );
-      }
-
-      // DEMO PLAYLIST DATA
-      playlistEntries.push (
-        <PlaylistEntry 
-          key={0}
-          owner={true}
-          title={'Saturday Morning Cartoons'}
-          curator={'Gliu'}
-          size={'27'}
-          type={'private'}
-          likes={'0'}
-          liked={null} />
-      );
-      for (var i = 10; i < 15; ++i) {
-        playlistEntries.push (
-          <PlaylistEntry 
-            key={i}
-            owner={true}
-            title={'Chill Music Videos'}
-            curator={'Gliu'}
-            size={'9'}
-            type={'public'}
-            likes={'10'}
-            liked={null} />
-        );
-      }
-      for (var i = 15; i < 20; ++i) {
-        playlistEntries.push (
-          <PlaylistEntry 
-            key={i}
-            owner={false}
-            title={'Trippy Stuff'}
-            curator={'MeSoRanz'}
-            size={'103'}
-            type={'public'}
-            likes={'873'}
-            liked={true} />
+            liked={null} 
+            mediaEntries={playlistEntry.mediaEntries} />
         );
       }
     }
 
     return (
       <div>
+        <NewPlaylistButton />
         {playlistEntries}
       </div>
     );

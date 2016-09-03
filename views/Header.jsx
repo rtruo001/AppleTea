@@ -5,9 +5,18 @@ var HeaderProfileIcon = React.createClass({
   render: function() {
     return (
       <div>
-        <a href="javascript:void(0)">
+        <a className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void(0)">
           <img className="profile-pic" src="images/profile-pic.png" />
         </a>
+        <ul className="dropdown-menu dropdown-menu-right">
+          <li className="dropdown-header">{this.props.user.local.firstName} {this.props.user.local.lastName} ({this.props.user.local.email})</li>
+          <li><a href="javascript:void(0)">Profile</a></li>
+          <li><a href="javascript:void(0)">My Rooms</a></li>
+          <li><a href="javascript:void(0)">My Playlists</a></li>
+          <li><a href="javascript:void(0)">Account Settings</a></li>
+          <li role="separator" className="divider"></li>
+          <li><a href="/logout">Sign Out</a></li>
+        </ul>
       </div>
     );
   }
@@ -17,16 +26,16 @@ var HeaderProfileIcon = React.createClass({
 var SignUpSignInButtons = React.createClass({
   render: function() {
     return (
-        <div className="header-btn-group">
-          <button className="btn btn-primary btn-margin" data-toggle="modal" data-target="#signup">
-            Sign Up
-          </button>
-          <SignUpModal />
-          <button className="btn btn-secondary btn-margin dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Sign In
-          </button>
-          <SignInDropdown />
-        </div>
+      <div className="header-btn-group">
+        <button className="btn btn-primary btn-margin" data-toggle="modal" data-target="#signup">
+          Sign Up
+        </button>
+        <SignUpModal />
+        <button className="btn btn-secondary btn-margin dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sign In
+        </button>
+        <SignInDropdown />
+      </div>
     );
   }
 });
@@ -143,7 +152,7 @@ var Header = React.createClass({
     // if (this.props.user === undefined || this.props.user === null) {
     if (this.props.user !== undefined && this.props.user !== null) {
       headerIcons.push(
-        <HeaderProfileIcon key={'HeaderProfileIcon'} />
+        <HeaderProfileIcon key={'HeaderProfileIcon'} user={this.props.user} />
       );
     }
     else {

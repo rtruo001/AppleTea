@@ -14,7 +14,7 @@
                   AddedMediaLength
                   ShuffleButton
                   LikeButton
-                  SquareButton
+                  ClearButton
                   QueuePlaceHolder
                   Queue
 
@@ -61,9 +61,13 @@ var AddedMediaLength = React.createClass({
 });
 
 var EditButton = React.createClass({
+  addToPlaylist: function() {
+
+  },
+
   render: function() {
     return (
-      <div className="queue-icon"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-edit" data-toggle="tooltip" title="Edit" aria-hidden="true"></i></a></div>  
+      <div className="queue-icon"><a className="icon-btn" href="javascript:void(0)" onClick={this.props.onClick}><i className="fa fa-edit" data-toggle="tooltip" title="Edit" aria-hidden="true"></i></a></div>  
     );
   }
 });
@@ -84,10 +88,10 @@ var LikeButton = React.createClass({
   }
 });
 
-var SquareButton = React.createClass({
+var ClearButton = React.createClass({
   render: function() {
     return (
-      <div className="queue-icon"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-square-o" data-toggle="tooltip" title="Clear" aria-hidden="true"></i></a></div>  
+      <div className="queue-icon"><a className="icon-btn" href="javascript:void(0)" onClick={this.props.onClick}><i className="fa fa-square-o" data-toggle="tooltip" title="Clear" aria-hidden="true"></i></a></div>  
     );
   }
 });
@@ -157,8 +161,35 @@ var Queue = React.createClass({
   // EVENT HANDLER: Updates the queue with the server's queue
   updateQueueWithNewQueue: function(newQueueList) {
     this.setState({queueList: newQueueList}, function() {
-      console.log("Finished updating queue");
+      reinitializeDraggable(function() {
+        console.log("Draggable reinitialized with Queue changes : updateQueueWithNewQueue");
+        $('.media-card').arrangeable();  
+      });
     });
+  },
+
+  // EVENT HANDLER: Updates the my playlist tab with a new playlist entry
+  addToPlaylist: function() {
+    console.log("Queue.jsx: addToPlaylist");
+    console.log(this.state.queueList);
+    // Do not add an emepty queue to a playlist
+    if (this.state.queueList.length <= 0) {
+      return;
+    }
+    // TODO: Have data come in from the edit playlist
+    var data = {
+      name: 'Chill ass music',
+      owner: this.props.user.local.email,
+      isPublic: true,
+      queueList: this.state.queueList
+    }
+    socket.emit('From Client: Add all queue entries to playlist', data);
+  },
+
+  // EVENT HANDLER: Clears the entire queue
+  clearQueue: function() {
+    console.log("Clearing the queue");
+    socket.emit('From Client: Update queue with new list', []);
   },
 
   render: function() {
@@ -174,16 +205,6 @@ var Queue = React.createClass({
       )
     }
 
-    /* TODO: When list is empty AFTER FINISHING A PLAYLIST, display this placeholder instead
-      <div className="placeholder">
-        <div className="placeholder-content">
-          <i className="fa fa-child placeholder-icon"></i><br/>
-          <span>You finished your playlist!</span>
-        </div>
-      </div>
-    </div>
-    */
-
     // If there are media entries, pushes every media entry the queueEntries instead
     else {
       for (var i = 0; i < this.state.queueList.length; ++i) {
@@ -191,9 +212,9 @@ var Queue = React.createClass({
 
         queueEntries.push (
           <MediaEntry 
-            key={queueEntry.videoId} 
+            key={queueEntry.mediaId} 
             pos={i} 
-            videoId={queueEntry.videoId} 
+            mediaId={queueEntry.mediaId} 
             categoryType={'QUEUE'}
             mediaType={'YOUTUBE'}
             thumbnail={queueEntry.thumbnail} 
@@ -215,10 +236,10 @@ var Queue = React.createClass({
           </div>
 
           <div className="queue-icon-container">
-            <SquareButton />
+            <ClearButton onClick={this.clearQueue} />
             <LikeButton />
             <ShuffleButton />
-            <EditButton />
+            <EditButton onClick={this.addToPlaylist} />
           </div>
         </div>
 

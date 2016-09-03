@@ -15,7 +15,7 @@
     ========================================================================== */
 function initializeYoutubeObj(youtubeVideoData) {
   console.log('Initialized youtubeObj');
-  youtubeObj.youtubeVideoId = youtubeVideoData.videoId;
+  youtubeObj.youtubeVideoId = youtubeVideoData.mediaId;
   youtubeObj.youtubeStartTime = youtubeVideoData.elapsedTime;
   youtubeObj.youtubeElapsedTime = youtubeVideoData.elapsedTime;
   youtubeObj.youtubeCurrentState = youtubeVideoData.state;
@@ -160,7 +160,7 @@ function youtubeLoadVideo(youtubeData) {
   if(player != null) {
     $('#media-player').show();
     youtubeObj.youtubeIfAlreadySentFromOneClient = youtubeData.ifAlreadySentFromClient;
-    player.loadVideoById(youtubeData.videoId, 0, "large");
+    player.loadVideoById(youtubeData.mediaId, 0, "large");
   }
 }
 

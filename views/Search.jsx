@@ -171,13 +171,15 @@ var Search = React.createClass({
           <MediaEntry 
             key={jsonItem.id.videoId} 
             pos={i} 
-            videoId={jsonItem.id.videoId} 
+            mediaId={jsonItem.id.videoId} 
             categoryType={'SEARCH'}
             mediaType={'YOUTUBE'}
             thumbnail={jsonItem.snippet.thumbnails.medium.url} 
             title={jsonItem.snippet.title}
             artist={jsonItem.snippet.channelTitle} 
-            ifMediaCardAdded={false} /> 
+            ifMediaCardAdded={false} 
+            user={this.props.user}
+            myPlaylists={this.props.myPlaylists} /> 
         );
       }
     }

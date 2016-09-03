@@ -24,6 +24,7 @@ var StatusBar = require('./StatusBar');
 var Queue = require('./Queue');
 var Explore = require('./Explore');
 var MyPlaylists = require('./MyPlaylists');
+var ModalCreatePlaylist = require('./ModalCreatePlaylist');
 var Search = require('./Search');
 var Footer = require('./Footer');
 
@@ -99,7 +100,7 @@ var Room = React.createClass({
 
               {/* Queue */}
               <div className="col-md-4 col-sm-5 queue-container" id="queue">
-                <Queue />
+                <Queue user={this.props.user} />
               </div>
 
               {/* Desktop Tab Navigation */}
@@ -140,8 +141,11 @@ var Room = React.createClass({
 
                   {/* Search */}
                   <div id="search" className="tab-pane fade">
-                    <Search />
+                    <Search user={this.props.user} myPlaylists={this.props.myPlaylists} />
                   </div>
+
+                  {/* <ModalCreatePlaylist /> */}
+
                 </div>
               </div>
 

@@ -19,6 +19,7 @@
     @Exports:     MediaEntry
     ========================================================================== */
 var React = require('react');
+var ModalCreatePlaylist = require('./ModalCreatePlaylist');
 
 // Thumbnail of the media
 var Thumbnail = React.createClass({
@@ -143,12 +144,53 @@ var Duration = React.createClass({
   }
 });
 
+
+var PlaylistEntry = React.createClass({
+  addToPlaylist: function() {
+
+  },
+
+  render: function() {
+    return(
+      <li><a href="javascript:void(0)" onClick={this.addToPlaylist}>{this.props.name}</a></li>      
+    )
+  }
+});
+
+var PlaylistDropdown = React.createClass({
+  addToNewPlaylist: function() {
+
+  },
+
+  render: function() {
+    var playlistEntries = [];
+
+    if (this.props.myPlaylists !== undefined && this.props.myPlaylists !== null) {
+      // Sets the playlists in the dropdown
+      for (var i = 0; i < this.props.myPlaylists.length; ++i) {
+        playlistEntries.push(
+          <PlaylistEntry name={this.props.myPlaylists[i].name + i} />
+        );
+      }
+    }
+
+    return (
+      <ul className="dropdown-menu dropdown-menu-right">
+        <li className="dropdown-header">Add To</li>
+        {playlistEntries}
+        <li role="separator" className="divider"></li>
+        <li><a data-toggle="modal" data-target="#create-playlist" href="javascript:void(0)" onClick={this.addToNewPlaylist}>Add to New Playlist</a></li>
+      </ul>
+    );
+  }
+});
+
 // MAIN COMPONENT: Each individual media entry in the list
 var MediaEntry = React.createClass({
   // EVENT HANDLER: When the add to queue button is clicked, adds the media to the queue.
   addToQueue: function() {
     var mediaEntry = {
-      videoId: this.props.videoId,
+      mediaId: this.props.mediaId,
       mediaType: this.props.mediaType,
       thumbnail: this.props.thumbnail,
       title: this.props.title,
@@ -160,22 +202,36 @@ var MediaEntry = React.createClass({
 
   // EVENT HANDLER: When the play button is clicked, plays the media entry onto the media player
   playMediaEntry: function() {
-    var mediaEntry = {
-      videoId: this.props.videoId,
-      mediaType: this.props.mediaType,
-      thumbnail: this.props.thumbnail,
-      title: this.props.title,
-      artist: this.props.artist,
-      ifMediaCardAdded: true
+    if (this.props.categoryType == CATEGORYOFMEDIA.SEARCH) {
+      var mediaEntry = {
+        mediaId: this.props.mediaId,
+        mediaType: this.props.mediaType,
+        thumbnail: this.props.thumbnail,
+        title: this.props.title,
+        artist: this.props.artist,
+        ifMediaCardAdded: true
+      }
+      socket.emit('From Client: Play new media entry', mediaEntry);  
     }
-    socket.emit('From Client: Play new media entry', mediaEntry);
+    else if (this.props.categoryType == CATEGORYOFMEDIA.QUEUE) {
+      var queueEntry = {
+        mediaId: this.props.mediaId,
+        mediaType: this.props.mediaType,
+        thumbnail: this.props.thumbnail,
+        title: this.props.title,
+        artist: this.props.artist,
+        ifMediaCardAdded: true,
+        posInQueue: this.props.pos
+      }
+      socket.emit('From Client: Play new media entry from queue', queueEntry);   
+    }
   },
 
   // EVENT HANDLER: When the delete button is clicked, removes the media entry from queue
   deleteMediaEntry: function() {
     console.log("Delete Media Entry from Queue");
     var mediaEntry = {
-      videoId: this.props.videoId,
+      mediaId: this.props.mediaId,
       mediaType: this.props.mediaType,
       thumbnail: this.props.thumbnail,
       title: this.props.title,
@@ -189,7 +245,7 @@ var MediaEntry = React.createClass({
   // EVENT HANDLER: Moves media entry to the front of the queue as a play next media
   moveToFrontOfTheQueue: function() {
     var mediaEntry = {
-      videoId: this.props.videoId,
+      mediaId: this.props.mediaId,
       mediaType: this.props.mediaType,
       thumbnail: this.props.thumbnail,
       title: this.props.title,
@@ -198,6 +254,12 @@ var MediaEntry = React.createClass({
       posInQueue: this.props.pos
     }
     socket.emit('From Client: Move media entry to front of queue', mediaEntry);
+  },
+
+  componentDidMount() {
+    $(this.icon1).tooltip();
+    $(this.icon2).tooltip();
+    $(this.icon3).tooltip();
   },
 
   render: function() {
@@ -261,6 +323,19 @@ var MediaEntry = React.createClass({
 
       // Media Entry in the Search component, also has a button that adds the media entry into the queue
       case CATEGORYOFMEDIA.SEARCH:
+        var dropdown = [];
+        if (this.props.user === undefined || this.props.user === null) {
+          dropdown = [];
+        }
+        else {
+          dropdown.push(
+            <div className="search-media-icon">
+              <a className="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void(0)"><i className="fa fa-list-ul" ref={(ref) => this.icon3 = ref} data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+              <PlaylistDropdown myPlaylists={this.props.myPlaylists} />
+            </div>
+          );
+        }
+
         var searchMediaEntryId = "-search-media-entry-id";
         return (
           <div id={this.props.pos + searchMediaEntryId} className={"search-card-padding"}>
@@ -275,20 +350,13 @@ var MediaEntry = React.createClass({
 
               {/* TODO make tooltips work and make dropdown work */}
               <div className="search-media-icon-container">
-                <div className="search-media-icon" data-toggle="tooltip" title="Add to Queue"><a id={"media-entry-button-" + this.props.pos} className="icon-btn" href="javascript:void(0)" onClick={this.addToQueue}><i className="fa fa-plus fa-lg"></i></a></div>
-                <div className="search-media-icon"><a className="icon-btn" href="javascript:void(0)" onClick={this.playMediaEntry}><i className="fa fa-play" data-toggle="tooltip" title="Play Now"></i></a></div>
-                <div className="search-media-icon">
-                  <a className="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void(0)"><i className="fa fa-list-ul" data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
-                    <ul className="dropdown-menu dropdown-menu-right">
-                      <li className="dropdown-header">Add To</li>
-                      <li><a href="javascript:void(0)">Chill Ass Music</a></li>
-                      <li><a href="javascript:void(0)">Comp Sci Lectures</a></li>
-                      <li><a href="javascript:void(0)">The Trippiest Videos</a></li>
-                      <li><a href="javascript:void(0)">Sick Music Videos</a></li>
-                    </ul>
-                </div>
+                <div className="search-media-icon"><a id={"media-entry-button-" + this.props.pos} className="icon-btn" href="javascript:void(0)" onClick={this.addToQueue}><i className="fa fa-plus fa-lg" ref={(ref) => this.icon1 = ref} data-toggle="tooltip" title="Add to Queue"></i></a></div>
+                <div className="search-media-icon"><a className="icon-btn" href="javascript:void(0)" onClick={this.playMediaEntry}><i className="fa fa-play" ref={(ref) => this.icon2 = ref} data-toggle="tooltip" title="Play Now"></i></a></div>
+                {dropdown}
               </div>
             </div>
+
+            <ModalCreatePlaylist title={this.props.title} />
           </div>
         );
         break;
