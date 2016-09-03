@@ -183,7 +183,10 @@ var ChatDisplay = React.createClass({
   },
   autoscroll: true,
   scrollToBottom: function() {
-    this.chat.scrollTop = this.chat.scrollHeight;
+    // this.chat.scrollTop = this.chat.scrollHeight;
+    $.getScript("js/jquery.mCustomScrollbar.concat.min.js", function(){
+      $('.chat').mCustomScrollbar('scrollTo','bottom',{scrollInertia:200});
+    });
   },
   userHasJoined: function(user) {
       var messages = this.state.messages
@@ -231,9 +234,11 @@ var ChatDisplay = React.createClass({
   render: function() {
     return (
       <div className="chat" ref={(ref) => this.chat = ref}>
-        {
-          this.state.messages
-        }
+        <div>
+          {
+            this.state.messages
+          }
+        </div>
       </div>
     );
   }

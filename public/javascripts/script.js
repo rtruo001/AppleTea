@@ -40,6 +40,18 @@ $('.mod-toggle').click(function(){
 });
 
 
+/* Custom Scrollbar Initialize */
+(function($){
+    $(window).on("load",function(){
+        $(".chat").mCustomScrollbar();
+    });
+})(jQuery);
+
+$(".chat").mCustomScrollbar({
+    theme:"minimal"
+});
+
+
 /* Chat Scrolled to Bottom on Window Load */
 // $('.chat').scrollTop($('.chat')[0].scrollHeight);
 
