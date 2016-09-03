@@ -19,6 +19,7 @@
     @Exports:     MediaEntry
     ========================================================================== */
 var React = require('react');
+var ModalCreatePlaylist = require('./ModalCreatePlaylist');
 
 // Thumbnail of the media
 var Thumbnail = React.createClass({
@@ -145,14 +146,22 @@ var Duration = React.createClass({
 
 
 var PlaylistEntry = React.createClass({
+  addToPlaylist: function() {
+
+  },
+
   render: function() {
     return(
-      <li><a href="javascript:void(0)">{this.props.name}</a></li>      
+      <li><a href="javascript:void(0)" onClick={this.addToPlaylist}>{this.props.name}</a></li>      
     )
   }
 });
 
 var PlaylistDropdown = React.createClass({
+  addToNewPlaylist: function() {
+
+  },
+
   render: function() {
     var playlistEntries = [];
 
@@ -170,7 +179,7 @@ var PlaylistDropdown = React.createClass({
         <li className="dropdown-header">Add To</li>
         {playlistEntries}
         <li role="separator" className="divider"></li>
-        <li><a data-toggle="modal" data-target="#create-playlist" href="javascript:void(0)">Add to New Playlist</a></li>
+        <li><a data-toggle="modal" data-target="#create-playlist" href="javascript:void(0)" onClick={this.addToNewPlaylist}>Add to New Playlist</a></li>
       </ul>
     );
   }
@@ -346,6 +355,8 @@ var MediaEntry = React.createClass({
                 {dropdown}
               </div>
             </div>
+
+            <ModalCreatePlaylist title={this.props.title} />
           </div>
         );
         break;

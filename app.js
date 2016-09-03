@@ -31,7 +31,10 @@ var errorHandler = require('errorhandler');
 var mongoose = require('mongoose');
 
 // configuration ===============================================================
-mongoose.connect('mongodb://localhost:27017/Appletea'); // connect to our database
+// RANDY's LOCAL MONGODB
+// mongoose.connect('mongodb://localhost:27017/Appletea'); 
+// Mlab Testing
+mongoose.connect('mongodb://randy:123@ds019856.mlab.com:19856/appletea-db');
 
 var app = express();
 

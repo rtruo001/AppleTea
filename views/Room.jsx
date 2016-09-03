@@ -144,7 +144,7 @@ var Room = React.createClass({
                     <Search user={this.props.user} myPlaylists={this.props.myPlaylists} />
                   </div>
 
-                  <ModalCreatePlaylist />
+                  {/* <ModalCreatePlaylist /> */}
 
                 </div>
               </div>

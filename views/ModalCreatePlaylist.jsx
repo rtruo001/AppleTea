@@ -8,6 +8,9 @@ var ModalCreatePlaylist = React.createClass({
         <div className="modal-dialog modal-sm" role="document">
           <div className="modal-content">
             <div className="modal-header">
+            
+              {this.props.title}
+          
               Create a New Playlist
             </div>
             <div className="modal-body">
