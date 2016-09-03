@@ -557,6 +557,20 @@ nav {
 }
 
 
+/* Custom Scrollbar Override */
+
+.chat:hover .mCS-minimal.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+  background-color: #fff !important; background-color: rgba(255,255,255,0.1) !important;
+  filter: "alpha(opacity=10)" !important; -ms-filter: "alpha(opacity=10)" !important; 
+}
+
+.chat:hover .mCS-minimal.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+.chat:hover .mCS-minimal.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar{
+  background-color: #fff !important; background-color: rgba(255,255,255,0.2) !important;
+  filter: "alpha(opacity=20)" !important; -ms-filter: "alpha(opacity=20)" !important; 
+}
+
+
 /********************************************/
 /* Room Styling                             */
 /********************************************/
@@ -921,9 +935,14 @@ nav {
   margin-right: -50%;
 }
 
+
+.chat::-webkit-scrollbar { 
+    display: none;
+}
+
 .chat {
   position: relative;
-  padding: 10px 20px 0px 50px;
+  padding-top: 10px;
   overflow-y: scroll;
   height: 360px;
 }
@@ -939,21 +958,22 @@ nav {
   text-align: center;
   font-size: 11px;
   color: #666;
-  padding: 4px 0px 10px 0px;
+  padding: 4px 20px 10px 50px;
   display: inline-block;
 }
 
 .chat-msg {
   float: left;
-  max-width: 75%;
-  margin-bottom: 8px;
+  max-width: 58%;
+  margin-left: 50px;
   clear: both;
 }
 
 .chat-msg-user {
   float: right;
-  max-width: 75%;
+  max-width: 58%;
   margin-bottom: 8px;
+  margin-right: 20px;
   clear: both;
 }
 
