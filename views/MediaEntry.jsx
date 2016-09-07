@@ -144,7 +144,7 @@ var Duration = React.createClass({
   }
 });
 
-
+// Each individual playlist entry in the dropdown list
 var PlaylistEntry = React.createClass({
   addToPlaylist: function() {
 
@@ -157,19 +157,22 @@ var PlaylistEntry = React.createClass({
   }
 });
 
+// Each dropdown for every media entry
 var PlaylistDropdown = React.createClass({
   addToNewPlaylist: function() {
-
+    console.log("Adding to playlist");
   },
 
   render: function() {
     var playlistEntries = [];
+    var modalId = "#create-playlist-" + this.props.pos;
 
     if (this.props.myPlaylists !== undefined && this.props.myPlaylists !== null) {
       // Sets the playlists in the dropdown
       for (var i = 0; i < this.props.myPlaylists.length; ++i) {
         playlistEntries.push(
-          <PlaylistEntry name={this.props.myPlaylists[i].name + i} />
+          // TODO: Change the playlist name to the actual names, Solving this means mostly removing i
+          <PlaylistEntry key={i} name={this.props.myPlaylists[i].name + i} />
         );
       }
     }
@@ -179,7 +182,7 @@ var PlaylistDropdown = React.createClass({
         <li className="dropdown-header">Add To</li>
         {playlistEntries}
         <li role="separator" className="divider"></li>
-        <li><a data-toggle="modal" data-target="#create-playlist" href="javascript:void(0)" onClick={this.addToNewPlaylist}>Add to New Playlist</a></li>
+        <li><a data-toggle="modal" data-target={modalId} onClick={this.addToNewPlaylist}>Add to New Playlist</a></li>
       </ul>
     );
   }
@@ -324,19 +327,29 @@ var MediaEntry = React.createClass({
       // Media Entry in the Search component, also has a button that adds the media entry into the queue
       case CATEGORYOFMEDIA.SEARCH:
         var dropdown = [];
+        var searchMediaEntryId = "-search-media-entry-id";
+        var mediaData = {
+          artist: this.props.artist,
+          mediaId: this.props.mediaId,
+          mediaType: this.props.mediaType,
+          thumbnail: this.props.thumbnail,
+          title: this.props.title
+        };
+
+        // When the user is not logged in, there is no dropdown
         if (this.props.user === undefined || this.props.user === null) {
           dropdown = [];
         }
+        // If a user is logged in, the dropdown appears
         else {
           dropdown.push(
-            <div className="search-media-icon">
+            <div key={this.props.pos} className="search-media-icon">
               <a className="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void(0)"><i className="fa fa-list-ul" ref={(ref) => this.icon3 = ref} data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
-              <PlaylistDropdown myPlaylists={this.props.myPlaylists} />
+              <PlaylistDropdown myPlaylists={this.props.myPlaylists} pos={this.props.pos} />
             </div>
           );
         }
 
-        var searchMediaEntryId = "-search-media-entry-id";
         return (
           <div id={this.props.pos + searchMediaEntryId} className={"search-card-padding"}>
             <div className="search-media-card">
@@ -356,7 +369,11 @@ var MediaEntry = React.createClass({
               </div>
             </div>
 
-            <ModalCreatePlaylist title={this.props.title} />
+            <ModalCreatePlaylist 
+              key={this.props.pos} 
+              user={this.props.user}
+              data={mediaData} 
+              pos={this.props.pos} />
           </div>
         );
         break;

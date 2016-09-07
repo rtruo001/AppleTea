@@ -339,18 +339,6 @@ io.on('connection', function(socket) {
     newPlaylist.likes = 0;
     newPlaylist.mediaEntries = queueList;
 
-    // var queueEntry;
-    // for (var i = 0; i < data.queueList.length; ++i) {
-    //   queueEntry = data.queueList[i];
-    //   newPlaylist.mediaEntries[i] = {
-    //     artist: queueEntry.artist,
-    //     mediaId: queueEntry.mediaId,
-    //     mediaType: queueEntry.mediaType,
-    //     thumbnail: queueEntry.thumbnail,
-    //     title: queueEntry.title
-    //   }; 
-    // }
-
     newPlaylist.save(function(err) {
       if (err) {
         throw err;
@@ -360,23 +348,52 @@ io.on('connection', function(socket) {
       console.log(newPlaylist);
       socket.emit("From Server: Update MyPlaylist with new playlists", newPlaylist);
     });
-
-    // Playlist.save({})
-    // Playlist.find({ 'isPublic' : true }, function(err, playlists) {
-    //   if (err) {
-    //     console.log('ERROR: Problem in loading playlists for the Explore');
-    //   }
-    //   else if (playlists.length > 0 && playlists != null && playlists != undefined) {
-    //     console.log(playlists);
-    //     req.explore = playlists; 
-    //     configExploreDB.set(playlists);
-    //   }
-    //   else {
-    //     console.log("Explore: No public playlists");
-    //   }
-    //   return next();
-    // });
   });
+
+ /*  =============================================================================
+      MongoDB requests
+      ========================================================================== */
+  socket.on('From Client: Create new playlist with data', function(data) {
+    var newPlaylist = new Playlist();
+
+    newPlaylist.name = data.name;
+    newPlaylist.owner = data.owner;
+    newPlaylist.playlistId = 1;
+    newPlaylist.isPublic = data.isPublic;
+    newPlaylist.likes = 0;
+    newPlaylist.mediaEntries = [data.mediaEntry];
+
+    newPlaylist.save(function(err) {
+      if (err) {
+        throw err;
+      }
+      console.log("===================================");
+      console.log("Added media entry to a new playlist");
+      console.log(newPlaylist);
+      socket.emit("From Server: Update MyPlaylist with new playlists", newPlaylist);
+    });
+  });
+
+  // socket.on('From Client: Add to existing playlist', function(data) {
+  //   var newPlaylist = new Playlist();
+
+  //   newPlaylist.name = data.name;
+  //   newPlaylist.owner = data.owner;
+  //   newPlaylist.playlistId = 1;
+  //   newPlaylist.isPublic = data.isPublic;
+  //   newPlaylist.likes = 0;
+  //   newPlaylist.mediaEntries = data.mediaEntry;
+
+  //   newPlaylist.save(function(err) {
+  //     if (err) {
+  //       throw err;
+  //     }
+  //     console.log("===================================");
+  //     console.log("Added media entry to an existing playlist");
+  //     console.log(newPlaylist);
+  //     socket.emit("From Server: Update MyPlaylist with new playlists", newPlaylist);
+  //   });
+  // });
 
   /*  =============================================================================
       When user disconnects

@@ -30,6 +30,30 @@ var Footer = require('./Footer');
 
 // MAIN COMPONENT: Room
 var Room = React.createClass({
+  getInitialState: function() {
+    if (this.props.myPlaylists  === undefined || this.props.myPlaylists === null) {
+      return {
+        myPlaylists: []
+      };
+    }
+    else {
+      return {
+        myPlaylists: this.props.myPlaylists
+      };  
+    }
+  },
+
+  componentDidMount: function() {
+    socket.on("From Server: Update MyPlaylist with new playlists" , this.updateAllPlaylistEntries);
+  },
+
+  // EVENT HANDLER: Update the playlist entry
+  updateAllPlaylistEntries: function(newPlaylist) {
+    console.log("Update with new playlist entry")
+    var playlistsWithNewEntry = this.state.myPlaylists.concat(newPlaylist);
+    this.setState({myPlaylists : playlistsWithNewEntry}); 
+  },
+
   render: function() {
     return(
       <div>
@@ -136,15 +160,16 @@ var Room = React.createClass({
 
                   {/* My Playlists */}
                   <div id="myplaylists" className="tab-pane fade">
-                    <MyPlaylists myPlaylists={this.props.myPlaylists} />
+                    <MyPlaylists myPlaylists={this.state.myPlaylists} />
                   </div>
 
                   {/* Search */}
                   <div id="search" className="tab-pane fade">
-                    <Search user={this.props.user} myPlaylists={this.props.myPlaylists} />
+                    <Search user={this.props.user} myPlaylists={this.state.myPlaylists} />
                   </div>
 
-                  {/* <ModalCreatePlaylist /> */}
+                  {/* Modal for create new playlist button, there is no media entry when this button is clicked */}
+                  <ModalCreatePlaylist key={"newPlaylist"} user={this.props.user} data={null} pos={null} />
 
                 </div>
               </div>

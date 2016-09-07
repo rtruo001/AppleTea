@@ -61,35 +61,11 @@ var NewPlaylistButton = React.createClass({
 
 // MAIN COMPONENT: My Playlist Tab
 var MyPlaylists = React.createClass({
-  getInitialState: function() {
-    if (this.props.myPlaylists  === undefined || this.props.myPlaylists === null) {
-      return {
-        allPlaylistEntries: []
-      };
-    }
-    else {
-      return {
-        allPlaylistEntries: this.props.myPlaylists
-      };  
-    }
-  },
-
-  componentDidMount: function() {
-    socket.on("From Server: Update MyPlaylist with new playlists" ,this.updateAllPlaylistEntries);
-  },
-
-  // EVENT HANDLER: Update the playlist entry
-  updateAllPlaylistEntries: function(newPlaylist) {
-    console.log("Update with new playlist entry")
-    var playlistsWithNewEntry = this.state.allPlaylistEntries.concat(newPlaylist);
-    this.setState({allPlaylistEntries : playlistsWithNewEntry}); 
-  },
-
   render: function() {
     var playlistEntries = [];
 
     // If there are no playlists, the placeholder is displayed
-    if (this.state.allPlaylistEntries === undefined || this.state.allPlaylistEntries === null || this.state.allPlaylistEntries.length <= 0) {
+    if (this.props.myPlaylists === undefined || this.props.myPlaylists === null || this.props.myPlaylists.length <= 0) {
       return (
         <div>
           <MyPlaylistPlaceholder />
@@ -99,21 +75,38 @@ var MyPlaylists = React.createClass({
 
     // If there are playlists, pushes every playlist into the tab
     else {
+      // Adds the search bar for the playlist
       playlistEntries.push(
         <SearchMyPlaylist key={'SearchMyPlaylist'} />
       )
+
+      // Every playlist entry in MyPlaylist
       var playlistEntry;
-      for (var i = 0; i < this.state.allPlaylistEntries.length; ++i) {
-        playlistEntry = this.state.allPlaylistEntries[i];
+      var playlistThumbnail;
+      var playlistSize;
+      for (var i = 0; i < this.props.myPlaylists.length; ++i) {
+        playlistEntry = this.props.myPlaylists[i];
+        // If the playlist entry has no media entries
+        // TODO: Add a thumbnial placeholder for playlist entries that have no media entries
+        if (playlistEntry.mediaEntries[0] === null || playlistEntry.mediaEntries[0] === undefined) {
+          playlistThumbnail = "";
+          playlistSize = 0;
+        }
+        // there are media entries in the playlist entry
+        else {
+          playlistThumbnail = playlistEntry.mediaEntries[0].thumbnail;
+          playlistSize = playlistEntry.mediaEntries.length;  
+        }
+        
         playlistEntries.push (
           // TODO: owner, liked
           <PlaylistEntry
             key={playlistEntry._id}
             owner={true}
             title={playlistEntry.name}
-            thumbnail={playlistEntry.mediaEntries[0].thumbnail}
+            thumbnail={playlistThumbnail}
             curator={playlistEntry.owner}
-            size={playlistEntry.mediaEntries.length}
+            size={playlistSize}
             type={playlistEntry.isPublic}
             likes={playlistEntry.likes}
             liked={null} 

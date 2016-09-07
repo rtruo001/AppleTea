@@ -51,7 +51,10 @@ var PlaylistEntry = React.createClass({
   // EVENT HANDLER: Adds the playlist into the queue
   playPlaylist: function() {
     console.log("Playing playlist: " + this.props.title + " by " + this.props.curator);
-
+    // If there are no media entries, do nothing
+    if (this.props.size === 0) {
+      return;
+    }
     socket.emit('From Client: Update queue with new list', this.props.mediaEntries);
   },
 
