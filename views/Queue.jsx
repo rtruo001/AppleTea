@@ -212,7 +212,9 @@ var Queue = React.createClass({
 
         queueEntries.push (
           <MediaEntry 
-            key={queueEntry.mediaId} 
+            // FOR PREVENTING DUPLICATES
+            // key={queueEntry.mediaId} 
+            key={i}
             pos={i} 
             mediaId={queueEntry.mediaId} 
             categoryType={'QUEUE'}

@@ -147,12 +147,19 @@ var Duration = React.createClass({
 // Each individual playlist entry in the dropdown list
 var PlaylistEntry = React.createClass({
   addToPlaylist: function() {
-
+    console.log("Adding to existing playlist");
+    console.log(this.props.playlist._id);
+    console.log(this.props.data);
+    socket.emit('From Client: Add to existing playlist', {
+      mediaData: this.props.data,
+      id: this.props.playlist._id,
+      firstEntry: this.props.playlist.mediaEntries[0]
+    });
   },
 
   render: function() {
     return(
-      <li><a href="javascript:void(0)" onClick={this.addToPlaylist}>{this.props.name}</a></li>      
+      <li><a href="javascript:void(0)" onClick={this.addToPlaylist}>{this.props.playlist.name}</a></li>      
     )
   }
 });
@@ -160,7 +167,7 @@ var PlaylistEntry = React.createClass({
 // Each dropdown for every media entry
 var PlaylistDropdown = React.createClass({
   addToNewPlaylist: function() {
-    console.log("Adding to playlist");
+    console.log("Creating new playlist with media");
   },
 
   render: function() {
@@ -171,8 +178,7 @@ var PlaylistDropdown = React.createClass({
       // Sets the playlists in the dropdown
       for (var i = 0; i < this.props.myPlaylists.length; ++i) {
         playlistEntries.push(
-          // TODO: Change the playlist name to the actual names, Solving this means mostly removing i
-          <PlaylistEntry key={i} name={this.props.myPlaylists[i].name + i} />
+          <PlaylistEntry key={i} data={this.props.data} playlist={this.props.myPlaylists[i]} />
         );
       }
     }
@@ -334,6 +340,8 @@ var MediaEntry = React.createClass({
           mediaType: this.props.mediaType,
           thumbnail: this.props.thumbnail,
           title: this.props.title
+          // TODO: The search entry does not have the same db _id. Need to find a way to add media entries without duplicates
+          // _id: this.props._id
         };
 
         // When the user is not logged in, there is no dropdown
@@ -345,7 +353,7 @@ var MediaEntry = React.createClass({
           dropdown.push(
             <div key={this.props.pos} className="search-media-icon">
               <a className="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void(0)"><i className="fa fa-list-ul" ref={(ref) => this.icon3 = ref} data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
-              <PlaylistDropdown myPlaylists={this.props.myPlaylists} pos={this.props.pos} />
+              <PlaylistDropdown myPlaylists={this.props.myPlaylists} data={mediaData} pos={this.props.pos} />
             </div>
           );
         }

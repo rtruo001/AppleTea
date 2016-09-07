@@ -214,7 +214,7 @@ io.on('connection', function(socket) {
 
     // Update queueList and queueListHashSet
     queueList.shift();
-    delete queueListHashSet[playerMediaVideoID];
+    // delete queueListHashSet[playerMediaVideoID];
 
     // Updates every client's queue without the play next media entry
     io.emit('From Server: Update queue with new queue', queueList);
@@ -253,11 +253,11 @@ io.on('connection', function(socket) {
     // }
 
     // If there is a duplicate media, do not add to the queue list
-    if (queueListHashSet[queueEntry.mediaId]) {
-      return;
-    }
-    // Adds media to the queue list
-    queueListHashSet[queueEntry.mediaId] = true;
+    // if (queueListHashSet[queueEntry.mediaId]) {
+    //   return;
+    // }
+    // // Adds media to the queue list
+    // queueListHashSet[queueEntry.mediaId] = true;
     queueList = queueList.concat(queueEntry);
 
     // Sends to all clients to push media into queue
@@ -296,14 +296,14 @@ io.on('connection', function(socket) {
     });
 
     // Deletes the queue entry after playing
-    delete queueListHashSet[queueEntry.mediaId];
+    // delete queueListHashSet[queueEntry.mediaId];
     queueList.splice(queueEntry.posInQueue, 1);
     io.emit('From Server: Update queue with new queue', queueList);
   });   
 
   socket.on('From Client: Delete media entry from queue', function(queueEntry) {
     console.log('Deleting media entry from Queue: ' + queueEntry.posInQueue);
-    delete queueListHashSet[queueEntry.mediaId];
+    // delete queueListHashSet[queueEntry.mediaId];
     queueList.splice(queueEntry.posInQueue, 1);
     io.emit('From Server: Update queue with new queue', queueList);
   });
@@ -318,10 +318,10 @@ io.on('connection', function(socket) {
 
   socket.on('From Client: Update queue with new list', function(newQueueList) {
     // Resets the list to check for duplicates for the queue
-    queueListHashSet = {};
-    for (var i = 0; i < newQueueList.length; ++i) {
-      queueListHashSet[newQueueList[i].mediaId] = true;  
-    }
+    // queueListHashSet = {};
+    // for (var i = 0; i < newQueueList.length; ++i) {
+    //   queueListHashSet[newQueueList[i].mediaId] = true;  
+    // }
 
     console.log('Update to new queue');
     console.log(newQueueList);
@@ -353,6 +353,8 @@ io.on('connection', function(socket) {
  /*  =============================================================================
       MongoDB requests
       ========================================================================== */
+
+  // Creates a new playlist with either a media entry, or without
   socket.on('From Client: Create new playlist with data', function(data) {
     var newPlaylist = new Playlist();
 
@@ -374,26 +376,58 @@ io.on('connection', function(socket) {
     });
   });
 
-  // socket.on('From Client: Add to existing playlist', function(data) {
-  //   var newPlaylist = new Playlist();
+  // Updates an existing playlist
+  socket.on('From Client: Add to existing playlist', function(data) {
+    console.log("===================================");
+    console.log("Added media entry to an existing playlist");
 
-  //   newPlaylist.name = data.name;
-  //   newPlaylist.owner = data.owner;
-  //   newPlaylist.playlistId = 1;
-  //   newPlaylist.isPublic = data.isPublic;
-  //   newPlaylist.likes = 0;
-  //   newPlaylist.mediaEntries = data.mediaEntry;
+    if (data.firstEntry === undefined || data.firstEntry === null) {
+      Playlist.findByIdAndUpdate(
+        data.id,
+        {$set: {"mediaEntries": [data.mediaData]}},
+        {new: true},
+        function(err, updatedPlaylist) {
+          if (err) {
+            throw err;
+          }
+          console.log(updatedPlaylist);
+          socket.emit("From Server: Update selected playlist", updatedPlaylist);
+        }
+      );
+    }    
+    else {
+      Playlist.findByIdAndUpdate(
+        data.id,
+        // TODO: Currently need to fix duplicates because _id is not the same, causing the addToSet function to think there are no duplicates.
+        // {$addToSet: {"mediaEntries": data.mediaData}},
+        {$push: {"mediaEntries": data.mediaData}},
+        {new: true},
+        function(err, updatedPlaylist) {
+          if (err) {
+            throw err;
+          }
+          console.log(updatedPlaylist);
+          socket.emit("From Server: Update selected playlist", updatedPlaylist);
+        }
+      );
+    } 
+    // newPlaylist.name = data.name;
+    // newPlaylist.owner = data.owner;
+    // newPlaylist.playlistId = 1;
+    // newPlaylist.isPublic = data.isPublic;
+    // newPlaylist.likes = 0;
+    // newPlaylist.mediaEntries = data.mediaEntry;
 
-  //   newPlaylist.save(function(err) {
-  //     if (err) {
-  //       throw err;
-  //     }
-  //     console.log("===================================");
-  //     console.log("Added media entry to an existing playlist");
-  //     console.log(newPlaylist);
-  //     socket.emit("From Server: Update MyPlaylist with new playlists", newPlaylist);
-  //   });
-  // });
+    // newPlaylist.save(function(err) {
+    //   if (err) {
+    //     throw err;
+    //   }
+    //   console.log("===================================");
+    //   console.log("Added media entry to an existing playlist");
+    //   console.log(newPlaylist);
+    //   socket.emit("From Server: Update MyPlaylist with new playlists", newPlaylist);
+    // });
+  });
 
   /*  =============================================================================
       When user disconnects

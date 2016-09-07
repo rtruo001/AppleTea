@@ -45,6 +45,7 @@ var Room = React.createClass({
 
   componentDidMount: function() {
     socket.on("From Server: Update MyPlaylist with new playlists" , this.updateAllPlaylistEntries);
+    socket.on("From Server: Update selected playlist", this.updateOnePlaylistEntry);
   },
 
   // EVENT HANDLER: Update the playlist entry
@@ -52,6 +53,22 @@ var Room = React.createClass({
     console.log("Update with new playlist entry")
     var playlistsWithNewEntry = this.state.myPlaylists.concat(newPlaylist);
     this.setState({myPlaylists : playlistsWithNewEntry}); 
+  },
+
+  // EVENT HANDLER: Updates the client's playlist entry when a media is pushed in
+  updateOnePlaylistEntry: function(newPlaylist) {
+    // TODO: Find a better method instead of this, or maybe not
+    var updatedMyPlaylists = this.state.myPlaylists;
+    var playlistEntry;
+    // Increments through every playlist entry to find the existing playlist.
+    for (var i = 0; i < this.state.myPlaylists.length; ++i) {
+      playlistEntry = this.state.myPlaylists[i];
+      if (playlistEntry._id === newPlaylist._id) {
+        updatedMyPlaylists[i] = newPlaylist;
+        this.setState({myPlaylists : updatedMyPlaylists});     
+        return;
+      }
+    }
   },
 
   render: function() {

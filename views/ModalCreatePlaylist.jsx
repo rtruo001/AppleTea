@@ -84,7 +84,9 @@ var ModalCreatePlaylist = React.createClass({
           mediaId: this.props.data.mediaId,
           mediaType: this.props.data.mediaType,
           thumbnail: this.props.data.thumbnail,
-          title: this.props.data.title
+          title: this.props.data.title,
+          // TODO: The search entry does not have the same db _id. Need to find a way to add media entries without duplicates
+          // _id: this.props.data._id
         }
       }
     } 
