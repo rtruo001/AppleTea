@@ -43,10 +43,10 @@ var Index = React.createClass({
 
         <body>
 
-          {/* Room Page */}
-          {/*<div id="room">
+          {/* Room Page
+          <div id="room">
             <Room />
-          </div>*/}
+          </div> */}
 
           {/* Testing for Home
           <div>

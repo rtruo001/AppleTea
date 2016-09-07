@@ -70,7 +70,7 @@ var Profile = React.createClass({
 
                   {/* My Rooms */}
                   <div id="myrooms" className="tab-pane fade">
-                    <MyRooms />
+                    <MyRooms isLite={true} />
                   </div>
 
                   {/* My Playlists */}
