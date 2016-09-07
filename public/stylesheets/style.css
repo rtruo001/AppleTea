@@ -1678,6 +1678,10 @@ form {
   min-height: 129px;
 }
 
+.room-card-lite {
+  background-color: #eee !important;
+}
+
 .room-img {
   width: 100%;
   border-radius: 4px;
