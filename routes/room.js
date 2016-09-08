@@ -3,9 +3,9 @@
     ========================================================================== */
 
 /*  =============================================================================
-    ROUTE: index.js
+    ROUTE: room.js
 
-    For URL path: '/'
+    For URL path: '/room'
     ========================================================================== */
 var express = require('express');
 var router = express.Router();
@@ -51,9 +51,8 @@ function isLoggedIn(req, res, next) {
   console.log('Middleware: isLoggedIn ===============================');
 
   // if user is authenticated in the session, carry on 
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated())
     return next();
-  }
 
   // if they aren't redirect them to the home page
   return next();
@@ -97,7 +96,7 @@ function loadMyPlaylists(req, res, next) {
     Renders the index page with the given data from mongoose
     ========================================================================== */
 router.get('/', [loadExplore, isLoggedIn, loadMyPlaylists], function(req, res, next) {
-  console.log('Routing: /');
+  console.log('Routing: /room');
   console.log('USER ==========================================');
   console.log(req.user);
   console.log('EXPLORE =======================================');
@@ -116,7 +115,7 @@ router.get('/', [loadExplore, isLoggedIn, loadMyPlaylists], function(req, res, n
   // IMPORTANT TODO
   // TODO prevents XSS attacks
   // TODO: Remove stringify and instead do safestringify in index.jsx
-  res.render('index', { 
+  res.render('RoomIndex', { 
     user: userData,
     explore: req.explore,
     myPlaylists: req.myPlaylists,

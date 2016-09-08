@@ -165,7 +165,7 @@ var Header = React.createClass({
       <div className="header">
         <div className="header-content-container row">
           <div className="col-sm-6">
-            <img className="header-logo" src="images/logo.png" />
+            <a href="/"><img className="header-logo" src="images/logo.png"/></a>
           </div>
           <div className="col-sm-6 header-section">
             <div className="header-icon-container">

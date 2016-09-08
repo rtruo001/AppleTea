@@ -68,12 +68,14 @@ app.use(passport.session());
 
 // Routes
 var routes = require('./routes/index');
+var room = require('./routes/room');
 var signin = require('./routes/signin');
 var signup = require('./routes/signup');
 var logout = require('./routes/logout');
 
 // Use the routers
 app.use('/', routes);
+app.use('/room', room);
 app.use('/signin', signin);
 app.use('/signup', signup);
 app.use('/logout', logout);
