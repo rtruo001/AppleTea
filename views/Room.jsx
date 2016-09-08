@@ -30,6 +30,47 @@ var Footer = require('./Footer');
 
 // MAIN COMPONENT: Room
 var Room = React.createClass({
+  getInitialState: function() {
+    if (this.props.myPlaylists  === undefined || this.props.myPlaylists === null) {
+      return {
+        myPlaylists: []
+      };
+    }
+    else {
+      return {
+        myPlaylists: this.props.myPlaylists
+      };  
+    }
+  },
+
+  componentDidMount: function() {
+    socket.on("From Server: Update MyPlaylist with new playlists" , this.updateAllPlaylistEntries);
+    socket.on("From Server: Update selected playlist", this.updateOnePlaylistEntry);
+  },
+
+  // EVENT HANDLER: Update the playlist entry
+  updateAllPlaylistEntries: function(newPlaylist) {
+    console.log("Update with new playlist entry")
+    var playlistsWithNewEntry = this.state.myPlaylists.concat(newPlaylist);
+    this.setState({myPlaylists : playlistsWithNewEntry}); 
+  },
+
+  // EVENT HANDLER: Updates the client's playlist entry when a media is pushed in
+  updateOnePlaylistEntry: function(newPlaylist) {
+    // TODO: Find a better method instead of this, or maybe not
+    var updatedMyPlaylists = this.state.myPlaylists;
+    var playlistEntry;
+    // Increments through every playlist entry to find the existing playlist.
+    for (var i = 0; i < this.state.myPlaylists.length; ++i) {
+      playlistEntry = this.state.myPlaylists[i];
+      if (playlistEntry._id === newPlaylist._id) {
+        updatedMyPlaylists[i] = newPlaylist;
+        this.setState({myPlaylists : updatedMyPlaylists});     
+        return;
+      }
+    }
+  },
+
   render: function() {
     return(
       <div>
@@ -136,15 +177,16 @@ var Room = React.createClass({
 
                   {/* My Playlists */}
                   <div id="myplaylists" className="tab-pane fade">
-                    <MyPlaylists myPlaylists={this.props.myPlaylists} />
+                    <MyPlaylists myPlaylists={this.state.myPlaylists} />
                   </div>
 
                   {/* Search */}
                   <div id="search" className="tab-pane fade">
-                    <Search user={this.props.user} myPlaylists={this.props.myPlaylists} />
+                    <Search user={this.props.user} myPlaylists={this.state.myPlaylists} />
                   </div>
 
-                  {/* <ModalCreatePlaylist /> */}
+                  {/* Modal for create new playlist button, there is no media entry when this button is clicked */}
+                  <ModalCreatePlaylist key={"newPlaylist"} user={this.props.user} data={null} pos={null} />
 
                 </div>
               </div>

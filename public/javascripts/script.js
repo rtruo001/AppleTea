@@ -232,18 +232,19 @@ $('#create-room-toggle').change(function(){
     };
 });
 
-$('#create-playlist-toggle').change(function(){
-    if (this.checked) {
-        console.log('this is checked');
-        $('#create-playlist-toggle-icon').removeClass('fa-globe');
-        $('#create-playlist-toggle-icon').addClass('fa-lock');
-    }
-    else {
-        console.log('this is NOT checked');
-        $('#create-playlist-toggle-icon').removeClass('fa-lock');
-        $('#create-playlist-toggle-icon').addClass('fa-globe');
-    };
-});
+// Not needed, implemented in React in ModalCreatePlaylist.jsx
+// $('#create-playlist-toggle').change(function(){
+//     if (this.checked) {
+//         console.log('this is checked');
+//         $('#create-playlist-toggle-icon').removeClass('fa-globe');
+//         $('#create-playlist-toggle-icon').addClass('fa-lock');
+//     }
+//     else {
+//         console.log('this is NOT checked');
+//         $('#create-playlist-toggle-icon').removeClass('fa-lock');
+//         $('#create-playlist-toggle-icon').addClass('fa-globe');
+//     };
+// });
 
 
 /* Mobile Tab Navigation */
