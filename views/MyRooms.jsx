@@ -72,6 +72,7 @@ var MyRooms = React.createClass({
       // DEMO ROOMS DATA
       roomEntries.push (
         <RoomEntry 
+          key={0}
           owner={true}
           moderator={true}
           type={'private'}
@@ -80,9 +81,10 @@ var MyRooms = React.createClass({
           size={'35'}
           thumbnailExists={true} />
       );
-      for (var i = 0; i < 6; ++i) {
+      for (var i = 1; i < 7; ++i) {
         roomEntries.push (
           <RoomEntry 
+            key={i}
             owner={false}
             moderator={true}
             type={'private'}
@@ -92,9 +94,10 @@ var MyRooms = React.createClass({
             thumbnailExists={true} />
         );
       }
-      for (var i = 0; i < 1; ++i) {
+      for (var i = 7; i < 8; ++i) {
         roomEntries.push (
           <RoomEntry 
+            key={i}
             owner={false}
             moderator={false}
             type={'public'}

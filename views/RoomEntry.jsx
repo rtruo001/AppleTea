@@ -70,8 +70,8 @@ var RoomEntry = React.createClass({
 
     return (
       <div className="col-sm-3 col-padding">
-        {/* TODO: must link to the room */}
-        <a href="javascript:void(0)">
+        {/* TODO: must link to the specific room */}
+        <a href="/room">
           <div className={roomCardClassName}>
             <div className="room-overlay"><div className="room-overlay-fill"></div></div>
             <RoomThumbnail thumbnailExists={this.props.thumbnailExists} />
