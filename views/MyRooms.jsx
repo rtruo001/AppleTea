@@ -70,43 +70,79 @@ var MyRooms = React.createClass({
     else {
 
       // DEMO ROOMS DATA
-      roomEntries.push (
+      // roomEntries.push (
+      //   <RoomEntry 
+      //     key={0}
+      //     owner={true}
+      //     moderator={true}
+      //     type={'private'}
+      //     name={'The Vent Room'}
+      //     inroom={'27'}
+      //     size={'35'}
+      //     thumbnailExists={true} />
+      // );
+      // for (var i = 1; i < 7; ++i) {
+      //   roomEntries.push (
+      //     <RoomEntry 
+      //       key={i}
+      //       owner={false}
+      //       moderator={true}
+      //       type={'private'}
+      //       name={'Apple Tea Work Room'}
+      //       inroom={'2'}
+      //       size={'4'}
+      //       thumbnailExists={true} />
+      //   );
+      // }
+      // for (var i = 7; i < 8; ++i) {
+      //   roomEntries.push (
+      //     <RoomEntry 
+      //       key={i}
+      //       owner={false}
+      //       moderator={false}
+      //       type={'public'}
+      //       name={'This Room Has a Pretty Long Name'}
+      //       inroom={'0'}
+      //       size={'2034'}
+      //       thumbnailExists={false} />
+      //   );
+      // }
+      roomEntries.push(
         <RoomEntry 
           key={0}
           owner={true}
           moderator={true}
           type={'private'}
-          name={'The Vent Room'}
+          name={'Randy\'s Room'}
           inroom={'27'}
           size={'35'}
-          thumbnailExists={true} />
-      );
-      for (var i = 1; i < 7; ++i) {
-        roomEntries.push (
-          <RoomEntry 
-            key={i}
-            owner={false}
-            moderator={true}
-            type={'private'}
-            name={'Apple Tea Work Room'}
-            inroom={'2'}
-            size={'4'}
-            thumbnailExists={true} />
-        );
-      }
-      for (var i = 7; i < 8; ++i) {
-        roomEntries.push (
-          <RoomEntry 
-            key={i}
-            owner={false}
-            moderator={false}
-            type={'public'}
-            name={'This Room Has a Pretty Long Name'}
-            inroom={'0'}
-            size={'2034'}
-            thumbnailExists={false} />
-        );
-      }
+          thumbnailExists={true} 
+          linkHash={'Randy'} />
+      )
+      roomEntries.push(
+        <RoomEntry 
+          key={1}
+          owner={false}
+          moderator={true}
+          type={'private'}
+          name={'Wow'}
+          inroom={'2'}
+          size={'35'}
+          thumbnailExists={false} 
+          linkHash={'Gerard'} />
+      )
+      roomEntries.push(
+        <RoomEntry 
+          key={2}
+          owner={false}
+          moderator={true}
+          type={'public'}
+          name={'Stupid'}
+          inroom={'27'}
+          size={'35'}
+          thumbnailExists={true} 
+          linkHash={'Harrison'} />
+      )
     }
 
     return (

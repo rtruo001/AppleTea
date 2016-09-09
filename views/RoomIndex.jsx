@@ -78,7 +78,6 @@ var Index = React.createClass({
           {/* Rangetouch to fix <input type="range"> on touch devices (see https://rangetouch.com) */} 
           <script src="https://cdn.rangetouch.com/0.0.9/rangetouch.js" async></script>
           
-          <script src="/js/chat.js"></script>
           <script src="/js/youtube.js"></script>
 
           {/* Browserify bundle */} 

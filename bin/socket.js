@@ -7,6 +7,11 @@
 
     Every event handler of the sockets
     ========================================================================== */
+
+require('./AllRooms').initializeObj();
+var RoomsManager = require('./AllRooms').getObj();
+
+// Exports the entire function to www
 var startSockets = function(server) {
 
 // TODO: Potentially separate this into more files, for example: The queue, chat, search, etc.
@@ -27,6 +32,15 @@ const MEDIAPLAYERTYPES = {
 
 var Playlist = require("../models/playlist");
 
+// var roomList = {};
+// roomList['Randy'] = new Room();
+// roomList['Gerard'] = new Room();
+// roomList['Harrison'] = new Room();
+
+RoomsManager.newRoom('Randy');
+RoomsManager.newRoom('Gerard');
+RoomsManager.newRoom('Harrison');
+
 // Users
 var numUsersConnected = 0;
 var numUsersSignedInConnected = 0
@@ -44,22 +58,13 @@ var queueList = [];
 var queueListHashSet = {};
 
 var io = require('socket.io')(server);
-
 io.on('connection', function(socket) {
   console.log("IO connected");
   ++numUsersConnected;
-
-  /*  =============================================================================
-      Client Initialization Data transfers
-      ========================================================================== */
-    // Sends the data to the Client for Client side rendering
-    // socket.on("From Server: Receive MongoDB data", function(nothing, callback) {
-    //   var roomData = {
-    //     explore: configExploreDB.get(),
-    //     myPlaylists: configMyPlaylistsDB.get() 
-    //   }
-    //   callback(roomData);    
-    // });
+  
+  RoomsManager.getRoom('Randy').print();
+  RoomsManager.getRoom('Gerard').print();
+  RoomsManager.getRoom('Harrison').print();
 
   /*  =============================================================================
       Chat
@@ -381,6 +386,10 @@ io.on('connection', function(socket) {
     console.log("===================================");
     console.log("Added media entry to an existing playlist");
 
+    // This first check is due to Mongoose not allowing an empty array to be stored into the db
+    // There will automatically be an element with just the _id datatype
+    // To counteract that, if there are no media entries, then the first element would be null
+    // This first if statement checks to see if there are no media entries.
     if (data.firstEntry === undefined || data.firstEntry === null) {
       Playlist.findByIdAndUpdate(
         data.id,
@@ -394,7 +403,8 @@ io.on('connection', function(socket) {
           socket.emit("From Server: Update selected playlist", updatedPlaylist);
         }
       );
-    }    
+    }
+    // There exists a media entry, which then appends the media into the end of the list.
     else {
       Playlist.findByIdAndUpdate(
         data.id,
@@ -411,22 +421,6 @@ io.on('connection', function(socket) {
         }
       );
     } 
-    // newPlaylist.name = data.name;
-    // newPlaylist.owner = data.owner;
-    // newPlaylist.playlistId = 1;
-    // newPlaylist.isPublic = data.isPublic;
-    // newPlaylist.likes = 0;
-    // newPlaylist.mediaEntries = data.mediaEntry;
-
-    // newPlaylist.save(function(err) {
-    //   if (err) {
-    //     throw err;
-    //   }
-    //   console.log("===================================");
-    //   console.log("Added media entry to an existing playlist");
-    //   console.log(newPlaylist);
-    //   socket.emit("From Server: Update MyPlaylist with new playlists", newPlaylist);
-    // });
   });
 
   /*  =============================================================================

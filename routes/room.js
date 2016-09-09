@@ -15,6 +15,20 @@ var React = require('react');
 // Playlist Schema
 var Playlist = require('../models/playlist');
 
+require('../bin/AllRooms').initializeObj();
+var RoomsManager = require('../bin/AllRooms').getObj();
+
+function checkifValidRoom(req, res, next) {
+  if (RoomsManager.ifRoomExist(req.params.roomId)) {
+    next();
+  }
+  else {
+    res.render('error', {
+      message: 'Room does not exist'
+    });
+  }
+}
+
 /*  =============================================================================
     Function loadExplore
 
@@ -95,7 +109,7 @@ function loadMyPlaylists(req, res, next) {
 
     Renders the index page with the given data from mongoose
     ========================================================================== */
-router.get('/', [loadExplore, isLoggedIn, loadMyPlaylists], function(req, res, next) {
+router.get('/:roomId', [checkifValidRoom, loadExplore, isLoggedIn, loadMyPlaylists], function(req, res, next) {
   console.log('Routing: /room');
   console.log('USER ==========================================');
   console.log(req.user);
