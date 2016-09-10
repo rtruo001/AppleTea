@@ -24,9 +24,6 @@ var Room = require('./Room');
 // directories, do the same for jquery as well.
 var Index = React.createClass({
 
-// function createMarkup() { return {__html: 'First &middot; Second'}; };
-// <div dangerouslySetInnerHTML={createMarkup()} />
-
   render: function () {
     // IMPORTANT TODO
     // TODO: Convert the json to safeStringify

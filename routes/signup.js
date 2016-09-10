@@ -14,8 +14,9 @@ var passport = require('passport');
 /* POST For when the form is submitted. */
 router.post('/',
   passport.authenticate('local-signup', { 
-    successRedirect: '/',
-    failureRedirect: '/'
+   	// Back redirects to the previous page that made the post
+    successRedirect: 'back',
+    failureRedirect: 'back'
   })
 );
 

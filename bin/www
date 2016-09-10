@@ -25,7 +25,9 @@ var server = http.createServer(app);
  * Create HTTP server.
  */
  
-require('./socket')(server);
+
+require('../config/sockets/socket')(server);
+// require('./socket')(server);
 
 /**
  * Listen on provided port, on all network interfaces.

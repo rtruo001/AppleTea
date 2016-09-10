@@ -27,6 +27,9 @@ var errorHandler = require('errorhandler');
 // var browserify = require('browserify');
 // var literalify = require('literalify');
 
+// Initializes the Room Manager
+require('./config/classes/AllRooms').initializeObj();
+
 // MongoDB
 var mongoose = require('mongoose');
 

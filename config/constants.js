@@ -1,0 +1,13 @@
+// MEDIAPLAYER
+exports.STATES = {
+  NONE: 'NONE',
+  PLAYING: 'PLAYING',
+  PAUSED: 'PAUSED'
+};
+
+exports.TYPES = {
+  NONE: 'NONE',
+  YOUTUBE: 'YOUTUBE',
+  SOUNDCLOUD: 'SOUNDCLOUD',
+  VIMEO: 'VIMEO'
+};

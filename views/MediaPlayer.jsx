@@ -157,9 +157,6 @@ var MediaPlayer = React.createClass({
     socket.on('From Server: Play media', this.playMedia);
     socket.on('From Server: Pause media', this.pauseMedia);
     socket.on('From Server: Change media player to none', this.changeMediaPlayerToNone);
-
-    // When a new client joins the room, initializes the player state depending on the current state
-    socket.emit('From Client: Entering page, check initial media player state', 0);
   },
 
   // EVENT HANDLER: Initializes the media with with the data sent from the server

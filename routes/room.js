@@ -15,13 +15,19 @@ var React = require('react');
 // Playlist Schema
 var Playlist = require('../models/playlist');
 
-require('../bin/AllRooms').initializeObj();
-var RoomsManager = require('../bin/AllRooms').getObj();
+var RoomsManager = require('../config/classes/AllRooms').getObj();
 
-function checkifValidRoom(req, res, next) {
+/*  =============================================================================
+    Function checkIfValidRoom
+
+    The first middleware called when the index route is called. Checks if the url's
+    room exists, if it does goes to to it, if it does not errors out
+    ========================================================================== */
+function checkIfValidRoom(req, res, next) {
   if (RoomsManager.ifRoomExist(req.params.roomId)) {
     next();
   }
+  // TODO: Error page or error out
   else {
     res.render('error', {
       message: 'Room does not exist'
@@ -32,7 +38,7 @@ function checkifValidRoom(req, res, next) {
 /*  =============================================================================
     Function loadExplore
 
-    The first middleware called when the index route is called. Loads the public
+    The second middleware called when the index route is called. Loads the public
     playlists for the Explore tab. Uses the Mongoose playlist model.
     ========================================================================== */
 function loadExplore(req, res, next) {
@@ -58,7 +64,7 @@ function loadExplore(req, res, next) {
 /*  =============================================================================
     Function isLoggedIn
 
-    The second middleware called after loadExplore. Checks to see if a user is
+    The third middleware called after loadExplore. Checks to see if a user is
     logged in or not.
     ========================================================================== */
 function isLoggedIn(req, res, next) {
@@ -76,7 +82,7 @@ function isLoggedIn(req, res, next) {
 /*  =============================================================================
     Function loadMyPlaylists
 
-    The third middleware called after isLoggedIn. Loads all of the user's playlists
+    The 4th middleware called after isLoggedIn. Loads all of the user's playlists
     into the My Playlist tab.
     ========================================================================== */
 function loadMyPlaylists(req, res, next) {
@@ -109,7 +115,7 @@ function loadMyPlaylists(req, res, next) {
 
     Renders the index page with the given data from mongoose
     ========================================================================== */
-router.get('/:roomId', [checkifValidRoom, loadExplore, isLoggedIn, loadMyPlaylists], function(req, res, next) {
+router.get('/:roomId', [checkIfValidRoom, loadExplore, isLoggedIn, loadMyPlaylists], function(req, res, next) {
   console.log('Routing: /room');
   console.log('USER ==========================================');
   console.log(req.user);
@@ -130,10 +136,12 @@ router.get('/:roomId', [checkifValidRoom, loadExplore, isLoggedIn, loadMyPlaylis
   // TODO prevents XSS attacks
   // TODO: Remove stringify and instead do safestringify in index.jsx
   res.render('RoomIndex', { 
+    roomId: req.params.roomId,
     user: userData,
     explore: req.explore,
     myPlaylists: req.myPlaylists,
     propsStr: JSON.stringify({ 
+      roomId: req.params.roomId,
       user: userData,
       explore: req.explore,
       myPlaylists: req.myPlaylists
