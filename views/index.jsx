@@ -43,20 +43,20 @@ var Index = React.createClass({
 
         <body>
 
-          {/* Room Page
+          {/* Room Page */}
           <div id="room">
             <Room />
-          </div> */}
+          </div>
 
           {/* Testing for Home
           <div>
             <Home />
           </div> */}
 
-          {/* Testing for Profile */}
+          {/* Testing for Profile
           <div>
             <Profile />
-          </div>
+          </div> */}
 
           {/* <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> */}
           {/* <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> */}

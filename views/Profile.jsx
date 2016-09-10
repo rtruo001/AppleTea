@@ -18,7 +18,7 @@ var React = require('react');
 
 // Sub-components in Room
 var Header = require('./Header');
-// var Account = require('./Account');
+var Account = require('./Account');
 var MyRooms = require('./MyRooms');
 var MyPlaylists = require('./MyPlaylists');
 var Footer = require('./Footer');
@@ -46,7 +46,7 @@ var Profile = React.createClass({
                 <ul className="nav nav-tabs nav-centered">
                   <li className="active">
                     <a id="tab-account" data-toggle="tab" href="#account">
-                      <i className="fa fa-rocket icon-padding"></i>Account
+                      <i className="fa fa-user icon-padding"></i>Account
                     </a>
                   </li>
                   <li>
@@ -65,7 +65,7 @@ var Profile = React.createClass({
 
                   {/* Account */}
                   <div id="account" className="tab-pane fade in active">
-                    {/*<Account />*/}
+                    <Account />
                   </div>
 
                   {/* My Rooms */}

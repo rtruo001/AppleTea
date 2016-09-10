@@ -37,6 +37,10 @@ body {
   padding: 3px !important;
 }
 
+.col-padding-none {
+  padding: 0px !important;
+}
+
 
 /* Page Overlay to click-save Edit Inputs */
 
@@ -146,6 +150,10 @@ a.link-grey-lite:active {color: #4bb9c3; text-decoration: underline; outline:non
   margin: 0px 3px;
 }
 
+.btn-form {
+  margin: 2px 0px !important;
+}
+
 .btn-primary {color: #fff !important; background-color: #4bb9c3 !important;}
 .btn-primary:hover {background-color: #47afb8 !important;}
 .btn-primary:active {background-color: #339199 !important;}
@@ -189,6 +197,10 @@ a.link-grey-lite:active {color: #4bb9c3; text-decoration: underline; outline:non
 .btn-google {color: #fff !important; background-color: #db4437 !important;}
 .btn-google:hover {background-color: #c23124 !important;}
 .btn-google:active {background-color: #ac2b20 !important;}
+
+.btn-connected {color: #fff !important; background-color: #e5e5e5 !important;}
+.btn-connected:hover {background-color: #444 !important;}
+.btn-connected:active {background-color: #333 !important;}
 
 
 /* Pagination */
@@ -1770,6 +1782,35 @@ form {
 }
 
 
+
+/********************************************/
+/* Profile Page Styling                        */
+/********************************************/
+
+.account-container {
+  padding-top: 10px;
+}
+
+.account-profile-pic {
+  width: 100%;
+  text-align: center;
+}
+
+.account-container .profile-pic {
+  width: 100%;
+  border-radius: 500px;
+}
+
+.account-info-content {
+  padding-top: 20px;
+}
+
+.account-info-text {
+  height: 34px;
+  font-size: 14px;
+  text-align: right;
+}
+
 /********************************************/
 /* Media Queries                            */
 /********************************************/
@@ -2030,6 +2071,10 @@ form {
 
 .footer {
   min-width: 100%;
+}
+
+.account-container .profile-pic {
+  width: 40%;
 }
 
 }
