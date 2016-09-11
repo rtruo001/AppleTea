@@ -19,6 +19,7 @@ var React = require('react');
 // Home and Room component
 var Home = require('./Home');
 var Room = require('./Room');
+var Profile = require('./Profile');
 
 // TODO: The scripts for the React librarys are through cdns, want to change this in order for them to be locally stored into our
 // directories, do the same for jquery as well.
@@ -50,6 +51,11 @@ var Index = React.createClass({
           {/* Testing for Home
           <div>
             <Home />
+          </div> */}
+
+          {/* Testing for Profile
+          <div>
+            <Profile />
           </div> */}
 
           {/* <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> */}
