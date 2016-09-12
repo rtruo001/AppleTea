@@ -27,6 +27,9 @@ var errorHandler = require('errorhandler');
 // var browserify = require('browserify');
 // var literalify = require('literalify');
 
+// Initializes the Room Manager
+require('./config/classes/AllRooms').initializeObj();
+
 // MongoDB
 var mongoose = require('mongoose');
 
@@ -55,6 +58,12 @@ app.use(cookieParser());
 app.use('/css', express.static(__dirname + '/public/stylesheets'));
 app.use('/js', express.static(__dirname + '/public/javascripts'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Public files for room
+app.use('/room/css', express.static(__dirname + '/public/stylesheets'));
+app.use('/room/js', express.static(__dirname + '/public/javascripts'));
+app.use('/room', express.static(path.join(__dirname, 'public')));
+
 
 // Passport and session
 require('./config/passport')(passport);

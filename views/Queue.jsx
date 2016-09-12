@@ -160,30 +160,13 @@ var Queue = React.createClass({
 
   // EVENT HANDLER: Updates the queue with the server's queue
   updateQueueWithNewQueue: function(newQueueList) {
+    console.log(newQueueList);
     this.setState({queueList: newQueueList}, function() {
       reinitializeDraggable(function() {
         console.log("Draggable reinitialized with Queue changes : updateQueueWithNewQueue");
         $('.media-card').arrangeable();  
       });
     });
-  },
-
-  // EVENT HANDLER: Updates the my playlist tab with a new playlist entry
-  addToPlaylist: function() {
-    console.log("Queue.jsx: addToPlaylist");
-    console.log(this.state.queueList);
-    // Do not add an emepty queue to a playlist
-    if (this.state.queueList.length <= 0) {
-      return;
-    }
-    // TODO: Have data come in from the edit playlist
-    var data = {
-      name: 'Chill ass music',
-      owner: this.props.user.local.email,
-      isPublic: true,
-      queueList: this.state.queueList
-    }
-    socket.emit('From Client: Add all queue entries to playlist', data);
   },
 
   // EVENT HANDLER: Clears the entire queue
@@ -214,7 +197,7 @@ var Queue = React.createClass({
           <MediaEntry 
             // FOR PREVENTING DUPLICATES
             // key={queueEntry.mediaId} 
-            key={i}
+            key={queueEntry.mediaId + i}
             pos={i} 
             mediaId={queueEntry.mediaId} 
             categoryType={'QUEUE'}

@@ -46,6 +46,8 @@ var Room = React.createClass({
   componentDidMount: function() {
     socket.on("From Server: Update MyPlaylist with new playlists" , this.updateAllPlaylistEntries);
     socket.on("From Server: Update selected playlist", this.updateOnePlaylistEntry);
+
+    socket.emit("From Client: Initialize room", this.props.roomId);
   },
 
   // EVENT HANDLER: Update the playlist entry
