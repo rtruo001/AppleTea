@@ -51,7 +51,7 @@ var Index = React.createClass({
         </head>
 
         <body>
-          {/* Testing for Home */}
+          {/* Entire home component */}
           <div id="home">
             <Home user={this.props.user} explore={this.props.explore} myPlaylists={this.props.myPlaylists} />
           </div> 

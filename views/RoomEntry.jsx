@@ -62,13 +62,19 @@ var RoomThumbnail = React.createClass({
 var RoomEntry = React.createClass({
   render: function() {
 
-    // If room is not playing anything, append room-card-empty to classname
     var roomCardClassName = "room-card";
+
+    // If room is not playing anything, append room-card-empty to classname
     if (this.props.thumbnailExists == false) {
       roomCardClassName += " room-card-empty";
     };
 
     var roomhref = "/room/" + this.props.linkHash;
+
+    // If passed the prop of isLite, generate card with lite theme instead of dark
+    if (this.props.isLite == true) {
+      roomCardClassName += " room-card-lite";
+    };
 
     return (
       <div className="col-sm-3 col-padding">

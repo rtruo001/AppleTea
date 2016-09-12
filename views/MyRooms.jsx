@@ -117,6 +117,7 @@ var MyRooms = React.createClass({
           inroom={'27'}
           size={'35'}
           thumbnailExists={true} 
+          isLite={this.props.isLite}
           linkHash={'Randy'} />
       )
       roomEntries.push(
@@ -129,6 +130,7 @@ var MyRooms = React.createClass({
           inroom={'2'}
           size={'35'}
           thumbnailExists={false} 
+          isLite={this.props.isLite}
           linkHash={'Gerard'} />
       )
       roomEntries.push(
@@ -141,15 +143,25 @@ var MyRooms = React.createClass({
           inroom={'27'}
           size={'35'}
           thumbnailExists={true} 
+          isLite={this.props.isLite}
           linkHash={'Harrison'} />
       )
     }
+
+    // If isLite prop is true, use primary button, else use dark button
+    var buttonClassName = "btn";
+    if (this.props.isLite == true) {
+      buttonClassName += " btn-primary";
+    }
+    else {
+      buttonClassName += " btn-dark";
+    };
 
     return (
       <div>
         <div className="myrooms-container">
           <div className="rooms-section">
-            <button className="btn btn-dark" data-toggle="modal" data-target="#create-room"><i className="fa fa-plus icon-padding"></i>Create New Room</button>
+            <button className={buttonClassName} data-toggle="modal" data-target="#create-room"><i className="fa fa-plus icon-padding"></i>Create New Room</button>
           </div>
           <div className="row">
             {roomEntries}

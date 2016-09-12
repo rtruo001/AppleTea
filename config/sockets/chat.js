@@ -22,8 +22,8 @@ var socketChat = function(io, socket) {
 
   // When a message is sent, sends the username and their message to the client
   socket.on('From Client: Chat message', function(msg){
-    socket.RoomObj.print();
     console.log(socket.username + ": "  + msg);
+    
     io.to(socket.room).emit('From Server: Chat message', {
       username: socket.username,
       message: msg
