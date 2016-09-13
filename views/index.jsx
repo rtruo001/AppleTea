@@ -53,7 +53,7 @@ var Index = React.createClass({
         <body>
           {/* Entire home component */}
           <div id="home">
-            <Home user={this.props.user} explore={this.props.explore} myPlaylists={this.props.myPlaylists} />
+            <Home user={this.props.user} rooms={this.props.rooms} explore={this.props.explore} myPlaylists={this.props.myPlaylists} />
           </div> 
 
           {/* Injected script data from MongoDB sent from the server */}

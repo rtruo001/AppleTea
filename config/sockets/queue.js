@@ -31,6 +31,7 @@ var socketQueue = function(io, socket) {
     socket.RoomObj.setPlayerMediaTitle(queueEntry.title); 
     socket.RoomObj.setPlayerCurrentState(MEDIAPLAYER.STATES.PLAYING);
     socket.RoomObj.setPlayerMediaElapsedTime(0);
+    socket.RoomObj.setRoomThumbnail(queueEntry.thumbnail);
     socket.RoomObj.removeEntryFromQueue(queueEntry.posInQueue);
     
     io.to(socket.room).emit("From Server: Load media entry", socket.RoomObj.getRoomData(false));

@@ -50,6 +50,7 @@ var socketMediaPlayer = function(io, socket) {
     socket.RoomObj.setPlayerMediaTitle(mediaData.title); 
     socket.RoomObj.setPlayerCurrentState(MEDIAPLAYER.STATES.PLAYING);
     socket.RoomObj.setPlayerMediaElapsedTime(0);
+    socket.RoomObj.setRoomThumbnail(mediaData.thumbnail);
 
     io.to(socket.room).emit("From Server: Load media entry", socket.RoomObj.getRoomData(false));
   });
@@ -61,6 +62,7 @@ var socketMediaPlayer = function(io, socket) {
       socket.RoomObj.setPlayerMediaTitle(null); 
       socket.RoomObj.setPlayerCurrentState(MEDIAPLAYER.STATES.NONE);
       socket.RoomObj.setPlayerMediaElapsedTime(0);
+      socket.RoomObj.setRoomThumbnail(null);
 
       // TODO: Send to Clients to stop Media Player and change all states to NONE
       io.to(socket.room).emit('From Server: Change media player to none', 0);
@@ -77,10 +79,10 @@ var socketMediaPlayer = function(io, socket) {
     socket.RoomObj.removeEntryFromQueue(0);
 
     // Updates every client's queue without the play next media entry
-    io.emit('From Server: Update queue with new queue', socket.RoomObj.getQueue());
+    io.to(socket.room).emit('From Server: Update queue with new queue', socket.RoomObj.getQueue());
     
     // Loads the play next media entry on the queue onto the Media Player
-    io.emit("From Server: Load media entry", socket.RoomObj.getRoomData(IfAClientSendToServerYet));  
+    io.to(socket.room).emit("From Server: Load media entry", socket.RoomObj.getRoomData(IfAClientSendToServerYet));  
 
     // TODO: Tell chat that new media entry has started
   });

@@ -65,7 +65,7 @@ var Home = React.createClass({
 
                   {/* My Rooms */}
                   <div id="myrooms" className="tab-pane fade in active">
-                   <MyRooms />
+                   <MyRooms rooms={this.props.rooms} />
                   </div>
 
                 </div>

@@ -10,13 +10,15 @@
     ========================================================================== */
 "use strict";
 
-var MEDIAPLAYER = require('../constants')
+var MEDIAPLAYER = require('../constants');
+var HOURINSECONDS = require('../constants').HOUR;
+var RoomManager = require('./AllRooms');
 
 /*  =============================================================================
     Class Room
     ========================================================================== */
 class Room {
-	constructor(roomName) {
+	constructor(roomId) {
 		// Users
 		this.numUsersConnected = 0;
 		this.numSignedInUsersConnected = 0;
@@ -30,11 +32,38 @@ class Room {
 
 		// Queue of media entries
 		this.queueList = [];
-		// Used to see if there are duplicates in the Queue or not
-		this.queueListHashSet = {};
 
-		this.roomName = roomName;
+    // Room
+		this.roomName = null;
+    this.roomThumbnail = null;
+    this.roomId = roomId;
+
+    this.timeoutTimer = null;
 	}
+
+  /*
+    Room
+  */
+
+  getRoomName() {
+    return this.roomName;
+  }
+
+  getRoomThumbnail() {
+    return this.roomThumbnail;
+  }  
+
+  getRoomURL() {
+    return this.roomId;
+  }
+
+  setRoomName(name) {
+    this.roomName = name;
+  }
+
+  setRoomThumbnail(thumbnail) {
+    this.roomThumbnail = thumbnail;
+  }
 
 	/*
 		Media Player
@@ -72,7 +101,6 @@ class Room {
 		}
 	}
 
-	
 	// SETTERS
 	setPlayerMediaType(mediaType) {
 		this.playerMediaType = mediaType;
@@ -135,6 +163,39 @@ class Room {
     this.queueList.splice(posInQueue, 1);
     this.queueList.unshift(mediaEntry);
 	}
+
+  /*
+    User
+  */
+
+  newUserHasJoinedRoom() {
+    this.numUsersConnected = this.numUsersConnected + 1;
+    if (this.timeoutTimer !== null) {
+      console.log("Cleared timer timeout");
+      clearTimeout(this.timeoutTimer);
+      this.timeoutTimer = null;
+    }
+  }
+
+  userHasLeftRoom() {
+    this.numUsersConnected = this.numUsersConnected - 1; 
+    if (this.numUsersConnected <= 0) {
+      console.log("Setting timer");
+      this.numUsersConnected = 0;
+      // After 60 minutes, the room is removed
+      this.timeoutTimer = setTimeout(() => {this.deleteRoom()}, HOURINSECONDS);
+    }
+  }
+
+  getNumOfUsersInRoom() {
+    return this.numUsersConnected;
+  }
+
+  deleteRoom() {
+    clearTimeout(this.timeoutTimer);
+    this.timeoutTimer = null;
+    RoomManager.getObj().deleteRoom(this.roomId);
+  }
 
 	print() {
 		console.log("===============Printing all private variables of Room===============");

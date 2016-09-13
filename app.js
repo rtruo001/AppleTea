@@ -37,6 +37,7 @@ var mongoose = require('mongoose');
 // RANDY's LOCAL MONGODB
 // mongoose.connect('mongodb://localhost:27017/Appletea'); 
 // Mlab Testing
+// TODO: Make this secret
 mongoose.connect('mongodb://randy:123@ds019856.mlab.com:19856/appletea-db');
 
 var app = express();
@@ -66,6 +67,7 @@ app.use('/room', express.static(path.join(__dirname, 'public')));
 
 
 // Passport and session
+// TODO: Make the secret actually secret
 require('./config/passport')(passport);
 app.use(session({ 
   secret: 'Secret',
@@ -121,13 +123,6 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
-console.log("App.js ending");
-
-// module.exports = {
-//   app: app,
-//   db: db
-// };
 
 module.exports = {
   app: app

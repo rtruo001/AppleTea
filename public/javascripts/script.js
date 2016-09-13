@@ -217,36 +217,6 @@ $('.focus-search').click(function() {
     }, 200);
 });
 
-
-/* Toggle lock/globe icon on toggle slider */
-$('#create-room-toggle').change(function(){
-    if (this.checked) {
-        console.log('this is checked');
-        $('#create-room-toggle-icon').removeClass('fa-globe');
-        $('#create-room-toggle-icon').addClass('fa-lock');
-    }
-    else {
-        console.log('this is NOT checked');
-        $('#create-room-toggle-icon').removeClass('fa-lock');
-        $('#create-room-toggle-icon').addClass('fa-globe');
-    };
-});
-
-// Not needed, implemented in React in ModalCreatePlaylist.jsx
-// $('#create-playlist-toggle').change(function(){
-//     if (this.checked) {
-//         console.log('this is checked');
-//         $('#create-playlist-toggle-icon').removeClass('fa-globe');
-//         $('#create-playlist-toggle-icon').addClass('fa-lock');
-//     }
-//     else {
-//         console.log('this is NOT checked');
-//         $('#create-playlist-toggle-icon').removeClass('fa-lock');
-//         $('#create-playlist-toggle-icon').addClass('fa-globe');
-//     };
-// });
-
-
 /* Mobile Tab Navigation */
 
 // Event Handler: When window width changes, run WidthChange();
