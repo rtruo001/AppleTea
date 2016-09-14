@@ -74,6 +74,7 @@ var socketMediaPlayer = function(io, socket) {
     socket.RoomObj.setPlayerMediaTitle(playNextMediaData.title); 
     socket.RoomObj.setPlayerCurrentState(MEDIAPLAYER.STATES.PLAYING);
     socket.RoomObj.setPlayerMediaElapsedTime(0);
+    socket.RoomObj.setRoomThumbnail(playNextMediaData.thumbnail);
   
     // Update queueList by removing front entry
     socket.RoomObj.removeEntryFromQueue(0);

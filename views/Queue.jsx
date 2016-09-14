@@ -180,6 +180,8 @@ var Queue = React.createClass({
     var queueEntries = [];
     var queueEntry;
     var queueMediaEntryId = 'queue-media-entry-';
+    var playlistLength = 0;
+    var addedMediaLength = 0;
 
     // Added If statement that pushes the placeholder div into queueEntries whenever queueList is empty
     if (this.state.queueList.length <= 0) {
@@ -192,6 +194,13 @@ var Queue = React.createClass({
     else {
       for (var i = 0; i < this.state.queueList.length; ++i) {
         queueEntry = this.state.queueList[i];
+
+        if (queueEntry.ifMediaCardAdded) {
+          ++addedMediaLength;
+        }
+        else {
+          ++playlistLength;
+        }
 
         queueEntries.push (
           <MediaEntry 
@@ -215,9 +224,9 @@ var Queue = React.createClass({
         <div className="queue-header">
           <div className="queue-title-container">
             {/* TODO: Change queue titles and pill numbers depending on what was added */}
-            <QueueTitle queueTitle={"Chill Ass Music"} />
-            <PlaylistLength playlistLength={this.state.queueList.length} />
-            <AddedMediaLength addedMediaLength={this.state.queueList.length} />
+            <QueueTitle queueTitle={"Queue"} />
+            <PlaylistLength playlistLength={playlistLength} />
+            <AddedMediaLength addedMediaLength={addedMediaLength} />
           </div>
 
           <div className="queue-icon-container">

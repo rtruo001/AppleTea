@@ -21,4 +21,4 @@ console.log(propStr);
 let props = JSON.parse(propStr);
 console.log("Props converted into JSON:");
 console.log(props);
-ReactDOM.render(<RoomComponent roomId={props.roomId} user={props.user} explore={props.explore} myPlaylists={props.myPlaylists} />, document.getElementById('room'));  
+ReactDOM.render(<RoomComponent room={props.room} user={props.user} explore={props.explore} myPlaylists={props.myPlaylists} />, document.getElementById('room'));  

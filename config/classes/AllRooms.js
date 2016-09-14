@@ -29,9 +29,9 @@ class RoomsManager {
 		return this.roomList[hash];
 	}
 
-	newRoom(hash) {
+	newRoom(hash, roomName) {
     if (!this.ifRoomExist(hash)) {
-			this.roomList[hash] = new RoomObj(hash);
+			this.roomList[hash] = new RoomObj(hash, roomName);
 		}
 		else {
 			// Room already created
@@ -82,7 +82,7 @@ exports.initializeObj = function() {
       }
       else if (rooms.length > 0 && rooms != null && rooms != undefined) {
         for (var i = 0; i < rooms.length; ++i) {
-          roomsManager.newRoom(rooms[i]._id);
+          roomsManager.newRoom(rooms[i]._id, rooms[i].name);
         }
       }
       else {

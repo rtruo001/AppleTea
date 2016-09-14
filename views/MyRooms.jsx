@@ -1,3 +1,19 @@
+/*  =============================================================================
+    Copyright © 
+    ========================================================================== */
+
+/*  =============================================================================
+    MyRoom.jsx
+
+    Section containing all of the RoomEntries
+    ========================================================================== */
+
+/*  =============================================================================
+    @Components:    MyRoomsPlaceholder
+                    MyRooms
+
+    @Exports:       MyRooms
+    ========================================================================== */
 var React = require('react');
 var RoomEntry = require('./RoomEntry');
 var ModalCreateRoom = require('./ModalCreateRoom');
@@ -27,10 +43,9 @@ var MyRooms = React.createClass({
   },
 
   render: function() {
-
     var roomEntries = [];
 
-    // TODO: If no rooms, return a placeholder
+    // Placeholder if there are no rooms
     if (this.state.rooms === undefined || this.state.rooms === null || this.state.rooms.length <= 0) {
       roomEntries.push(
         <MyRoomsPlaceholder key={'MyRoomsPlaceholder'} />

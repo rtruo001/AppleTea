@@ -139,31 +139,62 @@ Now go to the browser and put http://localhost:3000/ as the url
 If you see a favicon.ico error, either add a favicon.ico image in the public directory or go to app.js and comment off the favicon line.
 
 
+###MongoDB for local use
+
+If mLab or your internet connection is not running correctly, you have to take out the mlab line and uncomment
+```
+mongoose.connect('mongodb://localhost:27017/Appletea');
+```
+Both of the line of code is in app.js
+
+1. Download MongoDB from the website.
+2. To run it, go to the directory where you downloaded MongoDB
+3. Go to the bin folder
+4. In terminal, do the command './mongod'
+
+This starts up your localhost:27017 MongoDB instance. Everything now is stored through locally in the db folder in the MongoDB folder.
+
+To use the Mongo terminal, in the same bin folder, do the command './mongo'
 
 
 
 
 
-##File Paths##
-* bin
+##File Paths
+* bin (Executables)
   * www
+* models (Mongoose schemas)
 * node_modules (A LOT of files)
-* public
+* config (Handles Server side code)
+  * classes 
+    * AllRooms.js
+    * Room.js
+  * sockets (All of the socket calls are stored here)
+  * constants.js
+  * passport.js
+* public (Handles Client side code)
+  * browserify
+    * home.js
+    * room.js
+  * bundles
+    * homeBundle.js
+    * roomBundle.js
   * Images
   * Javascripts
   * Stylesheets
-  * bundle.js
-  * main.js
-* routes
-* index.js
+* routes (Controllers-like)
 * views (All of the .jsx files)
 * app.js
 * package.json
 
 
-**Summary of Directories**
+###Summary of Directories
+
+**Models:** Contains all Mongoose schemas files
 
 **Node_modules:** Contains the downloaded dependencies that were installed through npm install. An analogy would be the Ruby Gems, or Java libraries.
+
+**Config:** Contains a portion of the server side code
 
 **Public:** Contains any assets that will be available to the public-facing part of the application such as images, JavaScript files and style sheets.
 
@@ -180,11 +211,10 @@ If you see a favicon.ico error, either add a favicon.ico image in the public dir
 
 
 ##Bin##
-www- This is where the entire application starts. I accidentally used the Express skeleton generator (Which generates a new NodeJS application with files and folders already in place). For some reason, Express’s generator separated the server listener into www and the rest into app.js.
+#### Files in here are executables, the command 'node www' would start the entire application
+www- This is where the entire application starts. 
 
-App.js is usually the entry point. However www calls app.js in it’s file anyway. This is just added modularity for some reason that the express generator created. Usually everything can be done in just app.js. 
-
-ANYWAY, app.js and www both set up the Server with Node, Socket.IO, all the middleware, and the routing. Think of these files as the constructor/initializer for the entire application. 
+App.js and www both set up the Server with Node, Socket.IO, all the middleware, and the routing. Think of these files as the constructor/initializer for the entire application. 
 
 Usually whenever www or app.js is updated, the server needs to be reopened. 
 
@@ -216,12 +246,9 @@ Usually whenever www or app.js is updated, the server needs to be reopened.
 
 ##Node_modules##
 
-There are A LOT of modules. Node_modules is a directory that holds all of your dependencies. Think of a Java library/framework that you are importing, or a Ruby Gem. 
+There are A LOT of modules. Node_modules is a directory that holds all of your dependencies. Think of a Java library/framework that you are importing, or a Ruby Gem.
+
 Global modules allows npm to install the node right when the nodes are initialized. To install globally, you add -g. After installing globally, every node application will default have that node. For example, to install Nodemon globally for it to be used in every Node application, you do:
-
-`npm install nodemon -g`
-
-But this won’t always work as globally installing things might require permissions. Since using the -g requires permission, I have to be root admin to do this so I use sudo.
 
 `sudo npm install nodemon -g`
 
@@ -239,6 +266,8 @@ But here are some ones that I have globally.
 **Nodemon -** Allows user to not continuously reopen the Server whenever something changes on the Client side.
 
 **Browserify -** Allows the Client side to use “require” in its code.
+
+**Watchify -** Automates Browserify
 
 
 
@@ -386,10 +415,10 @@ module.exports = Component;
 
 
 
-##Views - React framework ##
+##Views - React framework
 React uses JSX as syntax for the views. In the end, the .jsx files are converted into Javascript which would render the HTML. There are two ways to render the Javascript, through either Server side rendering or Client Side rendering. Doing both makes an isomorphic application, which is code that can run on the server and client.
 
-###Server-Side Rendering###
+###Server-Side Rendering
 
 First have the app.js contain this: 
 
@@ -403,9 +432,9 @@ This sets the view engine to be React. (Just like using EJS, Jade, or Handlebars
 
 Server side rendering (SSR) is rendering through the server. Do this by rendering through the Routes which goes through the views directory. The HTML is built from the JSX files which then is rendered to the screen. Doing this is great as everything is loaded onto the screen right when the website starts. The problem in doing this is that all of the event handlers will not trigger as no components are mounted. To fix this, we have to render through the client side as well.
 
-###Client-Side Rendering###
+###Client-Side Rendering
 
-To render via the Client, React already has tutorials on doing this method. To do this, we would create a JavaScript file in public/javascript and add the \<script\> file to the HTML. We build the components and then use the ReactDom class to render it into our specified div. 
+To render via the Client, React already has tutorials on doing this method. To do this, we would create a JavaScript file in public/javascript and add the \<script\> file to the HTML. We build the components and then use the ReactDom Class to render it into our specified div. 
 
 Doing this method however will create two files that have the same exact code, one where it renders on the Server side using the Views, the other is in the Javascript which would render on the client side. This makes things more annoying to work as we have to edit both files for it to work the way we want it to.
 
@@ -415,9 +444,19 @@ In order to make things easier for the user, we can do the server side rendering
 
 *IMPORTANT TO KNOW:
 
-`browserify ./public/main.js -o ./public/bundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx`
+```
+watchify ./public/browserify/home.js -o ./public/bundles/homeBundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx -v
+or
+browserify ./public/browserify/home.js -o ./public/bundles/homeBundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx -v
 
-Whenever a .JSX file is updated, call this command to convert the .JSX code into JavaScript through the bundle.js which is a \<script\> at the bottom of the HTML.
+and
+
+watchify ./public/browserify/room.js -o ./public/bundles/roomBundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx -v
+or
+browserify ./public/browserify/room.js -o ./public/bundles/roomBundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx -v
+```
+
+Whenever a .JSX file is updated, call this command to convert the .JSX code into JavaScript through the bundles which is a \<script\> at the bottom of the HTML.
 
 Currently want to research different ways and the proper way to use Browserify. The babelify command used to be called Reactify, but what it does is it converts .jsx files into JavaScript (I think).
 
@@ -476,7 +515,7 @@ module.exports = app;
 
 
 
-##package.json##
+##package.json
 One thing to know about package.json is that under the “scripts” object, the command ‘node’ is called which starts the entire project. This script can be used to do other things as well to initialize things such as using browserify commands. This script is called when the ‘nodemon app’ or ‘npm start’ is called. 
 
 Below is an example package.json containing different dependencies and their versions. Whenever npm install is called, these dependencies are immediately installed as well.
@@ -508,14 +547,12 @@ Below is an example package.json containing different dependencies and their ver
 ```
 
 
-##Chat System - Socket.io##
-The chat system starts off with using Socket.io. I was trying to find a server side framework to do chatting easily and to try to scale it as good as I could. If there are better methods in doing this, please try it out! 
+##Chat System / Video Syncing - Socket.io
+All code is currently in config/sockets, the socket code starts in socket.js.
 
-First lets start off with Socket.io. The code below is how Socket.io should start. Server needs to listen after setting up Socket.io.
-
-This portion of the code is currently in ./bin/www
-
+Socket.io is used for Real time updates, updating all clients instantly. The Chat system and Video Syncing uses Socket.io
 ```
+PSEUDOCODE
 var port = 3000;
 
 // Does whatever is in app.js and returns the app as a module
@@ -523,11 +560,18 @@ var app = require('../app');
 var http = require('http');
 var server = http.createServer(app);
 
-// Socket.io portion, the code needs be between the listen and the creating the server. I 
-// tried to make it more module by adding a socket.js and returning the module for it, but // it didn’t work.
 var io = require('socket.io')(server);
 io.on('connection', function(socket) {
   // Event handlers
+  Room sockets
+
+  Chat sockets
+
+  MediaPlayer sockets
+
+  Queue Sockets
+
+  Database Sockets
 });
 server.listen(port);
 ```
@@ -592,58 +636,30 @@ Very useful docs from these links
 * http://socket.io/docs/ 
 * https://github.com/socketio/socket.io/tree/master/examples/chat 
 
+Youtube API
 
-
-
-##Video Syncing - Socket.io##
-To reiterate on how to use Socket.io
-
-###Client:###
-
-Send from client to server by using socket.emit("Whatever name is", data)
-Receive by using socket.on(“Whatever name is”, function(data))
-
-###Server:###
-
-io.emit() sends from server to all clients including the client that accessed the server.
-
-socket.broadcast.emit() sends to all other clients that isn't the current client accessing the server.
-
-On client side, have a global variable at the beginning.
-
-`var socket = io();`
-
-This socket variable would be used to handle the socket ons and emits.
-
-Include this in the bottom of the html
-
-`<script src="../socket.io/socket.io.js"></script>`
-
-
-###Video Syncing###
-
-For the video syncing, I used the same concept for the chat system. The code would be in ./bin/www for the server side and in media.js for the client side. When the user plays or pauses the video, an event will trigger on the client side, sending a message to the server that the video has either been played or paused. This will then send a message to all Clients signaling that the video has changed states. 
-
-This is also done the same with seekTo. When the Youtube video’s time is changed, the new time is sent to the server and then back to all the clients. The clients reads and all syncs up to the new time.
-
-This process needs to be REFINED with either another framework, or continuous changes to the system. Some things to note, the server’s elapsed time currently is set to client that emits the message last. Have to think of concurrency problems and overall video syncing system.
-
-This is currently all done in the MediaPlayer.jsx.
-
-**Reference:**
-Start here for Youtube API/Iframe
 * https://developers.google.com/youtube/iframe_api_reference 
 
 
 
 
 
-###Browserify###
+##Browserify/Watchify
 Browserify allows you to use require(‘fileName’) on the Client side. Making access to file paths much easier. Read the Views section on why Browserify is needed.
 
 Whenever an .JSX file is updated, call this command which would convert the .JSX files into bundle.js which can be used as a \<script\> on the bottom of your HTML. Currently used by calling the command:
 
-`browserify ./public/main.js -o ./public/bundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx`
+```
+watchify ./public/browserify/home.js -o ./public/bundles/homeBundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx -v
+or
+browserify ./public/browserify/home.js -o ./public/bundles/homeBundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx -v
+
+and
+
+watchify ./public/browserify/room.js -o ./public/bundles/roomBundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx -v
+or
+browserify ./public/browserify/room.js -o ./public/bundles/roomBundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx -v
+```
 
 The babelify command used to be called Reactify, but was updated. Babelify converts .jsx files into JavaScript. 
 
@@ -654,12 +670,32 @@ Currently want to research on perhaps better methods such as either continue doi
 * http://browserify.org/ 
 
 
-##Gulp##
+##Gulp
 Want to use Gulp to automate things eventually so that whenever something is changed in our application, browserify and minifying our applications would automatically be handled. These things would make for faster and easier handling of our code.
 
 Currently not researched or used yet
 
-##Testing##
+##Testing
 Currently have not implemented any unit testing. Currently want to look into Mocha/Chai for a testing framework for node.
+
+##Things not discussed yet (Ask me)
+- XSS attacks (dangerouslySetInnerHTML)
+  **Reference:**
+  - * https://en.wikipedia.org/wiki/Cross-site_scripting
+  - * https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet
+
+- Script injections for Client-side rendering
+  **Reference:**
+  - * http://www.crmarsh.com/react-ssr/ 
+- MongoDB
+- Rooms and RoomManager
+- Potential usage of Flux/Redux (For Modals)
+- Passport (Authentication/Authorization)
+  **Reference:**
+  - * https://scotch.io/tutorials/easy-node-authentication-setup-and-local
+
+- Routing (Routes and Controllers)
+  **Reference:**
+  - * https://scotch.io/tutorials/learn-to-use-the-new-router-in-expressjs-4
 
 
