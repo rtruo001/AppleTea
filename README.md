@@ -283,28 +283,20 @@ Every public file including the JavaScripts, images, and CSS of the files.
 
 The CSS needs to eventually be minified as well as the bundle.js.
 
-So what is bundle and main? First look into the Views section on rendering via server and client. Then read the Browserify section in Views. This would explain why main.js and bundle.js are used for. 
-
-This command is to convert the .JSX files in main.js into JavaScript and bundles all of the code into bundle.js which you can use as a script in your HTML.
-  
-`browserify ./public/main.js -o ./public/bundle.js -t [ babelify --presets [ es2015 react ] ] --extension=.jsx`
-
-This command takes in main.js, converts the files into JavaScript, and outputs them into bundle.js.
-
-###main.js:###
+###browserify - home.js and room.js
 
 ```
 var SearchComponent = require('./../views/Search.jsx');
 ReactDOM.render(<SearchComponent />, document.getElementById('search'));
 ```
 
-Browserify takes the code above, and converts it into the bundle.js which is in JavaScript for use in the Client side. The above code is in JSX syntax which renders the Search component.
+Browserify takes the code above, and converts it into the bundles which is in JavaScript for use in the Client side. The above code is in JSX syntax which renders the Search component.
 
-###Bundle.js###
+###bundle - homeBundle.js and roomBundle.js
 
-Bundle.js contains all of the JavaScript that was converted through using Browserify and Babelify. Put this at the top of your Scripts in your HTML:
+The bundles contains all of the JavaScript that was converted through using Browserify and Babelify. Put this at the top of your Scripts in your HTML:
 
-`<script src="/bundle.js"></script>`
+`<script src="/homeBundle.js"></script>` or `<script src="/roomBundle.js"></script>`
 
 You have just done client-side rendering!
 
@@ -680,21 +672,25 @@ Currently have not implemented any unit testing. Currently want to look into Moc
 
 ##Things not discussed yet (Ask me)
 - XSS attacks (dangerouslySetInnerHTML)
+
   **Reference:**
   - * https://en.wikipedia.org/wiki/Cross-site_scripting
   - * https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet
 
 - Script injections for Client-side rendering
+
   **Reference:**
   - * http://www.crmarsh.com/react-ssr/ 
 - MongoDB
 - Rooms and RoomManager
 - Potential usage of Flux/Redux (For Modals)
 - Passport (Authentication/Authorization)
+
   **Reference:**
   - * https://scotch.io/tutorials/easy-node-authentication-setup-and-local
 
 - Routing (Routes and Controllers)
+
   **Reference:**
   - * https://scotch.io/tutorials/learn-to-use-the-new-router-in-expressjs-4
 
