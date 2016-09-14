@@ -110,7 +110,8 @@ var MyPlaylists = React.createClass({
             type={playlistEntry.isPublic}
             likes={playlistEntry.likes}
             liked={null} 
-            mediaEntries={playlistEntry.mediaEntries} />
+            mediaEntries={playlistEntry.mediaEntries} 
+            home={this.props.home} />
         );
       }
     }

@@ -18,23 +18,24 @@ var RoomManager = require('./AllRooms');
     Class Room
     ========================================================================== */
 class Room {
-	constructor(roomId) {
-		// Users
-		this.numUsersConnected = 0;
-		this.numSignedInUsersConnected = 0;
+	constructor(roomId, roomName) {
+  	// Users
+  	this.numUsersConnected = 0;
+  	this.numSignedInUsersConnected = 0;
+    this.userList = {};
 
-		// Media player
-		this.playerMediaType = MEDIAPLAYER.TYPES.NONE;
-		this.playerMediaVideoId = null;
-		this.playerMediaTitle = null;
-		this.playerMediaCurrentState = MEDIAPLAYER.STATES.NONE;
-		this.playerMediaElapsedTime = 0;
+  	// Media player
+  	this.playerMediaType = MEDIAPLAYER.TYPES.NONE;
+  	this.playerMediaVideoId = null;
+  	this.playerMediaTitle = null;
+  	this.playerMediaCurrentState = MEDIAPLAYER.STATES.NONE;
+  	this.playerMediaElapsedTime = 0;
 
-		// Queue of media entries
-		this.queueList = [];
+  	// Queue of media entries
+  	this.queueList = [];
 
     // Room
-		this.roomName = null;
+  	this.roomName = roomName;
     this.roomThumbnail = null;
     this.roomId = roomId;
 
@@ -168,8 +169,10 @@ class Room {
     User
   */
 
-  newUserHasJoinedRoom() {
+  newUserHasJoinedRoom(id, username) {
     this.numUsersConnected = this.numUsersConnected + 1;
+    this.userList[id] = username;
+
     if (this.timeoutTimer !== null) {
       console.log("Cleared timer timeout");
       clearTimeout(this.timeoutTimer);
@@ -177,8 +180,10 @@ class Room {
     }
   }
 
-  userHasLeftRoom() {
+  userHasLeftRoom(id) {
     this.numUsersConnected = this.numUsersConnected - 1; 
+    delete this.userList[id];
+
     if (this.numUsersConnected <= 0) {
       console.log("Setting timer");
       this.numUsersConnected = 0;
@@ -191,6 +196,10 @@ class Room {
     return this.numUsersConnected;
   }
 
+  getUserList() {
+    return this.userList;  
+  }
+    
   deleteRoom() {
     clearTimeout(this.timeoutTimer);
     this.timeoutTimer = null;

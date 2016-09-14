@@ -22,10 +22,37 @@ var PublicRooms = require('./PublicRooms');
 var MyRooms = require('./MyRooms');
 var Explore = require('./Explore');
 var MyPlaylists = require('./MyPlaylists');
+var PlaylistTab = require('./PlaylistTab');
+var ModalCreatePlaylist = require('./ModalCreatePlaylist');
 var Footer = require('./Footer');
 
 // MAIN COMPONENT: Home
 var Home = React.createClass({
+
+  getInitialState: function() {
+    if (this.props.myPlaylists  === undefined || this.props.myPlaylists === null) {
+      return {
+        myPlaylists: []
+      };
+    }
+    else {
+      return {
+        myPlaylists: this.props.myPlaylists
+      };  
+    }
+  },
+
+  componentDidMount: function() {
+    socket.on("From Server: Update MyPlaylist with new playlists" , this.updateAllPlaylistEntries);
+  },
+
+  // EVENT HANDLER: Update the playlist entry
+  updateAllPlaylistEntries: function(newPlaylist) {
+    console.log("Update with new playlist entry")
+    var playlistsWithNewEntry = this.state.myPlaylists.concat(newPlaylist);
+    this.setState({myPlaylists : playlistsWithNewEntry}); 
+  },
+
   render: function() {
     return(
       <div>
@@ -97,11 +124,9 @@ var Home = React.createClass({
                       <i className="fa fa-rocket icon-padding"></i>Explore
                     </a>
                   </li>
-                  <li>
-                    <a id="tab-myplaylists" data-toggle="tab" href="#myplaylists">
-                      <i className="fa fa-book icon-padding"></i>My Playlists
-                    </a>
-                  </li>
+                  
+                  <PlaylistTab type={"MyPlaylist"} user={this.props.user} />
+
                 </ul>
 
                 <div className="tab-content">
@@ -113,8 +138,11 @@ var Home = React.createClass({
 
                   {/* My Playlists */}
                   <div id="myplaylists" className="tab-pane fade">
-                    <MyPlaylists myPlaylists={this.props.myPlaylists} />
+                    <MyPlaylists myPlaylists={this.state.myPlaylists} home={true} />
                   </div>
+
+                  {/* Modal for create new playlist button, there is no media entry when this button is clicked */}
+                  <ModalCreatePlaylist key={"newPlaylist"} user={this.props.user} data={null} pos={null} />
 
                 </div>
               </div>

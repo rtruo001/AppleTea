@@ -24,6 +24,7 @@ var StatusBar = require('./StatusBar');
 var Queue = require('./Queue');
 var Explore = require('./Explore');
 var MyPlaylists = require('./MyPlaylists');
+var PlaylistTab = require('./PlaylistTab');
 var ModalCreatePlaylist = require('./ModalCreatePlaylist');
 var Search = require('./Search');
 var Footer = require('./Footer');
@@ -47,7 +48,10 @@ var Room = React.createClass({
     socket.on("From Server: Update MyPlaylist with new playlists" , this.updateAllPlaylistEntries);
     socket.on("From Server: Update selected playlist", this.updateOnePlaylistEntry);
 
-    socket.emit("From Client: Initialize room", this.props.roomId);
+    socket.emit("From Client: Initialize room", {
+      user: this.props.user,
+      room: this.props.room
+    });
   },
 
   // EVENT HANDLER: Update the playlist entry
@@ -74,6 +78,7 @@ var Room = React.createClass({
   },
 
   render: function() {
+    
     return(
       <div>
         <div className="content-container">
@@ -114,12 +119,9 @@ var Room = React.createClass({
                       <div className="tab-text">Explore</div>
                     </a>
                   </li>
-                  <li>
-                    <a data-toggle="tab" href="#myplaylists" id="mobile-tab-myplaylists">
-                      <i className="fa fa-book icon-padding"></i>
-                      <div className="tab-text">My Playlists</div>
-                    </a>
-                  </li>
+
+                  <PlaylistTab type={"MyPlaylist-mobile"} user={this.props.user} />
+
                   <li>
                     <a data-toggle="tab" href="#search" className='focus-search' id="mobile-tab-search">
                       <i className="fa fa-search icon-padding"></i>
@@ -131,7 +133,7 @@ var Room = React.createClass({
 
             {/* Chat */}
             <div className="chatbox-container">
-             <Chatbox />
+             <Chatbox room={this.props.room} user={this.props.user} />
             </div>
 
             </div>
@@ -155,12 +157,9 @@ var Room = React.createClass({
                       <div className="tab-text">Explore</div>
                     </a>
                   </li>
-                  <li>
-                    <a data-toggle="tab" href="#myplaylists" id="tab-myplaylists">
-                      <i className="fa fa-book icon-padding"></i>
-                      <div className="tab-text">My Playlists</div>
-                    </a>
-                  </li>
+                  
+                  <PlaylistTab type={"MyPlaylist"} user={this.props.user} />
+
                   <li>
                     <a data-toggle="tab" href="#search" className='focus-search' id="tab-search">
                       <i className="fa fa-search icon-padding"></i>

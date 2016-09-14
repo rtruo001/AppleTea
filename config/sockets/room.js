@@ -32,7 +32,7 @@ var socketRoom = function(io, socket) {
       console.log("Added Room entry to Rooms");
       console.log(room);
       
-      RoomManager.newRoom(room.id);
+      RoomManager.newRoom(room.id, room.name);
 
       callback(room.id);
     });

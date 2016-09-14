@@ -50,6 +50,10 @@ var PlaylistEntry = React.createClass({
 
   // EVENT HANDLER: Adds the playlist into the queue
   playPlaylist: function() {
+    // Do not allow the user to click on the playlist
+    if (this.props.home === true) {
+      return;
+    }
     console.log("Playing playlist: " + this.props.title + " by " + this.props.curator);
     // If there are no media entries, do nothing
     if (this.props.size === 0) {
@@ -75,6 +79,36 @@ var PlaylistEntry = React.createClass({
       playlistCardClassName += " user-playlist";
     };
 
+    // TODO: Update placeholder for empty thumbnails
+    // For empty Thumbnails
+    var thumbnail = this.props.thumbnail;
+    if (thumbnail === "" || thumbnail === null || thumbnail === undefined) {
+      thumbnail = "/images/media-icon.png";
+    }
+
+    // Do not allow the user to click on the playlist
+    if (this.props.home === true) {
+      return (
+        <div className="col-md-3 col-sm-4 col-padding">
+            <div className={playlistCardClassName}>
+              <div className="playlist-img-container">
+                <img className="playlist-img" src={thumbnail} />
+              </div>
+              <div className="playlist-text-container">
+                <div className="playlist-title">
+                  <a className="playlist-link playlist-title-text ellipses" data-toggle="tab" href="#open-playlist" onClick={this.goToPlaylistPage}>{this.props.title}</a>
+                  <div className="pill" data-toggle="tooltip" title="Items in Playlist">{this.props.size}</div>
+                </div>
+                <div className="playlist-curator"><a className="curator-link" data-toggle="tab" href="#curator-page" onClick={this.goToCuratorPage}>{this.props.curator}</a></div>
+              </div>
+              <div className="playlist-icon-container">
+                <PlaylistIcon owner={this.props.owner} type={this.props.type} liked={this.props.liked}/>
+              </div>
+            </div>
+        </div>
+      );
+    }
+
     return (
       <div className="col-md-3 col-sm-4 col-padding">
           <div className={playlistCardClassName}>
@@ -87,7 +121,7 @@ var PlaylistEntry = React.createClass({
                   </div>
                 </div>
               </a>
-              <img className="playlist-img" src={this.props.thumbnail} />
+              <img className="playlist-img" src={thumbnail} />
             </div>
             <div className="playlist-text-container">
               <div className="playlist-title">

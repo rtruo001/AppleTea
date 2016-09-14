@@ -23,18 +23,35 @@ var startSockets = function(server) {
     console.log("IO connected");
     ++numUsersConnected;
     
-    socket.on('From Client: Initialize room' , function(roomId) {
-      socket.join(roomId);
-      socket.room = roomId;
+    socket.on('From Client: Initialize room' , function(data) {
+      socket.join(data.room.roomId);
+      socket.room = data.room.roomId;
 
       // This line right here is SO AMAZING
-      socket.RoomObj = RoomManager.getRoom(roomId);
+      socket.RoomObj = RoomManager.getRoom(data.room.roomId);
+
+      // If there is no user logged in, the socket's username is just User
+      if (data.user === undefined || data.user === null) {
+        socket.username = "User";
+      }
+      // If there is a user logged in, the user is the given username
+      else {
+        socket.username = data.user.local.firstName + " " + data.user.local.lastName;
+      }
+      // Sends out to the client that a user has joined
+      io.to(socket.room).emit("From Server: User joined", {username: socket.username});
 
       // Increment total users in room
-      socket.RoomObj.newUserHasJoinedRoom();
+      socket.RoomObj.newUserHasJoinedRoom(socket.id, socket.username);
+
+      // Sends out to the client that a user has joined
+      io.to(socket.room).emit("From Server: Edit User list", socket.RoomObj.getUserList());
 
       // Initializes queue to the client that just joined
       socket.emit('From Server: Initialize Queue', socket.RoomObj.getQueue());
+
+      // Initializes the chat user list
+      socket.emit('From Server: Edit User list', socket.RoomObj.getUserList());
 
       // Initializes mediaplayer state
       if (socket.RoomObj.getPlayerMediaType() == MEDIAPLAYER.TYPES.NONE) {
@@ -87,7 +104,10 @@ var startSockets = function(server) {
 
       // Adjusts room's states
       --numUsersConnected;
-      socket.RoomObj.userHasLeftRoom();
+      socket.RoomObj.userHasLeftRoom(socket.id);
+
+      // Sends out to the client that a user has joined
+      io.to(socket.room).emit("From Server: Edit User list", socket.RoomObj.getUserList());
 
       // TODO: Perhaps consider getting time of the last user when all users leave room.
       // if ()
@@ -100,9 +120,7 @@ var startSockets = function(server) {
       
       // An actual user disconnects
       console.log(socket.username + " disconnected");
-      socket.broadcast.to(socket.room).emit("From Server: User disconnected", {
-        username: socket.username
-      });
+      socket.broadcast.to(socket.room).emit("From Server: User disconnected", {username: socket.username});
 
       socket.leave(socket.room);
     });
