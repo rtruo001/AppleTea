@@ -11,6 +11,7 @@
 "use strict";
 
 var RoomObj = require('./Room');
+var RoomsDB = require('../../models/room');
 
 /*  =============================================================================
     Class RoomManager
@@ -21,7 +22,7 @@ class RoomsManager {
 	}
 
 	getRoom(hash) {
-		if (!this.ifRoomExist(hash)) {
+    if (!this.ifRoomExist(hash)) {
 			// return error eventually
 			console.log("Doesn't exist");
 		}
@@ -29,7 +30,7 @@ class RoomsManager {
 	}
 
 	newRoom(hash) {
-		if (!this.ifRoomExist(hash)) {
+    if (!this.ifRoomExist(hash)) {
 			this.roomList[hash] = new RoomObj(hash);
 		}
 		else {
@@ -48,6 +49,19 @@ class RoomsManager {
 	getNumOfRooms() {
 		return this.roomList.length;
 	}
+
+  deleteRoom(roomId) {
+    console.log("Room Manager deleting room");
+    console.log(roomId);
+
+    RoomsDB.remove({ _id: roomId }, function(err) {
+      if (err) {
+        console.log('ERROR: Removing room with url: ' + this.roomId);
+      }
+    });
+
+    delete this.roomList[roomId];
+  }
 }
 
 /*  =============================================================================
@@ -60,6 +74,21 @@ var roomsManager = null;
 exports.initializeObj = function() {
 	if (roomsManager === null) {
 		roomsManager = new RoomsManager();
+
+    // Initializes ALL rooms
+    RoomsDB.find({ 'isPublic' : true }, function(err, rooms) {
+      if (err) {
+        console.log('ERROR: Problem in RoomsManager constructor');
+      }
+      else if (rooms.length > 0 && rooms != null && rooms != undefined) {
+        for (var i = 0; i < rooms.length; ++i) {
+          roomsManager.newRoom(rooms[i]._id);
+        }
+      }
+      else {
+        console.log("AllRooms.js: No rooms");
+      }
+    });
 	}
 	else {
 		console.log("RoomsManager already initialized");

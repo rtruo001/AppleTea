@@ -11,3 +11,5 @@ exports.TYPES = {
   SOUNDCLOUD: 'SOUNDCLOUD',
   VIMEO: 'VIMEO'
 };
+
+exports.HOUR = 3600000;

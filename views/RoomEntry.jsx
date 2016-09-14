@@ -42,11 +42,10 @@ var RoomUsersPill = React.createClass({
 // Room Thumbnail 
 var RoomThumbnail = React.createClass({
   render: function () {
-    if (this.props.thumbnailExists == true) {
+    if (this.props.thumbnail !== null) {
       return (
         <div>
-          {/* TODO: Link current playing video image */}
-          <img className="room-img" src="images/media-icon.png"/>
+          <img className="room-img" src={this.props.thumbnail}/>
         </div>
       );
     }
@@ -65,7 +64,7 @@ var RoomEntry = React.createClass({
     var roomCardClassName = "room-card";
 
     // If room is not playing anything, append room-card-empty to classname
-    if (this.props.thumbnailExists == false) {
+    if (this.props.thumbnail === null) {
       roomCardClassName += " room-card-empty";
     };
 
@@ -82,7 +81,7 @@ var RoomEntry = React.createClass({
         <a href={roomhref}>
           <div className={roomCardClassName}>
             <div className="room-overlay"><div className="room-overlay-fill"></div></div>
-            <RoomThumbnail thumbnailExists={this.props.thumbnailExists} />
+            <RoomThumbnail thumbnail={this.props.thumbnail} />
             <div className="room-text-container">
               <div className="room-title ellipses">{this.props.name}</div>
               <RoomUsersPill inroom={this.props.inroom} />

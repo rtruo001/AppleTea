@@ -1,5 +1,6 @@
 var React = require('react');
 var RoomEntry = require('./RoomEntry');
+var ModalCreateRoom = require('./ModalCreateRoom');
 
 // Placeholder if user is not a part of any room
 var MyRoomsPlaceholder = React.createClass({
@@ -17,50 +18,20 @@ var MyRoomsPlaceholder = React.createClass({
   }
 });
 
-// Modal to create a new room
-var ModalCreateRoom = React.createClass({
-  render: function() {
-    return (
-      <div className="modal fade" id="create-room" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div className="modal-dialog modal-sm" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              Create a New Room
-            </div>
-            <div className="modal-body">
-              <div className="search-container">
-                <form className="search-input" id="create-room-input">
-                  <input className="input-padding" type="text" placeholder="Room Name"/>
-                  <div className="modal-label">Is this a private room?</div>
-                  <div className="toggle-slider-section">
-                    <label className="switch">
-                      <input type="checkbox" id="create-room-toggle" checked />
-                        <div className="slider"></div>
-                    </label>
-                    <i className="fa fa-lock" id="create-room-toggle-icon"></i>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <button type="button" className="btn btn-primary" data-dismiss="modal">Create Room</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-});
-
 // MAIN COMPONENT: My Rooms Tab
 var MyRooms = React.createClass({
+  getInitialState: function() {
+    return {
+      rooms: this.props.rooms
+    };
+  },
+
   render: function() {
 
     var roomEntries = [];
 
     // TODO: If no rooms, return a placeholder
-    if (false) {
+    if (this.state.rooms === undefined || this.state.rooms === null || this.state.rooms.length <= 0) {
       roomEntries.push(
         <MyRoomsPlaceholder key={'MyRoomsPlaceholder'} />
       )
@@ -68,84 +39,24 @@ var MyRooms = React.createClass({
 
     // If there are rooms, pushes every room card
     else {
+      var roomEntry;
+      for (var i = 0; i < this.state.rooms.length; ++i) {
+        roomEntry = this.state.rooms[i];
 
-      // DEMO ROOMS DATA
-      // roomEntries.push (
-      //   <RoomEntry 
-      //     key={0}
-      //     owner={true}
-      //     moderator={true}
-      //     type={'private'}
-      //     name={'The Vent Room'}
-      //     inroom={'27'}
-      //     size={'35'}
-      //     thumbnailExists={true} />
-      // );
-      // for (var i = 1; i < 7; ++i) {
-      //   roomEntries.push (
-      //     <RoomEntry 
-      //       key={i}
-      //       owner={false}
-      //       moderator={true}
-      //       type={'private'}
-      //       name={'Apple Tea Work Room'}
-      //       inroom={'2'}
-      //       size={'4'}
-      //       thumbnailExists={true} />
-      //   );
-      // }
-      // for (var i = 7; i < 8; ++i) {
-      //   roomEntries.push (
-      //     <RoomEntry 
-      //       key={i}
-      //       owner={false}
-      //       moderator={false}
-      //       type={'public'}
-      //       name={'This Room Has a Pretty Long Name'}
-      //       inroom={'0'}
-      //       size={'2034'}
-      //       thumbnailExists={false} />
-      //   );
-      // }
-      roomEntries.push(
+        roomEntries.push(
         <RoomEntry 
-          key={0}
+          key={i}
           owner={true}
           moderator={true}
-          type={'private'}
-          name={'Randy\'s Room'}
-          inroom={'27'}
+          type={roomEntry.isPublic}
+          name={roomEntry.name}
+          inroom={roomEntry.inRoom}
           size={'35'}
-          thumbnailExists={true} 
+          thumbnail={roomEntry.thumbnail} 
           isLite={this.props.isLite}
-          linkHash={'Randy'} />
-      )
-      roomEntries.push(
-        <RoomEntry 
-          key={1}
-          owner={false}
-          moderator={true}
-          type={'private'}
-          name={'Wow'}
-          inroom={'2'}
-          size={'35'}
-          thumbnailExists={false} 
-          isLite={this.props.isLite}
-          linkHash={'Gerard'} />
-      )
-      roomEntries.push(
-        <RoomEntry 
-          key={2}
-          owner={false}
-          moderator={true}
-          type={'public'}
-          name={'Stupid'}
-          inroom={'27'}
-          size={'35'}
-          thumbnailExists={true} 
-          isLite={this.props.isLite}
-          linkHash={'Harrison'} />
-      )
+          linkHash={roomEntry._id} />
+        )
+      }
     }
 
     // If isLite prop is true, use primary button, else use dark button
@@ -163,10 +74,13 @@ var MyRooms = React.createClass({
           <div className="rooms-section">
             <button className={buttonClassName} data-toggle="modal" data-target="#create-room"><i className="fa fa-plus icon-padding"></i>Create New Room</button>
           </div>
+
           <div className="row">
             {roomEntries}
           </div>
+
         <ModalCreateRoom />
+
         </div>
       </div>
     );
