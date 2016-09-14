@@ -19,19 +19,17 @@ var React = require('react');
 // Home
 var Home = require('./Home');
 
+// A utility function to safely escape JSON for embedding in a <script> tag
+function safeStringify(obj) {
+  return JSON.stringify(obj).replace(/<\/script/g, '<\\/script').replace(/<!--/g, '<\\!--');
+}
+
 // TODO: The scripts for the React librarys are through cdns, want to change this in order for them to be locally stored into our
 // directories, do the same for jquery as well.
 var Index = React.createClass({
 
-// function createMarkup() { return {__html: 'First &middot; Second'}; };
-// <div dangerouslySetInnerHTML={createMarkup()} />
-
   render: function () {
-    // IMPORTANT TODO
-    // TODO: Convert the json to safeStringify
-    // TODO is needed to prevent XSS attacks
-    // The props are read from main.js
-    var json = this.props.propsStr;
+    var json = safeStringify(this.props.homeData);
     var homeProps = <script id="home-props" type="application/json" dangerouslySetInnerHTML={{__html: json}}></script>;
 
     return (
@@ -53,7 +51,7 @@ var Index = React.createClass({
         <body>
           {/* Entire home component */}
           <div id="home">
-            <Home user={this.props.user} rooms={this.props.rooms} explore={this.props.explore} myPlaylists={this.props.myPlaylists} />
+            <Home user={this.props.homeData.user} rooms={this.props.homeData.user} explore={this.props.homeData.user} myPlaylists={this.props.homeData.myPlaylists} />
           </div> 
 
           {/* Injected script data from MongoDB sent from the server */}

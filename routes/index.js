@@ -149,15 +149,8 @@ router.get('/', [loadRooms, loadExplore, isLoggedIn, loadMyPlaylists], function(
     console.log(req.user);
   }
   
-  // IMPORTANT TODO
-  // TODO prevents XSS attacks
-  // TODO: Remove stringify and instead do safestringify in index.jsx
   res.render('index', { 
-    user: userData,
-    rooms: req.rooms,
-    explore: req.explore,
-    myPlaylists: req.myPlaylists,
-    propsStr: JSON.stringify({ 
+    homeData: ({ 
       user: userData,
       rooms: req.rooms,
       explore: req.explore,

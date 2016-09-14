@@ -135,15 +135,8 @@ router.get('/:roomId', [checkIfValidRoom, loadExplore, isLoggedIn, loadMyPlaylis
   var roomData = {roomId: req.params.roomId};
   roomData.name = RoomsManager.getRoom(req.params.roomId).getRoomName();
   
-  // IMPORTANT TODO
-  // TODO prevents XSS attacks
-  // TODO: Remove stringify and instead do safestringify in index.jsx
   res.render('RoomIndex', { 
-    room: roomData,
-    user: userData,
-    explore: req.explore,
-    myPlaylists: req.myPlaylists,
-    propsStr: JSON.stringify({ 
+    roomData: ({ 
       room: roomData,
       user: userData,
       explore: req.explore,

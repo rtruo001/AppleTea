@@ -23,6 +23,7 @@ var startSockets = function(server) {
     console.log("IO connected");
     ++numUsersConnected;
     
+    // When a client joins the room
     socket.on('From Client: Initialize room' , function(data) {
       socket.join(data.room.roomId);
       socket.room = data.room.roomId;
