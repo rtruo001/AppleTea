@@ -4,6 +4,7 @@ var Error = React.createClass({
   render: function() {
     return(
       <div>
+        Error
         {this.props.message}
       </div>
     );
