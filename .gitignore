@@ -1,4 +1,4 @@
 /node_modules
-/public/bundle.js
-/public/bundles
+/public/bundles/homeBundle.js
+/public/bundles/roomBundle.js
 

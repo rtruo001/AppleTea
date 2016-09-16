@@ -281,18 +281,26 @@ var MediaEntry = React.createClass({
       case CATEGORYOFMEDIA.QUEUE:
         var queueMediaEntryId = "-queue-media-entry-id";
         var queueMediaCardClassName = "media-card grabbable";
+        var iconClassName = "icon-btn";
+        var deleteButton = [];
 
         // Adds the media-card-added class if the media entry was added individually
         if (this.props.ifMediaCardAdded == true) {
           queueMediaCardClassName += " media-card-added";
+          iconClassName += "-blue-lite";
+          deleteButton.push (
+            <div>
+              <div className="media-card-added-corner-container"><div className="media-card-added-corner"></div></div>
+              <a className="media-card-added-plus icon-btn-white" href="javascript:void(0)" onClick={this.deleteMediaEntry}>+</a>
+            </div>
+          );
         }
 
         // If in the front of the queue, renders a media entry that would play next
         if (this.props.pos === PLAYNEXTMEDIAENTRYPOS) {
           return (
             <div id={this.props.pos + queueMediaEntryId} className={queueMediaCardClassName}>
-              <div className="media-card-added-corner-container"><div className="media-card-added-corner"></div></div>
-              <a className="media-card-added-plus icon-btn-white" href="javascript:void(0)" onClick={this.deleteMediaEntry}>+</a>
+              {deleteButton}
               <Thumbnail thumbnail={this.props.thumbnail} categoryType={this.props.categoryType} />
               <div className="media-next">PLAYING NEXT:</div>
               <div className="number">{this.props.pos + 1}</div>
@@ -302,7 +310,7 @@ var MediaEntry = React.createClass({
                 <Artist artist={this.props.artist} categoryType={this.props.categoryType} />
                 <div className="media-icon-container">
                   <div className="media-icon"></div>
-                  <a className="icon-btn-blue-lite" href="javascript:void(0)" onClick={this.playMediaEntry}><div className="media-icon"><i className="fa fa-play" aria-hidden="true"></i></div></a>
+                  <a className={iconClassName} href="javascript:void(0)" onClick={this.playMediaEntry}><div className="media-icon"><i className="fa fa-play" aria-hidden="true"></i></div></a>
                 </div>
               </div>
             </div>
@@ -312,8 +320,7 @@ var MediaEntry = React.createClass({
         // Every other media entry in the queue
         return (
           <div id={this.props.pos + queueMediaEntryId} className={queueMediaCardClassName}>
-            <div className="media-card-added-corner-container"><div className="media-card-added-corner"></div></div>
-            <a className="media-card-added-plus icon-btn-white" href="javascript:void(0)" onClick={this.deleteMediaEntry}>+</a>
+            {deleteButton}
             <Thumbnail thumbnail={this.props.thumbnail} categoryType={this.props.categoryType} />
             <div className="number">{this.props.pos + 1}</div>
 
@@ -322,8 +329,8 @@ var MediaEntry = React.createClass({
               <Artist artist={this.props.artist} categoryType={this.props.categoryType} />
               <div className="media-icon-container">
                 <div className="media-icon"></div>
-                <a className="icon-btn-blue-lite" href="javascript:void(0)" onClick={this.moveToFrontOfTheQueue}><div className="media-icon"><i className="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></div></a>
-                <a className="icon-btn-blue-lite" href="javascript:void(0)" onClick={this.playMediaEntry}><div className="media-icon"><i className="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></div></a>
+                <a className={iconClassName} href="javascript:void(0)" onClick={this.moveToFrontOfTheQueue}><div className="media-icon"><i className="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></div></a>
+                <a className={iconClassName} href="javascript:void(0)" onClick={this.playMediaEntry}><div className="media-icon"><i className="fa fa-play" data-toggle="tooltip" title="Play Now" aria-hidden="true"></i></div></a>
               </div>
             </div>
           </div>
