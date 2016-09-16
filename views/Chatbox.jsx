@@ -24,7 +24,7 @@ var UserListEntry = React.createClass({
           }
           <a className="user-name" href="javascript:void(0)">{name}</a>
           <div className="users-list-edit"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-star fa-fw mod-toggle"></i></a><a className="icon-btn" data-toggle="modal" data-target="#kick-confirm" href="javascript:void(0)"><i className="fa fa-remove fa-fw"></i></a></div>
-          <div className="users-list-icons"><i className="fa fa-refresh fa-spin fa-fw" data-toggle="tooltip" title="Syncing"></i><i className="fa fa-star fa-fw" data-toggle="tooltip" title="Moderator"></i></div>
+          {/* <div className="users-list-icons"><i className="fa fa-refresh fa-spin fa-fw" data-toggle="tooltip" title="Syncing"></i><i className="fa fa-star fa-fw" data-toggle="tooltip" title="Moderator"></i></div> */}
         </li>
       </div>
     )
@@ -34,36 +34,40 @@ var UserListEntry = React.createClass({
 var UserList = React.createClass({
   render: function() {
 
-    var onlineUsers = [
-      "Gerard Liu",
-      "Randy Truong",
-      "Kevin Chiao",
-      "Harrison Ford"
-    ];
+    // var onlineUsers = [
+    //   "Gerard Liu",
+    //   "Randy Truong",
+    //   "Kevin Chiao",
+    //   "Harrison Ford"
+    // ];
 
-    var offlineUsers = [
-      "Minnal Kunnan",
-      "Jason Maryne",
-      "Eric Dieu",
-      "Kevin Ton",
-      "Kris Luong",
-      "Franky Nguyen",
-      "Adrian Mandee",
-      "Jay Yee",
-      "George Huang",
-      "Jelly Kid",
-      "Finn Human"
-    ];
+    // var offlineUsers = [
+    //   "Minnal Kunnan",
+    //   "Jason Maryne",
+    //   "Eric Dieu",
+    //   "Kevin Ton",
+    //   "Kris Luong",
+    //   "Franky Nguyen",
+    //   "Adrian Mandee",
+    //   "Jay Yee",
+    //   "George Huang",
+    //   "Jelly Kid",
+    //   "Finn Human"
+    // ];
 
     var onlineUserEntries = []
     var offlineUserEntries = []
 
-    for(var i = 0; i < onlineUsers.length; i++) {
-      onlineUserEntries.push(<UserListEntry userName={onlineUsers[i]} online={true}/>)
+    for (var i in this.props.userList) {
+      onlineUserEntries.push(<UserListEntry key={i} userName={this.props.userList[i]} online={true}/>)
     }
-    for(var i = 0; i < offlineUsers.length; i++) {
-      offlineUserEntries.push(<UserListEntry userName={offlineUsers[i]} online={false}/>)
-    }
+
+    // for(var i = 0; i < this.state.userList.length; i++) {
+    //   onlineUserEntries.push(<UserListEntry key={i} userName={onlineUsers[i]} online={true}/>)
+    // }
+    // for(var i = 0; i < offlineUsers.length; i++) {
+    //   offlineUserEntries.push(<UserListEntry key={i} userName={offlineUsers[i]} online={false}/>)
+    // }
 
     return (
       <div>
@@ -90,20 +94,46 @@ var UserList = React.createClass({
 });
 
 var ChatHeader = React.createClass({
+  getInitialState: function() {
+    return {
+      userList: {}
+    };
+  },
+
+  componentDidMount: function() {
+    socket.on("From Server: Edit User list", this.editUserList);
+  },
+
+  editUserList: function(newUserList) {
+    this.setState({ userList: newUserList });
+  },
+
   render: function() {
+    var roomName = "";
+    if (this.props.room !== undefined && this.props.room !== null) {
+      roomName = this.props.room.name;
+    }
+
     return (
       <div className="room-header">
+        {/*
         <div className="room-name onclick-edit">
-          Vent Room
+          
           <a className="icon-btn-dark" href="javascript:void(0)"><i className="fa fa-edit" aria-hidden="true"></i></a>
         </div>
+        */}
+
+        <div className="room-name">
+          {roomName}
+        </div>
+
         <div className="users-btn">
-          4
+          {Object.keys(this.state.userList).length}
           <i className="fa fa-users users-btn-icon"></i>
           <i className="fa fa-circle status status-online"></i>
         </div>
 
-        <UserList/>
+        <UserList userList={this.state.userList} />
 
       </div>
     )
@@ -190,14 +220,14 @@ var ChatDisplay = React.createClass({
   },
   userHasJoined: function(user) {
       var messages = this.state.messages
-      messages.push(<ChatUserActivityMessage username={user.username} activity={"joined"} />)
+      messages.push(<ChatUserActivityMessage key={this.state.messages.length} username={user.username} activity={"joined"} />)
       this.setState({
         messages: messages
       });
   },
   userHasDisconnected: function(user) {
       var messages = this.state.messages
-      messages.push(<ChatUserActivityMessage username={user.username} activity={"disconnected"} />)
+      messages.push(<ChatUserActivityMessage key={this.state.messages.length} username={user.username} activity={"disconnected"} />)
       this.setState({
         messages: messages
       });
@@ -205,7 +235,7 @@ var ChatDisplay = React.createClass({
   newMessage: function(msg) {
       var isOwner = this.props.username === msg.username;
       var messages = this.state.messages
-      messages.push(<ChatMessage username={msg.username} owner={isOwner} message={msg.message} />)
+      messages.push(<ChatMessage key={this.state.messages.length} username={msg.username} owner={isOwner} message={msg.message} />)
       this.setState({
         messages: messages
       });
@@ -326,8 +356,15 @@ var GuestUserForm = React.createClass({
 /* Chatbox */
 var Chatbox = React.createClass({
   getInitialState: function() {
-    return {
-      username: ""
+    if (this.props.user === undefined || this.props.user === null) {
+      return {
+        username: ""
+      };
+    }
+    else {
+      return {
+        username: this.props.user.local.firstName + " " + this.props.user.local.lastName
+      };
     }
   },
   setUsername: function(username) {
@@ -338,10 +375,10 @@ var Chatbox = React.createClass({
   render: function() {
     return (
       <div>
-        <ChatHeader />
+        <ChatHeader room={this.props.room} />
         <ChatDisplay username={this.state.username} />
         <ChatInput username={this.state.username} />
-        <GuestUserForm setUsernameCallback={this.setUsername} />
+       {/* <GuestUserForm setUsernameCallback={this.setUsername} /> */}
       </div>
     );
   }

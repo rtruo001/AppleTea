@@ -13,6 +13,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var assert = require('assert');
+
+// Authentication
+var passport = require('passport');
+var session = require('express-session');
+var LocalStrategy = require('passport-local').Strategy;
 
 // USE THIS ERRORHANDLER
 var errorHandler = require('errorhandler');
@@ -20,6 +26,19 @@ var errorHandler = require('errorhandler');
 // Potentially used to render through the client side with the server side code.
 // var browserify = require('browserify');
 // var literalify = require('literalify');
+
+// Initializes the Room Manager
+require('./config/classes/AllRooms').initializeObj();
+
+// MongoDB
+var mongoose = require('mongoose');
+
+// configuration ===============================================================
+// RANDY's LOCAL MONGODB
+// mongoose.connect('mongodb://localhost:27017/Appletea'); 
+// Mlab Testing
+// TODO: Make this secret
+mongoose.connect('mongodb://randy:123@ds019856.mlab.com:19856/appletea-db');
 
 var app = express();
 
@@ -41,13 +60,36 @@ app.use('/css', express.static(__dirname + '/public/stylesheets'));
 app.use('/js', express.static(__dirname + '/public/javascripts'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Public files for room
+app.use('/room/css', express.static(__dirname + '/public/stylesheets'));
+app.use('/room/js', express.static(__dirname + '/public/javascripts'));
+app.use('/room', express.static(path.join(__dirname, 'public')));
+
+
+// Passport and session
+// TODO: Make the secret actually secret
+require('./config/passport')(passport);
+app.use(session({ 
+  secret: 'Secret',
+  resave: false,
+  saveUninitialized: false
+})); 
+app.use(passport.initialize());
+app.use(passport.session()); 
+
 // Routes
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var room = require('./routes/room');
+var signin = require('./routes/signin');
+var signup = require('./routes/signup');
+var logout = require('./routes/logout');
 
 // Use the routers
 app.use('/', routes);
-app.use('/users', users);
+app.use('/room', room);
+app.use('/signin', signin);
+app.use('/signup', signup);
+app.use('/logout', logout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -82,4 +124,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-module.exports = app;
+module.exports = {
+  app: app
+};
+

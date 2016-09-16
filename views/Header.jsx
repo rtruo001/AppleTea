@@ -9,13 +9,13 @@ var HeaderProfileIcon = React.createClass({
           <img className="profile-pic" src="images/profile-pic.png" />
         </a>
         <ul className="dropdown-menu dropdown-menu-right">
-          <li className="dropdown-header">Gerard Liu (Gliu)</li>
+          <li className="dropdown-header">{this.props.user.local.firstName} {this.props.user.local.lastName} ({this.props.user.local.email})</li>
           <li><a href="javascript:void(0)">Profile</a></li>
           <li><a href="javascript:void(0)">My Rooms</a></li>
           <li><a href="javascript:void(0)">My Playlists</a></li>
           <li><a href="javascript:void(0)">Account Settings</a></li>
           <li role="separator" className="divider"></li>
-          <li><a href="javascript:void(0)">Sign Out</a></li>
+          <li><a href="/logout">Sign Out</a></li>
         </ul>
       </div>
     );
@@ -26,25 +26,30 @@ var HeaderProfileIcon = React.createClass({
 var SignUpSignInButtons = React.createClass({
   render: function() {
     return (
-        <div className="header-btn-group">
-          <button className="btn btn-primary btn-margin" data-toggle="modal" data-target="#signup">
-            Sign Up
-          </button>
-          <SignUpModal />
-          <button className="btn btn-secondary btn-margin dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Sign In
-          </button>
-          <SignInDropdown />
-        </div>
+      <div className="header-btn-group">
+        <button className="btn btn-primary btn-margin" data-toggle="modal" data-target="#signup">
+          Sign Up
+        </button>
+        <SignUpModal />
+        <button className="btn btn-secondary btn-margin dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sign In
+        </button>
+        <SignInDropdown />
+      </div>
     );
   }
 });
 
 /* Sign Up Modal Popup */
 var SignUpModal = React.createClass({
+  // TODO: Implement onSubmit (Check if valid inputs if valid email)
+  onSubmit: function(e) {
+    console.log("Submitting sign up");
+  },
+
   render: function() {
     return (
-      <div className="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div className="modal fade" id="signup" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div className="modal-dialog modal-sm" role="document">
           <div className="modal-content">
             <div className="modal-body">
@@ -69,25 +74,36 @@ var SignUpModal = React.createClass({
             <div className="modal-body section-border signup-form-container">
               <div className="or-divider"><span>OR SIGN UP</span></div>
               <div className="search-container">
-                <form className="search-input" id="create-room-input">
-                  <div className="row row-sm">
-                    <div className="col-sm-6 col-padding-sm">
-                      <input type="text" placeholder="First Name"/>
-                    </div>
-                    <div className="col-sm-6 col-padding-sm">
-                      <input type="text" placeholder="Last Name"/>
-                    </div>
-                    <div className="col-sm-12 col-padding-sm">
-                      <input type="text" placeholder="Email"/>
-                    </div>
-                    <div className="col-sm-12 col-padding-sm">
-                      <input type="password" placeholder="Password"/>
-                    </div>
-                    <div className="col-sm-12 col-padding-sm">
-                      <button type="button" className="btn btn-primary btn-full-width" data-dismiss="modal">Sign Up</button>
-                    </div>
-                  </div>
-                </form>
+              {
+                // <form className="search-input" action="/signup" method="post">
+                //   <div className="row row-sm">
+                //     <div className="col-sm-6 col-padding-sm">
+                //       <input type="text" placeholder="First Name" name="firstName"/>
+                //     </div>
+                //     <div className="col-sm-6 col-padding-sm">
+                //       <input type="text" placeholder="Last Name" name="lastName"/>
+                //     </div>
+                //     <div className="col-sm-12 col-padding-sm">
+                //       <input type="text" placeholder="Email" name="email"/>
+                //     </div>
+                //     <div className="col-sm-12 col-padding-sm">
+                //       <input type="password" placeholder="Password" name="password"/>
+                //     </div>
+                //     <div className="col-sm-12 col-padding-sm">
+                //       <button className="btn btn-primary btn-full-width" data-dismiss="modal" type="submit">Sign Up</button>
+                //     </div>
+                //   </div>
+                // </form>
+              }
+        
+              <form className="search-input search-input-sm" action="/signup" method="post" onSubmit={this.onSubmit}> 
+                <input type="text" id="sign-up-first-name" className="input-padding-sm" placeholder="First Name" name="firstName"/>
+                <input type="text" id="sign-up-last-name" className="input-padding-sm" placeholder="Last Name" name="lastName"/>
+                <input type="text" className="input-padding-sm" placeholder="Email" name="email"/>
+                <input type="password" className="input-padding-sm" placeholder="Password" name="password"/>
+                <button className="btn btn-primary btn-full-width" type="submit">Sign Up</button>
+              </form>
+        
               </div>
             </div>
           </div>
@@ -99,14 +115,19 @@ var SignUpModal = React.createClass({
 
 /* Sign In Dropdown */
 var SignInDropdown = React.createClass({
+  // TODO: Implement onSubmit (Check if valid inputs if valid email)
+  onSubmit: function() {
+    console.log("Submitting sign up");
+  },
+
   render: function() {
     return (
       <ul className="dropdown-menu dropdown-menu-right signin-container" id="signin-form">
         <div className="signin-content">
-          <form className="search-input search-input-sm">
-            <input type="text" className="input-padding-sm" placeholder="Email"/>
-            <input type="password" className="input-padding-sm" placeholder="Password"/>
-            <button className="btn btn-primary btn-full-width">Sign In</button>
+          <form className="search-input search-input-sm" action="/signin" method="post" onSubmit={this.onSubmit}>
+            <input type="text" className="input-padding-sm" placeholder="Email" name="email"/>
+            <input type="password" className="input-padding-sm" placeholder="Password" name="password"/>
+            <button className="btn btn-primary btn-full-width" type="submit">Sign In</button>
           </form>
           <a className="forgot-pw link-grey-lite" href="javascript:void(0)">Forgot password?</a>
         </div>
@@ -127,10 +148,11 @@ var Header = React.createClass({
   render: function() {
     var headerIcons = [];
 
-    {/* TODO: If users are logged in, switch icons */}
-    if (false) {
+    // TODO: If users are logged in, switch icons
+    // if (this.props.user === undefined || this.props.user === null) {
+    if (this.props.user !== undefined && this.props.user !== null) {
       headerIcons.push(
-        <HeaderProfileIcon key={'HeaderProfileIcon'} />
+        <HeaderProfileIcon key={'HeaderProfileIcon'} user={this.props.user} />
       );
     }
     else {
@@ -143,7 +165,7 @@ var Header = React.createClass({
       <div className="header">
         <div className="header-content-container row">
           <div className="col-sm-6">
-            <img className="header-logo" src="images/logo.png" />
+            <a href="/"><img className="header-logo" src="images/logo.png"/></a>
           </div>
           <div className="col-sm-6 header-section">
             <div className="header-icon-container">

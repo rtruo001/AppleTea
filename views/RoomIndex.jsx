@@ -3,10 +3,10 @@
     ========================================================================== */
 
 /*  =============================================================================
-    Index.jsx
+    index.jsx
 
     Index JSX View
-    The view of the entire index page. Main webpage, currently is a room only
+    The view of the entire index page. Main webpage
     ========================================================================== */
 
 /*  =============================================================================
@@ -16,8 +16,8 @@
     ========================================================================== */
 var React = require('react');
 
-// Home
-var Home = require('./Home');
+// Room component
+var Room = require('./Room');
 
 // A utility function to safely escape JSON for embedding in a <script> tag
 function safeStringify(obj) {
@@ -29,8 +29,8 @@ function safeStringify(obj) {
 var Index = React.createClass({
 
   render: function () {
-    var json = safeStringify(this.props.homeData);
-    var homeProps = <script id="home-props" type="application/json" dangerouslySetInnerHTML={{__html: json}}></script>;
+    var json = safeStringify(this.props.roomData);
+    var roomProps = <script id="room-props" type="application/json" dangerouslySetInnerHTML={{__html: json}}></script>;
 
     return (
       <html lang="en">
@@ -49,13 +49,19 @@ var Index = React.createClass({
         </head>
 
         <body>
-          {/* Entire home component */}
-          <div id="home">
-            <Home user={this.props.homeData.user} rooms={this.props.homeData.user} explore={this.props.homeData.user} myPlaylists={this.props.homeData.myPlaylists} />
-          </div> 
+          {/* Room Page */}
+          <div id="room">
+            <Room room={this.props.roomData.room} user={this.props.roomData.user} explore={this.props.roomData.explore} myPlaylists={this.props.roomData.myPlaylists} />
+          </div>
 
           {/* Injected script data from MongoDB sent from the server */}
-          {homeProps}
+          {roomProps}
+
+          {/* Files to initialize constants */} 
+          <script src="/js/constantVariables.js"></script>
+
+          {/* Files to initialize objects */} 
+          <script src="/js/objectInit.js"></script>
 
           {/* Socket.io */} 
           <script src="../socket.io/socket.io.js"></script>
@@ -68,9 +74,23 @@ var Index = React.createClass({
 
           {/* Rangetouch to fix <input type="range"> on touch devices (see https://rangetouch.com) */} 
           <script src="https://cdn.rangetouch.com/0.0.9/rangetouch.js" async></script>
+          
+          <script src="/js/youtube.js"></script>
 
           {/* Browserify bundle */} 
-          <script src="/bundles/homeBundle.js"></script>
+          <script src="/bundles/roomBundle.js"></script>
+
+          {/* Need to minifiy drag-arrange file */}
+          <script src="js/drag-arrange.js"></script>
+          <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+          {/*<script src="js/drag-arrange.min.js"></script>*/}
+
+          {/* Handles some front end implementations */}
+          <script src="js/script.js"></script>
+
+          {/* Youtube API */} 
+          <script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>
+          {/* <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script> */}
 
         </body>
       </html>

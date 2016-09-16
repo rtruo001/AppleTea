@@ -19,6 +19,7 @@
     @Exports:     MediaEntry
     ========================================================================== */
 var React = require('react');
+var ModalCreatePlaylist = require('./ModalCreatePlaylist');
 
 // Thumbnail of the media
 var Thumbnail = React.createClass({
@@ -143,12 +144,62 @@ var Duration = React.createClass({
   }
 });
 
+// Each individual playlist entry in the dropdown list
+var PlaylistEntry = React.createClass({
+  addToPlaylist: function() {
+    console.log("Adding to existing playlist");
+    console.log(this.props.playlist._id);
+    console.log(this.props.data);
+    socket.emit('From Client: Add to existing playlist', {
+      mediaData: this.props.data,
+      id: this.props.playlist._id,
+      firstEntry: this.props.playlist.mediaEntries[0]
+    });
+  },
+
+  render: function() {
+    return(
+      <li><a href="javascript:void(0)" onClick={this.addToPlaylist}>{this.props.playlist.name}</a></li>      
+    )
+  }
+});
+
+// Each dropdown for every media entry
+var PlaylistDropdown = React.createClass({
+  addToNewPlaylist: function() {
+    console.log("Creating new playlist with media");
+  },
+
+  render: function() {
+    var playlistEntries = [];
+    var modalId = "#create-playlist-" + this.props.pos;
+
+    if (this.props.myPlaylists !== undefined && this.props.myPlaylists !== null) {
+      // Sets the playlists in the dropdown
+      for (var i = 0; i < this.props.myPlaylists.length; ++i) {
+        playlistEntries.push(
+          <PlaylistEntry key={i} data={this.props.data} playlist={this.props.myPlaylists[i]} />
+        );
+      }
+    }
+
+    return (
+      <ul className="dropdown-menu dropdown-menu-right">
+        <li className="dropdown-header">Add To</li>
+        {playlistEntries}
+        <li role="separator" className="divider"></li>
+        <li><a data-toggle="modal" data-target={modalId} onClick={this.addToNewPlaylist}>Add to New Playlist</a></li>
+      </ul>
+    );
+  }
+});
+
 // MAIN COMPONENT: Each individual media entry in the list
 var MediaEntry = React.createClass({
   // EVENT HANDLER: When the add to queue button is clicked, adds the media to the queue.
   addToQueue: function() {
     var mediaEntry = {
-      videoId: this.props.videoId,
+      mediaId: this.props.mediaId,
       mediaType: this.props.mediaType,
       thumbnail: this.props.thumbnail,
       title: this.props.title,
@@ -160,22 +211,36 @@ var MediaEntry = React.createClass({
 
   // EVENT HANDLER: When the play button is clicked, plays the media entry onto the media player
   playMediaEntry: function() {
-    var mediaEntry = {
-      videoId: this.props.videoId,
-      mediaType: this.props.mediaType,
-      thumbnail: this.props.thumbnail,
-      title: this.props.title,
-      artist: this.props.artist,
-      ifMediaCardAdded: true
+    if (this.props.categoryType == CATEGORYOFMEDIA.SEARCH) {
+      var mediaEntry = {
+        mediaId: this.props.mediaId,
+        mediaType: this.props.mediaType,
+        thumbnail: this.props.thumbnail,
+        title: this.props.title,
+        artist: this.props.artist,
+        ifMediaCardAdded: true
+      }
+      socket.emit('From Client: Play new media entry', mediaEntry);  
     }
-    socket.emit('From Client: Play new media entry', mediaEntry);
+    else if (this.props.categoryType == CATEGORYOFMEDIA.QUEUE) {
+      var queueEntry = {
+        mediaId: this.props.mediaId,
+        mediaType: this.props.mediaType,
+        thumbnail: this.props.thumbnail,
+        title: this.props.title,
+        artist: this.props.artist,
+        ifMediaCardAdded: true,
+        posInQueue: this.props.pos
+      }
+      socket.emit('From Client: Play new media entry from queue', queueEntry);   
+    }
   },
 
   // EVENT HANDLER: When the delete button is clicked, removes the media entry from queue
   deleteMediaEntry: function() {
     console.log("Delete Media Entry from Queue");
     var mediaEntry = {
-      videoId: this.props.videoId,
+      mediaId: this.props.mediaId,
       mediaType: this.props.mediaType,
       thumbnail: this.props.thumbnail,
       title: this.props.title,
@@ -189,7 +254,7 @@ var MediaEntry = React.createClass({
   // EVENT HANDLER: Moves media entry to the front of the queue as a play next media
   moveToFrontOfTheQueue: function() {
     var mediaEntry = {
-      videoId: this.props.videoId,
+      mediaId: this.props.mediaId,
       mediaType: this.props.mediaType,
       thumbnail: this.props.thumbnail,
       title: this.props.title,
@@ -267,7 +332,32 @@ var MediaEntry = React.createClass({
 
       // Media Entry in the Search component, also has a button that adds the media entry into the queue
       case CATEGORYOFMEDIA.SEARCH:
+        var dropdown = [];
         var searchMediaEntryId = "-search-media-entry-id";
+        var mediaData = {
+          artist: this.props.artist,
+          mediaId: this.props.mediaId,
+          mediaType: this.props.mediaType,
+          thumbnail: this.props.thumbnail,
+          title: this.props.title
+          // TODO: The search entry does not have the same db _id. Need to find a way to add media entries without duplicates
+          // _id: this.props._id
+        };
+
+        // When the user is not logged in, there is no dropdown
+        if (this.props.user === undefined || this.props.user === null) {
+          dropdown = [];
+        }
+        // If a user is logged in, the dropdown appears
+        else {
+          dropdown.push(
+            <div key={this.props.pos} className="search-media-icon">
+              <a className="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void(0)"><i className="fa fa-list-ul" ref={(ref) => this.icon3 = ref} data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+              <PlaylistDropdown myPlaylists={this.props.myPlaylists} data={mediaData} pos={this.props.pos} />
+            </div>
+          );
+        }
+
         return (
           <div id={this.props.pos + searchMediaEntryId} className={"search-card-padding"}>
             <div className="search-media-card">
@@ -283,20 +373,15 @@ var MediaEntry = React.createClass({
               <div className="search-media-icon-container">
                 <div className="search-media-icon"><a id={"media-entry-button-" + this.props.pos} className="icon-btn" href="javascript:void(0)" onClick={this.addToQueue}><i className="fa fa-plus fa-lg" ref={(ref) => this.icon1 = ref} data-toggle="tooltip" title="Add to Queue"></i></a></div>
                 <div className="search-media-icon"><a className="icon-btn" href="javascript:void(0)" onClick={this.playMediaEntry}><i className="fa fa-play" ref={(ref) => this.icon2 = ref} data-toggle="tooltip" title="Play Now"></i></a></div>
-                <div className="search-media-icon">
-                  <a className="icon-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void(0)"><i className="fa fa-list-ul" ref={(ref) => this.icon3 = ref} data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
-                    <ul className="dropdown-menu dropdown-menu-right">
-                      <li className="dropdown-header">Add To</li>
-                      <li><a href="javascript:void(0)">Chill Ass Music</a></li>
-                      <li><a href="javascript:void(0)">Comp Sci Lectures</a></li>
-                      <li><a href="javascript:void(0)">The Trippiest Videos</a></li>
-                      <li><a href="javascript:void(0)">Sick Music Videos</a></li>
-                      <li role="separator" className="divider"></li>
-                      <li><a data-toggle="modal" data-target="#create-playlist" href="javascript:void(0)">Add to New Playlist</a></li>
-                    </ul>
-                </div>
+                {dropdown}
               </div>
             </div>
+
+            <ModalCreatePlaylist 
+              key={this.props.pos} 
+              user={this.props.user}
+              data={mediaData} 
+              pos={this.props.pos} />
           </div>
         );
         break;

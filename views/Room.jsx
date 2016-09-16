@@ -24,13 +24,61 @@ var StatusBar = require('./StatusBar');
 var Queue = require('./Queue');
 var Explore = require('./Explore');
 var MyPlaylists = require('./MyPlaylists');
+var PlaylistTab = require('./PlaylistTab');
 var ModalCreatePlaylist = require('./ModalCreatePlaylist');
 var Search = require('./Search');
 var Footer = require('./Footer');
 
 // MAIN COMPONENT: Room
 var Room = React.createClass({
+  getInitialState: function() {
+    if (this.props.myPlaylists  === undefined || this.props.myPlaylists === null) {
+      return {
+        myPlaylists: []
+      };
+    }
+    else {
+      return {
+        myPlaylists: this.props.myPlaylists
+      };  
+    }
+  },
+
+  componentDidMount: function() {
+    socket.on("From Server: Update MyPlaylist with new playlists" , this.updateAllPlaylistEntries);
+    socket.on("From Server: Update selected playlist", this.updateOnePlaylistEntry);
+
+    socket.emit("From Client: Initialize room", {
+      user: this.props.user,
+      room: this.props.room
+    });
+  },
+
+  // EVENT HANDLER: Update the playlist entry
+  updateAllPlaylistEntries: function(newPlaylist) {
+    console.log("Update with new playlist entry")
+    var playlistsWithNewEntry = this.state.myPlaylists.concat(newPlaylist);
+    this.setState({myPlaylists : playlistsWithNewEntry}); 
+  },
+
+  // EVENT HANDLER: Updates the client's playlist entry when a media is pushed in
+  updateOnePlaylistEntry: function(newPlaylist) {
+    // TODO: Find a better method instead of this, or maybe not
+    var updatedMyPlaylists = this.state.myPlaylists;
+    var playlistEntry;
+    // Increments through every playlist entry to find the existing playlist.
+    for (var i = 0; i < this.state.myPlaylists.length; ++i) {
+      playlistEntry = this.state.myPlaylists[i];
+      if (playlistEntry._id === newPlaylist._id) {
+        updatedMyPlaylists[i] = newPlaylist;
+        this.setState({myPlaylists : updatedMyPlaylists});     
+        return;
+      }
+    }
+  },
+
   render: function() {
+    
     return(
       <div>
         <div className="content-container">
@@ -39,7 +87,7 @@ var Room = React.createClass({
           <div id="page-overlay"></div>
 
           {/* Header */}
-          <Header />
+          <Header user={this.props.user} />
 
           {/* Video and Chat Banner */}
           <div className="banner-container">
@@ -71,12 +119,9 @@ var Room = React.createClass({
                       <div className="tab-text">Explore</div>
                     </a>
                   </li>
-                  <li>
-                    <a data-toggle="tab" href="#myplaylists" id="mobile-tab-myplaylists">
-                      <i className="fa fa-book icon-padding"></i>
-                      <div className="tab-text">My Playlists</div>
-                    </a>
-                  </li>
+
+                  <PlaylistTab type={"MyPlaylist-mobile"} user={this.props.user} />
+
                   <li>
                     <a data-toggle="tab" href="#search" className='focus-search' id="mobile-tab-search">
                       <i className="fa fa-search icon-padding"></i>
@@ -88,7 +133,7 @@ var Room = React.createClass({
 
             {/* Chat */}
             <div className="chatbox-container">
-             <Chatbox />
+             <Chatbox room={this.props.room} user={this.props.user} />
             </div>
 
             </div>
@@ -100,7 +145,7 @@ var Room = React.createClass({
 
               {/* Queue */}
               <div className="col-md-4 col-sm-5 queue-container" id="queue">
-                <Queue />
+                <Queue user={this.props.user} />
               </div>
 
               {/* Desktop Tab Navigation */}
@@ -112,12 +157,9 @@ var Room = React.createClass({
                       <div className="tab-text">Explore</div>
                     </a>
                   </li>
-                  <li>
-                    <a data-toggle="tab" href="#myplaylists" id="tab-myplaylists">
-                      <i className="fa fa-book icon-padding"></i>
-                      <div className="tab-text">My Playlists</div>
-                    </a>
-                  </li>
+                  
+                  <PlaylistTab type={"MyPlaylist"} user={this.props.user} />
+
                   <li>
                     <a data-toggle="tab" href="#search" className='focus-search' id="tab-search">
                       <i className="fa fa-search icon-padding"></i>
@@ -131,20 +173,21 @@ var Room = React.createClass({
 
                   {/* Explore */}
                   <div id="explore" className="tab-pane fade in active">
-                    <Explore />
+                    <Explore explore={this.props.explore} />
                   </div>
 
                   {/* My Playlists */}
                   <div id="myplaylists" className="tab-pane fade">
-                    <MyPlaylists />
+                    <MyPlaylists myPlaylists={this.state.myPlaylists} />
                   </div>
 
                   {/* Search */}
                   <div id="search" className="tab-pane fade">
-                    <Search />
+                    <Search user={this.props.user} myPlaylists={this.state.myPlaylists} />
                   </div>
 
-                  <ModalCreatePlaylist />
+                  {/* Modal for create new playlist button, there is no media entry when this button is clicked */}
+                  <ModalCreatePlaylist key={"newPlaylist"} user={this.props.user} data={null} pos={null} />
 
                 </div>
               </div>
@@ -158,7 +201,6 @@ var Room = React.createClass({
 
         {/* Footer */}
         <Footer />
-        
       </div>
     );
   }

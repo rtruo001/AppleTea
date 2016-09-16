@@ -14,7 +14,7 @@
                   AddedMediaLength
                   ShuffleButton
                   LikeButton
-                  SquareButton
+                  ClearButton
                   QueuePlaceHolder
                   Queue
 
@@ -61,9 +61,13 @@ var AddedMediaLength = React.createClass({
 });
 
 var EditButton = React.createClass({
+  addToPlaylist: function() {
+
+  },
+
   render: function() {
     return (
-      <div className="queue-icon"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-edit" data-toggle="tooltip" title="Edit" aria-hidden="true"></i></a></div>  
+      <div className="queue-icon"><a className="icon-btn" href="javascript:void(0)" onClick={this.props.onClick}><i className="fa fa-edit" data-toggle="tooltip" title="Edit" aria-hidden="true"></i></a></div>  
     );
   }
 });
@@ -84,10 +88,10 @@ var LikeButton = React.createClass({
   }
 });
 
-var SquareButton = React.createClass({
+var ClearButton = React.createClass({
   render: function() {
     return (
-      <div className="queue-icon"><a className="icon-btn" href="javascript:void(0)"><i className="fa fa-square-o" data-toggle="tooltip" title="Clear" aria-hidden="true"></i></a></div>  
+      <div className="queue-icon"><a className="icon-btn" href="javascript:void(0)" onClick={this.props.onClick}><i className="fa fa-square-o" data-toggle="tooltip" title="Clear" aria-hidden="true"></i></a></div>  
     );
   }
 });
@@ -156,9 +160,19 @@ var Queue = React.createClass({
 
   // EVENT HANDLER: Updates the queue with the server's queue
   updateQueueWithNewQueue: function(newQueueList) {
+    console.log(newQueueList);
     this.setState({queueList: newQueueList}, function() {
-      console.log("Finished updating queue");
+      reinitializeDraggable(function() {
+        console.log("Draggable reinitialized with Queue changes : updateQueueWithNewQueue");
+        $('.media-card').arrangeable();  
+      });
     });
+  },
+
+  // EVENT HANDLER: Clears the entire queue
+  clearQueue: function() {
+    console.log("Clearing the queue");
+    socket.emit('From Client: Update queue with new list', []);
   },
 
   render: function() {
@@ -166,6 +180,8 @@ var Queue = React.createClass({
     var queueEntries = [];
     var queueEntry;
     var queueMediaEntryId = 'queue-media-entry-';
+    var playlistLength = 0;
+    var addedMediaLength = 0;
 
     // Added If statement that pushes the placeholder div into queueEntries whenever queueList is empty
     if (this.state.queueList.length <= 0) {
@@ -174,26 +190,25 @@ var Queue = React.createClass({
       )
     }
 
-    /* TODO: When list is empty AFTER FINISHING A PLAYLIST, display this placeholder instead
-      <div className="placeholder">
-        <div className="placeholder-content">
-          <i className="fa fa-child placeholder-icon"></i><br/>
-          <span>You finished your playlist!</span>
-        </div>
-      </div>
-    </div>
-    */
-
     // If there are media entries, pushes every media entry the queueEntries instead
     else {
       for (var i = 0; i < this.state.queueList.length; ++i) {
         queueEntry = this.state.queueList[i];
 
+        if (queueEntry.ifMediaCardAdded) {
+          ++addedMediaLength;
+        }
+        else {
+          ++playlistLength;
+        }
+
         queueEntries.push (
           <MediaEntry 
-            key={queueEntry.videoId} 
+            // FOR PREVENTING DUPLICATES
+            // key={queueEntry.mediaId} 
+            key={queueEntry.mediaId + i}
             pos={i} 
-            videoId={queueEntry.videoId} 
+            mediaId={queueEntry.mediaId} 
             categoryType={'QUEUE'}
             mediaType={'YOUTUBE'}
             thumbnail={queueEntry.thumbnail} 
@@ -209,16 +224,16 @@ var Queue = React.createClass({
         <div className="queue-header">
           <div className="queue-title-container">
             {/* TODO: Change queue titles and pill numbers depending on what was added */}
-            <QueueTitle queueTitle={"Chill Ass Music"} />
-            <PlaylistLength playlistLength={this.state.queueList.length} />
-            <AddedMediaLength addedMediaLength={this.state.queueList.length} />
+            <QueueTitle queueTitle={"Queue"} />
+            <PlaylistLength playlistLength={playlistLength} />
+            <AddedMediaLength addedMediaLength={addedMediaLength} />
           </div>
 
           <div className="queue-icon-container">
-            <SquareButton />
+            <ClearButton onClick={this.clearQueue} />
             <LikeButton />
             <ShuffleButton />
-            <EditButton />
+            <EditButton onClick={this.addToPlaylist} />
           </div>
         </div>
 

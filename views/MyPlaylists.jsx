@@ -1,3 +1,21 @@
+/*  =============================================================================
+    Copyright © 
+    ========================================================================== */
+
+/*  =============================================================================
+    VIEW: MyPlaylists.jsx
+
+    Contains all of the current user's private and public playlists. Also contains 
+    all the playlists that the user liked.
+    ========================================================================== */
+
+/*  =============================================================================
+    @Components:    MyPlaylistPlaceholder
+                    SearchMyPlaylist
+                    MyPlaylists
+
+    @Exports:       MyPlaylists
+    ========================================================================== */
 var React = require('react');
 var PlaylistEntry = require('./PlaylistEntry');
 
@@ -44,55 +62,56 @@ var NewPlaylistButton = React.createClass({
 // MAIN COMPONENT: My Playlist Tab
 var MyPlaylists = React.createClass({
   render: function() {
-
     var playlistEntries = [];
 
-    // TODO: If no playlists, return a placeholder
-    if (false) {
-      playlistEntries.push(
-        <MyPlaylistPlaceholder key={'MyPlaylistPlaceholder'} />
-      )
+    // If there are no playlists, the placeholder is displayed
+    if (this.props.myPlaylists === undefined || this.props.myPlaylists === null || this.props.myPlaylists.length <= 0) {
+      return (
+        <div>
+          <MyPlaylistPlaceholder />
+        </div>
+      );
     }
 
-    // If there are playlists, pushes every playlist
+    // If there are playlists, pushes every playlist into the tab
     else {
+      // Adds the search bar for the playlist
       playlistEntries.push(
         <SearchMyPlaylist key={'SearchMyPlaylist'} />
       )
 
-      // DEMO PLAYLIST DATA
-      playlistEntries.push (
-        <PlaylistEntry 
-          owner={true}
-          title={'Saturday Morning Cartoons'}
-          curator={'Gliu'}
-          size={'27'}
-          type={'private'}
-          likes={'0'}
-          liked={null} />
-      );
-      for (var i = 0; i < 2; ++i) {
+      // Every playlist entry in MyPlaylist
+      var playlistEntry;
+      var playlistThumbnail;
+      var playlistSize;
+      for (var i = 0; i < this.props.myPlaylists.length; ++i) {
+        playlistEntry = this.props.myPlaylists[i];
+        // If the playlist entry has no media entries
+        // TODO: Add a thumbnial placeholder for playlist entries that have no media entries
+        if (playlistEntry.mediaEntries[0] === null || playlistEntry.mediaEntries[0] === undefined) {
+          playlistThumbnail = "";
+          playlistSize = 0;
+        }
+        // there are media entries in the playlist entry
+        else {
+          playlistThumbnail = playlistEntry.mediaEntries[0].thumbnail;
+          playlistSize = playlistEntry.mediaEntries.length;  
+        }
+        
         playlistEntries.push (
-          <PlaylistEntry 
+          // TODO: owner, liked
+          <PlaylistEntry
+            key={playlistEntry._id}
             owner={true}
-            title={'Chill Music Videos'}
-            curator={'Gliu'}
-            size={'9'}
-            type={'public'}
-            likes={'10'}
-            liked={null} />
-        );
-      }
-      for (var i = 0; i < 5; ++i) {
-        playlistEntries.push (
-          <PlaylistEntry 
-            owner={false}
-            title={'Trippy Stuff'}
-            curator={'MeSoRanz'}
-            size={'103'}
-            type={'public'}
-            likes={'873'}
-            liked={true} />
+            title={playlistEntry.name}
+            thumbnail={playlistThumbnail}
+            curator={playlistEntry.owner}
+            size={playlistSize}
+            type={playlistEntry.isPublic}
+            likes={playlistEntry.likes}
+            liked={null} 
+            mediaEntries={playlistEntry.mediaEntries} 
+            home={this.props.home} />
         );
       }
     }
