@@ -4942,17 +4942,16 @@ var MediaEntry = React.createClass({
       case CATEGORYOFMEDIA.QUEUE:
         var queueMediaEntryId = "-queue-media-entry-id";
         var queueMediaCardClassName = "media-card grabbable";
+        var iconClassName = "icon-btn";
+        var deleteButton = [];
 
         // Adds the media-card-added class if the media entry was added individually
         if (this.props.ifMediaCardAdded == true) {
           queueMediaCardClassName += " media-card-added";
-        }
-
-        // If in the front of the queue, renders a media entry that would play next
-        if (this.props.pos === PLAYNEXTMEDIAENTRYPOS) {
-          return React.createElement(
+          iconClassName += "-blue-lite";
+          deleteButton.push(React.createElement(
             'div',
-            { id: this.props.pos + queueMediaEntryId, className: queueMediaCardClassName },
+            null,
             React.createElement(
               'div',
               { className: 'media-card-added-corner-container' },
@@ -4962,7 +4961,16 @@ var MediaEntry = React.createClass({
               'a',
               { className: 'media-card-added-plus icon-btn-white', href: 'javascript:void(0)', onClick: this.deleteMediaEntry },
               '+'
-            ),
+            )
+          ));
+        }
+
+        // If in the front of the queue, renders a media entry that would play next
+        if (this.props.pos === PLAYNEXTMEDIAENTRYPOS) {
+          return React.createElement(
+            'div',
+            { id: this.props.pos + queueMediaEntryId, className: queueMediaCardClassName },
+            deleteButton,
             React.createElement(Thumbnail, { thumbnail: this.props.thumbnail, categoryType: this.props.categoryType }),
             React.createElement(
               'div',
@@ -4985,7 +4993,7 @@ var MediaEntry = React.createClass({
                 React.createElement('div', { className: 'media-icon' }),
                 React.createElement(
                   'a',
-                  { className: 'icon-btn-blue-lite', href: 'javascript:void(0)', onClick: this.playMediaEntry },
+                  { className: iconClassName, href: 'javascript:void(0)', onClick: this.playMediaEntry },
                   React.createElement(
                     'div',
                     { className: 'media-icon' },
@@ -5001,16 +5009,7 @@ var MediaEntry = React.createClass({
         return React.createElement(
           'div',
           { id: this.props.pos + queueMediaEntryId, className: queueMediaCardClassName },
-          React.createElement(
-            'div',
-            { className: 'media-card-added-corner-container' },
-            React.createElement('div', { className: 'media-card-added-corner' })
-          ),
-          React.createElement(
-            'a',
-            { className: 'media-card-added-plus icon-btn-white', href: 'javascript:void(0)', onClick: this.deleteMediaEntry },
-            '+'
-          ),
+          deleteButton,
           React.createElement(Thumbnail, { thumbnail: this.props.thumbnail, categoryType: this.props.categoryType }),
           React.createElement(
             'div',
@@ -5028,7 +5027,7 @@ var MediaEntry = React.createClass({
               React.createElement('div', { className: 'media-icon' }),
               React.createElement(
                 'a',
-                { className: 'icon-btn-blue-lite', href: 'javascript:void(0)', onClick: this.moveToFrontOfTheQueue },
+                { className: iconClassName, href: 'javascript:void(0)', onClick: this.moveToFrontOfTheQueue },
                 React.createElement(
                   'div',
                   { className: 'media-icon' },
@@ -5037,7 +5036,7 @@ var MediaEntry = React.createClass({
               ),
               React.createElement(
                 'a',
-                { className: 'icon-btn-blue-lite', href: 'javascript:void(0)', onClick: this.playMediaEntry },
+                { className: iconClassName, href: 'javascript:void(0)', onClick: this.playMediaEntry },
                 React.createElement(
                   'div',
                   { className: 'media-icon' },
@@ -7206,45 +7205,17 @@ var cachedClearTimeout;
 } ())
 function runTimeout(fun) {
     if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
         return setTimeout(fun, 0);
+    } else {
+        return cachedSetTimeout.call(null, fun, 0);
     }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
 }
 function runClearTimeout(marker) {
     if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
+        clearTimeout(marker);
+    } else {
+        cachedClearTimeout.call(null, marker);
     }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
 }
 var queue = [];
 var draining = false;
