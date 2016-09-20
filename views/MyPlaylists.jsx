@@ -102,6 +102,7 @@ var MyPlaylists = React.createClass({
           // TODO: owner, liked
           <PlaylistEntry
             key={playlistEntry._id}
+            pos={i}
             owner={true}
             title={playlistEntry.name}
             thumbnail={playlistThumbnail}

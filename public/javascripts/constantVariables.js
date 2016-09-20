@@ -26,7 +26,8 @@ const MEDIATYPES = {
 // Client category of media entries
 const CATEGORYOFMEDIA = {
   QUEUE: 'QUEUE',
-  SEARCH: 'SEARCH'
+  SEARCH: 'SEARCH',
+  PLAYLIST: 'PLAYLIST'
 };
 
 // Media player's max volume

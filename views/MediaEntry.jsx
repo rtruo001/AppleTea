@@ -21,6 +21,8 @@
 var React = require('react');
 var ModalCreatePlaylist = require('./ModalCreatePlaylist');
 
+var playlistStore = require('../flux/stores/store');
+
 // Thumbnail of the media
 var Thumbnail = React.createClass({
   render: function() {
@@ -30,6 +32,9 @@ var Thumbnail = React.createClass({
       case CATEGORYOFMEDIA.QUEUE:
         categoryClassName = 'media-img';
         break;
+      case CATEGORYOFMEDIA.PLAYLIST:
+        categoryClassName = 'media-img';
+        break;  
       case CATEGORYOFMEDIA.SEARCH:
         categoryClassName = 'search-media-img';
         break;
@@ -51,6 +56,9 @@ var Title = React.createClass({
     var categoryClassName;
     switch(this.props.categoryType) {
       case CATEGORYOFMEDIA.QUEUE:
+        categoryClassName = 'media-title ellipses';
+        break;
+      case CATEGORYOFMEDIA.PLAYLIST:
         categoryClassName = 'media-title ellipses';
         break;
       case CATEGORYOFMEDIA.SEARCH:
@@ -78,6 +86,9 @@ var Artist = React.createClass({
       case CATEGORYOFMEDIA.QUEUE:
         categoryClassName = 'media-artist ellipses';
         break;
+      case CATEGORYOFMEDIA.PLAYLIST:
+        categoryClassName = 'media-artist ellipses';
+        break;
       case CATEGORYOFMEDIA.SEARCH:
         categoryClassName = 'search-media-artist ellipses';
         break;
@@ -100,7 +111,10 @@ var Type = React.createClass({
     var categoryClassName;
     var mediaTypeIcon;
     switch(this.props.categoryType) {
-      case MEDIATYPES.QUEUE:
+      case CATEGORYOFMEDIA.QUEUE:
+        categoryClassName = 'media-type';
+        break;
+      case CATEGORYOFMEDIA.PLAYLIST:
         categoryClassName = 'media-type';
         break;
       case CATEGORYOFMEDIA.SEARCH:
@@ -211,7 +225,7 @@ var MediaEntry = React.createClass({
 
   // EVENT HANDLER: When the play button is clicked, plays the media entry onto the media player
   playMediaEntry: function() {
-    if (this.props.categoryType == CATEGORYOFMEDIA.SEARCH) {
+    if (this.props.categoryType == CATEGORYOFMEDIA.SEARCH || this.props.categoryType == CATEGORYOFMEDIA.PLAYLIST) {
       var mediaEntry = {
         mediaId: this.props.mediaId,
         mediaType: this.props.mediaType,
@@ -265,6 +279,11 @@ var MediaEntry = React.createClass({
     socket.emit('From Client: Move media entry to front of queue', mediaEntry);
   },
 
+  // EVENT HANDLER: Deletes playlist entry in the opened edit playlist
+  deletePlaylistEntry: function() {
+    this.props.deleteEntry(this.props.pos);
+  },
+
   componentDidMount() {
     $(this.icon1).tooltip();
     $(this.icon2).tooltip();
@@ -300,6 +319,7 @@ var MediaEntry = React.createClass({
               <div className="media-text-container">
                 <Title title={this.props.title} categoryType={this.props.categoryType} />
                 <Artist artist={this.props.artist} categoryType={this.props.categoryType} />
+                <Type type={this.props.mediaType} categoryType={this.props.categoryType} />
                 <div className="media-icon-container">
                   <div className="media-icon"></div>
                   <a className="icon-btn-blue-lite" href="javascript:void(0)" onClick={this.playMediaEntry}><div className="media-icon"><i className="fa fa-play" aria-hidden="true"></i></div></a>
@@ -320,6 +340,7 @@ var MediaEntry = React.createClass({
             <div className="media-text-container">
               <Title title={this.props.title} categoryType={this.props.categoryType} />
               <Artist artist={this.props.artist} categoryType={this.props.categoryType} />
+              <Type type={this.props.mediaType} categoryType={this.props.categoryType} />
               <div className="media-icon-container">
                 <div className="media-icon"></div>
                 <a className="icon-btn-blue-lite" href="javascript:void(0)" onClick={this.moveToFrontOfTheQueue}><div className="media-icon"><i className="fa fa-chevron-up" data-toggle="tooltip" title="Move to Top" aria-hidden="true"></i></div></a>
@@ -328,6 +349,90 @@ var MediaEntry = React.createClass({
             </div>
           </div>
         ); 
+        break;
+
+      // Media Entry that is in the playlist entry component
+      case CATEGORYOFMEDIA.PLAYLIST:
+        var ifOwnerId = "-queue-media-entry-id";
+        var queueMediaCardClassName = "media-card grabbable";
+
+        var dropdown = [];
+        var mediaData = {
+          artist: this.props.artist,
+          mediaId: this.props.mediaId,
+          mediaType: this.props.mediaType,
+          thumbnail: this.props.thumbnail,
+          title: this.props.title
+          // TODO: The search entry does not have the same db _id. Need to find a way to add media entries without duplicates
+          // _id: this.props._id
+        };
+
+        // If a user is logged in, the dropdown appears        
+        dropdown.push(
+          <div key={this.props.pos} className="media-icon">
+            <a className="icon-btn-blue-lite dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void(0)"><i className="fa fa-list-ul" ref={(ref) => this.icon3 = ref} data-toggle="tooltip" title="Add to Playlist" aria-hidden="true"></i></a>
+            <PlaylistDropdown myPlaylists={this.props.myPlaylists} data={mediaData} pos={this.props.pos} />
+          </div>
+        );
+
+        // If the playlist is a liked one
+        if (this.props.owner === false) {
+          return (
+            <div className="col-md-6 col-sm-12 col-padding">
+              <div className="playlist-media-card">
+                <Thumbnail thumbnail={this.props.thumbnail} categoryType={this.props.categoryType} />
+
+                <div className="media-text-container">
+                  <Title title={this.props.title} categoryType={this.props.categoryType} />
+                  <Artist artist={this.props.artist} categoryType={this.props.categoryType} />
+                  <Type type={this.props.mediaType} categoryType={this.props.categoryType} />
+
+                  <div className="media-icon-container">
+                    <div className="media-icon"><a className="icon-btn" href="javascript:void(0)" onClick={this.addToQueue}><i className="fa fa-plus" ref={(ref) => this.icon1 = ref} data-toggle="tooltip" title="Add to Queue"></i></a></div>
+                    <div className="media-icon"><a className="icon-btn" href="javascript:void(0)" onClick={this.playMediaEntry}><i className="fa fa-play" ref={(ref) => this.icon2 = ref} data-toggle="tooltip" title="Play Now"></i></a></div>
+                    {dropdown}
+                  </div>
+                </div>
+
+                <ModalCreatePlaylist 
+                  key={this.props.pos} 
+                  user={this.props.user}
+                  data={mediaData} 
+                  pos={this.props.pos} />
+              </div>
+            </div>
+          );
+        }
+
+        // If the playlist was made by the current user
+        return (
+          <div className="col-md-6 col-sm-12 col-padding edit-playlist-card">
+            <div className="playlist-media-card media-card-added grabbable">
+              <div className="media-card-added-corner-container"><div className="media-card-added-corner"></div></div>
+              <a className="media-card-added-plus icon-btn-white" href="javascript:void(0)" onClick={this.deletePlaylistEntry}>+</a>
+              <Thumbnail thumbnail={this.props.thumbnail} categoryType={this.props.categoryType} />
+
+              <div className="media-text-container">
+                <Title title={this.props.title} categoryType={this.props.categoryType} />
+                <Artist artist={this.props.artist} categoryType={this.props.categoryType} />
+                <Type type={this.props.mediaType} categoryType={this.props.categoryType} />
+
+                <div className="media-icon-container">
+                  <div className="media-icon"><a className="icon-btn-blue-lite" href="javascript:void(0)" onClick={this.addToQueue}><i className="fa fa-plus" ref={(ref) => this.icon1 = ref} data-toggle="tooltip" title="Add to Queue"></i></a></div>
+                  <div className="media-icon"><a className="icon-btn-blue-lite" href="javascript:void(0)" onClick={this.playMediaEntry}><i className="fa fa-play" ref={(ref) => this.icon2 = ref} data-toggle="tooltip" title="Play Now"></i></a></div>
+                  {dropdown}
+                </div>
+              </div>
+
+              <ModalCreatePlaylist 
+                key={this.props.pos} 
+                user={this.props.user}
+                data={mediaData} 
+                pos={this.props.pos} />
+            </div>
+          </div>
+        );
+
         break;
 
       // Media Entry in the Search component, also has a button that adds the media entry into the queue
