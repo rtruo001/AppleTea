@@ -67,13 +67,7 @@ var PlaylistEntry = React.createClass({
   // EVENT HANDLER: Opens the playlist's page
   goToPlaylistPage: function() {
     console.log(this.props.mediaEntries);
-
-    // console.log("Going to playlist page: " + this.props.title + " Index: " + this.props.pos);
-
-    console.log("What " + this.props.pos);
-    console.log(this.props.mediaEntries);
-    console.log("fuck " + this.props.pos);
-
+    console.log("Going to playlist page: " + this.props.title + " Index: " + this.props.pos);
     playlistActions.displayPlaylist(this.props.pos, this.props.mediaEntries); 
 
     // Open selected playlist owned by current user
