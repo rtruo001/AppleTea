@@ -62,7 +62,7 @@ body {
 
 /* FontAwesome Icon Style */
 
-.fa-heart {color: #444;}
+.fa-heart {color: #4bb9c3;}
 .shfl-btn .active {color: #000;}
 .icon-padding {padding-right: 6px;}
 .icon-position-left {position: absolute; left: 14px; padding-top:3px;}
@@ -83,15 +83,15 @@ a.icon-btn:visited {color:#ccc; text-decoration:none; outline:none;}
 a.icon-btn:hover {color:#000; text-decoration:none; outline:none;}
 a.icon-btn:active {color:#000; text-decoration:none; outline:none;}
 
-a.icon-btn-blue:link {color:#bbb; text-decoration:none; outline:none;}
-a.icon-btn-blue:visited {color:#bbb; text-decoration:none; outline:none;}
-a.icon-btn-blue:hover {color:#888; text-decoration:none; outline:none;}
-a.icon-btn-blue:active {color:#888; text-decoration:none; outline:none;}
+a.icon-btn-blue:link {color:#4bb9c3; text-decoration:none; outline:none;}
+a.icon-btn-blue:visited {color:#4bb9c3; text-decoration:none; outline:none;}
+a.icon-btn-blue:hover {color:#339199; text-decoration:none; outline:none;}
+a.icon-btn-blue:active {color:#339199; text-decoration:none; outline:none;}
 
-a.icon-btn-blue-lite:link {color:#999; text-decoration:none; outline:none;}
-a.icon-btn-blue-lite:visited {color:#999; text-decoration:none; outline:none;}
-a.icon-btn-blue-lite:hover {color:#111; text-decoration:none; outline:none;}
-a.icon-btn-blue-lite:active {color:#111; text-decoration:none; outline:none;}
+a.icon-btn-blue-lite:link {color:#b3e1e6; text-decoration:none; outline:none;}
+a.icon-btn-blue-lite:visited {color:#b3e1e6; text-decoration:none; outline:none;}
+a.icon-btn-blue-lite:hover {color:#fff; text-decoration:none; outline:none;}
+a.icon-btn-blue-lite:active {color:#fff; text-decoration:none; outline:none;}
 
 a.icon-btn-white:link {color:#fff; text-decoration:none; outline:none;}
 a.icon-btn-white:visited {color:#fff; text-decoration:none; outline:none;}
@@ -100,18 +100,18 @@ a.icon-btn-white:active {color:#fff; text-decoration:none; outline:none;}
 
 a.icon-btn-dark:link {color:#444; text-decoration:none; outline:none;}
 a.icon-btn-dark:visited {color:#444; text-decoration:none; outline:none;}
-a.icon-btn-dark:hover {color:#fff; text-decoration:none; outline:none;}
-a.icon-btn-dark:active {color:#fff; text-decoration:none; outline:none;}
+a.icon-btn-dark:hover {color:#4bb9c3; text-decoration:none; outline:none;}
+a.icon-btn-dark:active {color:#4bb9c3; text-decoration:none; outline:none;}
 
 a.icon-btn-red:link {color:#ccc; text-decoration:none; outline:none;}
 a.icon-btn-red:visited {color:#ccc; text-decoration:none; outline:none;}
 a.icon-btn-red:hover {color:#e64a60; text-decoration:none; outline:none;}
 a.icon-btn-red:active {color:#e64a60; text-decoration:none; outline:none;}
 
-a.playlist-link:link {color: #444; text-decoration:none; outline:none;}
-a.playlist-link:visited {color: #444; text-decoration:none; outline:none;}
-a.playlist-link:hover {color: #444; text-decoration: underline; outline:none;}
-a.playlist-link:active {color: #444; text-decoration: underline; outline:none;}
+a.playlist-link:link {color: #4bb9c3; text-decoration:none; outline:none;}
+a.playlist-link:visited {color: #4bb9c3; text-decoration:none; outline:none;}
+a.playlist-link:hover {color: #4bb9c3; text-decoration: underline; outline:none;}
+a.playlist-link:active {color: #4bb9c3; text-decoration: underline; outline:none;}
 
 a.curator-link:link {color: #666; text-decoration:none; outline:none;}
 a.curator-link:visited {color: #666; text-decoration:none; outline:none;}
@@ -120,8 +120,8 @@ a.curator-link:active {color: #666; text-decoration: underline; outline:none;}
 
 a.link-grey-lite:link {color: #ccc; text-decoration:none; outline:none;}
 a.link-grey-lite:visited {color: #ccc; text-decoration:none; outline:none;}
-a.link-grey-lite:hover {color: #444; text-decoration: underline; outline:none;}
-a.link-grey-lite:active {color: #444; text-decoration: underline; outline:none;}
+a.link-grey-lite:hover {color: #4bb9c3; text-decoration: underline; outline:none;}
+a.link-grey-lite:active {color: #4bb9c3; text-decoration: underline; outline:none;}
 
 
 /* Bootstrap Button Style Ovverid */
@@ -154,9 +154,9 @@ a.link-grey-lite:active {color: #444; text-decoration: underline; outline:none;}
   margin: 2px 0px !important;
 }
 
-.btn-primary {color: #fff !important; background-color: #666 !important;}
-.btn-primary:hover {background-color: #444 !important;}
-.btn-primary:active {background-color: #333 !important;}
+.btn-primary {color: #fff !important; background-color: #4bb9c3 !important;}
+.btn-primary:hover {background-color: #47afb8 !important;}
+.btn-primary:active {background-color: #339199 !important;}
 
 .btn-secondary {color: #444 !important; background-color: #eee !important;}
 .btn-secondary:hover {background-color: #e5e5e5 !important;}
@@ -175,8 +175,8 @@ a.link-grey-lite:active {color: #444; text-decoration: underline; outline:none;}
 .btn-red-hover:active {color: #fff !important; background-color: #cd4054 !important;}
 
 .btn-teal-hover {color: #444 !important; background-color: #eee !important;}
-.btn-teal-hover:hover {color: #fff !important; background-color: #444 !important;}
-.btn-teal-hover:active {color: #fff !important; background-color: #333 !important;}
+.btn-teal-hover:hover {color: #fff !important; background-color: #4bb9c3 !important;}
+.btn-teal-hover:active {color: #fff !important; background-color: #339199 !important;}
 
 .btn-dark {color: #eee !important; background-color: #222 !important;}
 .btn-dark:hover {color: #000 !important; background-color: #eee !important;}
@@ -387,9 +387,9 @@ nav {
 
 .search-input-dropdown .btn {
   font-size: 14px !important;
-  border: solid 1px #666 !important;
+  border: solid 1px #4bb9c3 !important;
   color: #fff !important;
-  background-color: #666 !important;
+  background-color: #4bb9c3 !important;
 }
 
 .search-input-dropdown .dropdown-icon {
@@ -562,7 +562,7 @@ nav {
 }
 
 .toggle-slider-section .fa-lock {
-  color: #444;
+  color: #47afb8;
 }
 
 
@@ -957,7 +957,7 @@ nav {
 }
 
 .chat-load-icon {
-  color: #fff;
+  color: #4bb9c3;
   text-align: center;
   padding: 10px 0px 10px 0px;
 }
@@ -1017,11 +1017,11 @@ nav {
 .chat-msg-user .msg {
   float: right;
   clear: both;
-  color: #000;
+  color: #eee;
   font-size: 12px;
   line-height: 14px;
   margin: 0px;
-  background-color: #ddd;
+  background-color: #4bb9c3;
   padding: 6px 10px 6px 10px;
   border-radius: 12px;
   margin-bottom: 1px;
@@ -1098,7 +1098,7 @@ form {
 }
 
 .pill-blue {
-  background-color: #999;
+  background-color: #4bb9c3;
   color: #fff;
 }
 
@@ -1201,7 +1201,7 @@ form {
 }
 
 .media-card-added {
-  background-color: #bbb !important;
+  background-color: #4bb9c3 !important;
 }
 
 .media-card-added .media-title {
@@ -1209,15 +1209,15 @@ form {
 }
 
 .media-card-added .media-artist {
-  color: #666 !important;
+  color: #b3e1e6 !important;
 }
 
 .media-card-added .media-type .fa {
-  color: #666 !important;
+  color: #fff !important;
 }
 
 .media-card-added:hover {
-  background-color: #b5b5b5 !important;
+  background-color: #47afb8 !important;
 }
 
 
@@ -1240,7 +1240,7 @@ form {
   right: 0;
   border-width: 0px 35px 35px 0px;
   border-style: solid;
-  border-color: transparent #999 transparent #999;
+  border-color: transparent #339199 transparent #339199;
 }
 
 .media-card-added-plus {
@@ -1380,7 +1380,7 @@ form {
   position: absolute;
   bottom: 8px;
   right: 6px;
-  color: #444;
+  color: #339199;
 }
 
 .playlist-icon-container .fa-lock {
@@ -1397,7 +1397,7 @@ form {
 }
 
 .user-playlist{
-  background-color: #bbb !important;
+  background-color: #4bb9c3 !important;
 }
 
 .user-playlist a {
@@ -1405,11 +1405,11 @@ form {
 }
 
 .user-playlist .playlist-curator {
-  color: #666;
+  color: #b3e1e6;
 }
 
 .user-playlist .pill {
-  background-color: #888;
+  background-color: #339199;
   color: #fff;
 }
 
