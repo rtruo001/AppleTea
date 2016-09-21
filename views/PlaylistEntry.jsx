@@ -16,6 +16,8 @@
     ========================================================================== */
 var React = require('react');
 
+var playlistActions = require('../flux/actions/actions');
+
 // Icon displayed depends on whether playlist is public, private, or not owner
 var PlaylistIcon = React.createClass({
   render: function () {
@@ -64,12 +66,38 @@ var PlaylistEntry = React.createClass({
 
   // EVENT HANDLER: Opens the playlist's page
   goToPlaylistPage: function() {
-    console.log("Going to playlist page: " + this.props.title);
+    console.log(this.props.mediaEntries);
+    console.log("Going to playlist page: " + this.props.title + " Index: " + this.props.pos);
+    playlistActions.displayPlaylist(this.props.pos, this.props.mediaEntries); 
+
+    // Open selected playlist owned by current user
+    if (this.props.owner) {
+      $('#tab-edit-playlist').tab('show');
+    }
+    // Open selected liked playlist
+    else {
+      $('#tab-view-playlist').tab('show'); 
+    }   
+    // TODO: For the Back button      
+    // The back button should have a stack like implementation, each element being where the previous was from
+    // var playlistData = {
+    //   pos: this.props.pos,
+    //   clickedFrom: "MYPLAYLIST"
+    // }
+    // playlistActions.displayPlaylist(playlistData);
   },
 
   // EVENT HANDLER: Opens the curator's page
   goToCuratorPage: function() {
     console.log("Going to curator page: " + this.props.curator);
+
+    // TODO: For the Back button
+    // The back button should have a stack like implementation, each element being where the previous was from
+    // var curatorData = {
+    //   pos: this.props.pos,
+    //   clickedFrom: "MYPLAYLIST"
+    // }
+    // playlistActions.Curator(curatorData);
   },
 
   render: function() {
