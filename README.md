@@ -673,12 +673,12 @@ Currently have not implemented any unit testing. Currently want to look into Moc
 ##Things not discussed yet (Ask me)
 - XSS attacks (dangerouslySetInnerHTML)
   **Reference:**
-  - * https://en.wikipedia.org/wiki/Cross-site_scripting
-  - * https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet
+  - https://en.wikipedia.org/wiki/Cross-site_scripting
+  - https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet
 
 - Script injections for Client-side rendering
   **Reference:**
-  - * http://www.crmarsh.com/react-ssr/ 
+  - http://www.crmarsh.com/react-ssr/ 
 
 - MongoDB
 
@@ -686,14 +686,14 @@ Currently have not implemented any unit testing. Currently want to look into Moc
 
 - Using Flux (For Modals and Components)
   **Reference:**
-  - * https://tylermcginnis.com/react-js-tutorial-pt-3-architecting-react-js-apps-with-flux-4657ef831895#.oslqkuiqq
+  - https://tylermcginnis.com/react-js-tutorial-pt-3-architecting-react-js-apps-with-flux-4657ef831895#.oslqkuiqq
 
 - Passport (Authentication/Authorization)
   **Reference:**
-  - * https://scotch.io/tutorials/easy-node-authentication-setup-and-local
+  - https://scotch.io/tutorials/easy-node-authentication-setup-and-local
 
 - Routing (Routes and Controllers)
   **Reference:**
-  - * https://scotch.io/tutorials/learn-to-use-the-new-router-in-expressjs-4
+  - https://scotch.io/tutorials/learn-to-use-the-new-router-in-expressjs-4
 
 
