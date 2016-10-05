@@ -6155,9 +6155,13 @@ var PlaylistLength = React.createClass({
   displayName: 'PlaylistLength',
 
   render: function render() {
+    var playPillClassName = "pill";
+    if (this.props.playlistLength <= 0) {
+      playPillClassName += " display-none";
+    }
     return React.createElement(
       'div',
-      { className: 'pill', 'data-toggle': 'tooltip', title: 'Items in Playlist' },
+      { className: playPillClassName, 'data-toggle': 'tooltip', title: 'Items in Playlist' },
       this.props.playlistLength
     );
   }
@@ -6167,9 +6171,13 @@ var AddedMediaLength = React.createClass({
   displayName: 'AddedMediaLength',
 
   render: function render() {
+    var addedPillClassName = "pill pill-blue";
+    if (this.props.addedMediaLength <= 0) {
+      addedPillClassName += " display-none";
+    }
     return React.createElement(
       'div',
-      { className: 'pill pill-blue', 'data-toggle': 'tooltip', title: 'Items Added' },
+      { className: addedPillClassName, 'data-toggle': 'tooltip', title: 'Items Added' },
       '+',
       this.props.addedMediaLength
     );

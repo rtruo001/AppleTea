@@ -46,16 +46,24 @@ var QueueTitle = React.createClass({
 
 var PlaylistLength = React.createClass({
   render: function() {
+    var playPillClassName = "pill";
+    if (this.props.playlistLength <= 0) {
+      playPillClassName += " display-none"
+    }
     return (
-      <div className="pill" data-toggle="tooltip" title="Items in Playlist">{this.props.playlistLength}</div>
+      <div className={playPillClassName} data-toggle="tooltip" title="Items in Playlist">{this.props.playlistLength}</div>
     )
   }
 });
 
 var AddedMediaLength = React.createClass({
   render: function() {
+    var addedPillClassName = "pill pill-blue";
+    if (this.props.addedMediaLength <= 0) {
+      addedPillClassName += " display-none"
+    }
     return (
-      <div className="pill pill-blue" data-toggle="tooltip" title="Items Added">+{this.props.addedMediaLength}</div>
+      <div className={addedPillClassName} data-toggle="tooltip" title="Items Added">+{this.props.addedMediaLength}</div>
     )
   }
 });
