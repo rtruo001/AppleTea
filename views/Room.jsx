@@ -25,6 +25,8 @@ var Queue = require('./Queue');
 var Explore = require('./Explore');
 var MyPlaylists = require('./MyPlaylists');
 var PlaylistTab = require('./PlaylistTab');
+var EditOpenedPlaylist = require('./EditOpenedPlaylist');
+var ViewOpenedPlaylist = require('./ViewOpenedPlaylist');
 var ModalCreatePlaylist = require('./ModalCreatePlaylist');
 var Search = require('./Search');
 var Footer = require('./Footer');
@@ -166,6 +168,15 @@ var Room = React.createClass({
                       <div className="tab-text">Search</div>
                     </a>
                   </li>
+
+                  <li>
+                    <a className="hidden" data-toggle="tab" href="#edit-playlist" id="tab-edit-playlist"></a>
+                  </li>
+
+                  <li>
+                    <a className="hidden" data-toggle="tab" href="#view-playlist" id="tab-view-playlist"></a>
+                  </li>
+                  
                 </ul>
 
                 {/* Desktop Tabbed Containers */}
@@ -185,6 +196,26 @@ var Room = React.createClass({
                   <div id="search" className="tab-pane fade">
                     <Search user={this.props.user} myPlaylists={this.state.myPlaylists} />
                   </div>
+
+
+
+
+
+                  {/* User's opened playlist */}
+                  <div id="edit-playlist" className="tab-pane fade">
+                    <EditOpenedPlaylist myPlaylists={this.state.myPlaylists} />
+                  </div>
+
+                  {/* Opened playlist */}
+                  <div id="view-playlist" className="tab-pane fade">
+                    <ViewOpenedPlaylist myPlaylists={this.state.myPlaylists} />
+                  </div>
+
+
+
+
+
+
 
                   {/* Modal for create new playlist button, there is no media entry when this button is clicked */}
                   <ModalCreatePlaylist key={"newPlaylist"} user={this.props.user} data={null} pos={null} />

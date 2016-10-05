@@ -26,7 +26,8 @@
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
     "serve-favicon": "~2.3.0",
-    "socket.io": "^1.4.8"
+    "socket.io": "^1.4.8",
+    "flux": "^2.1.1"
   },
   "devDependencies": {
     "babelify": "^7.3.0"
