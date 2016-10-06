@@ -34,11 +34,12 @@ require('./config/classes/AllRooms').initializeObj();
 var mongoose = require('mongoose');
 
 // configuration ===============================================================
-// RANDY's LOCAL MONGODB
-// mongoose.connect('mongodb://localhost:27017/Appletea'); 
+var configKeys = require('./config/config/config');
+
 // Mlab Testing
-// TODO: Make this secret
-mongoose.connect('mongodb://randy:123@ds019856.mlab.com:19856/appletea-db');
+mongoose.connect(configKeys.MONGOOSE_TEST);
+// mongoose.connect(configKeys.MONGOOSE_LIVE);
+// mongoose.connect(configKeys.MONGOOSE_LOCAL);
 
 var app = express();
 

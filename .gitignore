@@ -1,4 +1,5 @@
 /node_modules
 /public/bundles/homeBundle.js
 /public/bundles/roomBundle.js
+/config/config/config.js
 **/.DS_Store

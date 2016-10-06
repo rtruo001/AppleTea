@@ -47,9 +47,13 @@ var Room = React.createClass({
   },
 
   componentDidMount: function() {
+    socket.on('From Server: Initialize room by pinging client first', this.initializeRoomInServerWithData);
     socket.on("From Server: Update MyPlaylist with new playlists" , this.updateAllPlaylistEntries);
     socket.on("From Server: Update selected playlist", this.updateOnePlaylistEntry);
+  },
 
+  // EVENT HANDLER: Initialize room for server
+  initializeRoomInServerWithData: function() {
     socket.emit("From Client: Initialize room", {
       user: this.props.user,
       room: this.props.room
