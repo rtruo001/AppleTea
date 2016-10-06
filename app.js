@@ -71,7 +71,7 @@ app.use('/room', express.static(path.join(__dirname, 'public')));
 // TODO: Make the secret actually secret
 require('./config/passport')(passport);
 app.use(session({ 
-  secret: 'Secret',
+  secret: configKeys.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 })); 
