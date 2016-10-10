@@ -19,7 +19,7 @@
     @Exports:     MediaEntry
     ========================================================================== */
 var React = require('react');
-var ModalCreatePlaylist = require('./ModalCreatePlaylist');
+var ModalCreatePlaylist = require('./ModalCreatePlaylist.jsx');
 
 var playlistStore = require('../flux/stores/store');
 

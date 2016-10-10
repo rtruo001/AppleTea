@@ -1,4 +1,5 @@
 /node_modules
+/build
 /public/bundles/homeBundle.js
 /public/bundles/roomBundle.js
 /config/config/config.js

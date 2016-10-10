@@ -21,7 +21,7 @@
     @Exports:     Queue
     ========================================================================== */
 var React = require('react');
-var MediaEntry = require('./MediaEntry');
+var MediaEntry = require('./MediaEntry.jsx');
 
 /*  =============================================================================
     Function reinitializeDraggable

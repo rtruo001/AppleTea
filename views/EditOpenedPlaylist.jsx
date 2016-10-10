@@ -1,5 +1,5 @@
 var React = require('react');
-var MediaEntry = require('./MediaEntry');
+var MediaEntry = require('./MediaEntry.jsx');
 
 var playlistStore = require('../flux/stores/store');
 

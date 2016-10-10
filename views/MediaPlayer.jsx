@@ -20,7 +20,7 @@
     @Export: MediaPlayer
     ========================================================================== */
 var React = require('react');
-var StatusBar = require('./StatusBar');
+var StatusBar = require('./StatusBar.jsx');
 
 const MEDIAPLACEHOLDERSTATES = {
   ACTIVE: 'ACTIVE',

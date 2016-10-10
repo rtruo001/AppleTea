@@ -17,7 +17,7 @@
     @Exports:       MyPlaylists
     ========================================================================== */
 var React = require('react');
-var PlaylistEntry = require('./PlaylistEntry');
+var PlaylistEntry = require('./PlaylistEntry.jsx');
 
 // Placeholder if there are no playlists created or liked
 var MyPlaylistPlaceholder = React.createClass({

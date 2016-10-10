@@ -17,7 +17,7 @@
 var React = require('react');
 
 // Home
-var Home = require('./Home');
+var Home = require('./Home.jsx');
 
 // A utility function to safely escape JSON for embedding in a <script> tag
 function safeStringify(obj) {
@@ -36,10 +36,10 @@ var Index = React.createClass({
       <html lang="en">
         <head>
           <link href='https://fonts.googleapis.com/css?family=Nunito:300,400' rel='stylesheet' type='text/css'/>
-          <link rel="stylesheet" href="/css/style.css"/>
-          <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-          <link rel="stylesheet" href="/css/plyr.css"/>
-          <link rel="stylesheet" href="/css/font-awesome.min.css"/>
+          <link rel="stylesheet" href="css/style.css"/>
+          <link rel="stylesheet" href="css/bootstrap.min.css"/>
+          <link rel="stylesheet" href="css/plyr.css"/>
+          <link rel="stylesheet" href="css/font-awesome.min.css"/>
           <link rel="stylesheet" href="css/toggle-slider.css" />
           <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css" />
 
@@ -57,20 +57,28 @@ var Index = React.createClass({
           {/* Injected script data from MongoDB sent from the server */}
           {homeProps}
 
-          {/* Socket.io */} 
-          <script src="../socket.io/socket.io.js"></script>
-          <script src="/js/socket.js"></script>
-
           {/* <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> */}
           {/* <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> */}
-          <script src="js/jquery.min.js"></script>
-          <script src="js/bootstrap.min.js"></script>
+
+          {/* Socket.io */} 
+          <script src="../socket.io/socket.io.js"></script>
+
+          {/* DEVELOPMENT 
+              Need to comment this entire section when going into production
+          */}
+          {
+          // <script src="/js/socket.js"></script>
+          // <script src="/js/jquery.min.js"></script>
+          // <script src="/js/bootstrap.min.js"></script>
+          // <script src="/bundles/homeBundle.js"></script>
+          }
+          {/* PRODUCTION 
+              Uncomment this line when going into production
+          */} 
+          <script src="/js/home.js"></script>
 
           {/* Rangetouch to fix <input type="range"> on touch devices (see https://rangetouch.com) */} 
           <script src="https://cdn.rangetouch.com/0.0.9/rangetouch.js" async></script>
-
-          {/* Browserify bundle */} 
-          <script src="/bundles/homeBundle.js"></script>
 
         </body>
       </html>

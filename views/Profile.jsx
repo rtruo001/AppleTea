@@ -17,11 +17,11 @@
 var React = require('react');
 
 // Sub-components in Room
-var Header = require('./Header');
-var Account = require('./Account');
-var MyRooms = require('./MyRooms');
-var MyPlaylists = require('./MyPlaylists');
-var Footer = require('./Footer');
+var Header = require('./Header.jsx');
+var Account = require('./Account.jsx');
+var MyRooms = require('./MyRooms.jsx');
+var MyPlaylists = require('./MyPlaylists.jsx');
+var Footer = require('./Footer.jsx');
 
 // MAIN COMPONENT: Home
 var Profile = React.createClass({

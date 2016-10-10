@@ -17,19 +17,19 @@
 var React = require('react');
 
 // Sub-components in Room
-var Header = require('./Header');
-var MediaPlayer = require('./MediaPlayer');
-var Chatbox = require('./Chatbox');
-var StatusBar = require('./StatusBar');
-var Queue = require('./Queue');
-var Explore = require('./Explore');
-var MyPlaylists = require('./MyPlaylists');
-var PlaylistTab = require('./PlaylistTab');
-var EditOpenedPlaylist = require('./EditOpenedPlaylist');
-var ViewOpenedPlaylist = require('./ViewOpenedPlaylist');
-var ModalCreatePlaylist = require('./ModalCreatePlaylist');
-var Search = require('./Search');
-var Footer = require('./Footer');
+var Header = require('./Header.jsx');
+var MediaPlayer = require('./MediaPlayer.jsx');
+var Chatbox = require('./Chatbox.jsx');
+var StatusBar = require('./StatusBar.jsx');
+var Queue = require('./Queue.jsx');
+var Explore = require('./Explore.jsx');
+var MyPlaylists = require('./MyPlaylists.jsx');
+var PlaylistTab = require('./PlaylistTab.jsx');
+var EditOpenedPlaylist = require('./EditOpenedPlaylist.jsx');
+var ViewOpenedPlaylist = require('./ViewOpenedPlaylist.jsx');
+var ModalCreatePlaylist = require('./ModalCreatePlaylist.jsx');
+var Search = require('./Search.jsx');
+var Footer = require('./Footer.jsx');
 
 // MAIN COMPONENT: Room
 var Room = React.createClass({
@@ -47,9 +47,14 @@ var Room = React.createClass({
   },
 
   componentDidMount: function() {
-    socket.on('From Server: Initialize room by pinging client first', this.initializeRoomInServerWithData);
+    // socket.on('From Server: Initialize room by pinging client first', this.initializeRoomInServerWithData);
     socket.on("From Server: Update MyPlaylist with new playlists" , this.updateAllPlaylistEntries);
     socket.on("From Server: Update selected playlist", this.updateOnePlaylistEntry);
+    
+    socket.emit("From Client: Initialize room", {
+      user: this.props.user,
+      room: this.props.room
+    });
   },
 
   // EVENT HANDLER: Initialize room for server
