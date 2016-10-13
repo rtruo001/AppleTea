@@ -17,7 +17,7 @@
 var React = require('react');
 
 // Room component
-var Room = require('./Room');
+var Room = require('./Room.jsx');
 
 // A utility function to safely escape JSON for embedding in a <script> tag
 function safeStringify(obj) {
@@ -40,8 +40,8 @@ var Index = React.createClass({
           <link rel="stylesheet" href="/css/bootstrap.min.css"/>
           <link rel="stylesheet" href="/css/plyr.css"/>
           <link rel="stylesheet" href="/css/font-awesome.min.css"/>
-          <link rel="stylesheet" href="css/toggle-slider.css" />
-          <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css" />
+          <link rel="stylesheet" href="/css/toggle-slider.css" />
+          <link rel="stylesheet" href="/css/jquery.mCustomScrollbar.css" />
 
           <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react.js"></script>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react-dom.js"></script>
@@ -57,36 +57,37 @@ var Index = React.createClass({
           {/* Injected script data from MongoDB sent from the server */}
           {roomProps}
 
-          {/* Files to initialize constants */} 
-          <script src="/js/constantVariables.js"></script>
-
-          {/* Files to initialize objects */} 
-          <script src="/js/objectInit.js"></script>
+          {/* <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> */}
+          {/* <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> */}
 
           {/* Socket.io */} 
           <script src="../socket.io/socket.io.js"></script>
-          <script src="/js/socket.js"></script>
 
-          {/* <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> */}
-          {/* <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> */}
-          <script src="js/jquery.min.js"></script>
-          <script src="js/bootstrap.min.js"></script>
+          {/* DEVELOPMENT 
+              Need to comment this entire section when going into production
+          */}
+          {
+          // <script src="/js/constantVariables.js"></script>
+          // <script src="/js/objectInit.js"></script>
+          // <script src="/js/socket.js"></script>
+
+          // <script src="/js/jquery.min.js"></script>
+          // <script src="/js/bootstrap.min.js"></script>
+      
+          // <script src="/js/youtube.js"></script>
+          // <script src="/bundles/roomBundle.js"></script>
+
+          // <script src="/js/drag-arrange.js"></script>
+          // <script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>*/}
+          // <script src="/js/script.js"></script>
+          }
+          {/* PRODUCTION 
+              Uncomment this line when going into production
+          */} 
+          <script src="/js/room.js"></script>
 
           {/* Rangetouch to fix <input type="range"> on touch devices (see https://rangetouch.com) */} 
           <script src="https://cdn.rangetouch.com/0.0.9/rangetouch.js" async></script>
-          
-          <script src="/js/youtube.js"></script>
-
-          {/* Browserify bundle */} 
-          <script src="/bundles/roomBundle.js"></script>
-
-          {/* Need to minifiy drag-arrange file */}
-          <script src="js/drag-arrange.js"></script>
-          <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-          {/*<script src="js/drag-arrange.min.js"></script>*/}
-
-          {/* Handles some front end implementations */}
-          <script src="js/script.js"></script>
 
           {/* Youtube API */} 
           <script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>

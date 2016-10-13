@@ -57,6 +57,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Public files including css and javascripts
+
+// Used for production
+app.use('/js', express.static(__dirname + '/build/scripts'));
+app.use('/css', express.static(__dirname + '/build/styles'));
+app.use('/public', express.static(__dirname + '/build'));
+
 app.use('/css', express.static(__dirname + '/public/stylesheets'));
 app.use('/js', express.static(__dirname + '/public/javascripts'));
 app.use(express.static(path.join(__dirname, 'public')));

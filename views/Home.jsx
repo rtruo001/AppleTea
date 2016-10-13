@@ -17,14 +17,14 @@
 var React = require('react');
 
 // Sub-components in Room
-var Header = require('./Header');
-var PublicRooms = require('./PublicRooms');
-var MyRooms = require('./MyRooms');
-var Explore = require('./Explore');
-var MyPlaylists = require('./MyPlaylists');
-var PlaylistTab = require('./PlaylistTab');
-var ModalCreatePlaylist = require('./ModalCreatePlaylist');
-var Footer = require('./Footer');
+var Header = require('./Header.jsx');
+var PublicRooms = require('./PublicRooms.jsx');
+var MyRooms = require('./MyRooms.jsx');
+var Explore = require('./Explore.jsx');
+var MyPlaylists = require('./MyPlaylists.jsx');
+var PlaylistTab = require('./PlaylistTab.jsx');
+var ModalCreatePlaylist = require('./ModalCreatePlaylist.jsx');
+var Footer = require('./Footer.jsx');
 
 // MAIN COMPONENT: Home
 var Home = React.createClass({

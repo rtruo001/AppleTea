@@ -15,8 +15,8 @@
     @Exports:       MyRooms
     ========================================================================== */
 var React = require('react');
-var RoomEntry = require('./RoomEntry');
-var ModalCreateRoom = require('./ModalCreateRoom');
+var RoomEntry = require('./RoomEntry.jsx');
+var ModalCreateRoom = require('./ModalCreateRoom.jsx');
 
 // Placeholder if user is not a part of any room
 var MyRoomsPlaceholder = React.createClass({

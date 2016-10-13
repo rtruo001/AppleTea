@@ -16,7 +16,7 @@
     ========================================================================== */
 var React = require('react');
 // Media Entry component
-var MediaEntry = require('./MediaEntry');
+var MediaEntry = require('./MediaEntry.jsx');
 
 // Default Placeholder when query has no entry
 var SearchPlaceHolder = React.createClass({
