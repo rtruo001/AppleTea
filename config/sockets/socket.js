@@ -125,6 +125,10 @@ var startSockets = function(server) {
 
       socket.leave(socket.room);
     });
+
+    // Pings the Client to update the server whenever a user connects/reconnects to the server
+    socket.emit('From Server: Initialize room by pinging client first', 0);
+    
   });
 }
 
