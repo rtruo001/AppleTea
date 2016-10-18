@@ -94,7 +94,7 @@ For example:
 
 
 
-##How to Start Project
+##How to Start Project (Currently outdated)
 
 **Github:** https://github.com/rtruo001/AppleTea
 
@@ -160,7 +160,7 @@ To use the Mongo terminal, in the same bin folder, do the command './mongo'
 
 
 
-##File Paths
+##File Paths (Currently outdated)
 * bin (Executables)
   * www
 * models (Mongoose schemas)
@@ -512,6 +512,8 @@ One thing to know about package.json is that under the “scripts” object, the
 
 Below is an example package.json containing different dependencies and their versions. Whenever npm install is called, these dependencies are immediately installed as well.
 
+devDependencies are only when the development options is on.
+
 ```
 {
   "name": "AppleTea",
@@ -655,7 +657,7 @@ browserify ./public/browserify/room.js -o ./public/bundles/roomBundle.js -t [ ba
 
 The babelify command used to be called Reactify, but was updated. Babelify converts .jsx files into JavaScript. 
 
-Currently want to research on perhaps better methods such as either continue doing it via terminal, finding better commands or arguments for the commands or doing through the code on the server by using require(‘browserify’).
+Gulp is currently used over these commands
 
 **Reference:**
 * https://github.com/babel/babelify 
@@ -663,9 +665,16 @@ Currently want to research on perhaps better methods such as either continue doi
 
 
 ##Gulp
-Want to use Gulp to automate things eventually so that whenever something is changed in our application, browserify and minifying our applications would automatically be handled. These things would make for faster and easier handling of our code.
+Gulp is used for automating all the minifies/concats of both JS and CSS. Gulp also watches for changes to the js and css files and also minifies/concats them whenever updated. Whenever a jsx file is updated, browserify is called to babelify them into es2015 and update it into the bundles.
 
-Currently not researched or used yet
+To automate everything, in the root project directory call
+
+```
+gulp
+```
+
+Gulp replaces all of the commands for Browserify and watchify. You can still individually call those commands though.
+
 
 ##Testing
 Currently have not implemented any unit testing. Currently want to look into Mocha/Chai for a testing framework for node.
