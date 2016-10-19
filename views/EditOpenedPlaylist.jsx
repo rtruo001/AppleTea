@@ -1,6 +1,7 @@
 var React = require('react');
 var MediaEntry = require('./MediaEntry.jsx');
 
+var playlistActions = require('../flux/actions/actions');
 var playlistStore = require('../flux/stores/store');
 
 var SaveCancelButtons = React.createClass({
@@ -16,7 +17,7 @@ var SaveCancelButtons = React.createClass({
 
 var PrivatePublicDropdown = React.createClass({
   render: function() {
-    // If the playlist is initialized as private, then the dropdown exists
+    // TODO: If the playlist is initialized as private, then the dropdown exists
     // if (!this.props.isPublic) {
       return (
         <div className="private-public">
@@ -76,10 +77,10 @@ var ModalDeletePlaylist = React.createClass({
       data: {_id: this.props.playlistKey},
       success: function(data) {
         console.log(data);
-        // this.setState({data: data});
+        playlistActions.deletePlaylist(data.deletedPlaylist); 
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error("Blah", status, err.toString());
+        console.error("ERROR: Delete Playlist errored out", status, err.toString());
       }.bind(this)
     });
   },
@@ -207,7 +208,9 @@ var UsersOpenedPlaylist = React.createClass({
     var propIsPublic = true;
     var propKey = "";
 
-    if (this.state.index != null) {
+    // TODO: Should fix this if statement, when deleting the displayed playlist, should reinitialize the states all to null
+    // Not keep the state as the previous deleted playlist
+    if (this.state.index !== null && this.props.myPlaylists[this.state.index] !== undefined) {
       var selectedPlaylist = this.props.myPlaylists[this.state.index];
 
       // var mediaEntries = selectedPlaylist.mediaEntries;

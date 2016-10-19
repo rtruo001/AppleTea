@@ -70,6 +70,7 @@ var PlaylistEntry = React.createClass({
     console.log("Going to playlist page: " + this.props.title + " Index: " + this.props.pos);
     playlistActions.displayPlaylist(this.props._id, this.props.pos, this.props.mediaEntries); 
 
+    // TODO: If currently mobile, show the mobile tab instead
     // Open selected playlist owned by current user
     if (this.props.owner) {
       $('#tab-edit-playlist').tab('show');

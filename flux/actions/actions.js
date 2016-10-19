@@ -3,12 +3,18 @@ var constants = require('../constants');
 
 var EditPlaylistActions = {
   displayPlaylist: function(_id, index, mediaEntries) {
-  	console.log("displaying playlist in actions");
     AppDispatcher.handleAction({
       actionType: constants.EDITPLAYLIST,
       _id: _id,
       index: index,
       entries: mediaEntries
+    });
+  },
+
+  deletePlaylist: function(playlist) {
+    AppDispatcher.handleAction({
+      actionType: constants.DELETEPLAYLIST,
+      playlistDeleted: playlist
     });
   }
 };

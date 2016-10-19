@@ -8,14 +8,19 @@ var CHANGE_EVENT = 'change';
 var store = {
   _id: null,
 	index: null,
-  entries: null
+  entries: null,
+  playlistDeleted: null
 };
 
 var displayIndex = function(_id, newPos, mediaEntries) {
   store._id = _id;
   store.index = newPos;
   store.entries = mediaEntries;
-}
+};
+
+var deletePlaylist = function(playlist) {
+  store.playlistDeleted = playlist;
+};
 
 var AppStore = objectAssign({}, EventEmitter.prototype, { 
   addChangeListener: function(callback) {
@@ -32,6 +37,9 @@ var AppStore = objectAssign({}, EventEmitter.prototype, {
   },
   getEntries: function() {
     return store.entries;
+  },
+  getPlaylistDeleted: function() {
+    return store.playlistDeleted;
   }
 });
 
@@ -39,12 +47,16 @@ AppDispatcher.register(function(payload) {
   var action = payload.action;
   switch(action.actionType) {
     case constants.EDITPLAYLIST:
-      console.log("Action payload: EDITPLAYLISTS")
       displayIndex(action._id, action.index, action.entries);
       AppStore.emit(CHANGE_EVENT);
       break;
+    case constants.DELETEPLAYLIST:
+      deletePlaylist(action.playlistDeleted);
+      AppStore.emit(CHANGE_EVENT);
+      break;
     default:
-      console.log("NOT SUPPOSE TO BE HERE");
+      console.log("Flux/store.js: NOT SUPPOSE TO BE HERE");
+      console.log(action);
       return true;
   }
 });

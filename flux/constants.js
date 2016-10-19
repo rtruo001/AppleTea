@@ -1,5 +1,6 @@
 var constants = {
-  EDITPLAYLIST: "EDITPLAYLIST"
+  EDITPLAYLIST: "EDITPLAYLIST",
+  DELETEPLAYLIST: "DELETEPLAYLIST"
 }
 
 module.exports = constants;
