@@ -90,6 +90,7 @@ var room = require('./routes/room');
 var signin = require('./routes/signin');
 var signup = require('./routes/signup');
 var logout = require('./routes/logout');
+var playlist = require('./routes/playlist');
 
 // Use the routers
 app.use('/', routes);
@@ -97,6 +98,7 @@ app.use('/room', room);
 app.use('/signin', signin);
 app.use('/signup', signup);
 app.use('/logout', logout);
+app.use('/playlist', playlist);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

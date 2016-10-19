@@ -68,7 +68,7 @@ var PlaylistEntry = React.createClass({
   goToPlaylistPage: function() {
     console.log(this.props.mediaEntries);
     console.log("Going to playlist page: " + this.props.title + " Index: " + this.props.pos);
-    playlistActions.displayPlaylist(this.props.pos, this.props.mediaEntries); 
+    playlistActions.displayPlaylist(this.props._id, this.props.pos, this.props.mediaEntries); 
 
     // Open selected playlist owned by current user
     if (this.props.owner) {
