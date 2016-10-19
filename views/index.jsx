@@ -66,16 +66,17 @@ var Index = React.createClass({
           {/* DEVELOPMENT 
               Need to comment this entire section when going into production
           */}
-          {
-          // <script src="/js/socket.js"></script>
-          // <script src="/js/jquery.min.js"></script>
-          // <script src="/js/bootstrap.min.js"></script>
-          // <script src="/bundles/homeBundle.js"></script>
-          }
+          <script src="/js/socket.js"></script>
+          <script src="/js/jquery.min.js"></script>
+          <script src="/js/bootstrap.min.js"></script>
+          <script src="/bundles/homeBundle.js"></script>
+          
           {/* PRODUCTION 
               Uncomment this line when going into production
           */} 
-          <script src="/js/home.js"></script>
+          {
+          //<script src="/js/home.js"></script>
+          }
 
           {/* Rangetouch to fix <input type="range"> on touch devices (see https://rangetouch.com) */} 
           <script src="https://cdn.rangetouch.com/0.0.9/rangetouch.js" async></script>

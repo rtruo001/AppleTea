@@ -66,25 +66,26 @@ var Index = React.createClass({
           {/* DEVELOPMENT 
               Need to comment this entire section when going into production
           */}
-          {
-          // <script src="/js/constantVariables.js"></script>
-          // <script src="/js/objectInit.js"></script>
-          // <script src="/js/socket.js"></script>
+          <script src="/js/constantVariables.js"></script>
+          <script src="/js/objectInit.js"></script>
+          <script src="/js/socket.js"></script>
 
-          // <script src="/js/jquery.min.js"></script>
-          // <script src="/js/bootstrap.min.js"></script>
+          <script src="/js/jquery.min.js"></script>
+          <script src="/js/bootstrap.min.js"></script>
       
-          // <script src="/js/youtube.js"></script>
-          // <script src="/bundles/roomBundle.js"></script>
+          <script src="/js/youtube.js"></script>
+          <script src="/bundles/roomBundle.js"></script>
 
-          // <script src="/js/drag-arrange.js"></script>
-          // <script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>*/}
-          // <script src="/js/script.js"></script>
-          }
+          <script src="/js/drag-arrange.js"></script>
+          <script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
+          <script src="/js/script.js"></script>
+
           {/* PRODUCTION 
               Uncomment this line when going into production
           */} 
-          <script src="/js/room.js"></script>
+          {
+          //<script src="/js/room.js"></script>
+          }
 
           {/* Rangetouch to fix <input type="range"> on touch devices (see https://rangetouch.com) */} 
           <script src="https://cdn.rangetouch.com/0.0.9/rangetouch.js" async></script>

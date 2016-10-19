@@ -2,12 +2,19 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var constants = require('../constants');
 
 var EditPlaylistActions = {
-  displayPlaylist: function(index, mediaEntries) {
-  	console.log("displaying playlist in actions");
+  displayPlaylist: function(_id, index, mediaEntries) {
     AppDispatcher.handleAction({
       actionType: constants.EDITPLAYLIST,
+      _id: _id,
       index: index,
       entries: mediaEntries
+    });
+  },
+
+  deletePlaylist: function(playlist) {
+    AppDispatcher.handleAction({
+      actionType: constants.DELETEPLAYLIST,
+      playlistDeleted: playlist
     });
   }
 };

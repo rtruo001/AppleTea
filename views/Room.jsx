@@ -31,6 +31,9 @@ var ModalCreatePlaylist = require('./ModalCreatePlaylist.jsx');
 var Search = require('./Search.jsx');
 var Footer = require('./Footer.jsx');
 
+// Flux, used to check for deleted playlists
+var playlistStore = require('../flux/stores/store');
+
 // MAIN COMPONENT: Room
 var Room = React.createClass({
   getInitialState: function() {
@@ -47,6 +50,9 @@ var Room = React.createClass({
   },
 
   componentDidMount: function() {
+    // Sets up the event listener for deleting a playlist
+    playlistStore.addChangeListener(this.onDeleteSpecifiedPlaylist);
+
     // socket.on('From Server: Initialize room by pinging client first', this.initializeRoomInServerWithData);
     socket.on("From Server: Update MyPlaylist with new playlists" , this.updateAllPlaylistEntries);
     socket.on("From Server: Update selected playlist", this.updateOnePlaylistEntry);
@@ -55,6 +61,33 @@ var Room = React.createClass({
       user: this.props.user,
       room: this.props.room
     });
+  },
+
+  componentWillUnmount: function() {
+    // Unmounts the event listener
+    playlistStore.removeChangeListener(this.onDeleteSpecifiedPlaylist);
+  },
+
+  // FLUX EVENT HANDLER: Deletes a playlist entry from myPlaylist
+  onDeleteSpecifiedPlaylist: function() {
+    console.log("Room.jsx: onDeleteSpecifiedPlaylist");
+    var playlist = playlistStore.getPlaylistDeleted();
+    if (playlist === null || playlist === undefined) {
+      return;
+    }
+
+    // TODO: Do search in a faster way
+    for (var i = 0; i < this.state.myPlaylists.length; ++i) {
+      if (this.state.myPlaylists[i]._id === playlist._id) {
+        // Show the playlist tab
+        $('#tab-myplaylists').tab('show');
+
+        var playlistsWithDeletedEntry = this.state.myPlaylists;
+        playlistsWithDeletedEntry.splice(i, 1);
+        this.setState({myPlaylists : playlistsWithDeletedEntry});
+        return;
+      }
+    }
   },
 
   // EVENT HANDLER: Initialize room for server
