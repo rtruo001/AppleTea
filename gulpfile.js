@@ -68,11 +68,11 @@ gulp.task('roomjs', function() {
   	'./public/javascripts/youtube.js', 
   	'./public/bundles/roomBundle.js',
   	'./public/javascripts/drag-arrange.js', 
-	'./public/javascripts/script.js'])
-  .pipe(concat('room.js'))
-  .pipe(stripDebug())
-  .pipe(uglify())
-  .pipe(gulp.dest('./build/scripts/'));
+  	'./public/javascripts/script.js'])
+    .pipe(concat('room.js'))
+    .pipe(stripDebug())
+    .pipe(uglify())
+    .pipe(gulp.dest('./build/scripts/'));
 });
 
 // CSS concat, auto-prefix and minify

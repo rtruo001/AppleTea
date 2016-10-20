@@ -50,8 +50,9 @@ var Room = React.createClass({
   },
 
   componentDidMount: function() {
-    // Sets up the event listener for deleting a playlist
-    playlistStore.addChangeListener(this.onDeleteSpecifiedPlaylist);
+    // Sets up the Flux event listeners for the playlists
+    playlistStore.addDeletePlaylistListener(this.onDeleteSpecifiedPlaylist);
+    playlistStore.addUpdatePlaylistListener(this.onUpdateSpecifiedPlaylist);
 
     // socket.on('From Server: Initialize room by pinging client first', this.initializeRoomInServerWithData);
     socket.on("From Server: Update MyPlaylist with new playlists" , this.updateAllPlaylistEntries);
@@ -65,7 +66,8 @@ var Room = React.createClass({
 
   componentWillUnmount: function() {
     // Unmounts the event listener
-    playlistStore.removeChangeListener(this.onDeleteSpecifiedPlaylist);
+    playlistStore.removeDeletePlaylistListener(this.onDeleteSpecifiedPlaylist);
+    playlistStore.removeUpdatePlaylistListener(this.onUpdateSpecifiedPlaylist);
   },
 
   // FLUX EVENT HANDLER: Deletes a playlist entry from myPlaylist
@@ -85,6 +87,23 @@ var Room = React.createClass({
         var playlistsWithDeletedEntry = this.state.myPlaylists;
         playlistsWithDeletedEntry.splice(i, 1);
         this.setState({myPlaylists : playlistsWithDeletedEntry});
+        return;
+      }
+    }
+  },
+
+  onUpdateSpecifiedPlaylist: function() {
+    var playlist = playlistStore.getUpdatedPlaylist();
+    if (playlist === null || playlist === undefined) {
+      return;
+    }
+
+    // TODO: Do search in a faster way
+    for (var i = 0; i < this.state.myPlaylists.length; ++i) {
+      if (this.state.myPlaylists[i]._id === playlist._id) {
+        var playlistsWithUpdatedEntry = this.state.myPlaylists;
+        playlistsWithUpdatedEntry[i] = playlist; 
+        this.setState({myPlaylists : playlistsWithUpdatedEntry});
         return;
       }
     }

@@ -19,7 +19,8 @@ function isLoggedIn(req, res, next) {
 
   res.send({
     data: null,
-    deletedPlaylist: null
+    deletedPlaylist: null,
+    updatedPlaylist: null
   });
 }
 
@@ -42,6 +43,51 @@ function deletePlaylistFromDB(req, res, next) {
 }
 
 /*  =============================================================================
+    Function updatePlaylistFromDB
+
+    Deletes the given playlist from the database
+    ========================================================================== */
+function updatePlaylistFromDB(req, res, next) {
+  console.log("MongoDB: Update selected Playlist");
+  console.log(JSON.parse(req.body.mediaEntries));
+  // TODO: Add updated playlist name
+  Playlist.findByIdAndUpdate(
+    req.body._id, 
+    {$set: {"mediaEntries": JSON.parse(req.body.mediaEntries)}},
+    {new: true},
+    function(err, updatedPlaylist) {
+      if (err) {
+        console.log('ERROR: updatePlaylistFromDB');
+        req.updatedPlaylist = null;
+        return next(err);
+      }
+      console.log(updatedPlaylist);
+      req.updatedPlaylist = updatedPlaylist;
+      return next();
+    }
+  );
+
+  // Playlist.findByIdAndUpdate(
+  //   data.id,
+  //   {$set: {"mediaEntries": [data.mediaData]}},
+  //   {new: true},
+  //   function(err, updatedPlaylist) {
+  //     if (err) {
+  //       throw err;
+  //     }
+  //     console.log(updatedPlaylist);
+  //     socket.emit("From Server: Update selected playlist", updatedPlaylist);
+  //   }
+  // );
+
+
+  // Tank.findByIdAndUpdate(id, { $set: { size: 'large' }}, { new: true }, function (err, tank) {
+  //   if (err) return handleError(err);
+  //   res.send(tank);
+  // });
+}
+
+/*  =============================================================================
     POST request
 
     Sends in the response that the playlist is deleted
@@ -53,4 +99,18 @@ router.post('/delete', [isLoggedIn, deletePlaylistFromDB], function(req, res) {
   });
 });
 
+/*  =============================================================================
+    POST request
+
+    Sends in the response that the playlist is updated
+    ========================================================================== */
+router.post('/update', [isLoggedIn, updatePlaylistFromDB], function(req, res) {
+  res.send({
+    data: "Updating playlist " + req.body._id,
+    updatedPlaylist: req.updatedPlaylist,
+  });
+});
+
 module.exports = router;
+
+

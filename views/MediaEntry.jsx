@@ -21,8 +21,6 @@
 var React = require('react');
 var ModalCreatePlaylist = require('./ModalCreatePlaylist.jsx');
 
-var playlistStore = require('../flux/stores/store');
-
 // Thumbnail of the media
 var Thumbnail = React.createClass({
   render: function() {
@@ -282,6 +280,16 @@ var MediaEntry = React.createClass({
   // EVENT HANDLER: Deletes playlist entry in the opened edit playlist
   deletePlaylistEntry: function() {
     this.props.deleteEntry(this.props.pos);
+    // if (this.state.ifDeleteIndicator === false) {
+    //   this.setState({ifDeleteIndicator : true}, function() {
+    //     this.props.deleteEntry(this.props.pos);  
+    //   });  
+    // }
+    // else {
+    //   this.setState({ifDeleteIndicator : false}, function() {
+    //     this.props.deleteEntry(this.props.pos);  
+    //   });  
+    // }
   },
 
   componentDidMount() {
@@ -304,7 +312,7 @@ var MediaEntry = React.createClass({
         var deleteButton = [];
 
         // Adds the media-card-added class if the media entry was added individually
-        if (this.props.ifMediaCardAdded == true) {
+        if (this.props.ifMediaCardAdded === true) {
           queueMediaCardClassName += " media-card-added";
           iconClassName += "-blue-lite";
           deleteButton.push (
@@ -408,10 +416,15 @@ var MediaEntry = React.createClass({
           );
         }
 
+        var deleteIndicatorClass = " ";
+        if (this.props.deleteIndicator === false) {
+          deleteIndicatorClass = " media-card-added ";
+        }
+
         // If the playlist was made by the current user
         return (
-          <div className="col-md-6 col-sm-12 col-padding edit-playlist-card">
-            <div className="playlist-media-card media-card-added grabbable">
+          <div className={"col-md-6 col-sm-12 col-padding edit-playlist-card"}>
+            <div className={"playlist-media-card" + deleteIndicatorClass + "grabbable"}>
               <div className="media-card-added-corner-container"><div className="media-card-added-corner"></div></div>
               <a className="media-card-added-plus icon-btn-white" href="javascript:void(0)" onClick={this.deletePlaylistEntry}>+</a>
               <Thumbnail thumbnail={this.props.thumbnail} categoryType={this.props.categoryType} />
