@@ -59,7 +59,7 @@ var DeletePlaylistButton = React.createClass({
       <button type="button" className="btn btn-trash trash-playlist-btn" data-toggle="modal" data-target="#trash-confirm"><i className="fa fa-trash"></i></button>
     );
   }
-})
+});
 
 var PlaylistHeaderButtonsToChangeStates = React.createClass({
   render: function() {
@@ -186,9 +186,13 @@ var UsersOpenedPlaylist = React.createClass({
   onDisplayPlaylist: function() {
     console.log("Changing display to selected playlist");
     console.log(this.props.myPlaylists[playlistStore.getIndex()].mediaEntries);
-    this.setState({ _id: playlistStore.getId() });
-    this.setState({ index: playlistStore.getIndex() });
-    this.setState({ entries: playlistStore.getEntries() });
+    this.setState({ 
+      _id: playlistStore.getId(), 
+      index: playlistStore.getIndex(),
+      entries: playlistStore.getEntries()
+    });
+    // this.setState({ index: playlistStore.getIndex() });
+    // this.setState({ entries: playlistStore.getEntries() });
   },
 
   saveChanges: function() {
@@ -202,9 +206,7 @@ var UsersOpenedPlaylist = React.createClass({
         savedPlaylist.push(eachPlaylist);
       }
     }  
-
-    console.log(savedPlaylist);
-
+    // Don't make an ajax request when things haven't changed
     if (savedPlaylist.length == this.state.entries.length) {
       return;
     }  
