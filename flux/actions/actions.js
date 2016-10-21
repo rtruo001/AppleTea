@@ -16,6 +16,13 @@ var EditPlaylistActions = {
       actionType: constants.DELETEPLAYLIST,
       playlistDeleted: playlist
     });
+  },
+
+  updatePlaylist: function(playlist) {
+    AppDispatcher.handleAction({
+      actionType: constants.UPDATEPLAYLIST,
+      updatedPlaylist: playlist
+    });
   }
 };
 

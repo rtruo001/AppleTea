@@ -5,11 +5,19 @@ var playlistActions = require('../flux/actions/actions');
 var playlistStore = require('../flux/stores/store');
 
 var SaveCancelButtons = React.createClass({
+  saveUpdatedPlaylist: function() {
+    this.props.onSaveClick();
+  },
+
+  cancelSavingPlaylist: function() {
+    this.props.onCancelClick();
+  },
+
   render: function() {
     return(
       <div className="save-cancel">
-        <button type="button" className="btn btn-primary">Save</button>
-        <button type="button" className="btn btn-secondary">Cancel</button>
+        <button type="button" className="btn btn-primary" onClick={this.saveUpdatedPlaylist}>Save</button>
+        <button type="button" className="btn btn-secondary" onClick={this.cancelSavingPlaylist}>Cancel</button>
       </div>
     );
   }
@@ -51,13 +59,13 @@ var DeletePlaylistButton = React.createClass({
       <button type="button" className="btn btn-trash trash-playlist-btn" data-toggle="modal" data-target="#trash-confirm"><i className="fa fa-trash"></i></button>
     );
   }
-})
+});
 
 var PlaylistHeaderButtonsToChangeStates = React.createClass({
   render: function() {
     return (
       <div className="section">
-        <SaveCancelButtons />
+        <SaveCancelButtons onCancelClick={this.props.onCancelClick} onSaveClick={this.props.onSaveClick} />
         <PrivatePublicDropdown isPublic={this.props.isPublic} />
         <DeletePlaylistButton />
       </div>
@@ -147,7 +155,7 @@ var EditPlaylistHeader = React.createClass({
   render: function() {
     return(
       <div>
-        <PlaylistHeaderButtonsToChangeStates isPublic={this.props.isPublic} />
+        <PlaylistHeaderButtonsToChangeStates isPublic={this.props.isPublic} onCancelClick={this.props.onCancelClick} onSaveClick={this.props.onSaveClick} />
         <ModalDeletePlaylist playlistKey={this.props.playlistKey} />
         <PlaylistDescription name={this.props.name} size={this.props.size} />
         <SearchPlaylistEntriesInPlaylist />
@@ -171,33 +179,91 @@ var UsersOpenedPlaylist = React.createClass({
     playlistStore.addChangeListener(this.onDisplayPlaylist);
   },
 
-  componentWillUnmount: function(){
+  componentWillUnmount: function() {
     playlistStore.removeChangeListener(this.onDisplayPlaylist);
   },
 
   onDisplayPlaylist: function() {
     console.log("Changing display to selected playlist");
     console.log(this.props.myPlaylists[playlistStore.getIndex()].mediaEntries);
-    this.setState({ _id: playlistStore.getId() });
-    this.setState({ index: playlistStore.getIndex() });
-    this.setState({ entries: playlistStore.getEntries() });
+    this.setState({ 
+      _id: playlistStore.getId(), 
+      index: playlistStore.getIndex(),
+      entries: playlistStore.getEntries()
+    });
+    // this.setState({ index: playlistStore.getIndex() });
+    // this.setState({ entries: playlistStore.getEntries() });
+  },
+
+  saveChanges: function() {
+    console.log("Saving Playlist");
+    var savedPlaylist = [];
+    var eachPlaylist;
+    for (var i = 0; i < this.state.entries.length; ++i) {
+      eachPlaylist = this.state.entries[i];
+      if (eachPlaylist.ifDeleteIndicator === undefined || eachPlaylist.ifDeleteIndicator === false) {
+        delete eachPlaylist.ifDeleteIndicator;
+        savedPlaylist.push(eachPlaylist);
+      }
+    }  
+    // Don't make an ajax request when things haven't changed
+    if (savedPlaylist.length == this.state.entries.length) {
+      return;
+    }  
+
+    $.ajax({
+      type: "POST",
+      url: "/playlist/update",
+      dataType: 'json',
+      cache: false,
+      data: {_id: this.props.myPlaylists[this.state.index]._id, mediaEntries: JSON.stringify(savedPlaylist)},
+      success: function(data) {
+        console.log(data);
+        this.setState({entries: data.updatedPlaylist.mediaEntries});
+        playlistActions.updatePlaylist(data.updatedPlaylist);
+
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error("ERROR: Update Playlist errored out", status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  cancelChanges: function() {
+    console.log("Canceling changes");
+    var savedPlaylist = [];
+    var eachPlaylist;
+    for (var i = 0; i < this.state.entries.length; ++i) {
+      eachPlaylist = this.state.entries[i];      
+      if (eachPlaylist.ifDeleteIndicator !== undefined) {
+        delete eachPlaylist.ifDeleteIndicator;
+      }
+      savedPlaylist.push(eachPlaylist);
+    }  
+
+    this.setState({entries : savedPlaylist}, function() {
+      console.log(this.state.entries);  
+    });
   },
 
   deleteMediaEntryInPlaylist: function(posInPlaylist) {
-    console.log("Deleting media entry in Playlist: " + posInPlaylist);
-    var updatedEntries = this.state.entries;
-    updatedEntries.splice(posInPlaylist, 1);
-    if (posInPlaylist > -1) {
-      this.setState({ entries: updatedEntries });
+    console.log(this.state.entries);
+    var updatedPlaylist = this.state.entries;
+    if (updatedPlaylist[posInPlaylist].ifDeleteIndicator === true)
+      updatedPlaylist[posInPlaylist].ifDeleteIndicator = false;
+    else {
+      updatedPlaylist[posInPlaylist].ifDeleteIndicator = true;
     }
-  },
+    this.setState({entries : updatedPlaylist});
 
-  saveUpdatedPlaylist: function() {
-    // TODO: Potential AJAX request
-    // socket.emit("From Client: Save new playlist", playlistData);
+    // console.log("Deleting media entry in Playlist: " + posInPlaylist);
+    // var updatedEntries = this.state.entries;
+    // updatedEntries.splice(posInPlaylist, 1);
+    // if (posInPlaylist > -1) {
+    //   this.setState({ entries: updatedEntries });
+    // }
 
-    // Emit to Flux to update 
-    // playlistStore.
+    // this.setState({deletedList : this.state.deletedList.push(posInPlaylist)})
   },
 
   render: function() {
@@ -215,11 +281,14 @@ var UsersOpenedPlaylist = React.createClass({
 
       // var mediaEntries = selectedPlaylist.mediaEntries;
       var mediaEntries = this.state.entries;
+
+      // You do this because the array itself has an _id. The array technically isn't empty when empty. (Don't know if this concept applies to here though)
       var mediaEntry = mediaEntries[0];
 
       for (var i = 0; i < mediaEntries.length; ++i) {
         mediaEntry = mediaEntries[i];
         if (mediaEntry !== null) {
+          var deleteIndicator = mediaEntry.ifDeleteIndicator === undefined ? deleteIndicator = false : deleteIndicator = mediaEntry.ifDeleteIndicator; 
           mediaEntriesInPlaylist.push(
             <MediaEntry 
               key={"mediaEntry" + mediaEntry.mediaId + i}
@@ -234,7 +303,7 @@ var UsersOpenedPlaylist = React.createClass({
               user={this.props.user}
               myPlaylists={this.props.myPlaylists} 
               deleteEntry={this.deleteMediaEntryInPlaylist}
-              savePlaylist={this.saveUpdatedPlaylist} />
+              deleteIndicator={deleteIndicator} />
           );
         }
       }
@@ -249,7 +318,7 @@ var UsersOpenedPlaylist = React.createClass({
     return (
       <div>
         <div className="edit-playlist-container">
-          <EditPlaylistHeader name={propName} size={propSize} isPublic={propIsPublic} playlistKey={propKey} />
+          <EditPlaylistHeader name={propName} size={propSize} isPublic={propIsPublic} playlistKey={propKey} onCancelClick={this.cancelChanges} onSaveClick={this.saveChanges} />
 
           <div className="row">
             {mediaEntriesInPlaylist}

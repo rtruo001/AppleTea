@@ -50,8 +50,9 @@ var Room = React.createClass({
   },
 
   componentDidMount: function() {
-    // Sets up the event listener for deleting a playlist
-    playlistStore.addChangeListener(this.onDeleteSpecifiedPlaylist);
+    // Sets up the Flux event listeners for the playlists
+    playlistStore.addDeletePlaylistListener(this.onDeleteSpecifiedPlaylist);
+    playlistStore.addUpdatePlaylistListener(this.onUpdateSpecifiedPlaylist);
 
     // socket.on('From Server: Initialize room by pinging client first', this.initializeRoomInServerWithData);
     socket.on("From Server: Update MyPlaylist with new playlists" , this.updateAllPlaylistEntries);
@@ -65,7 +66,8 @@ var Room = React.createClass({
 
   componentWillUnmount: function() {
     // Unmounts the event listener
-    playlistStore.removeChangeListener(this.onDeleteSpecifiedPlaylist);
+    playlistStore.removeDeletePlaylistListener(this.onDeleteSpecifiedPlaylist);
+    playlistStore.removeUpdatePlaylistListener(this.onUpdateSpecifiedPlaylist);
   },
 
   // FLUX EVENT HANDLER: Deletes a playlist entry from myPlaylist
@@ -85,6 +87,23 @@ var Room = React.createClass({
         var playlistsWithDeletedEntry = this.state.myPlaylists;
         playlistsWithDeletedEntry.splice(i, 1);
         this.setState({myPlaylists : playlistsWithDeletedEntry});
+        return;
+      }
+    }
+  },
+
+  onUpdateSpecifiedPlaylist: function() {
+    var playlist = playlistStore.getUpdatedPlaylist();
+    if (playlist === null || playlist === undefined) {
+      return;
+    }
+
+    // TODO: Do search in a faster way
+    for (var i = 0; i < this.state.myPlaylists.length; ++i) {
+      if (this.state.myPlaylists[i]._id === playlist._id) {
+        var playlistsWithUpdatedEntry = this.state.myPlaylists;
+        playlistsWithUpdatedEntry[i] = playlist; 
+        this.setState({myPlaylists : playlistsWithUpdatedEntry});
         return;
       }
     }
@@ -239,10 +258,6 @@ var Room = React.createClass({
                     <Search user={this.props.user} myPlaylists={this.state.myPlaylists} />
                   </div>
 
-
-
-
-
                   {/* User's opened playlist */}
                   <div id="edit-playlist" className="tab-pane fade">
                     <EditOpenedPlaylist myPlaylists={this.state.myPlaylists} />
@@ -252,12 +267,6 @@ var Room = React.createClass({
                   <div id="view-playlist" className="tab-pane fade">
                     <ViewOpenedPlaylist myPlaylists={this.state.myPlaylists} />
                   </div>
-
-
-
-
-
-
 
                   {/* Modal for create new playlist button, there is no media entry when this button is clicked */}
                   <ModalCreatePlaylist key={"newPlaylist"} user={this.props.user} data={null} pos={null} />
