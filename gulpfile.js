@@ -40,6 +40,8 @@ gulp.task('jshint', function() {
     .pipe(jshint.reporter('default'));
 });
 
+// ********************************** For Build files **********************************
+
 // Minifies, removes loggers, and concats all files for home
 gulp.task('homejs', function() {
   gulp.src([
@@ -75,6 +77,9 @@ gulp.task('roomjs', function() {
     .pipe(gulp.dest('./build/scripts/'));
 });
 
+// Minifies, removes loggers, and concats all files for room
+// TODO, add in the JS for build
+
 // CSS concat, auto-prefix and minify
 gulp.task('styles', function() {
   gulp.src('./public/stylesheets/style.css')
@@ -84,7 +89,9 @@ gulp.task('styles', function() {
     .pipe(gulp.dest('./build/styles/'));
 });
 
-// Browserifies the given bundle type
+// ********************************** Browserify **********************************
+
+// Browserifies as well as Watchify the given bundle type
 function toBrowserify(bundleType) {
   var args = merge(watchify.args, { debug: true });
 
@@ -111,18 +118,28 @@ gulp.task('home-browserify', toBrowserify('home'));
 // Room
 gulp.task('room-browserify', toBrowserify('room'));
 
+// Profile
+gulp.task('profile-browserify', toBrowserify('profile'));
+
 // Browserifies all files into the bundles
-gulp.task('browserify', ['home-browserify', 'room-browserify']);
+gulp.task('browserify', ['home-browserify', 'room-browserify', 'profile-browserify']);
+
+// ********************************** Watch For Changes in the Bundles to update the Build **********************************
 
 // Watches for file changes
 gulp.task('watch', function() {
   gulp.watch('./public/bundles/homeBundle.js', ['homejs']);
   gulp.watch('./public/bundles/roomBundle.js', ['roomjs']);
+  // TODO: Add a profileBundle task
   gulp.watch('./public/stylesheets/style.css', ['styles']);
 });
 
+// ********************************** Updates the Bundles **********************************
+
 // Bundles
 gulp.task('bundle', ['browserify', 'homejs', 'roomjs']);
+
+// ********************************** Automates everything **********************************
 
 // Default gulp task
 gulp.task('default', ['bundle', 'watch']);

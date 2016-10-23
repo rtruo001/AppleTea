@@ -12,7 +12,7 @@
 /*  =============================================================================
     Components
 
-    Profile - Entire html for the Home component.
+    Profile - Entire html for the Profile component.
     ========================================================================== */
 var React = require('react');
 
@@ -34,7 +34,7 @@ var Profile = React.createClass({
           <div id="page-overlay"></div>
 
           {/* Header */}
-          <Header />
+          <Header user={this.props.user}/ >
 
           {/* Main Container */}
           <div className="main-container">
@@ -65,17 +65,17 @@ var Profile = React.createClass({
 
                   {/* Account */}
                   <div id="account" className="tab-pane fade in active">
-                    <Account />
+                    <Account user={this.props.user} />
                   </div>
 
                   {/* My Rooms */}
                   <div id="myrooms" className="tab-pane fade">
-                    <MyRooms isLite={true} />
+                    <MyRooms isLite={true} rooms={this.props.rooms} user={this.props.user} />
                   </div>
 
                   {/* My Playlists */}
                   <div id="myplaylists" className="tab-pane fade">
-                    <MyPlaylists />
+                    <MyPlaylists myPlaylists={this.props.myPlaylists} home={true} />
                   </div>
 
                 </div>
@@ -90,7 +90,7 @@ var Profile = React.createClass({
 
         {/* Footer */}
         <Footer />
-        
+
       </div>
     );
   }

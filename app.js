@@ -91,6 +91,8 @@ var signin = require('./routes/signin');
 var signup = require('./routes/signup');
 var logout = require('./routes/logout');
 var playlist = require('./routes/playlist');
+var user = require('./routes/user');
+
 
 // Use the routers
 app.use('/', routes);
@@ -99,6 +101,7 @@ app.use('/signin', signin);
 app.use('/signup', signup);
 app.use('/logout', logout);
 app.use('/playlist', playlist);
+app.use('/user', user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
