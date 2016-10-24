@@ -21,6 +21,7 @@ var Header = require('./Header.jsx');
 var Account = require('./Account.jsx');
 var MyRooms = require('./MyRooms.jsx');
 var MyPlaylists = require('./MyPlaylists.jsx');
+var ModalCreatePlaylist = require('./ModalCreatePlaylist.jsx');
 var Footer = require('./Footer.jsx');
 
 // MAIN COMPONENT: Home
@@ -77,6 +78,9 @@ var Profile = React.createClass({
                   <div id="myplaylists" className="tab-pane fade">
                     <MyPlaylists myPlaylists={this.props.myPlaylists} home={true} />
                   </div>
+
+                  {/* Modal for create new playlist button, there is no media entry when this button is clicked */}
+                  <ModalCreatePlaylist key={"newPlaylist"} user={this.props.user} data={null} pos={null} />
 
                 </div>
               </div>

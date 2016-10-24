@@ -35,16 +35,16 @@ var Account = React.createClass({
                 <div className="row row-sm">
                   <form className="search-input" id="account-input">
                     <div className="col-xs-6 col-padding-sm">
-                      <input type="text" value="Gerard"/>
+                      <input type="text" value={this.props.user.local.firstName} />
                     </div>
                     <div className="col-xs-6 col-padding-sm">
-                      <input type="text" value="Liu"/>
+                      <input type="text" value={this.props.user.local.lastName} />
                     </div>
                     <div className="col-xs-12 col-padding-sm">
-                      <input type="text" value="Gliu"/>
+                      <input type="text" value={this.props.user.nickname} />
                     </div>
                     <div className="col-xs-12 col-padding-sm">
-                      <input type="text" value="gliu01@wesleyan.edu"/>
+                      <input type="text" value={this.props.user.local.email} />
                     </div>
                     <div className="col-xs-12 col-padding-sm btn-align-right">
                       <button type="button" className="btn btn-form btn-primary disabled" data-dismiss="modal">Save Changes</button>
