@@ -10,10 +10,7 @@ var HeaderProfileIcon = React.createClass({
         </a>
         <ul className="dropdown-menu dropdown-menu-right">
           <li className="dropdown-header">{this.props.user.local.firstName} {this.props.user.local.lastName} ({this.props.user.local.email})</li>
-          <li><a href="javascript:void(0)">Profile</a></li>
-          <li><a href="javascript:void(0)">My Rooms</a></li>
-          <li><a href="javascript:void(0)">My Playlists</a></li>
-          <li><a href="javascript:void(0)">Account Settings</a></li>
+          <li><a href="/user">Profile</a></li>
           <li role="separator" className="divider"></li>
           <li><a href="/logout">Sign Out</a></li>
         </ul>

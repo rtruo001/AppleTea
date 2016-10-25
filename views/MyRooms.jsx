@@ -94,7 +94,7 @@ var MyRooms = React.createClass({
             {roomEntries}
           </div>
 
-        <ModalCreateRoom />
+        <ModalCreateRoom user={this.props.user} />
 
         </div>
       </div>

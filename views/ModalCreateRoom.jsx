@@ -70,8 +70,17 @@ var ModalCreateRoom = React.createClass({
       return;
     }
 
-    // TODO: Implement added user
-    socket.emit("From Client: Create new room", {roomName: this.state.roomNameInput, owner: "A USER"}, function(roomId){
+    // Checks if user is logged in or not
+    var userCreatingRoom = this.props.user;
+    var userNameCreatingRoom = ""
+    if (this.props.user === undefined) {
+      userCreatingRoom = "A USER";
+    }
+    else {
+      userCreatingRoom = this.props.user.local.email;
+    }
+
+    socket.emit("From Client: Create new room", {roomName: this.state.roomNameInput, owner: userCreatingRoom}, function(roomId){
       window.location = "/room/" + roomId;
     });
   },

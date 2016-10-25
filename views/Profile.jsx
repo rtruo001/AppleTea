@@ -12,7 +12,7 @@
 /*  =============================================================================
     Components
 
-    Profile - Entire html for the Home component.
+    Profile - Entire html for the Profile component.
     ========================================================================== */
 var React = require('react');
 
@@ -21,6 +21,7 @@ var Header = require('./Header.jsx');
 var Account = require('./Account.jsx');
 var MyRooms = require('./MyRooms.jsx');
 var MyPlaylists = require('./MyPlaylists.jsx');
+var ModalCreatePlaylist = require('./ModalCreatePlaylist.jsx');
 var Footer = require('./Footer.jsx');
 
 // MAIN COMPONENT: Home
@@ -34,7 +35,7 @@ var Profile = React.createClass({
           <div id="page-overlay"></div>
 
           {/* Header */}
-          <Header />
+          <Header user={this.props.user}/ >
 
           {/* Main Container */}
           <div className="main-container">
@@ -65,18 +66,21 @@ var Profile = React.createClass({
 
                   {/* Account */}
                   <div id="account" className="tab-pane fade in active">
-                    <Account />
+                    <Account user={this.props.user} />
                   </div>
 
                   {/* My Rooms */}
                   <div id="myrooms" className="tab-pane fade">
-                    <MyRooms isLite={true} />
+                    <MyRooms isLite={true} rooms={this.props.rooms} user={this.props.user} />
                   </div>
 
                   {/* My Playlists */}
                   <div id="myplaylists" className="tab-pane fade">
-                    <MyPlaylists />
+                    <MyPlaylists myPlaylists={this.props.myPlaylists} home={true} />
                   </div>
+
+                  {/* Modal for create new playlist button, there is no media entry when this button is clicked */}
+                  <ModalCreatePlaylist key={"newPlaylist"} user={this.props.user} data={null} pos={null} />
 
                 </div>
               </div>
@@ -90,7 +94,7 @@ var Profile = React.createClass({
 
         {/* Footer */}
         <Footer />
-        
+
       </div>
     );
   }
