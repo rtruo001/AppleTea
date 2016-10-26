@@ -23,6 +23,13 @@ var EditPlaylistActions = {
       actionType: constants.UPDATEPLAYLIST,
       updatedPlaylist: playlist
     });
+  },
+
+  createPlaylist: function(playlist) {
+    AppDispatcher.handleAction({
+      actionType: constants.CREATEPLAYLIST,
+      createdNewPlaylist: playlist
+    });
   }
 };
 

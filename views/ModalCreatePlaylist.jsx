@@ -16,6 +16,9 @@
     ========================================================================== */
 var React = require('react');
 
+// Flux Action
+var playlistActions = require('../flux/actions/actions');
+
 // The icon which tells the user if the new playlist would be either public or private
 var ToggleIcon = React.createClass({
   render: function() {
@@ -90,7 +93,21 @@ var ModalCreatePlaylist = React.createClass({
         }
       }
     } 
-    socket.emit('From Client: Create new playlist with data', data);
+
+    $.ajax({
+      type: "POST",
+      url: "/playlist/create",
+      dataType: 'json',
+      cache: false,
+      data: {data: JSON.stringify(data)},
+      success: function(newPlaylist) {
+        console.log(newPlaylist);
+        playlistActions.createPlaylist(newPlaylist.createdPlaylist); 
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error("ERROR: Create Playlist errored out", status, err.toString());
+      }.bind(this)
+    });
   },
 
   render: function() {

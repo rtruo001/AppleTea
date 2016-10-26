@@ -53,9 +53,10 @@ var Room = React.createClass({
     // Sets up the Flux event listeners for the playlists
     playlistStore.addDeletePlaylistListener(this.onDeleteSpecifiedPlaylist);
     playlistStore.addUpdatePlaylistListener(this.onUpdateSpecifiedPlaylist);
+    playlistStore.addCreatePlaylistListener(this.updateAllPlaylistEntries);
 
     // socket.on('From Server: Initialize room by pinging client first', this.initializeRoomInServerWithData);
-    socket.on("From Server: Update MyPlaylist with new playlists" , this.updateAllPlaylistEntries);
+    // socket.on("From Server: Update MyPlaylist with new playlists" , this.updateAllPlaylistEntries);
     socket.on("From Server: Update selected playlist", this.updateOnePlaylistEntry);
     
     socket.emit("From Client: Initialize room", {
@@ -68,6 +69,7 @@ var Room = React.createClass({
     // Unmounts the event listener
     playlistStore.removeDeletePlaylistListener(this.onDeleteSpecifiedPlaylist);
     playlistStore.removeUpdatePlaylistListener(this.onUpdateSpecifiedPlaylist);
+    playlistStore.removeCreatePlaylistListener(this.updateAllPlaylistEntries);
   },
 
   // FLUX EVENT HANDLER: Deletes a playlist entry from myPlaylist
@@ -120,6 +122,7 @@ var Room = React.createClass({
   // EVENT HANDLER: Update the playlist entry
   updateAllPlaylistEntries: function(newPlaylist) {
     console.log("Update with new playlist entry")
+    var newPlaylist = playlistStore.getCreatedPlaylist();
     var playlistsWithNewEntry = this.state.myPlaylists.concat(newPlaylist);
     this.setState({myPlaylists : playlistsWithNewEntry}); 
   },

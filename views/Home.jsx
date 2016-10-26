@@ -26,6 +26,9 @@ var PlaylistTab = require('./PlaylistTab.jsx');
 var ModalCreatePlaylist = require('./ModalCreatePlaylist.jsx');
 var Footer = require('./Footer.jsx');
 
+// Flux, used to check for deleted playlists
+var playlistStore = require('../flux/stores/store');
+
 // MAIN COMPONENT: Home
 var Home = React.createClass({
 
@@ -43,12 +46,64 @@ var Home = React.createClass({
   },
 
   componentDidMount: function() {
+    // Sets up the Flux event listeners for the playlists
+    playlistStore.addDeletePlaylistListener(this.onDeleteSpecifiedPlaylist);
+    playlistStore.addUpdatePlaylistListener(this.onUpdateSpecifiedPlaylist);
+    playlistStore.addCreatePlaylistListener(this.updateAllPlaylistEntries);
+
     socket.on("From Server: Update MyPlaylist with new playlists" , this.updateAllPlaylistEntries);
+  },
+
+  componentWillUnmount: function() {
+    // Unmounts the event listener
+    playlistStore.removeDeletePlaylistListener(this.onDeleteSpecifiedPlaylist);
+    playlistStore.removeUpdatePlaylistListener(this.onUpdateSpecifiedPlaylist);
+    playlistStore.removeCreatePlaylistListener(this.updateAllPlaylistEntries);
+  },
+
+  // FLUX EVENT HANDLER: Deletes a playlist entry from myPlaylist
+  onDeleteSpecifiedPlaylist: function() {
+    console.log("Room.jsx: onDeleteSpecifiedPlaylist");
+    var playlist = playlistStore.getPlaylistDeleted();
+    if (playlist === null || playlist === undefined) {
+      return;
+    }
+
+    // TODO: Do search in a faster way
+    for (var i = 0; i < this.state.myPlaylists.length; ++i) {
+      if (this.state.myPlaylists[i]._id === playlist._id) {
+        // Show the playlist tab
+        $('#tab-myplaylists').tab('show');
+
+        var playlistsWithDeletedEntry = this.state.myPlaylists;
+        playlistsWithDeletedEntry.splice(i, 1);
+        this.setState({myPlaylists : playlistsWithDeletedEntry});
+        return;
+      }
+    }
+  },
+
+  onUpdateSpecifiedPlaylist: function() {
+    var playlist = playlistStore.getUpdatedPlaylist();
+    if (playlist === null || playlist === undefined) {
+      return;
+    }
+
+    // TODO: Do search in a faster way
+    for (var i = 0; i < this.state.myPlaylists.length; ++i) {
+      if (this.state.myPlaylists[i]._id === playlist._id) {
+        var playlistsWithUpdatedEntry = this.state.myPlaylists;
+        playlistsWithUpdatedEntry[i] = playlist; 
+        this.setState({myPlaylists : playlistsWithUpdatedEntry});
+        return;
+      }
+    }
   },
 
   // EVENT HANDLER: Update the playlist entry
   updateAllPlaylistEntries: function(newPlaylist) {
     console.log("Update with new playlist entry")
+    var newPlaylist = playlistStore.getCreatedPlaylist();
     var playlistsWithNewEntry = this.state.myPlaylists.concat(newPlaylist);
     this.setState({myPlaylists : playlistsWithNewEntry}); 
   },

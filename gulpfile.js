@@ -130,6 +130,7 @@ gulp.task('browserify', ['home-browserify', 'room-browserify', 'profile-browseri
 gulp.task('watch', function() {
   gulp.watch('./public/bundles/homeBundle.js', ['homejs']);
   gulp.watch('./public/bundles/roomBundle.js', ['roomjs']);
+  gulp.watch('./public/bundles/roomBundle.js', ['profilejs']);
   // TODO: Add a profileBundle task
   gulp.watch('./public/stylesheets/style.css', ['styles']);
 });
@@ -137,7 +138,7 @@ gulp.task('watch', function() {
 // ********************************** Updates the Bundles **********************************
 
 // Bundles
-gulp.task('bundle', ['browserify', 'homejs', 'roomjs']);
+gulp.task('bundle', ['browserify', 'homejs', 'roomjs', 'profilejs']);
 
 // ********************************** Automates everything **********************************
 

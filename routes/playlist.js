@@ -25,6 +25,36 @@ function isLoggedIn(req, res, next) {
 }
 
 /*  =============================================================================
+    Function createPlaylistFromDB
+
+    Create a new playlist that is empty
+    ========================================================================== */
+function createPlaylistFromDB(req, res, next) {
+  console.log("MongoDB: Create selected Playlist");
+  var newPlaylist = new Playlist();
+  var data = JSON.parse(req.body.data);
+
+  newPlaylist.name = data.name;
+  newPlaylist.owner = data.owner;
+  newPlaylist.playlistId = 1;
+  newPlaylist.isPublic = data.isPublic;
+  newPlaylist.likes = 0;
+  newPlaylist.mediaEntries = [data.mediaEntry];
+
+  newPlaylist.save(function(err) {
+    if (err) {
+      throw err;
+    }
+    console.log("===================================");
+    console.log("Added media entry to a new playlist");
+    console.log(newPlaylist);
+    req.newPlaylist = newPlaylist;
+    // socket.emit("From Server: Update MyPlaylist with new playlists", newPlaylist);
+    return next();
+  });
+}
+
+/*  =============================================================================
     Function deletePlaylistFromDB
 
     Deletes the given playlist from the database
@@ -86,6 +116,18 @@ function updatePlaylistFromDB(req, res, next) {
   //   res.send(tank);
   // });
 }
+
+/*  =============================================================================
+    POST request
+
+    Sends in the response that the playlist is created
+    ========================================================================== */
+router.post('/create', [isLoggedIn, createPlaylistFromDB], function(req, res) {
+  res.send({
+    data: "Creating playlist",
+    createdPlaylist: req.newPlaylist
+  });
+});
 
 /*  =============================================================================
     POST request
