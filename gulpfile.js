@@ -124,13 +124,13 @@ gulp.task('profile-browserify', toBrowserify('profile'));
 // Browserifies all files into the bundles
 gulp.task('browserify', ['home-browserify', 'room-browserify', 'profile-browserify']);
 
-// ********************************** Watch For Changes in the Bundles to update the Build **********************************
+// ********************************** BUILD: Watch For Changes in the Bundles to update the Build **********************************
 
-// Watches for file changes
+// Watches for file changes and B
 gulp.task('watch', function() {
   gulp.watch('./public/bundles/homeBundle.js', ['homejs']);
   gulp.watch('./public/bundles/roomBundle.js', ['roomjs']);
-  gulp.watch('./public/bundles/roomBundle.js', ['profilejs']);
+  // gulp.watch('./public/bundles/roomBundle.js', ['profilejs']);
   // TODO: Add a profileBundle task
   gulp.watch('./public/stylesheets/style.css', ['styles']);
 });
@@ -138,7 +138,8 @@ gulp.task('watch', function() {
 // ********************************** Updates the Bundles **********************************
 
 // Bundles
-gulp.task('bundle', ['browserify', 'homejs', 'roomjs', 'profilejs']);
+gulp.task('bundle', ['browserify', 'homejs', 'roomjs']);
+// gulp.task('bundle', ['browserify', 'homejs', 'roomjs', 'profilejs']);
 
 // ********************************** Automates everything **********************************
 

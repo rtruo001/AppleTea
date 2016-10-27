@@ -23,6 +23,8 @@ var MyRooms = require('./MyRooms.jsx');
 var Explore = require('./Explore.jsx');
 var MyPlaylists = require('./MyPlaylists.jsx');
 var PlaylistTab = require('./PlaylistTab.jsx');
+var EditOpenedPlaylist = require('./EditOpenedPlaylist.jsx');
+var ViewOpenedPlaylist = require('./ViewOpenedPlaylist.jsx');
 var ModalCreatePlaylist = require('./ModalCreatePlaylist.jsx');
 var Footer = require('./Footer.jsx');
 
@@ -31,7 +33,6 @@ var playlistStore = require('../flux/stores/store');
 
 // MAIN COMPONENT: Home
 var Home = React.createClass({
-
   getInitialState: function() {
     if (this.props.myPlaylists  === undefined || this.props.myPlaylists === null) {
       return {
@@ -69,7 +70,7 @@ var Home = React.createClass({
       return;
     }
 
-    // TODO: Do search in a faster way
+    // TODO: Do search in a faster way (Probably would have the position of the playlist)
     for (var i = 0; i < this.state.myPlaylists.length; ++i) {
       if (this.state.myPlaylists[i]._id === playlist._id) {
         // Show the playlist tab
@@ -83,6 +84,7 @@ var Home = React.createClass({
     }
   },
 
+  // FLUX EVENT HANDLER: Updates a playlist entry from myPlaylist
   onUpdateSpecifiedPlaylist: function() {
     var playlist = playlistStore.getUpdatedPlaylist();
     if (playlist === null || playlist === undefined) {
@@ -100,7 +102,7 @@ var Home = React.createClass({
     }
   },
 
-  // EVENT HANDLER: Update the playlist entry
+  // FLUX EVENT HANDLER: Appends a new playlist onto myPlaylist
   updateAllPlaylistEntries: function(newPlaylist) {
     console.log("Update with new playlist entry")
     var newPlaylist = playlistStore.getCreatedPlaylist();
@@ -182,6 +184,13 @@ var Home = React.createClass({
                   
                   <PlaylistTab type={"MyPlaylist"} user={this.props.user} />
 
+                  <li>
+                    <a className="hidden" data-toggle="tab" href="#edit-playlist" id="tab-edit-playlist"></a>
+                  </li>
+
+                  <li>
+                    <a className="hidden" data-toggle="tab" href="#view-playlist" id="tab-view-playlist"></a>
+                  </li>
                 </ul>
 
                 <div className="tab-content">
@@ -194,6 +203,16 @@ var Home = React.createClass({
                   {/* My Playlists */}
                   <div id="myplaylists" className="tab-pane fade">
                     <MyPlaylists myPlaylists={this.state.myPlaylists} home={true} />
+                  </div>
+
+                  {/* User's opened playlist */}
+                  <div id="edit-playlist" className="tab-pane fade">
+                    <EditOpenedPlaylist myPlaylists={this.state.myPlaylists} />
+                  </div>
+
+                  {/* Opened playlist */}
+                  <div id="view-playlist" className="tab-pane fade">
+                    <ViewOpenedPlaylist myPlaylists={this.state.myPlaylists} />
                   </div>
 
                   {/* Modal for create new playlist button, there is no media entry when this button is clicked */}

@@ -75,7 +75,7 @@ function deletePlaylistFromDB(req, res, next) {
 /*  =============================================================================
     Function updatePlaylistFromDB
 
-    Deletes the given playlist from the database
+    Updates the given playlist
     ========================================================================== */
 function updatePlaylistFromDB(req, res, next) {
   console.log("MongoDB: Update selected Playlist");
@@ -96,25 +96,55 @@ function updatePlaylistFromDB(req, res, next) {
       return next();
     }
   );
+}
 
-  // Playlist.findByIdAndUpdate(
-  //   data.id,
-  //   {$set: {"mediaEntries": [data.mediaData]}},
-  //   {new: true},
-  //   function(err, updatedPlaylist) {
-  //     if (err) {
-  //       throw err;
-  //     }
-  //     console.log(updatedPlaylist);
-  //     socket.emit("From Server: Update selected playlist", updatedPlaylist);
-  //   }
-  // );
+/*  =============================================================================
+    Function pushMediaIntoPlaylist
 
+    Pushes a media entry into the given playlist from the database
+    ========================================================================== */
+function pushMediaIntoPlaylist(req, res, next) {
+  console.log("===================================");
+  console.log("Added media entry to an existing playlist");
+  var data = JSON.parse(req.body.data);
 
-  // Tank.findByIdAndUpdate(id, { $set: { size: 'large' }}, { new: true }, function (err, tank) {
-  //   if (err) return handleError(err);
-  //   res.send(tank);
-  // });
+  // This first check is due to Mongoose not allowing an empty array to be stored into the db
+  // There will automatically be an element with just the _id datatype
+  // To counteract that, if there are no media entries, then the first element would be null
+  // This first if statement checks to see if there are no media entries.
+  if (data.firstEntry === undefined || data.firstEntry === null) {
+    Playlist.findByIdAndUpdate(
+      data.id,
+      {$set: {"mediaEntries": [data.mediaData]}},
+      {new: true},
+      function(err, updatedPlaylist) {
+        if (err) {
+          throw err;
+        }
+        console.log(updatedPlaylist);
+        req.updatedPlaylist = updatedPlaylist;
+        return next();
+      }
+    );
+  }
+  // There exists a media entry, which then appends the media into the end of the list.
+  else {
+    Playlist.findByIdAndUpdate(
+      data.id,
+      // TODO: Currently need to fix duplicates because _id is not the same, causing the addToSet function to think there are no duplicates.
+      // {$addToSet: {"mediaEntries": data.mediaData}},
+      {$push: {"mediaEntries": data.mediaData}},
+      {new: true},
+      function(err, updatedPlaylist) {
+        if (err) {
+          throw err;
+        }
+        console.log(updatedPlaylist);
+        req.updatedPlaylist = updatedPlaylist;
+        return next();
+      }
+    );
+  } 
 }
 
 /*  =============================================================================
@@ -149,6 +179,18 @@ router.post('/delete', [isLoggedIn, deletePlaylistFromDB], function(req, res) {
 router.post('/update', [isLoggedIn, updatePlaylistFromDB], function(req, res) {
   res.send({
     data: "Updating playlist " + req.body._id,
+    updatedPlaylist: req.updatedPlaylist,
+  });
+});
+
+/*  =============================================================================
+    POST request
+
+    Sends in the response that the playlist is updated
+    ========================================================================== */
+router.post('/push/mediaEntry', [isLoggedIn, pushMediaIntoPlaylist], function(req, res) {
+  res.send({
+    data: "Push into playlist " + req.body._id,
     updatedPlaylist: req.updatedPlaylist,
   });
 });

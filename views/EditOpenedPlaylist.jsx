@@ -170,7 +170,7 @@ var UsersOpenedPlaylist = React.createClass({
     return {
       _id: playlistStore.getId(),
       index: playlistStore.getIndex(),
-      entries: null
+      entries: playlistStore.getEntries()
     };
   },
 

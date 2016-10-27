@@ -14,6 +14,7 @@ var React = require('react');
 
 // Playlist Schema
 var Playlist = require('../models/playlist');
+var Room = require('../models/room');
 
 var RoomsManager = require('../config/classes/AllRooms').getObj();
 
@@ -109,6 +110,48 @@ function loadMyPlaylists(req, res, next) {
     return next();
   });
 }
+
+/*  =============================================================================
+    Function createNewRoom
+
+    Creates a new room with a given id
+    ========================================================================== */
+function createNewRoom(req, res, next) {
+  ("Middleware: createNewRoom ===================================");
+  if (req.body.roomName === undefined || req.body.roomName === null) {
+    throw "Undefined room name";
+  }
+  var newRoom = new Room();
+
+  newRoom.name = req.body.roomName;
+  newRoom.owner = req.body.owner;
+  // TODO: isPublic should be data.isPublic
+  newRoom.isPublic = true;
+
+  newRoom.save(function(err, room) {
+    if (err) {
+      throw err;
+    }
+    console.log("===================================");
+    console.log("Added Room entry to Rooms");
+    console.log(room);
+    
+    RoomsManager.newRoom(room.id, room.name);
+    req.roomId = room.id;
+    return next();
+  });
+}
+
+/*  =============================================================================
+    POST request
+
+    Sends the roomId back to the client to load the URL
+    ========================================================================== */
+router.post('/create', [createNewRoom], function(req, res, next) {
+  res.send({
+    roomId: req.roomId
+  });
+});
 
 /*  =============================================================================
     GET request

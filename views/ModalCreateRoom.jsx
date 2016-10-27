@@ -80,8 +80,21 @@ var ModalCreateRoom = React.createClass({
       userCreatingRoom = this.props.user.local.email;
     }
 
-    socket.emit("From Client: Create new room", {roomName: this.state.roomNameInput, owner: userCreatingRoom}, function(roomId){
-      window.location = "/room/" + roomId;
+    $.ajax({
+      type: "POST",
+      url: "/room/create",
+      dataType: 'json',
+      cache: false,
+      data: {
+        roomName: this.state.roomNameInput,
+        owner: userCreatingRoom
+      },
+      success: function(data) {
+        window.location = "/room/" + data.roomId;
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error("ERROR: Create room errored out", status, err.toString());
+      }.bind(this)
     });
   },
   

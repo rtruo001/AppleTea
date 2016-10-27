@@ -21,10 +21,12 @@ var Header = require('./Header.jsx');
 var Account = require('./Account.jsx');
 var MyRooms = require('./MyRooms.jsx');
 var MyPlaylists = require('./MyPlaylists.jsx');
+var EditOpenedPlaylist = require('./EditOpenedPlaylist.jsx');
+var ViewOpenedPlaylist = require('./ViewOpenedPlaylist.jsx');
 var ModalCreatePlaylist = require('./ModalCreatePlaylist.jsx');
 var Footer = require('./Footer.jsx');
 
-// Flux, used to check for deleted playlists
+// Flux, used for updates to the playlists
 var playlistStore = require('../flux/stores/store');
 
 // MAIN COMPONENT: Home
@@ -78,6 +80,7 @@ var Profile = React.createClass({
     }
   },
 
+  // FLUX EVENT HANDLER: Updates a playlist entry from myPlaylist
   onUpdateSpecifiedPlaylist: function() {
     var playlist = playlistStore.getUpdatedPlaylist();
     if (playlist === null || playlist === undefined) {
@@ -95,7 +98,7 @@ var Profile = React.createClass({
     }
   },
 
-  // EVENT HANDLER: Update the playlist entry
+  // FLUX EVENT HANDLER: Appends a new playlist into myPlaylist
   updateAllPlaylistEntries: function(newPlaylist) {
     console.log("Update with new playlist entry")
     var newPlaylist = playlistStore.getCreatedPlaylist();
@@ -132,10 +135,19 @@ var Profile = React.createClass({
                       <i className="fa fa-home icon-padding"></i>My Rooms
                     </a>
                   </li>
+                {/* TODO: Change to a PlaylistTab component instead for mobile version */}
                   <li>
                     <a id="tab-myplaylists" data-toggle="tab" href="#myplaylists">
                       <i className="fa fa-book icon-padding"></i>My Playlists
                     </a>
+                  </li>
+
+                  <li>
+                    <a className="hidden" data-toggle="tab" href="#edit-playlist" id="tab-edit-playlist"></a>
+                  </li>
+
+                  <li>
+                    <a className="hidden" data-toggle="tab" href="#view-playlist" id="tab-view-playlist"></a>
                   </li>
                 </ul>
 
@@ -154,6 +166,16 @@ var Profile = React.createClass({
                   {/* My Playlists */}
                   <div id="myplaylists" className="tab-pane fade">
                     <MyPlaylists myPlaylists={this.state.myPlaylists} home={true} />
+                  </div>
+
+                  {/* User's opened playlist */}
+                  <div id="edit-playlist" className="tab-pane fade">
+                    <EditOpenedPlaylist myPlaylists={this.state.myPlaylists} />
+                  </div>
+
+                  {/* Opened playlist */}
+                  <div id="view-playlist" className="tab-pane fade">
+                    <ViewOpenedPlaylist myPlaylists={this.state.myPlaylists} />
                   </div>
 
                   {/* Modal for create new playlist button, there is no media entry when this button is clicked */}

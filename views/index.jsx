@@ -66,6 +66,7 @@ var Index = React.createClass({
           {/* DEVELOPMENT 
               Need to comment this entire section when going into production
           */}
+          <script src="/js/constantVariables.js"></script>
           <script src="/js/socket.js"></script>
           <script src="/js/jquery.min.js"></script>
           <script src="/js/bootstrap.min.js"></script>
