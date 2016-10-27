@@ -263,12 +263,12 @@ var Room = React.createClass({
 
                   {/* User's opened playlist */}
                   <div id="edit-playlist" className="tab-pane fade">
-                    <EditOpenedPlaylist myPlaylists={this.state.myPlaylists} />
+                    <EditOpenedPlaylist myPlaylists={this.state.myPlaylists} user={this.props.user} />
                   </div>
 
                   {/* Opened playlist */}
                   <div id="view-playlist" className="tab-pane fade">
-                    <ViewOpenedPlaylist myPlaylists={this.state.myPlaylists} />
+                    <ViewOpenedPlaylist myPlaylists={this.state.myPlaylists} user={this.props.user} />
                   </div>
 
                   {/* Modal for create new playlist button, there is no media entry when this button is clicked */}
