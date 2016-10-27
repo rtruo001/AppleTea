@@ -14,6 +14,7 @@ var RoomManager = require('../config/classes/AllRooms').getObj();
 
 // Schemas
 var Playlist = require('../models/playlist');
+var User = require('../models/user');
 var Room = require('../models/room');
 
 /*  =============================================================================
@@ -96,6 +97,37 @@ function loadMyPlaylists(req, res, next) {
     return next();
   });
 }
+
+/*  =============================================================================
+    Function updateUser
+
+    Updates the user object properties
+    ========================================================================== */
+function updateUser(req, res, next) {
+  console.log('Middleware: updateUser ===============================');
+  User.findByIdAndUpdate(
+    req.body.user,
+    {$set: {
+      "local.firstName": req.body.firstName,
+      "local.lastName": req.body.lastName,
+      "nickname": req.body.nickname,
+      "local.email": req.body.email
+    }}, 
+    {new: true},
+    function(err, updatedUser) {
+      req.updatedUser = updatedUser;
+      return next();
+    }
+  );
+}
+
+// POST request, updates the user
+router.post('/update', [isLoggedIn, updateUser], function(req, res, next) {
+  res.send({
+    data: "Updating user " + req.body.key,
+    updatedUser: req.updatedUser
+  });
+});
 
 // GET request, logs the current user out and redirects to the index
 router.get('/', [isLoggedIn, loadMyRooms, loadMyPlaylists], function(req, res, next) {
