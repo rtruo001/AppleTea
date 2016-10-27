@@ -46,7 +46,7 @@ var ProfileIndex = React.createClass({
           {/* Injected script data from MongoDB sent from the server */}
           {profileProps}
 
-
+          <script src="/js/constantVariables.js"></script>
           <script src="/js/jquery.min.js"></script>
           <script src="/js/bootstrap.min.js"></script>
           <script src="/bundles/profileBundle.js"></script>

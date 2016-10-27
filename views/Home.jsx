@@ -23,12 +23,16 @@ var MyRooms = require('./MyRooms.jsx');
 var Explore = require('./Explore.jsx');
 var MyPlaylists = require('./MyPlaylists.jsx');
 var PlaylistTab = require('./PlaylistTab.jsx');
+var EditOpenedPlaylist = require('./EditOpenedPlaylist.jsx');
+var ViewOpenedPlaylist = require('./ViewOpenedPlaylist.jsx');
 var ModalCreatePlaylist = require('./ModalCreatePlaylist.jsx');
 var Footer = require('./Footer.jsx');
 
+// Flux, used to check for deleted playlists
+var playlistStore = require('../flux/stores/store');
+
 // MAIN COMPONENT: Home
 var Home = React.createClass({
-
   getInitialState: function() {
     if (this.props.myPlaylists  === undefined || this.props.myPlaylists === null) {
       return {
@@ -43,12 +47,65 @@ var Home = React.createClass({
   },
 
   componentDidMount: function() {
+    // Sets up the Flux event listeners for the playlists
+    playlistStore.addDeletePlaylistListener(this.onDeleteSpecifiedPlaylist);
+    playlistStore.addUpdatePlaylistListener(this.onUpdateSpecifiedPlaylist);
+    playlistStore.addCreatePlaylistListener(this.updateAllPlaylistEntries);
+
     socket.on("From Server: Update MyPlaylist with new playlists" , this.updateAllPlaylistEntries);
   },
 
-  // EVENT HANDLER: Update the playlist entry
+  componentWillUnmount: function() {
+    // Unmounts the event listener
+    playlistStore.removeDeletePlaylistListener(this.onDeleteSpecifiedPlaylist);
+    playlistStore.removeUpdatePlaylistListener(this.onUpdateSpecifiedPlaylist);
+    playlistStore.removeCreatePlaylistListener(this.updateAllPlaylistEntries);
+  },
+
+  // FLUX EVENT HANDLER: Deletes a playlist entry from myPlaylist
+  onDeleteSpecifiedPlaylist: function() {
+    console.log("Room.jsx: onDeleteSpecifiedPlaylist");
+    var playlist = playlistStore.getPlaylistDeleted();
+    if (playlist === null || playlist === undefined) {
+      return;
+    }
+
+    // TODO: Do search in a faster way (Probably would have the position of the playlist)
+    for (var i = 0; i < this.state.myPlaylists.length; ++i) {
+      if (this.state.myPlaylists[i]._id === playlist._id) {
+        // Show the playlist tab
+        $('#tab-myplaylists').tab('show');
+
+        var playlistsWithDeletedEntry = this.state.myPlaylists;
+        playlistsWithDeletedEntry.splice(i, 1);
+        this.setState({myPlaylists : playlistsWithDeletedEntry});
+        return;
+      }
+    }
+  },
+
+  // FLUX EVENT HANDLER: Updates a playlist entry from myPlaylist
+  onUpdateSpecifiedPlaylist: function() {
+    var playlist = playlistStore.getUpdatedPlaylist();
+    if (playlist === null || playlist === undefined) {
+      return;
+    }
+
+    // TODO: Do search in a faster way
+    for (var i = 0; i < this.state.myPlaylists.length; ++i) {
+      if (this.state.myPlaylists[i]._id === playlist._id) {
+        var playlistsWithUpdatedEntry = this.state.myPlaylists;
+        playlistsWithUpdatedEntry[i] = playlist; 
+        this.setState({myPlaylists : playlistsWithUpdatedEntry});
+        return;
+      }
+    }
+  },
+
+  // FLUX EVENT HANDLER: Appends a new playlist onto myPlaylist
   updateAllPlaylistEntries: function(newPlaylist) {
     console.log("Update with new playlist entry")
+    var newPlaylist = playlistStore.getCreatedPlaylist();
     var playlistsWithNewEntry = this.state.myPlaylists.concat(newPlaylist);
     this.setState({myPlaylists : playlistsWithNewEntry}); 
   },
@@ -127,6 +184,13 @@ var Home = React.createClass({
                   
                   <PlaylistTab type={"MyPlaylist"} user={this.props.user} />
 
+                  <li>
+                    <a className="hidden" data-toggle="tab" href="#edit-playlist" id="tab-edit-playlist"></a>
+                  </li>
+
+                  <li>
+                    <a className="hidden" data-toggle="tab" href="#view-playlist" id="tab-view-playlist"></a>
+                  </li>
                 </ul>
 
                 <div className="tab-content">
@@ -139,6 +203,16 @@ var Home = React.createClass({
                   {/* My Playlists */}
                   <div id="myplaylists" className="tab-pane fade">
                     <MyPlaylists myPlaylists={this.state.myPlaylists} home={true} />
+                  </div>
+
+                  {/* User's opened playlist */}
+                  <div id="edit-playlist" className="tab-pane fade">
+                    <EditOpenedPlaylist myPlaylists={this.state.myPlaylists} />
+                  </div>
+
+                  {/* Opened playlist */}
+                  <div id="view-playlist" className="tab-pane fade">
+                    <ViewOpenedPlaylist myPlaylists={this.state.myPlaylists} />
                   </div>
 
                   {/* Modal for create new playlist button, there is no media entry when this button is clicked */}

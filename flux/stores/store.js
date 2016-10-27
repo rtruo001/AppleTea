@@ -6,13 +6,16 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 var EVENT_DELETE_PLAYLIST = 'EVENT_DELETE_PLAYLIST';
 var EVENT_UPDATE_PLAYLIST = 'EVENT_UPDATE_PLAYLIST';
+var EVENT_CREATE_PLAYLIST = 'EVENT_CREATE_PLAYLIST';
+
 
 var store = {
   _id: null,
 	index: null,
   entries: null,
   playlistDeleted: null,
-  updatedPlaylist: null
+  updatedPlaylist: null,
+  createdNewPlaylist: null
 };
 
 var displayIndex = function(_id, newPos, mediaEntries) {
@@ -29,6 +32,10 @@ var updatePlaylist = function(playlist) {
   store.updatedPlaylist = playlist;
 };
 
+var createPlaylist = function(playlist) {
+  store.createdNewPlaylist = playlist;
+}
+
 var AppStore = objectAssign({}, EventEmitter.prototype, { 
   addChangeListener: function(callback) {
     this.on(CHANGE_EVENT, callback);
@@ -39,6 +46,9 @@ var AppStore = objectAssign({}, EventEmitter.prototype, {
   addUpdatePlaylistListener: function(callback) {
     this.on(EVENT_UPDATE_PLAYLIST, callback);
   },
+  addCreatePlaylistListener: function(callback) {
+    this.on(EVENT_CREATE_PLAYLIST, callback);
+  },
 
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
@@ -48,6 +58,9 @@ var AppStore = objectAssign({}, EventEmitter.prototype, {
   },
   removeUpdatePlaylistListener: function(callback) {
     this.removeListener(EVENT_UPDATE_PLAYLIST, callback);
+  },
+  removeCreatePlaylistListener: function(callback) {
+    this.removeListener(EVENT_CREATE_PLAYLIST, callback);
   },
 
   getId: function() {
@@ -64,6 +77,9 @@ var AppStore = objectAssign({}, EventEmitter.prototype, {
   },
   getUpdatedPlaylist: function() {
     return store.updatedPlaylist;
+  },
+  getCreatedPlaylist: function() {
+    return store.createdNewPlaylist;
   }
 });
 
@@ -81,6 +97,10 @@ AppDispatcher.register(function(payload) {
     case constants.UPDATEPLAYLIST:
       updatePlaylist(action.updatedPlaylist);
       AppStore.emit(EVENT_UPDATE_PLAYLIST);
+      break;
+    case constants.CREATEPLAYLIST:
+      createPlaylist(action.createdNewPlaylist);
+      AppStore.emit(EVENT_CREATE_PLAYLIST);
       break;
     default:
       console.log("Flux/store.js: NOT SUPPOSE TO BE HERE");

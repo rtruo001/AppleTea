@@ -21,6 +21,9 @@
 var React = require('react');
 var ModalCreatePlaylist = require('./ModalCreatePlaylist.jsx');
 
+// Flux Actions
+var playlistActions = require('../flux/actions/actions');
+
 // Thumbnail of the media
 var Thumbnail = React.createClass({
   render: function() {
@@ -162,11 +165,32 @@ var PlaylistEntry = React.createClass({
     console.log("Adding to existing playlist");
     console.log(this.props.playlist._id);
     console.log(this.props.data);
-    socket.emit('From Client: Add to existing playlist', {
-      mediaData: this.props.data,
-      id: this.props.playlist._id,
-      firstEntry: this.props.playlist.mediaEntries[0]
+    $.ajax({
+      type: "POST",
+      url: "/playlist/push/mediaEntry",
+      dataType: 'json',
+      cache: false,
+      data: {
+        data: JSON.stringify({
+          mediaData: this.props.data,
+          id: this.props.playlist._id,
+          firstEntry: this.props.playlist.mediaEntries[0]  
+        })
+      },
+      success: function(data) {
+        console.log("Success: Updating playlist");
+        playlistActions.updatePlaylist(data.updatedPlaylist);
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error("ERROR: Add to playlist errored out", status, err.toString());
+      }.bind(this)
     });
+
+    // socket.emit('From Client: Add to existing playlist', {
+    //   mediaData: this.props.data,
+    //   id: this.props.playlist._id,
+    //   firstEntry: this.props.playlist.mediaEntries[0]
+    // });
   },
 
   render: function() {
@@ -280,19 +304,10 @@ var MediaEntry = React.createClass({
   // EVENT HANDLER: Deletes playlist entry in the opened edit playlist
   deletePlaylistEntry: function() {
     this.props.deleteEntry(this.props.pos);
-    // if (this.state.ifDeleteIndicator === false) {
-    //   this.setState({ifDeleteIndicator : true}, function() {
-    //     this.props.deleteEntry(this.props.pos);  
-    //   });  
-    // }
-    // else {
-    //   this.setState({ifDeleteIndicator : false}, function() {
-    //     this.props.deleteEntry(this.props.pos);  
-    //   });  
-    // }
   },
 
   componentDidMount() {
+    // This needs to be retooltipped because the media entries are not rendered when the site loads.
     $(this.icon1).tooltip();
     $(this.icon2).tooltip();
     $(this.icon3).tooltip();
