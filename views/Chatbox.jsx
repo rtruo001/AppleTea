@@ -25,9 +25,13 @@ var React = require('react');
 var getCurrentTimeStamp = function() {
   var currentTime = new Date();
   var currentTimeHour = currentTime.getHours();
+  var appendZeroOrNot = "";
   var currentTimeMinute = currentTime.getMinutes();
   var eitherAmOrPm = "am";
 
+  if (currentTimeMinute <= 9) {
+    appendZeroOrNot = "0";
+  }
   if (currentTimeHour == 0) {
     currentTimeHour = 12;
   }
@@ -37,7 +41,7 @@ var getCurrentTimeStamp = function() {
       currentTimeHour -= 12;
     }
   }
-  return currentTimeHour + ":" + currentTimeMinute + eitherAmOrPm;
+  return currentTimeHour + ":" + appendZeroOrNot + currentTimeMinute + eitherAmOrPm;
 }
 
 var UserListEntry = React.createClass({
@@ -275,23 +279,8 @@ var ChatDisplay = React.createClass({
   newMessage: function(msg) {
       var isOwner = this.props.username === msg.username;
       var messages = this.state.messages
-      var currentTime = new Date();
-      var currentTimeHour = currentTime.getHours();
-      var currentTimeMinute = currentTime.getMinutes();
-      var eitherAmOrPm = "am";
 
-      if (currentTimeHour == 0) {
-        currentTimeHour = 12;
-      }
-      else if (currentTimeHour >= 12) {
-        eitherAmOrPm = "pm";
-        if (currentTimeHour > 12) {
-          currentTimeHour -= 12;
-        }
-      }
-      currentTime = currentTimeHour + ":" + currentTimeMinute + eitherAmOrPm;
-
-      messages.push(<ChatMessage key={this.state.messages.length} username={msg.username} owner={isOwner} message={msg.message} timeStamp={currentTime} />)
+      messages.push(<ChatMessage key={this.state.messages.length} username={msg.username} owner={isOwner} message={msg.message} timeStamp={getCurrentTimeStamp()} />)
       this.setState({
         messages: messages
       });
