@@ -1,4 +1,44 @@
+/*  =============================================================================
+    Copyright © 
+    ========================================================================== */
+
+/*  =============================================================================
+    VIEW: Chatbox.jsx
+
+    The chatbox within each room.
+    ========================================================================== */
+
+/*  =============================================================================
+    @Components:    UserListEntry
+                    UserList
+                    ChatHeader
+                    ChatMessage
+                    ChatUserActivityMessage
+                    ChatDisplay
+                    ChatInput
+                    GuestUserForm
+
+    @Exports:       Chatbox
+    ========================================================================== */
 var React = require('react');
+
+var getCurrentTimeStamp = function() {
+  var currentTime = new Date();
+  var currentTimeHour = currentTime.getHours();
+  var currentTimeMinute = currentTime.getMinutes();
+  var eitherAmOrPm = "am";
+
+  if (currentTimeHour == 0) {
+    currentTimeHour = 12;
+  }
+  else if (currentTimeHour >= 12) {
+    eitherAmOrPm = "pm";
+    if (currentTimeHour > 12) {
+      currentTimeHour -= 12;
+    }
+  }
+  return currentTimeHour + ":" + currentTimeMinute + eitherAmOrPm;
+}
 
 var UserListEntry = React.createClass({
   getInitialState: function() {
@@ -171,7 +211,7 @@ var ChatMessage = React.createClass({
                 <div className="chat-msg">
                   <div className="name">{this.state.username}</div>
                   {/* TODO: timestamp must be implemented into title */}
-                  <div className="msg" ref={(ref) => this.msg = ref} data-toggle="tooltip" data-placement="right" title="4:20pm">{this.state.message}</div>
+                  <div className="msg" ref={(ref) => this.msg = ref} data-toggle="tooltip" data-placement="right" title={this.props.timeStamp}>{this.state.message}</div>
                   <img className="profile-pic" src="images/profile-pic.png"/>
                 </div>
               )
@@ -235,7 +275,23 @@ var ChatDisplay = React.createClass({
   newMessage: function(msg) {
       var isOwner = this.props.username === msg.username;
       var messages = this.state.messages
-      messages.push(<ChatMessage key={this.state.messages.length} username={msg.username} owner={isOwner} message={msg.message} />)
+      var currentTime = new Date();
+      var currentTimeHour = currentTime.getHours();
+      var currentTimeMinute = currentTime.getMinutes();
+      var eitherAmOrPm = "am";
+
+      if (currentTimeHour == 0) {
+        currentTimeHour = 12;
+      }
+      else if (currentTimeHour >= 12) {
+        eitherAmOrPm = "pm";
+        if (currentTimeHour > 12) {
+          currentTimeHour -= 12;
+        }
+      }
+      currentTime = currentTimeHour + ":" + currentTimeMinute + eitherAmOrPm;
+
+      messages.push(<ChatMessage key={this.state.messages.length} username={msg.username} owner={isOwner} message={msg.message} timeStamp={currentTime} />)
       this.setState({
         messages: messages
       });
